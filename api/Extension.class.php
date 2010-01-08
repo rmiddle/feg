@@ -2,7 +2,7 @@
 
 abstract class UsermeetPageExtension extends DevblocksExtension {
 	function __construct($manifest) {
-		$this->DevblocksExtension($manifest,1);
+		$this->DevblocksExtension($manifest);
 	}
 	
 	function isVisible() { return true; }
@@ -24,7 +24,7 @@ abstract class UsermeetCronExtension extends DevblocksExtension {
     const PARAM_LASTRUN = 'lastrun';
     
 	function __construct($manifest) {
-		$this->DevblocksExtension($manifest, 1);
+		$this->DevblocksExtension($manifest);
 	}
 
 	/**
@@ -102,7 +102,7 @@ abstract class UsermeetCronExtension extends DevblocksExtension {
 
 abstract class Extension_AppPreBodyRenderer extends DevblocksExtension {
 	function __construct($manifest) {
-		$this->DevblocksExtension($manifest,1);
+		$this->DevblocksExtension($manifest);
 	}
 	
 	function render() { }
@@ -110,7 +110,7 @@ abstract class Extension_AppPreBodyRenderer extends DevblocksExtension {
 
 abstract class Extension_AppPostBodyRenderer extends DevblocksExtension {
 	function __construct($manifest) {
-		$this->DevblocksExtension($manifest,1);
+		$this->DevblocksExtension($manifest);
 	}
 	
 	function render() { }
@@ -120,13 +120,13 @@ abstract class Extension_CustomFieldSource extends DevblocksExtension {
 	const EXTENSION_POINT = 'usermeet.fields.source';
 	
 	function __construct($manifest) {
-		$this->DevblocksExtension($manifest,1);
+		$this->DevblocksExtension($manifest);
 	}
 };
 
 abstract class Extension_SetupTab extends DevblocksExtension {
 	function __construct($manifest) {
-		$this->DevblocksExtension($manifest,1);
+		$this->DevblocksExtension($manifest);
 	}
 	
 	function showTab() {}
@@ -135,7 +135,7 @@ abstract class Extension_SetupTab extends DevblocksExtension {
 
 abstract class Extension_PreferenceTab extends DevblocksExtension {
 	function __construct($manifest) {
-		$this->DevblocksExtension($manifest,1);
+		$this->DevblocksExtension($manifest);
 	}
 	
 	function showTab() {}
@@ -144,7 +144,7 @@ abstract class Extension_PreferenceTab extends DevblocksExtension {
 
 abstract class Extension_HomeTab extends DevblocksExtension {
 	function __construct($manifest) {
-		$this->DevblocksExtension($manifest,1);
+		$this->DevblocksExtension($manifest);
 	}
 	
 	function showTab() {}
