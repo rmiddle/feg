@@ -190,7 +190,7 @@ class UmPageController extends DevblocksControllerExtension {
 
 		$tpl->assign('response_uri', implode('/', $response->path));
 		
-		$core_tpl = DEVBLOCKS_PLUGIN_PATH . 'usermeet.core/templates/';
+		$core_tpl = APP_PATH . '/features/usermeet.core/templates/';
 		$tpl->assign('core_tpl', $core_tpl);
 		
 		// Prebody Renderers

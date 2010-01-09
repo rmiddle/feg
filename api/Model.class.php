@@ -115,7 +115,7 @@ abstract class Um_AbstractView {
 
 	protected function _renderCriteriaCustomField($tpl, $field_id) {
 		$field = DAO_CustomField::get($field_id);
-		$tpl_path = DEVBLOCKS_PLUGIN_PATH . 'usermeet.core/templates/';
+		$tpl_path = APP_PATH . '/features/usermeet.core/templates/';
 		
 		switch($field->type) {
 			case Model_CustomField::TYPE_DROPDOWN:
@@ -675,7 +675,7 @@ class Um_WorkerView extends Um_AbstractView {
 
 		$tpl->cache_lifetime = "0";
 		$tpl->assign('view_fields', $this->getColumns());
-		$tpl->display('file:' . DEVBLOCKS_PLUGIN_PATH . 'usermeet.core/templates/setup/tabs/workers/view.tpl');
+		$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/setup/tabs/workers/view.tpl');
 	}
 
 	function renderCriteria($field) {
@@ -687,14 +687,14 @@ class Um_WorkerView extends Um_AbstractView {
 			case SearchFields_Worker::FIRST_NAME:
 			case SearchFields_Worker::LAST_NAME:
 			case SearchFields_Worker::TITLE:
-				$tpl->display('file:' . DEVBLOCKS_PLUGIN_PATH . 'usermeet.core/templates/internal/views/criteria/__string.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/internal/views/criteria/__string.tpl');
 				break;
 			case SearchFields_Worker::IS_DISABLED:
 			case SearchFields_Worker::IS_SUPERUSER:
-				$tpl->display('file:' . DEVBLOCKS_PLUGIN_PATH . 'usermeet.core/templates/internal/views/criteria/__bool.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/internal/views/criteria/__bool.tpl');
 				break;
 			case SearchFields_Worker::LAST_ACTIVITY_DATE:
-				$tpl->display('file:' . DEVBLOCKS_PLUGIN_PATH . 'usermeet.core/templates/internal/views/criteria/__date.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/internal/views/criteria/__date.tpl');
 				break;
 			default:
 				// Custom Fields
@@ -912,7 +912,7 @@ class Um_WorkerEventView extends Um_AbstractView {
 		
 		$tpl->cache_lifetime = "0";
 		$tpl->assign('view_fields', $this->getColumns());
-		$tpl->display('file:' . DEVBLOCKS_PLUGIN_PATH . 'usermeet.core/templates/home/tabs/my_notifications/view.tpl');
+		$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/home/tabs/my_notifications/view.tpl');
 	}
 
 	function renderCriteria($field) {
@@ -923,24 +923,24 @@ class Um_WorkerEventView extends Um_AbstractView {
 			case SearchFields_WorkerEvent::TITLE:
 			case SearchFields_WorkerEvent::CONTENT:
 			case SearchFields_WorkerEvent::URL:
-				$tpl->display('file:' . DEVBLOCKS_PLUGIN_PATH . 'usermeet.core/templates/internal/views/criteria/__string.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/internal/views/criteria/__string.tpl');
 				break;
 //			case SearchFields_WorkerEvent::ID:
 //			case SearchFields_WorkerEvent::MESSAGE_ID:
 //			case SearchFields_WorkerEvent::TICKET_ID:
 //			case SearchFields_WorkerEvent::FILE_SIZE:
-//				$tpl->display('file:' . DEVBLOCKS_PLUGIN_PATH . 'usermeet.core/templates/internal/views/criteria/__number.tpl');
+//				$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/internal/views/criteria/__number.tpl');
 //				break;
 			case SearchFields_WorkerEvent::IS_READ:
-				$tpl->display('file:' . DEVBLOCKS_PLUGIN_PATH . 'usermeet.core/templates/internal/views/criteria/__bool.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/internal/views/criteria/__bool.tpl');
 				break;
 			case SearchFields_WorkerEvent::CREATED_DATE:
-				$tpl->display('file:' . DEVBLOCKS_PLUGIN_PATH . 'usermeet.core/templates/internal/views/criteria/__date.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/internal/views/criteria/__date.tpl');
 				break;
 			case SearchFields_WorkerEvent::WORKER_ID:
 				$workers = DAO_Worker::getAllActive();
 				$tpl->assign('workers', $workers);
-				$tpl->display('file:' . DEVBLOCKS_PLUGIN_PATH . 'usermeet.core/templates/internal/views/criteria/__worker.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/internal/views/criteria/__worker.tpl');
 				break;
 			default:
 				echo '';
