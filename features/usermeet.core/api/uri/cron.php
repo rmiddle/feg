@@ -18,8 +18,8 @@ class UmCronController extends DevblocksControllerExtension {
 		$logger = DevblocksPlatform::getConsoleLog();
 		$translate = DevblocksPlatform::getTranslationService();
 		
-	    $settings = UsermeetSettings::getInstance();
-	    $authorized_ips_str = $settings->get(UsermeetSettings::AUTHORIZED_IPS);
+	    $settings = DevblocksPlatform::getPluginSettingsService();
+	    $authorized_ips_str = $settings->get('usermeet.core',UsermeetSettings::AUTHORIZED_IPS);
 	    $authorized_ips = DevblocksPlatform::parseCrlfString($authorized_ips_str);
 	    
 	    $authorized_ip_defaults = DevblocksPlatform::parseCsvString(AUTHORIZED_IPS_DEFAULTS);

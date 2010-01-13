@@ -11,7 +11,7 @@ DevblocksPlatform::init();
 DevblocksPlatform::setExtensionDelegate('UM_DevblocksExtensionDelegate');
 
 $session = DevblocksPlatform::getSessionService();
-$settings = UsermeetSettings::getInstance();
+$settings = DevblocksPlatform::getPluginSettingsService();
 $worker = UsermeetApplication::getActiveWorker();
 
 // Localization

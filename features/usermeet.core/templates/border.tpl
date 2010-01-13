@@ -11,7 +11,7 @@
 <table cellspacing="0" cellpadding="2" border="0" width="100%">
 	<tr>
 		<td align="left" valign="bottom">
-			{assign var=logo_url value=$settings->get('app_logo_url','')}
+			{assign var=logo_url value=$settings->get('usermeet.core','app_logo_url','')}
 			{if empty($logo_url)}
 			<img src="{devblocks_url}c=resource&p=usermeet.core&f=images/usermeet_logo.gif{/devblocks_url}?v={$smarty.const.APP_BUILD}">
 			{else}

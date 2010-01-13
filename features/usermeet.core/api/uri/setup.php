@@ -164,10 +164,10 @@ class UmSetupPage extends UsermeetPageExtension  {
 	    if(empty($title))
 	    	$title = 'Usermeet - Powered by Community Feedback';
 	    
-	    $settings = UsermeetSettings::getInstance();
-	    $settings->set(UsermeetSettings::APP_TITLE, $title);
-	    $settings->set(UsermeetSettings::APP_LOGO_URL, $logo); // [TODO] Enforce some kind of max resolution?
-	    $settings->set(UsermeetSettings::AUTHORIZED_IPS, $authorized_ips_str);
+	    $settings = DevblocksPlatform::getPluginSettingsService();
+	    $settings->set('usermeet.core',UsermeetSettings::APP_TITLE, $title);
+	    $settings->set('usermeet.core',UsermeetSettings::APP_LOGO_URL, $logo); // [TODO] Enforce some kind of max resolution?
+	    $settings->set('usermeet.core',UsermeetSettings::AUTHORIZED_IPS, $authorized_ips_str);
 	    
 	    DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','settings')));
 	}
@@ -335,9 +335,9 @@ class UmSetupPage extends UsermeetPageExtension  {
 				if ((!empty($license) && !empty($license['serial'])) || count($workers) < 3) {
 					// Creating new worker.  If password is empty, email it to them
 				    if(empty($password)) {
-				    	$settings = UsermeetSettings::getInstance();
-						$replyFrom = $settings->get(UsermeetSettings::DEFAULT_REPLY_FROM);
-						$replyPersonal = $settings->get(UsermeetSettings::DEFAULT_REPLY_PERSONAL, '');
+				    	$settings = DevblocksPlatform::getPluginSettingsService();
+						$replyFrom = $settings->get('usermeet.core',UsermeetSettings::DEFAULT_REPLY_FROM);
+						$replyPersonal = $settings->get('usermeet.core',UsermeetSettings::DEFAULT_REPLY_PERSONAL, '');
 						$url = DevblocksPlatform::getUrlService();
 				    	
 						$password = UsermeetApplication::generatePassword(8);
@@ -521,21 +521,21 @@ class UmSetupPage extends UsermeetPageExtension  {
 		$tpl->cache_lifetime = "0";
 		$tpl->assign('path', $this->_TPL_PATH);
 		
-		$settings = UsermeetSettings::getInstance();
+		$settings = DevblocksPlatform::getPluginSettingsService();
 		$mail_service = DevblocksPlatform::getMailService();
 		
-		$smtp_host = $settings->get(UsermeetSettings::SMTP_HOST,'');
-		$smtp_port = $settings->get(UsermeetSettings::SMTP_PORT,25);
-		$smtp_auth_enabled = $settings->get(UsermeetSettings::SMTP_AUTH_ENABLED,false);
+		$smtp_host = $settings->get('usermeet.core',UsermeetSettings::SMTP_HOST,'');
+		$smtp_port = $settings->get('usermeet.core',UsermeetSettings::SMTP_PORT,25);
+		$smtp_auth_enabled = $settings->get('usermeet.core',UsermeetSettings::SMTP_AUTH_ENABLED,false);
 		if ($smtp_auth_enabled) {
-			$smtp_auth_user = $settings->get(UsermeetSettings::SMTP_AUTH_USER,'');
-			$smtp_auth_pass = $settings->get(UsermeetSettings::SMTP_AUTH_PASS,''); 
+			$smtp_auth_user = $settings->get('usermeet.core',UsermeetSettings::SMTP_AUTH_USER,'');
+			$smtp_auth_pass = $settings->get('usermeet.core',UsermeetSettings::SMTP_AUTH_PASS,''); 
 		} else {
 			$smtp_auth_user = '';
 			$smtp_auth_pass = ''; 
 		}
-		$smtp_enc = $settings->get(UsermeetSettings::SMTP_ENCRYPTION_TYPE,'None');
-		$smtp_max_sends = $settings->get(UsermeetSettings::SMTP_MAX_SENDS,'20');
+		$smtp_enc = $settings->get('usermeet.core',UsermeetSettings::SMTP_ENCRYPTION_TYPE,'None');
+		$smtp_max_sends = $settings->get('usermeet.core',UsermeetSettings::SMTP_MAX_SENDS,'20');
 		
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/mail/index.tpl');
 	}
@@ -570,19 +570,19 @@ class UmSetupPage extends UsermeetPageExtension  {
 		    @$smtp_auth_pass = '';
 	    }
 	    
-	    $settings = UsermeetSettings::getInstance();
-	    $settings->set(UsermeetSettings::DEFAULT_REPLY_FROM, $default_reply_address);
-	    $settings->set(UsermeetSettings::DEFAULT_REPLY_PERSONAL, $default_reply_personal);
-//	    $settings->set(UsermeetSettings::DEFAULT_SIGNATURE, $default_signature);
-//	    $settings->set(UsermeetSettings::DEFAULT_SIGNATURE_POS, $default_signature_pos);
-	    $settings->set(UsermeetSettings::SMTP_HOST, $smtp_host);
-	    $settings->set(UsermeetSettings::SMTP_PORT, $smtp_port);
-	    $settings->set(UsermeetSettings::SMTP_AUTH_ENABLED, $smtp_auth_enabled);
-	    $settings->set(UsermeetSettings::SMTP_AUTH_USER, $smtp_auth_user);
-	    $settings->set(UsermeetSettings::SMTP_AUTH_PASS, $smtp_auth_pass);
-	    $settings->set(UsermeetSettings::SMTP_ENCRYPTION_TYPE, $smtp_enc);
-	    $settings->set(UsermeetSettings::SMTP_TIMEOUT, !empty($smtp_timeout) ? $smtp_timeout : 30);
-	    $settings->set(UsermeetSettings::SMTP_MAX_SENDS, !empty($smtp_max_sends) ? $smtp_max_sends : 20);
+	    $settings = DevblocksPlatform::getPluginSettingsService();
+	    $settings->set('usermeet.core',UsermeetSettings::DEFAULT_REPLY_FROM, $default_reply_address);
+	    $settings->set('usermeet.core',UsermeetSettings::DEFAULT_REPLY_PERSONAL, $default_reply_personal);
+//	    $settings->set('usermeet.core',UsermeetSettings::DEFAULT_SIGNATURE, $default_signature);
+//	    $settings->set('usermeet.core',UsermeetSettings::DEFAULT_SIGNATURE_POS, $default_signature_pos);
+	    $settings->set('usermeet.core',UsermeetSettings::SMTP_HOST, $smtp_host);
+	    $settings->set('usermeet.core',UsermeetSettings::SMTP_PORT, $smtp_port);
+	    $settings->set('usermeet.core',UsermeetSettings::SMTP_AUTH_ENABLED, $smtp_auth_enabled);
+	    $settings->set('usermeet.core',UsermeetSettings::SMTP_AUTH_USER, $smtp_auth_user);
+	    $settings->set('usermeet.core',UsermeetSettings::SMTP_AUTH_PASS, $smtp_auth_pass);
+	    $settings->set('usermeet.core',UsermeetSettings::SMTP_ENCRYPTION_TYPE, $smtp_enc);
+	    $settings->set('usermeet.core',UsermeetSettings::SMTP_TIMEOUT, !empty($smtp_timeout) ? $smtp_timeout : 30);
+	    $settings->set('usermeet.core',UsermeetSettings::SMTP_MAX_SENDS, !empty($smtp_max_sends) ? $smtp_max_sends : 20);
 	    
 	    DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','mail','outgoing','test')));
 	}	
@@ -631,7 +631,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 
 	// Ajax
 	function showTabACLAction() {
-		$settings = UsermeetSettings::getInstance();
+		$settings = DevblocksPlatform::getPluginSettingsService();
 		
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->cache_lifetime = "0";
@@ -653,7 +653,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 		$tpl->assign('workers', $workers);
 		
 		// Permissions enabled
-		$acl_enabled = $settings->get(UsermeetSettings::ACL_ENABLED);
+		$acl_enabled = $settings->get('usermeet.core',UsermeetSettings::ACL_ENABLED);
 		$tpl->assign('acl_enabled', $acl_enabled);
 		
 		if(empty($license) || (!empty($license)&&isset($license['a'])))
@@ -664,7 +664,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 	
 	function toggleACLAction() {
 		$worker = UsermeetApplication::getActiveWorker();
-		$settings = UsermeetSettings::getInstance();
+		$settings = DevblocksPlatform::getPluginSettingsService();
 		
 		if(!$worker || !$worker->is_superuser) {
 			return;
@@ -672,7 +672,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 		
 		@$enabled = DevblocksPlatform::importGPC($_REQUEST['enabled'],'integer',0);
 		
-		$settings->set(UsermeetSettings::ACL_ENABLED, $enabled);
+		$settings->set('usermeet.core',UsermeetSettings::ACL_ENABLED, $enabled);
 	}
 	
 	function getRoleAction() {
@@ -934,7 +934,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 	// Post
 	function saveLicensesAction() {
 		$translate = DevblocksPlatform::getTranslationService();
-		$settings = UsermeetSettings::getInstance();
+		$settings = DevblocksPlatform::getPluginSettingsService();
 		$worker = UsermeetApplication::getActiveWorker();
 		
 		if(!$worker || !$worker->is_superuser) {
@@ -947,7 +947,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 		@$do_delete = DevblocksPlatform::importGPC($_POST['do_delete'],'integer',0);
 
 		if(!empty($do_delete)) {
-			$settings->set(UsermeetSettings::LICENSE, '');
+			$settings->set('usermeet.core',UsermeetSettings::LICENSE, '');
 			DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','settings')));
 			return;
 		}
@@ -970,7 +970,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 		 */
 		$license = $valid;
 		
-		$settings->set(UsermeetSettings::LICENSE, serialize($license));
+		$settings->set('usermeet.core',UsermeetSettings::LICENSE, serialize($license));
 		
 		DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','settings')));
 	}

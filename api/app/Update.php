@@ -16,7 +16,6 @@ class UmUpdateController extends DevblocksControllerExtension {
 	    array_shift($stack); // update
 
 	    $cache = DevblocksPlatform::getCacheService(); /* @var $cache _DevblocksCacheManager */
-		$settings = UsermeetSettings::getInstance();
 	    
 	    switch(array_shift($stack)) {
 	    	case 'locked':
@@ -40,12 +39,14 @@ class UmUpdateController extends DevblocksControllerExtension {
 			    $path = APP_TEMP_PATH . DIRECTORY_SEPARATOR;
 				$file = $path . 'umupdate_lock';	    		
 				
-			    $authorized_ips_str = $settings->get(UsermeetSettings::AUTHORIZED_IPS);
+				$settings = DevblocksPlatform::getPluginSettingsService();
+				
+			    $authorized_ips_str = $settings->get('usermeet.core',UsermeetSettings::AUTHORIZED_IPS);
 			    $authorized_ips = DevblocksPlatform::parseCrlfString($authorized_ips_str);
 			    
 		   	    $authorized_ip_defaults = DevblocksPlatform::parseCsvString(AUTHORIZED_IPS_DEFAULTS);
 			    $authorized_ips = array_merge($authorized_ips, $authorized_ip_defaults);
-			    
+				
 			    // Is this IP authorized?
 			    $pass = false;
 				foreach ($authorized_ips as $ip)

@@ -11,6 +11,6 @@ class UmCorePatchContainer extends DevblocksPatchContainerExtension {
 
 		$file_prefix = dirname(dirname(__FILE__)) . '/patches/';
 		
-		$this->registerPatch(new DevblocksPatch('usermeet.core',1,$file_prefix.'1.0.0__.php',''));
+		$this->registerPatch(new DevblocksPatch('usermeet.core',2,$file_prefix.'1.0.0__.php',''));
 	}
 };

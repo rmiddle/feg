@@ -588,8 +588,8 @@ class Model_Worker {
 		if($this->is_superuser)
 			return true;
 		
-		$settings = UsermeetSettings::getInstance();
-		$acl_enabled = $settings->get(UsermeetSettings::ACL_ENABLED);
+		$settings = DevblocksPlatform::getPluginSettingsService();
+		$acl_enabled = $settings->get('usermeet.core',UsermeetSettings::ACL_ENABLED);
 			
 		// ACL is a paid feature (please respect the licensing and support the project!)
 		$license = UsermeetLicense::getInstance();

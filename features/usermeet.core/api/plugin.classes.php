@@ -123,7 +123,7 @@ class UmPageController extends DevblocksControllerExtension {
 
 		$tpl = DevblocksPlatform::getTemplateService();
 		$session = DevblocksPlatform::getSessionService();
-		$settings = UsermeetSettings::getInstance();
+		$settings = DevblocksPlatform::getPluginSettingsService();
 		$translate = DevblocksPlatform::getTranslationService();
 	    $active_worker = UsermeetApplication::getActiveWorker();
 		

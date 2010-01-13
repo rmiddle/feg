@@ -10,7 +10,7 @@
 | ______________________________________________________________________
 |	http://www.usermeet.com	  http://www.webgroupmedia.com/
 ***********************************************************************/
-define("APP_BUILD", 45);
+define("APP_BUILD", 2010011201);
 
 require_once(APP_PATH . "/api/DAO.class.php");
 require_once(APP_PATH . "/api/Model.class.php");
@@ -27,7 +27,6 @@ DevblocksPlatform::registerClasses($path . 'Update.php', array(
  * Application-level Facade
  */
 class UsermeetApplication extends DevblocksApplication {
-	const CACHE_SETTINGS_DAO = 'um_settings_dao';
 	
 	/**
 	 * @return CerberusVisit
@@ -317,8 +316,8 @@ class UsermeetLicense {
 	 * @return array
 	 */
 	public static function getInstance() {
-		$settings = UsermeetSettings::getInstance();
-		$license = $settings->get(UsermeetSettings::LICENSE,array());
+		$settings = DevblocksPlatform::getPluginSettingsService();
+		$license = $settings->get('usermeet.core',UsermeetSettings::LICENSE,array());
 		if(!empty($license)) {
 			@$license = unserialize($license);
 		}
@@ -353,16 +352,16 @@ class UsermeetMail {
 	private function __construct() {}
 	
 	static function getMailerDefaults() {
-		$settings = UsermeetSettings::getInstance();
+		$settings = DevblocksPlatform::getPluginSettingsService();
 
 		return array(
-			'host' => $settings->get(UsermeetSettings::SMTP_HOST,'localhost'),
-			'port' => $settings->get(UsermeetSettings::SMTP_PORT,'25'),
-			'auth_user' => $settings->get(UsermeetSettings::SMTP_AUTH_USER,null),
-			'auth_pass' => $settings->get(UsermeetSettings::SMTP_AUTH_PASS,null),
-			'enc' => $settings->get(UsermeetSettings::SMTP_ENCRYPTION_TYPE,'None'),
-			'max_sends' => $settings->get(UsermeetSettings::SMTP_MAX_SENDS,20),
-			'timeout' => $settings->get(UsermeetSettings::SMTP_TIMEOUT,30),
+			'host' => $settings->get('usermeet.core',UsermeetSettings::SMTP_HOST,'localhost'),
+			'port' => $settings->get('usermeet.core',UsermeetSettings::SMTP_PORT,'25'),
+			'auth_user' => $settings->get('usermeet.core',UsermeetSettings::SMTP_AUTH_USER,null),
+			'auth_pass' => $settings->get('usermeet.core',UsermeetSettings::SMTP_AUTH_PASS,null),
+			'enc' => $settings->get('usermeet.core',UsermeetSettings::SMTP_ENCRYPTION_TYPE,'None'),
+			'max_sends' => $settings->get('usermeet.core',UsermeetSettings::SMTP_MAX_SENDS,20),
+			'timeout' => $settings->get('usermeet.core',UsermeetSettings::SMTP_TIMEOUT,30),
 		);
 	}
 	
@@ -372,13 +371,13 @@ class UsermeetMail {
 			$mailer = $mail_service->getMailer(UsermeetMail::getMailerDefaults());
 			$mail = $mail_service->createMessage();
 	
-		    $settings = UsermeetSettings::getInstance();
+		    $settings = DevblocksPlatform::getPluginSettingsService();
 		    
 		    if(empty($from_addy))
-				@$from_addy = $settings->get(UsermeetSettings::DEFAULT_REPLY_FROM, $_SERVER['SERVER_ADMIN']);
+				@$from_addy = $settings->get('usermeet.core',UsermeetSettings::DEFAULT_REPLY_FROM, $_SERVER['SERVER_ADMIN']);
 		    
 		    if(empty($from_personal))
-				@$from_personal = $settings->get(UsermeetSettings::DEFAULT_REPLY_PERSONAL,'');
+				@$from_personal = $settings->get('usermeet.core',UsermeetSettings::DEFAULT_REPLY_PERSONAL,'');
 			
 			$mail->setTo(array($to));
 			$mail->setFrom(array($from_addy => $from_personal));
@@ -420,70 +419,6 @@ class UsermeetSettings {
 	const AUTHORIZED_IPS = 'authorized_ips';
 	const LICENSE = 'license';
 	const ACL_ENABLED = 'acl_enabled';
-	
-	private static $instance = null;
-	
-	private $settings = array( // defaults
-		self::APP_TITLE => 'Usermeet - Powered by Community Feedback',
-		self::APP_LOGO_URL => '',
-		self::DEFAULT_REPLY_FROM => '',
-		self::DEFAULT_REPLY_PERSONAL => '',
-		self::SMTP_HOST => 'localhost',
-		self::SMTP_AUTH_ENABLED => 0,
-		self::SMTP_AUTH_USER => '',
-		self::SMTP_AUTH_PASS => '',
-		self::SMTP_PORT => 25,
-		self::SMTP_ENCRYPTION_TYPE => 'None',
-		self::SMTP_MAX_SENDS => 20,
-		self::SMTP_TIMEOUT => 30,
-		self::AUTHORIZED_IPS => '127.0.0.1', 
-		self::LICENSE => '',
-		self::ACL_ENABLED => 0,
-	);
-
-	/**
-	 * @return UsermeetSettings
-	 */
-	private function __construct() {
-	    // Defaults (dynamic)
-		$saved_settings = DAO_Setting::getSettings();
-		foreach($saved_settings as $k => $v) {
-			$this->settings[$k] = $v;
-		}
-	}
-	
-	/**
-	 * @return UsermeetSettings
-	 */
-	public static function getInstance() {
-		if(self::$instance==null) {
-			self::$instance = new UsermeetSettings();	
-		}
-		
-		return self::$instance;		
-	}
-	
-	public function set($key,$value) {
-		DAO_Setting::set($key,$value);
-		$this->settings[$key] = $value;
-		
-	    $cache = DevblocksPlatform::getCacheService();
-		$cache->remove(UsermeetApplication::CACHE_SETTINGS_DAO);
-		
-		return TRUE;
-	}
-	
-	/**
-	 * @param string $key
-	 * @param string $default
-	 * @return mixed
-	 */
-	public function get($key,$default=null) {
-		if(isset($this->settings[$key]))
-			return $this->settings[$key];
-		else 
-			return $default;
-	}
 };
 
 // [TODO] This gets called a lot when it happens after the registry cache

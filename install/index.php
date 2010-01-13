@@ -460,11 +460,11 @@ switch($step) {
 
 	// Personalize system information (title, timezone, language)
 	case STEP_CONTACT:
-		$settings = UsermeetSettings::getInstance();
+		$settings = DevblocksPlatform::getPluginSettingsService();
 		
-		@$default_reply_from = DevblocksPlatform::importGPC($_POST['default_reply_from'],'string',$settings->get(UsermeetSettings::DEFAULT_REPLY_FROM));
-		@$default_reply_personal = DevblocksPlatform::importGPC($_POST['default_reply_personal'],'string',$settings->get(UsermeetSettings::DEFAULT_REPLY_PERSONAL));
-		@$app_title = DevblocksPlatform::importGPC($_POST['app_title'],'string',$settings->get(UsermeetSettings::APP_TITLE));
+		@$default_reply_from = DevblocksPlatform::importGPC($_POST['default_reply_from'],'string',$settings->get('usermeet.core',UsermeetSettings::DEFAULT_REPLY_FROM));
+		@$default_reply_personal = DevblocksPlatform::importGPC($_POST['default_reply_personal'],'string',$settings->get('usermeet.core',UsermeetSettings::DEFAULT_REPLY_PERSONAL));
+		@$app_title = DevblocksPlatform::importGPC($_POST['app_title'],'string',$settings->get('usermeet.core',UsermeetSettings::APP_TITLE,'Usermeet - Powered by Community Feedback'));
 		@$form_submit = DevblocksPlatform::importGPC($_POST['form_submit'],'integer');
 		
 		if(!empty($form_submit)) { // && !empty($default_reply_from)
@@ -472,15 +472,15 @@ switch($step) {
 			$validate = imap_rfc822_parse_adrlist(sprintf("<%s>", $default_reply_from),"localhost");
 			
 			if(!empty($default_reply_from) && is_array($validate) && 1==count($validate)) {
-				$settings->set(UsermeetSettings::DEFAULT_REPLY_FROM, $default_reply_from);
+				$settings->set('usermeet.core',UsermeetSettings::DEFAULT_REPLY_FROM, $default_reply_from);
 			}
 			
 			if(!empty($default_reply_personal)) {
-				$settings->set(UsermeetSettings::DEFAULT_REPLY_PERSONAL, $default_reply_personal);
+				$settings->set('usermeet.core',UsermeetSettings::DEFAULT_REPLY_PERSONAL, $default_reply_personal);
 			}
 			
-			if(!empty($helpdesk_title)) {
-				$settings->set(UsermeetSettings::APP_TITLE, $app_title);
+			if(!empty($app_title)) {
+				$settings->set('usermeet.core',UsermeetSettings::APP_TITLE, $app_title);
 			}
 			
 			$tpl->assign('step', STEP_OUTGOING_MAIL);
@@ -502,11 +502,11 @@ switch($step) {
 	
 	// Set up and test the outgoing SMTP
 	case STEP_OUTGOING_MAIL:
-		$settings = UsermeetSettings::getInstance();
+		$settings = DevblocksPlatform::getPluginSettingsService();
 		
-		@$smtp_host = DevblocksPlatform::importGPC($_POST['smtp_host'],'string',$settings->get(UsermeetSettings::SMTP_HOST,'localhost'));
-		@$smtp_port = DevblocksPlatform::importGPC($_POST['smtp_port'],'integer',$settings->get(UsermeetSettings::SMTP_PORT,25));
-		@$smtp_enc = DevblocksPlatform::importGPC($_POST['smtp_enc'],'string',$settings->get(UsermeetSettings::SMTP_ENCRYPTION_TYPE,'None'));
+		@$smtp_host = DevblocksPlatform::importGPC($_POST['smtp_host'],'string',$settings->get('usermeet.core',UsermeetSettings::SMTP_HOST,'localhost'));
+		@$smtp_port = DevblocksPlatform::importGPC($_POST['smtp_port'],'integer',$settings->get('usermeet.core',UsermeetSettings::SMTP_PORT,25));
+		@$smtp_enc = DevblocksPlatform::importGPC($_POST['smtp_enc'],'string',$settings->get('usermeet.core',UsermeetSettings::SMTP_ENCRYPTION_TYPE,'None'));
 		@$smtp_auth_user = DevblocksPlatform::importGPC($_POST['smtp_auth_user'],'string');
 		@$smtp_auth_pass = DevblocksPlatform::importGPC($_POST['smtp_auth_pass'],'string');
 		@$form_submit = DevblocksPlatform::importGPC($_POST['form_submit'],'integer');
@@ -530,18 +530,18 @@ switch($step) {
 				$transport->stop();
 				
 				if(!empty($smtp_host))
-					$settings->set(UsermeetSettings::SMTP_HOST, $smtp_host);
+					$settings->set('usermeet.core',UsermeetSettings::SMTP_HOST, $smtp_host);
 				if(!empty($smtp_port))
-					$settings->set(UsermeetSettings::SMTP_PORT, $smtp_port);
+					$settings->set('usermeet.core',UsermeetSettings::SMTP_PORT, $smtp_port);
 				if(!empty($smtp_auth_user)) {
-					$settings->set(UsermeetSettings::SMTP_AUTH_ENABLED, 1);
-					$settings->set(UsermeetSettings::SMTP_AUTH_USER, $smtp_auth_user);
-					$settings->set(UsermeetSettings::SMTP_AUTH_PASS, $smtp_auth_pass);
+					$settings->set('usermeet.core',UsermeetSettings::SMTP_AUTH_ENABLED, 1);
+					$settings->set('usermeet.core',UsermeetSettings::SMTP_AUTH_USER, $smtp_auth_user);
+					$settings->set('usermeet.core',UsermeetSettings::SMTP_AUTH_PASS, $smtp_auth_pass);
 				} else {
-					$settings->set(UsermeetSettings::SMTP_AUTH_ENABLED, 0);
+					$settings->set('usermeet.core',UsermeetSettings::SMTP_AUTH_ENABLED, 0);
 				}
 				if(!empty($smtp_enc))
-					$settings->set(UsermeetSettings::SMTP_ENCRYPTION_TYPE, $smtp_enc);
+					$settings->set('usermeet.core',UsermeetSettings::SMTP_ENCRYPTION_TYPE, $smtp_enc);
 				
 				$tpl->assign('step', STEP_DEFAULTS);
 				$tpl->display('steps/redirect.tpl');
@@ -576,7 +576,7 @@ switch($step) {
 		@$worker_pass = DevblocksPlatform::importGPC($_POST['worker_pass'],'string');
 		@$worker_pass2 = DevblocksPlatform::importGPC($_POST['worker_pass2'],'string');
 
-		$settings = UsermeetSettings::getInstance();
+		$settings = DevblocksPlatform::getPluginSettingsService();
 		$db = DevblocksPlatform::getDatabaseService();
 		
 		if(!empty($form_submit)) {
@@ -684,8 +684,8 @@ switch($step) {
 			@$contact_company = stripslashes($_REQUEST['contact_company']);
 			
 			if(empty($skip) && !empty($contact_name)) {
-				$settings = UsermeetSettings::getInstance();
-				@$default_from = $settings->get(UsermeetSettings::DEFAULT_REPLY_FROM,'');
+				$settings = DevblocksPlatform::getPluginSettingsService();
+				@$default_from = $settings->get('usermeet.core',UsermeetSettings::DEFAULT_REPLY_FROM,'');
 				
 				@$contact_phone = stripslashes($_REQUEST['contact_phone']);
 				@$contact_refer = stripslashes($_REQUEST['contact_refer']);

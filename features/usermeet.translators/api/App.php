@@ -3,7 +3,7 @@ class UmTranslatorsSetupTab extends Extension_SetupTab {
 	const ID = 'translators.setup.tab';
 	
 	function showTab() {
-		$settings = UsermeetSettings::getInstance();
+		$settings = DevblocksPlatform::getPluginSettingsService();
 		
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
