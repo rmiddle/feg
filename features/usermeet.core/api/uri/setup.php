@@ -26,7 +26,6 @@ class UmSetupPage extends UsermeetPageExtension  {
 		$translate = DevblocksPlatform::getTranslationService();
 		
 		$tpl = DevblocksPlatform::getTemplateService();
-		$tpl->cache_lifetime = "0";
 		$tpl->assign('path', $this->_TPL_PATH);
 
 		$worker = UsermeetApplication::getActiveWorker();
@@ -98,7 +97,6 @@ class UmSetupPage extends UsermeetPageExtension  {
 	// Ajax
 	function showTabSettingsAction() {
 		$tpl = DevblocksPlatform::getTemplateService();
-		$tpl->cache_lifetime = "0";
 		$tpl->assign('path', $this->_TPL_PATH);
 		
 		$license = UsermeetLicense::getInstance();
@@ -175,7 +173,6 @@ class UmSetupPage extends UsermeetPageExtension  {
 	// Ajax
 	function showTabPluginsAction() {
 		$tpl = DevblocksPlatform::getTemplateService();
-		$tpl->cache_lifetime = "0";
 		$tpl->assign('path', $this->_TPL_PATH);
 		
 		// Auto synchronize when viewing Config->Extensions
@@ -246,7 +243,6 @@ class UmSetupPage extends UsermeetPageExtension  {
 	// Ajax
 	function showTabWorkersAction() {
 		$tpl = DevblocksPlatform::getTemplateService();
-		$tpl->cache_lifetime = "0";
 		$tpl->assign('path', $this->_TPL_PATH);
 		
 		$workers = DAO_Worker::getAllWithDisabled();
@@ -276,7 +272,6 @@ class UmSetupPage extends UsermeetPageExtension  {
 		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
 		
 		$tpl = DevblocksPlatform::getTemplateService();
-		$tpl->cache_lifetime = "0";
 		$tpl->assign('path', $this->_TPL_PATH);
 		
 		$tpl->assign('view_id', $view_id);
@@ -464,7 +459,6 @@ class UmSetupPage extends UsermeetPageExtension  {
 		$custom_fields = DAO_CustomField::getBySource(UmCustomFieldSource_Worker::ID);
 		$tpl->assign('custom_fields', $custom_fields);
 		
-		$tpl->cache_lifetime = "0";
 		$tpl->display('file:' . $path . 'setup/tabs/workers/bulk.tpl');
 	}
 	
@@ -501,7 +495,6 @@ class UmSetupPage extends UsermeetPageExtension  {
 //	// Ajax
 //	function showTabGroupsAction() {
 //		$tpl = DevblocksPlatform::getTemplateService();
-//		$tpl->cache_lifetime = "0";
 //		$tpl->assign('path', $this->_TPL_PATH);
 //		
 //		$workers = DAO_Worker::getAllActive();
@@ -518,7 +511,6 @@ class UmSetupPage extends UsermeetPageExtension  {
 	// Ajax
 	function showTabMailSetupAction() {
 		$tpl = DevblocksPlatform::getTemplateService();
-		$tpl->cache_lifetime = "0";
 		$tpl->assign('path', $this->_TPL_PATH);
 		
 		$settings = DevblocksPlatform::getPluginSettingsService();
@@ -598,7 +590,6 @@ class UmSetupPage extends UsermeetPageExtension  {
 		@$smtp_pass = DevblocksPlatform::importGPC($_REQUEST['smtp_pass'],'string','');
 		
 		$tpl = DevblocksPlatform::getTemplateService();
-		$tpl->cache_lifetime = "0";
 		$tpl->assign('path', $this->_TPL_PATH);
 		
 		// [JAS]: Test the provided SMTP settings and give form feedback
@@ -634,7 +625,6 @@ class UmSetupPage extends UsermeetPageExtension  {
 		$settings = DevblocksPlatform::getPluginSettingsService();
 		
 		$tpl = DevblocksPlatform::getTemplateService();
-		$tpl->cache_lifetime = "0";
 		$tpl->assign('path', $this->_TPL_PATH);
 		
 		$license = UsermeetLicense::getInstance();
@@ -687,7 +677,6 @@ class UmSetupPage extends UsermeetPageExtension  {
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id']);
 
 		$tpl = DevblocksPlatform::getTemplateService();
-		$tpl->cache_lifetime = "0";
 		$tpl->assign('path', $this->_TPL_PATH);
 
 		$plugins = DevblocksPlatform::getPluginRegistry();
@@ -762,7 +751,6 @@ class UmSetupPage extends UsermeetPageExtension  {
 	// Ajax
 	function showTabSchedulerAction() {
 		$tpl = DevblocksPlatform::getTemplateService();
-		$tpl->cache_lifetime = "0";
 		$tpl->assign('path', $this->_TPL_PATH);
 		
 	    $jobs = DevblocksPlatform::getExtensions('usermeet.cron', true);
@@ -821,7 +809,6 @@ class UmSetupPage extends UsermeetPageExtension  {
 	// Ajax
 	function showTabFieldsAction() {
 		$tpl = DevblocksPlatform::getTemplateService();
-		$tpl->cache_lifetime = "0";
 		$tpl->assign('path', $this->_TPL_PATH);
 		
 		// Alphabetize
@@ -834,7 +821,6 @@ class UmSetupPage extends UsermeetPageExtension  {
 	
 	private function _getFieldSource($ext_id) {
 		$tpl = DevblocksPlatform::getTemplateService();
-		$tpl->cache_lifetime = "0";
 		$tpl->assign('path', $this->_TPL_PATH);
 
 		$tpl->assign('ext_id', $ext_id);
@@ -988,7 +974,6 @@ class UmSetupPage extends UsermeetPageExtension  {
 //		@$id = DevblocksPlatform::importGPC($_REQUEST['id']);
 //
 //		$tpl = DevblocksPlatform::getTemplateService();
-//		$tpl->cache_lifetime = "0";
 //		$tpl->assign('path', $this->_TPL_PATH);
 //
 //		$teams = DAO_Group::getAll();

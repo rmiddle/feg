@@ -34,7 +34,6 @@ class MaintCron extends UsermeetCronExtension {
 
 	function configure($instance) {
 		$tpl = DevblocksPlatform::getTemplateService();
-		$tpl->cache_lifetime = "0";
 		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
 		$tpl->assign('path', $tpl_path);
 
@@ -72,7 +71,6 @@ class HeartbeatCron extends UsermeetCronExtension {
 
 	function configure($instance) {
 		$tpl = DevblocksPlatform::getTemplateService();
-		$tpl->cache_lifetime = "0";
 		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
 		$tpl->assign('path', $tpl_path);
 

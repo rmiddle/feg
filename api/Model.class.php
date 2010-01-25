@@ -673,7 +673,6 @@ class Um_WorkerView extends Um_AbstractView {
 		$custom_fields = DAO_CustomField::getBySource(UmCustomFieldSource_Worker::ID);
 		$tpl->assign('custom_fields', $custom_fields);
 
-		$tpl->cache_lifetime = "0";
 		$tpl->assign('view_fields', $this->getColumns());
 		$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/setup/tabs/workers/view.tpl');
 	}
@@ -910,7 +909,6 @@ class Um_WorkerEventView extends Um_AbstractView {
 		$workers = DAO_Worker::getAll();
 		$tpl->assign('workers', $workers);
 		
-		$tpl->cache_lifetime = "0";
 		$tpl->assign('view_fields', $this->getColumns());
 		$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/home/tabs/my_notifications/view.tpl');
 	}

@@ -25,7 +25,6 @@ class UmPreferencesPage extends UsermeetPageExtension {
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl_path = $this->_TPL_PATH;
 		$tpl->assign('path', $tpl_path);
-		$tpl->cache_lifetime = "0";
 
 		$response = DevblocksPlatform::getHttpResponse();
 		$path = $response->path;
@@ -91,7 +90,6 @@ class UmPreferencesPage extends UsermeetPageExtension {
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl_path = $this->_TPL_PATH;
 		$tpl->assign('path', $tpl_path);
-		$tpl->cache_lifetime = "0";
 		
 		$worker = UsermeetApplication::getActiveWorker();
 		$tpl->assign('worker', $worker);
