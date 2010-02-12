@@ -150,11 +150,6 @@ class UmSetupPage extends UsermeetPageExtension  {
 			return;
 		}
 		
-		if(DEMO_MODE) {
-			DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','settings')));
-			return;
-		}
-		
 	    @$title = DevblocksPlatform::importGPC($_POST['title'],'string','');
 	    @$logo = DevblocksPlatform::importGPC($_POST['logo'],'string');
 	    @$authorized_ips_str = DevblocksPlatform::importGPC($_POST['authorized_ips'],'string','');
@@ -769,11 +764,6 @@ class UmSetupPage extends UsermeetPageExtension  {
 			return;
 		}
 		
-		if(DEMO_MODE) {
-			DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','scheduler')));
-			return;
-		}
-		
 	    // [TODO] Save the job changes
 	    @$id = DevblocksPlatform::importGPC($_REQUEST['id'],'string','');
 	    @$enabled = DevblocksPlatform::importGPC($_REQUEST['enabled'],'integer',0);
@@ -860,11 +850,6 @@ class UmSetupPage extends UsermeetPageExtension  {
 		$worker = UsermeetApplication::getActiveWorker();
 		if(!$worker || !$worker->is_superuser) {
 			echo $translate->_('common.access_denied');
-			return;
-		}
-		
-		if(DEMO_MODE) {
-			DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','fields')));
 			return;
 		}
 		
@@ -1002,11 +987,6 @@ class UmSetupPage extends UsermeetPageExtension  {
 //		
 //		if(!$worker || !$worker->is_superuser) {
 //			echo $translate->_('common.access_denied');
-//			return;
-//		}
-//		
-//		if(DEMO_MODE) {
-//			DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','workflow')));
 //			return;
 //		}
 //		
