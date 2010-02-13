@@ -104,7 +104,7 @@ class DAO_CustomField extends DevblocksORMHelper {
 			"VALUES (%d,'','','',0,'')",
 			$id
 		);
-		$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); /* @var $rs ADORecordSet */
+		$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
 
 		self::update($id, $fields);
 		
@@ -153,7 +153,7 @@ class DAO_CustomField extends DevblocksORMHelper {
 				"FROM custom_field ".
 				"ORDER BY pos ASC "
 			;
-			$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); /* @var $rs ADORecordSet */
+			$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
 			
 			$objects = self::_createObjectsFromResultSet($rs);
 			
@@ -163,23 +163,23 @@ class DAO_CustomField extends DevblocksORMHelper {
 		return $objects;
 	}
 	
-	private static function _createObjectsFromResultSet(ADORecordSet $rs) {
+	private static function _createObjectsFromResultSet($rs) {
 		$db = DevblocksPlatform::getDatabaseService();
 		
 		$objects = array();
 		
-		if($rs instanceof ADORecordSet)
-		while(!$rs->EOF) {
+		while($row = mysql_fetch_assoc($rs)) {
 			$object = new Model_CustomField();
-			$object->id = intval($rs->fields['id']);
-			$object->name = $rs->fields['name'];
-			$object->type = $rs->fields['type'];
-			$object->source_extension = $rs->fields['source_extension'];
-			$object->pos = intval($rs->fields['pos']);
-			$object->options = DevblocksPlatform::parseCrlfString($rs->fields['options']);
+			$object->id = intval($row['id']);
+			$object->name = $row['name'];
+			$object->type = $row['type'];
+			$object->source_extension = $row['source_extension'];
+			$object->pos = intval($row['pos']);
+			$object->options = DevblocksPlatform::parseCrlfString($row['options']);
 			$objects[$object->id] = $object;
-			$rs->MoveNext();
 		}
+		
+		mysql_free_result($rs);
 		
 		return $objects;
 	}
@@ -195,7 +195,7 @@ class DAO_CustomField extends DevblocksORMHelper {
 		$id_string = implode(',', $ids);
 		
 		$sql = sprintf("DELETE QUICK FROM custom_field WHERE id IN (%s)",$id_string);
-		$db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); /* @var $rs ADORecordSet */
+		$db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
 
 		if(is_array($ids))
 		foreach($ids as $id) {
@@ -553,13 +553,12 @@ class DAO_CustomFieldValue extends DevblocksORMHelper {
 			$source_ext_id,
 			implode(',', $source_ids)
 		);
-		$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); /* @var $rs ADORecordSet */
+		$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
 
-		if(is_a($rs,'ADORecordSet'))
-		while(!$rs->EOF) {
-			$source_id = intval($rs->fields['source_id']);
-			$field_id = intval($rs->fields['field_id']);
-			$field_value = $rs->fields['field_value'];
+		while($row = mysql_fetch_assoc($rs)) {
+			$source_id = intval($row['source_id']);
+			$field_id = intval($row['field_id']);
+			$field_value = $row['field_value'];
 			
 			if(!isset($results[$source_id]))
 				$results[$source_id] = array();
@@ -577,9 +576,9 @@ class DAO_CustomFieldValue extends DevblocksORMHelper {
 				$source[$field_id] = $field_value;
 				
 			}
-			
-			$rs->MoveNext();
 		}
+		
+		mysql_free_result($rs);
 		
 		// CLOBS
 		$sql = sprintf("SELECT source_id, field_id, field_value ".
@@ -588,22 +587,21 @@ class DAO_CustomFieldValue extends DevblocksORMHelper {
 			$source_ext_id,
 			implode(',', $source_ids)
 		);
-		$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); /* @var $rs ADORecordSet */
-
-		if(is_a($rs,'ADORecordSet'))
-		while(!$rs->EOF) {
-			$source_id = intval($rs->fields['source_id']);
-			$field_id = intval($rs->fields['field_id']);
-			$field_value = $rs->fields['field_value'];
+		$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
+		
+		while($row = mysql_fetch_assoc($rs)) {
+			$source_id = intval($row['source_id']);
+			$field_id = intval($row['field_id']);
+			$field_value = $row['field_value'];
 			
 			if(!isset($results[$source_id]))
 				$results[$source_id] = array();
 				
 			$source =& $results[$source_id];
 			$source[$field_id] = $field_value;
-			
-			$rs->MoveNext();
 		}
+		
+		mysql_free_result($rs);
 
 		// NUMBERS
 		$sql = sprintf("SELECT source_id, field_id, field_value ".
@@ -612,22 +610,21 @@ class DAO_CustomFieldValue extends DevblocksORMHelper {
 			$source_ext_id,
 			implode(',', $source_ids)
 		);
-		$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); /* @var $rs ADORecordSet */
+		$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
 
-		if(is_a($rs,'ADORecordSet'))
-		while(!$rs->EOF) {
-			$source_id = intval($rs->fields['source_id']);
-			$field_id = intval($rs->fields['field_id']);
-			$field_value = $rs->fields['field_value'];
+		while($row = mysql_fetch_assoc($rs)) {
+			$source_id = intval($row['source_id']);
+			$field_id = intval($row['field_id']);
+			$field_value = $row['field_value'];
 			
 			if(!isset($results[$source_id]))
 				$results[$source_id] = array();
 				
 			$source =& $results[$source_id];
 			$source[$field_id] = $field_value;
-			
-			$rs->MoveNext();
 		}
+		
+		mysql_free_result($rs);
 		
 		return $results;
 	}
@@ -801,24 +798,25 @@ class DAO_Worker extends Um_ORMHelper {
 	static private function _getObjectsFromResult($rs) {
 		$objects = array();
 		
-		while(!$rs->EOF) {
+		while($row = mysql_fetch_assoc($rs)) {
 			$object = new Model_Worker();
-			$object->id = $rs->fields['id'];
-			$object->first_name = $rs->fields['first_name'];
-			$object->last_name = $rs->fields['last_name'];
-			$object->title = $rs->fields['title'];
-			$object->email = $rs->fields['email'];
-			$object->pass = $rs->fields['pass'];
-			$object->is_superuser = $rs->fields['is_superuser'];
-			$object->last_activity_date = $rs->fields['last_activity_date'];
-			$object->is_disabled = $rs->fields['is_disabled'];
+			$object->id = $row['id'];
+			$object->first_name = $row['first_name'];
+			$object->last_name = $row['last_name'];
+			$object->title = $row['title'];
+			$object->email = $row['email'];
+			$object->pass = $row['pass'];
+			$object->is_superuser = $row['is_superuser'];
+			$object->last_activity_date = $row['last_activity_date'];
+			$object->is_disabled = $row['is_disabled'];
 
-			if(!empty($rs->fields['last_activity']))
-			    $object->last_activity = unserialize($rs->fields['last_activity']);
+			if(!empty($row['last_activity']))
+			    $object->last_activity = unserialize($row['last_activity']);
 			
 			$objects[$object->id] = $object;
-			$rs->MoveNext();
 		}
+		
+		mysql_free_result($rs);
 		
 		return $objects;
 	}
@@ -937,25 +935,23 @@ class DAO_Worker extends Um_ORMHelper {
 			
 		// [TODO] Could push the select logic down a level too
 		if($limit > 0) {
-    		$rs = $db->SelectLimit($sql,$limit,$start) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); /* @var $rs ADORecordSet */
+    		$rs = $db->SelectLimit($sql,$limit,$start) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
 		} else {
-		    $rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); /* @var $rs ADORecordSet */
-            $total = $rs->RecordCount();
+		    $rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
+            $total = mysql_num_rows($rs);
 		}
 		
 		$results = array();
 		
-		if(is_a($rs,'ADORecordSet'))
-		while(!$rs->EOF) {
+		while($row = mysql_fetch_assoc($rs)) {
 			$result = array();
-			foreach($rs->fields as $f => $v) {
+			foreach($row as $f => $v) {
 				$result[$f] = $v;
 			}
-			$object_id = intval($rs->fields[SearchFields_Worker::ID]);
+			$object_id = intval($row[SearchFields_Worker::ID]);
 			$results[$object_id] = $result;
-			$rs->MoveNext();
 		}
-
+		
 		// [JAS]: Count all
 		if($withCounts) {
 			$count_sql = 
@@ -964,6 +960,8 @@ class DAO_Worker extends Um_ORMHelper {
 				$where_sql;
 			$total = $db->GetOne($count_sql);
 		}
+		
+		mysql_free_result($rs);
 		
 		return array($results,$total);
     }
@@ -989,15 +987,15 @@ class SearchFields_Worker implements IDevblocksSearchFields {
 		$translate = DevblocksPlatform::getTranslationService();
 		
 		$columns = array(
-			self::ID => new DevblocksSearchField(self::ID, 'w', 'id', null, $translate->_('common.id')),
-			self::FIRST_NAME => new DevblocksSearchField(self::FIRST_NAME, 'w', 'first_name', null, $translate->_('worker.first_name')),
-			self::LAST_NAME => new DevblocksSearchField(self::LAST_NAME, 'w', 'last_name', null, $translate->_('worker.last_name')),
-			self::TITLE => new DevblocksSearchField(self::TITLE, 'w', 'title', null, $translate->_('worker.title')),
+			self::ID => new DevblocksSearchField(self::ID, 'w', 'id', $translate->_('common.id')),
+			self::FIRST_NAME => new DevblocksSearchField(self::FIRST_NAME, 'w', 'first_name', $translate->_('worker.first_name')),
+			self::LAST_NAME => new DevblocksSearchField(self::LAST_NAME, 'w', 'last_name', $translate->_('worker.last_name')),
+			self::TITLE => new DevblocksSearchField(self::TITLE, 'w', 'title', $translate->_('worker.title')),
 			self::EMAIL => new DevblocksSearchField(self::EMAIL, 'w', 'email', null, ucwords($translate->_('common.email'))),
-			self::IS_SUPERUSER => new DevblocksSearchField(self::IS_SUPERUSER, 'w', 'is_superuser', null, $translate->_('worker.is_superuser')),
-			self::LAST_ACTIVITY => new DevblocksSearchField(self::LAST_ACTIVITY, 'w', 'last_activity', null, $translate->_('worker.last_activity')),
-			self::LAST_ACTIVITY_DATE => new DevblocksSearchField(self::LAST_ACTIVITY_DATE, 'w', 'last_activity_date', null, $translate->_('worker.last_activity_date')),
-			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'w', 'is_disabled', null, ucwords($translate->_('common.disabled'))),
+			self::IS_SUPERUSER => new DevblocksSearchField(self::IS_SUPERUSER, 'w', 'is_superuser', $translate->_('worker.is_superuser')),
+			self::LAST_ACTIVITY => new DevblocksSearchField(self::LAST_ACTIVITY, 'w', 'last_activity', $translate->_('worker.last_activity')),
+			self::LAST_ACTIVITY_DATE => new DevblocksSearchField(self::LAST_ACTIVITY_DATE, 'w', 'last_activity_date', $translate->_('worker.last_activity_date')),
+			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'w', 'is_disabled', ucwords($translate->_('common.disabled'))),
 		);
 		
 		// Custom Fields
@@ -1006,7 +1004,7 @@ class SearchFields_Worker implements IDevblocksSearchFields {
 		if(is_array($fields))
 		foreach($fields as $field_id => $field) {
 			$key = 'cf_'.$field_id;
-			$columns[$key] = new DevblocksSearchField($key,$key,'field_value',null,$field->name);
+			$columns[$key] = new DevblocksSearchField($key,$key,'field_value',$field->name);
 		}
 		
 		// Sort by label (translation-conscious)
@@ -1127,18 +1125,19 @@ class DAO_WorkerEvent extends DevblocksORMHelper {
 	static private function _getObjectsFromResult($rs) {
 		$objects = array();
 		
-		while(!$rs->EOF) {
+		while($row = mysql_fetch_assoc($rs)) {
 			$object = new Model_WorkerEvent();
-			$object->id = $rs->fields['id'];
-			$object->created_date = $rs->fields['created_date'];
-			$object->worker_id = $rs->fields['worker_id'];
-			$object->title = $rs->fields['title'];
-			$object->url = $rs->fields['url'];
-			$object->content = $rs->fields['content'];
-			$object->is_read = $rs->fields['is_read'];
+			$object->id = $row['id'];
+			$object->created_date = $row['created_date'];
+			$object->worker_id = $row['worker_id'];
+			$object->title = $row['title'];
+			$object->url = $row['url'];
+			$object->content = $row['content'];
+			$object->is_read = $row['is_read'];
 			$objects[$object->id] = $object;
-			$rs->MoveNext();
 		}
+		
+		mysql_free_result($rs);
 		
 		return $objects;
 	}
@@ -1212,30 +1211,30 @@ class DAO_WorkerEvent extends DevblocksORMHelper {
 		;
 		// [TODO] Could push the select logic down a level too
 		if($limit > 0) {
-    		$rs = $db->SelectLimit($sql,$limit,$start) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); /* @var $rs ADORecordSet */
+    		$rs = $db->SelectLimit($sql,$limit,$start) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
 		} else {
-		    $rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); /* @var $rs ADORecordSet */
-            $total = $rs->RecordCount();
+		    $rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
+            $total = mysql_num_rows($rs);
 		}
 		
 		$results = array();
 		
-		if(is_a($rs,'ADORecordSet'))
-		while(!$rs->EOF) {
+		while($row = mysql_fetch_assoc($rs)) {
 			$result = array();
-			foreach($rs->fields as $f => $v) {
+			foreach($row as $f => $v) {
 				$result[$f] = $v;
 			}
-			$ticket_id = intval($rs->fields[SearchFields_WorkerEvent::ID]);
+			$ticket_id = intval($row[SearchFields_WorkerEvent::ID]);
 			$results[$ticket_id] = $result;
-			$rs->MoveNext();
 		}
-
+		
 		// [JAS]: Count all
 		if($withCounts) {
 		    $rs = $db->Execute($sql);
-		    $total = $rs->RecordCount();
+		    $total = mysql_num_rows($rs);
 		}
+		
+		mysql_free_result($rs);
 		
 		return array($results,$total);
     }
@@ -1259,13 +1258,13 @@ class SearchFields_WorkerEvent implements IDevblocksSearchFields {
 		$translate = DevblocksPlatform::getTranslationService();
 		
 		$columns = array(
-			self::ID => new DevblocksSearchField(self::ID, 'we', 'id', null, $translate->_('worker_event.id')),
-			self::CREATED_DATE => new DevblocksSearchField(self::CREATED_DATE, 'we', 'created_date', null, $translate->_('worker_event.created_date')),
-			self::WORKER_ID => new DevblocksSearchField(self::WORKER_ID, 'we', 'worker_id', null, $translate->_('worker_event.worker_id')),
-			self::TITLE => new DevblocksSearchField(self::TITLE, 'we', 'title', null, $translate->_('worker_event.title')),
-			self::CONTENT => new DevblocksSearchField(self::CONTENT, 'we', 'content', null, $translate->_('worker_event.content')),
-			self::IS_READ => new DevblocksSearchField(self::IS_READ, 'we', 'is_read', null, $translate->_('worker_event.is_read')),
-			self::URL => new DevblocksSearchField(self::URL, 'we', 'url', null, $translate->_('common.url')),
+			self::ID => new DevblocksSearchField(self::ID, 'we', 'id', $translate->_('worker_event.id')),
+			self::CREATED_DATE => new DevblocksSearchField(self::CREATED_DATE, 'we', 'created_date', $translate->_('worker_event.created_date')),
+			self::WORKER_ID => new DevblocksSearchField(self::WORKER_ID, 'we', 'worker_id', $translate->_('worker_event.worker_id')),
+			self::TITLE => new DevblocksSearchField(self::TITLE, 'we', 'title', $translate->_('worker_event.title')),
+			self::CONTENT => new DevblocksSearchField(self::CONTENT, 'we', 'content', $translate->_('worker_event.content')),
+			self::IS_READ => new DevblocksSearchField(self::IS_READ, 'we', 'is_read', $translate->_('worker_event.is_read')),
+			self::URL => new DevblocksSearchField(self::URL, 'we', 'url', $translate->_('common.url')),
 		);
 		
 		// Sort by label (translation-conscious)
@@ -1281,16 +1280,12 @@ class DAO_WorkerPref extends DevblocksORMHelper {
 	static function set($worker_id, $key, $value) {
 		// Persist long-term
 		$db = DevblocksPlatform::getDatabaseService();
-		$result = $db->Replace(
-		    'worker_pref',
-		    array(
-		        'worker_id'=>$worker_id,
-		        'setting'=>$db->qstr($key),
-		        'value'=>$db->qstr($value)
-		    ),
-		    array('worker_id','setting'),
-		    false
-		);
+		
+		$db->Execute(sprintf("REPLACE INTO worker_pref (worker_id, setting, value) VALUES (%d, %s, %s)",
+			$worker_id,
+			$db->qstr($key),
+			$db->qstr($value)
+		));
 		
 		// Invalidate cache
 		$cache = DevblocksPlatform::getCacheService();
@@ -1319,15 +1314,15 @@ class DAO_WorkerPref extends DevblocksORMHelper {
 		if(null === ($objects = $cache->load(self::CACHE_PREFIX.$worker_id))) {
 			$db = DevblocksPlatform::getDatabaseService();
 			$sql = sprintf("SELECT setting, value FROM worker_pref WHERE worker_id = %d", $worker_id);
-			$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); /* @var $rs ADORecordSet */
+			$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
 			
 			$objects = array();
 			
-			if(is_a($rs,'ADORecordSet'))
-			while(!$rs->EOF) {
-			    $objects[$rs->fields['setting']] = $rs->fields['value'];
-			    $rs->MoveNext();
+			while($row = mysql_fetch_assoc($rs)) {
+			    $objects[$row['setting']] = $row['value'];
 			}
+			
+			mysql_free_result($rs);
 			
 			$cache->save($objects, self::CACHE_PREFIX.$worker_id);
 		}
@@ -1379,29 +1374,31 @@ class DAO_WorkerRole extends DevblocksORMHelper {
 	    	// All privileges by role
 	    	$all_privs = array();
 	    	$rs = $db->Execute("SELECT role_id, priv_id FROM worker_role_acl WHERE has_priv = 1 ORDER BY role_id, priv_id");
-	    	while(!$rs->EOF) {
-	    		$role_id = intval($rs->fields['role_id']);
-	    		$priv_id = $rs->fields['priv_id'];
+	    	while($row = mysql_fetch_assoc($rs)) {
+	    		$role_id = intval($row['role_id']);
+	    		$priv_id = $row['priv_id'];
 	    		if(!isset($all_privs[$role_id]))
 	    			$all_privs[$role_id] = array();
 	    		
 	    		$all_privs[$role_id][$priv_id] = $priv_id;
-	    		$rs->MoveNext();
 	    	}
+	    	
+	    	mysql_free_result($rs);
 	    	
 	    	// All workers by role
 	    	$all_rosters = array();
 	    	$rs = $db->Execute("SELECT role_id, worker_id FROM worker_to_role");
-	    	while(!$rs->EOF) {
-	    		$role_id = intval($rs->fields['role_id']);
-	    		$worker_id = intval($rs->fields['worker_id']);
+	    	while($row = mysql_fetch_assoc($rs)) {
+	    		$role_id = intval($row['role_id']);
+	    		$worker_id = intval($row['worker_id']);
 	    		if(!isset($all_rosters[$role_id]))
 	    			$all_rosters[$role_id] = array();
 
 	    		$all_rosters[$role_id][$worker_id] = $worker_id;
 	    		$all_worker_ids[$worker_id] = $worker_id;
-	    		$rs->MoveNext();
 	    	}
+	    	
+	    	mysql_free_result($rs);
 	    	
 	    	// Aggregate privs by workers' roles (if set anywhere, keep)
 	    	$privs_by_worker = array();
@@ -1471,13 +1468,14 @@ class DAO_WorkerRole extends DevblocksORMHelper {
 	static private function _getObjectsFromResult($rs) {
 		$objects = array();
 		
-		while(!$rs->EOF) {
+		while($row = mysql_fetch_assoc($rs)) {
 			$object = new Model_WorkerRole();
-			$object->id = $rs->fields['id'];
-			$object->name = $rs->fields['name'];
+			$object->id = $row['id'];
+			$object->name = $row['name'];
 			$objects[$object->id] = $object;
-			$rs->MoveNext();
 		}
+		
+		mysql_free_result($rs);
 		
 		return $objects;
 	}

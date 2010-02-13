@@ -278,7 +278,7 @@ switch($step) {
 		@$db_pass = DevblocksPlatform::importGPC($_POST['db_pass'],'string');
 
 		@$db = DevblocksPlatform::getDatabaseService();
-		if(!is_null($db) && @$db->IsConnected()) {
+		if(!is_null($db) && @$db->isConnected()) {
 			// If we've been to this step, skip past framework.config.php
 			$tpl->assign('step', STEP_INIT_DB);
 			$tpl->display('steps/redirect.tpl');
@@ -298,10 +298,7 @@ switch($step) {
 		
 		if(!empty($db_driver) && !empty($db_server) && !empty($db_name) && !empty($db_user)) {
 			// Test the given settings, bypass platform initially
-			include_once(DEVBLOCKS_PATH . "libs/adodb5/adodb.inc.php");
-			$ADODB_CACHE_DIR = APP_TEMP_PATH . "/cache";
-			@$db =& ADONewConnection($db_driver);
-			@$db->Connect($db_server, $db_user, $db_pass, $db_name);
+			$db->Connect($db_server, $db_user, $db_pass, $db_name, false);
 
 			$tpl->assign('db_driver', $db_driver);
 			$tpl->assign('db_server', $db_server);
@@ -310,7 +307,7 @@ switch($step) {
 			$tpl->assign('db_pass', $db_pass);
 			
 			// If passed, write config file and continue
-			if(!is_null($db) && $db->IsConnected()) {
+			if(!is_null($db) && $db->isConnected()) {
 				$info = $db->GetRow("SHOW VARIABLES LIKE 'character_set_database'");
 				
 				$encoding = (0==strcasecmp($info[1],'utf8')) ? 'utf8' : 'latin1';
