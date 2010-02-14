@@ -792,7 +792,7 @@ class DAO_Worker extends Um_ORMHelper {
 	}
 	
 	/**
-	 * @param ADORecordSet $rs
+	 * @param resource $rs
 	 * @return Model_Worker[]
 	 */
 	static private function _getObjectsFromResult($rs) {
@@ -1119,7 +1119,7 @@ class DAO_WorkerEvent extends DevblocksORMHelper {
 	}
 	
 	/**
-	 * @param ADORecordSet $rs
+	 * @param resource $rs
 	 * @return Model_WorkerEvent[]
 	 */
 	static private function _getObjectsFromResult($rs) {
@@ -1462,7 +1462,7 @@ class DAO_WorkerRole extends DevblocksORMHelper {
 	}
 	
 	/**
-	 * @param ADORecordSet $rs
+	 * @param resource $rs
 	 * @return Model_WorkerRole[]
 	 */
 	static private function _getObjectsFromResult($rs) {
