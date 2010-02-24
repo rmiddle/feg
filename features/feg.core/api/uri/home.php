@@ -11,7 +11,7 @@ class FegHomePage extends FegPageExtension {
 		
 	function isVisible() {
 		// check login
-		$visit = UsermeetApplication::getVisit();
+		$visit = Application::getVisit();
 		
 		if(empty($visit)) {
 			return false;
@@ -36,7 +36,7 @@ class FegHomePage extends FegPageExtension {
 		
 		// Remember the last tab/URL
 		if(null == ($selected_tab = @$response->path[1])) {
-			$selected_tab = $visit->get(UsermeetVisit::KEY_HOME_SELECTED_TAB, 'notifications');
+			$selected_tab = $visit->get(FegVisit::KEY_HOME_SELECTED_TAB, 'notifications');
 		}
 		$tpl->assign('selected_tab', $selected_tab);
 		

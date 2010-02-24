@@ -8,11 +8,11 @@
 <a href="{devblocks_url}c=login{/devblocks_url}">Take me there!</a><br>
 <br>
 
-<H3>Welcome to the Usermeet community!</H3>
+<H3>Welcome to the Feg community!</H3>
 
-Usermeet is ...<br>
+Feg is ...<br>
 <br>
-The best place to become familiar with the concepts used in Usermeet 
+The best place to become familiar with the concepts used in Feg 
 is the <a href="http://feg.answernet.com/" target="_blank">online documentation</a>. 
 This area is dedicated to creating and maintaining tutorials, feature guides, and best practices.<br>
 <br>

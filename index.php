@@ -12,7 +12,7 @@
 ***********************************************************************/
 
 if(version_compare(PHP_VERSION, "5.2", "<"))
-	die("Usermeet requires PHP 5.2 or later.");
+	die("Feg requires PHP 5.2 or later.");
 
 require(getcwd() . '/framework.config.php');
 require(DEVBLOCKS_PATH . 'Devblocks.class.php');
@@ -57,6 +57,6 @@ if(method_exists('DevblocksPlatform','getConsoleLog')) {
 }
 
 // [JAS]: HTTP Request (App->Platform)
-UsermeetApplication::processRequest($request);
+FegApplication::processRequest($request);
 
 exit;

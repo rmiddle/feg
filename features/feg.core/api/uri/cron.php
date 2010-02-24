@@ -19,7 +19,7 @@ class FegCronController extends DevblocksControllerExtension {
 		$translate = DevblocksPlatform::getTranslationService();
 		
 	    $settings = DevblocksPlatform::getPluginSettingsService();
-	    $authorized_ips_str = $settings->get('feg.core',UsermeetSettings::AUTHORIZED_IPS);
+	    $authorized_ips_str = $settings->get('feg.core',FegSettings::AUTHORIZED_IPS);
 	    $authorized_ips = DevblocksPlatform::parseCrlfString($authorized_ips_str);
 	    
 	    $authorized_ip_defaults = DevblocksPlatform::parseCsvString(AUTHORIZED_IPS_DEFAULTS);
@@ -74,8 +74,8 @@ class FegCronController extends DevblocksControllerExtension {
             $nexttime = time() + 86400;
 		    
 			if(is_array($cron_manifests))
-			foreach($cron_manifests as $idx => $instance) { /* @var $instance UsermeetCronExtension */
-			    $lastrun = $instance->getParam(UsermeetCronExtension::PARAM_LASTRUN, 0);
+			foreach($cron_manifests as $idx => $instance) { /* @var $instance FegCronExtension */
+			    $lastrun = $instance->getParam(FegCronExtension::PARAM_LASTRUN, 0);
 			    
 			    if($instance->isReadyToRun($is_ignoring_wait)) {
 			        if($timelimit) {
@@ -104,7 +104,7 @@ class FegCronController extends DevblocksControllerExtension {
 	    
 		if(!empty($jobs)) {
 		    foreach($jobs as $nextjob) {
-		        $nextjob->setParam(UsermeetCronExtension::PARAM_LOCKED, time());
+		        $nextjob->setParam(FegCronExtension::PARAM_LOCKED, time());
 	    	    $nextjob->_run();
 	        }
 		} elseif($reload) {

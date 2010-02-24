@@ -17,7 +17,7 @@ class FegCoreTour extends DevblocksHttpResponseListenerExtension implements IDev
 	function run(DevblocksHttpResponse $response, Smarty $tpl) {
 		$path = $response->path;
 
-		$callouts = UsermeetApplication::getTourCallouts();
+		$callouts = FegApplication::getTourCallouts();
 
 		switch(array_shift($path)) {
 			case 'welcome':
@@ -70,7 +70,7 @@ class FegCoreEventListener extends DevblocksEventListenerExtension {
 	 * @param Model_DevblocksEvent $event
 	 */
 	function handleEvent(Model_DevblocksEvent $event) {
-		// Usermeet Workflow
+		// Feg Workflow
 		switch($event->id) {
 			case 'cron.heartbeat':
 				$this->_handleCronHeartbeat($event);

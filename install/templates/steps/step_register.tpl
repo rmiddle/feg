@@ -49,7 +49,7 @@ options</a>.<br>
 <input size="64" name="contact_email"><br>
 <br>
 
-<b>How did you hear about Usermeet?</b><br>
+<b>How did you hear about Feg?</b><br>
 <input size="64" name="contact_refer"><br>
 <br>
 
@@ -160,7 +160,7 @@ options</a>.<br>
 
 <i>Privacy Notice: Being in the e-mail business, we hate spam even more
 than most people! We will use the information you provide to personally 
-contact you about Usermeet. We will not share or sell your 
+contact you about Feg. We will not share or sell your 
 personal information, or otherwise abuse your trust.</i> <br>
 <br>
 
