@@ -297,9 +297,14 @@ switch($step) {
 		$tpl->assign('drivers', $drivers);
 		
 		if(!empty($db_driver) && !empty($db_server) && !empty($db_name) && !empty($db_user)) {
-			// Test the given settings, bypass platform initially
-			$db->Connect($db_server, $db_user, $db_pass, $db_name, false);
-
+			$db_passed = false;
+			
+			if(false != ($_db = mysql_connect($db_server, $db_user, $db_pass))) {
+				if(false !== mysql_select_db($db_name, $_db)) {
+					$db_passed = true;
+				}
+			}
+			
 			$tpl->assign('db_driver', $db_driver);
 			$tpl->assign('db_server', $db_server);
 			$tpl->assign('db_name', $db_name);
