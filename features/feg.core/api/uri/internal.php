@@ -1,5 +1,5 @@
 <?php
-class UmInternalController extends DevblocksControllerExtension {
+class FegInternalController extends DevblocksControllerExtension {
 	const ID = 'core.controller.internal';
 	private $_TPL_PATH = '';
 	
@@ -12,7 +12,7 @@ class UmInternalController extends DevblocksControllerExtension {
 	 * Request Overload
 	 */
 	function handleRequest(DevblocksHttpRequest $request) {
-		$worker = UsermeetApplication::getActiveWorker();
+		$worker = FegApplication::getActiveWorker();
 		if(empty($worker)) return;
 		
 		$stack = $request->path;
@@ -37,7 +37,7 @@ class UmInternalController extends DevblocksControllerExtension {
 	// Ajax
 	function viewRefreshAction() {
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id']);
-		$view = Um_AbstractViewLoader::getView($id);
+		$view = Feg_AbstractViewLoader::getView($id);
 		$view->render();
 	}
 	
@@ -45,9 +45,9 @@ class UmInternalController extends DevblocksControllerExtension {
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id']);
 		@$sortBy = DevblocksPlatform::importGPC($_REQUEST['sortBy']);
 		
-		$view = Um_AbstractViewLoader::getView($id);
+		$view = Feg_AbstractViewLoader::getView($id);
 		$view->doSortBy($sortBy);
-		Um_AbstractViewLoader::setView($id, $view);
+		Feg_AbstractViewLoader::setView($id, $view);
 		
 		$view->render();
 	}
@@ -56,9 +56,9 @@ class UmInternalController extends DevblocksControllerExtension {
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id']);
 		@$page = DevblocksPlatform::importGPC(DevblocksPlatform::importGPC($_REQUEST['page']));
 		
-		$view = Um_AbstractViewLoader::getView($id);
+		$view = Feg_AbstractViewLoader::getView($id);
 		$view->doPage($page);
-		Um_AbstractViewLoader::setView($id, $view);
+		Feg_AbstractViewLoader::setView($id, $view);
 		
 		$view->render();
 	}
@@ -67,7 +67,7 @@ class UmInternalController extends DevblocksControllerExtension {
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id']);
 		@$field = DevblocksPlatform::importGPC($_REQUEST['field']);
 		
-		$view = Um_AbstractViewLoader::getView($id);
+		$view = Feg_AbstractViewLoader::getView($id);
 		$view->renderCriteria($field);
 	}
 	
@@ -79,9 +79,9 @@ class UmInternalController extends DevblocksControllerExtension {
 		@$oper = DevblocksPlatform::importGPC($_REQUEST['oper']);
 		@$value = DevblocksPlatform::importGPC($_REQUEST['value']);
 		
-		$view = Um_AbstractViewLoader::getView($id);
+		$view = Feg_AbstractViewLoader::getView($id);
 		$view->doSetCriteria($field, $oper, $value);
-		Um_AbstractViewLoader::setView($id, $view);
+		Feg_AbstractViewLoader::setView($id, $view);
 		
 		// [TODO] Need to put them back on org or person (depending on which was active)
 		if(!empty($response_uri))
@@ -93,9 +93,9 @@ class UmInternalController extends DevblocksControllerExtension {
 		@$response_uri = DevblocksPlatform::importGPC($_REQUEST['response_uri']);
 		@$field = DevblocksPlatform::importGPC($_REQUEST['field']);
 		
-		$view = Um_AbstractViewLoader::getView($id);
+		$view = Feg_AbstractViewLoader::getView($id);
 		$view->doRemoveCriteria($field);
-		Um_AbstractViewLoader::setView($id, $view);
+		Feg_AbstractViewLoader::setView($id, $view);
 		
 		if(!empty($response_uri))
 			DevblocksPlatform::redirect(new DevblocksHttpResponse(explode('/', $response_uri)));
@@ -105,9 +105,9 @@ class UmInternalController extends DevblocksControllerExtension {
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id']);
 		@$response_uri = DevblocksPlatform::importGPC($_REQUEST['response_uri']);
 		
-		$view = Um_AbstractViewLoader::getView($id);
+		$view = Feg_AbstractViewLoader::getView($id);
 		$view->doResetCriteria();
-		Um_AbstractViewLoader::setView($id, $view);
+		Feg_AbstractViewLoader::setView($id, $view);
 
 		if(!empty($response_uri))
 			DevblocksPlatform::redirect(new DevblocksHttpResponse(explode('/', $response_uri)));
@@ -124,7 +124,7 @@ class UmInternalController extends DevblocksControllerExtension {
 		
 		$tpl = DevblocksPlatform::getTemplateService();
 		
-		$view = Um_AbstractViewLoader::getView($id);
+		$view = Feg_AbstractViewLoader::getView($id);
 
 		// [TODO] Nuke criteria
 		if(is_array($field_deletes) && !empty($field_deletes)) {
@@ -141,7 +141,7 @@ class UmInternalController extends DevblocksControllerExtension {
 		$tpl->assign('view_fields', $view->getFields());
 		$tpl->assign('view_searchable_fields', $view->getSearchFields());
 		
-		Um_AbstractViewLoader::setView($id, $view);
+		Feg_AbstractViewLoader::setView($id, $view);
 		$tpl->assign('view', $view);
 		
 		$tpl->display('file:' . $this->_TPL_PATH . 'internal/views/customize_view_criteria.tpl');
@@ -155,7 +155,7 @@ class UmInternalController extends DevblocksControllerExtension {
 		$tpl->assign('path', $this->_TPL_PATH . '');
 		$tpl->assign('id', $id);
 
-		$view = Um_AbstractViewLoader::getView($id);
+		$view = Feg_AbstractViewLoader::getView($id);
 		$tpl->assign('view', $view);
 
 		$tpl->assign('optColumns', $view->getColumns());
@@ -168,13 +168,13 @@ class UmInternalController extends DevblocksControllerExtension {
 //	function viewShowCopyAction() {
 //        @$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string');
 //
-//		$active_worker = UsermeetApplication::getActiveWorker();
+//		$active_worker = FegApplication::getActiveWorker();
 //
 //		$tpl = DevblocksPlatform::getTemplateService();
 //		$tpl_path = $this->_TPL_PATH . '';
 //		$tpl->assign('path', $tpl_path);
 //        
-//        $view = Um_AbstractViewLoader::getView($view_id);
+//        $view = Feg_AbstractViewLoader::getView($view_id);
 //
 //		$workspaces = DAO_WorkerWorkspaceList::getWorkspaces($active_worker->id);
 //		$tpl->assign('workspaces', $workspaces);
@@ -187,11 +187,11 @@ class UmInternalController extends DevblocksControllerExtension {
 //	
 //	function viewDoCopyAction() {
 //		$translate = DevblocksPlatform::getTranslationService();
-//		$active_worker = UsermeetApplication::getActiveWorker();
-//		$visit = UsermeetApplication::getVisit();
+//		$active_worker = FegApplication::getActiveWorker();
+//		$visit = FegApplication::getVisit();
 //		
 //	    @$view_id = DevblocksPlatform::importGPC($_POST['view_id'],'string');
-//		$view = Um_AbstractViewLoader::getView($view_id);
+//		$view = Feg_AbstractViewLoader::getView($view_id);
 //	    
 //		@$list_title = DevblocksPlatform::importGPC($_POST['list_title'],'string', '');
 //		@$workspace = DevblocksPlatform::importGPC($_POST['workspace'],'string', '');
@@ -238,7 +238,7 @@ class UmInternalController extends DevblocksControllerExtension {
 //        }
 //		
 //		// Select the workspace tab
-//		$visit->set(UsermeetVisit::KEY_HOME_SELECTED_TAB, 'w_'.$workspace_name);
+//		$visit->set(FegVisit::KEY_HOME_SELECTED_TAB, 'w_'.$workspace_name);
 //        
 //		DevblocksPlatform::redirect(new DevblocksHttpResponse(array('home')));
 //	}
@@ -251,7 +251,7 @@ class UmInternalController extends DevblocksControllerExtension {
 		$tpl->assign('path', $this->_TPL_PATH . '');
 		$tpl->assign('view_id', $view_id);
 
-		$view = Um_AbstractViewLoader::getView($view_id);
+		$view = Feg_AbstractViewLoader::getView($view_id);
 		$tpl->assign('view', $view);
 		
 		$model_columns = $view->getColumns();
@@ -275,7 +275,7 @@ class UmInternalController extends DevblocksControllerExtension {
 				unset($columns[$idx]);
 		}
 		
-		$view = Um_AbstractViewLoader::getView($view_id);
+		$view = Feg_AbstractViewLoader::getView($view_id);
 		$column_manifests = $view->getColumns();
 
 		// Override display
@@ -357,10 +357,10 @@ class UmInternalController extends DevblocksControllerExtension {
 		
 		$num_rows = max($num_rows, 1); // make 1 the minimum
 		
-		$view = Um_AbstractViewLoader::getView($id);
+		$view = Feg_AbstractViewLoader::getView($id);
 		$view->doCustomize($columns, $num_rows);
 
-		$active_worker = UsermeetApplication::getActiveWorker();
+		$active_worker = FegApplication::getActiveWorker();
 		
 		// Conditional Persist
 //		if(substr($id,0,5)=="cust_") { // custom workspace
@@ -385,7 +385,7 @@ class UmInternalController extends DevblocksControllerExtension {
 //			));
 //			
 //		} else {
-			$prefs = new Um_AbstractViewModel();
+			$prefs = new Feg_AbstractViewModel();
 			$prefs->class_name = get_class($view);
 			$prefs->view_columns = $view->view_columns;
 			$prefs->renderLimit = $view->renderLimit;
@@ -395,7 +395,7 @@ class UmInternalController extends DevblocksControllerExtension {
 			DAO_WorkerPref::set($active_worker->id, 'view'.$view->id, serialize($prefs));
 //		}
 		
-		Um_AbstractViewLoader::setView($id, $view);
+		Feg_AbstractViewLoader::setView($id, $view);
 		
 		$view->render();
 	}
@@ -419,7 +419,7 @@ class UmInternalController extends DevblocksControllerExtension {
 	function doStopTourAction() {
 //		$request = DevblocksPlatform::getHttpRequest();
 
-		$worker = UsermeetApplication::getActiveWorker();
+		$worker = FegApplication::getActiveWorker();
 		DAO_WorkerPref::set($worker->id, 'assist_mode', 0);
 		
 		DevblocksPlatform::redirect(new DevblocksHttpResponse(array('home')));
@@ -434,7 +434,7 @@ class UmInternalController extends DevblocksControllerExtension {
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
 
-		$callouts = UsermeetApplication::getTourCallouts();
+		$callouts = FegApplication::getTourCallouts();
 		
 	    $callout = array();
 	    if(isset($callouts[$id]))

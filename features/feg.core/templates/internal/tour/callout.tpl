@@ -6,7 +6,7 @@
 		<td align="left" width="100%">
 			{$callout->body}
 			<br>
-			<img src="{devblocks_url}c=resource&p=usermeet.core&f=images/nav_down_left_green.gif{/devblocks_url}" align="absmiddle">
+			<img src="{devblocks_url}c=resource&p=feg.core&f=images/nav_down_left_green.gif{/devblocks_url}" align="absmiddle">
 		</td>
 	</tr>
 </table>

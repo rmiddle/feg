@@ -1,5 +1,5 @@
 <?php 
-class Um_ORMHelper extends DevblocksORMHelper {
+class Feg_ORMHelper extends DevblocksORMHelper {
 	static public function qstr($str) {
 		$db = DevblocksPlatform::getDatabaseService();
 		return $db->qstr($str);	
@@ -664,7 +664,7 @@ class DAO_CustomFieldValue extends DevblocksORMHelper {
 	}
 };
 
-class DAO_Worker extends Um_ORMHelper {
+class DAO_Worker extends Feg_ORMHelper {
 	const CACHE_ALL = 'ps_workers';
 	
 	const ID = 'id';
@@ -999,7 +999,7 @@ class SearchFields_Worker implements IDevblocksSearchFields {
 		);
 		
 		// Custom Fields
-		$fields = DAO_CustomField::getBySource(UmCustomFieldSource_Worker::ID);
+		$fields = DAO_CustomField::getBySource(FegCustomFieldSource_Worker::ID);
 
 		if(is_array($fields))
 		foreach($fields as $field_id => $field) {

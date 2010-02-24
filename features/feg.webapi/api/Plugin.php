@@ -1,6 +1,6 @@
 <?php
 class PsRestPlugin {
-	const PLUGIN_ID = 'portsensor.controller.rest';
+	const PLUGIN_ID = 'feg.controller.rest';
 };
 
 if (class_exists('DevblocksTranslationsExtension',true)):

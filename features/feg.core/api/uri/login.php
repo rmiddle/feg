@@ -1,5 +1,5 @@
 <?php
-class UmSignInPage extends UsermeetPageExtension {
+class FegSignInPage extends FegPageExtension {
     const KEY_FORGOT_EMAIL = 'login.recover.email';
     const KEY_FORGOT_SENTCODE = 'login.recover.sentcode';
     const KEY_FORGOT_CODE = 'login.recover.code';
@@ -67,7 +67,7 @@ class UmSignInPage extends UsermeetPageExtension {
 		
 		if(!is_null($worker)) {
 			$session = DevblocksPlatform::getSessionService();
-			$visit = new UsermeetVisit();
+			$visit = new FegVisit();
 			$visit->setWorker($worker);
 				
 			$session->setVisit($visit);
@@ -79,7 +79,7 @@ class UmSignInPage extends UsermeetPageExtension {
 			$devblocks_response = new DevblocksHttpResponse($original_path);
 
 			// Worker
-			$worker = UsermeetApplication::getActiveWorker();
+			$worker = FegApplication::getActiveWorker();
 
 			// Timezone
 			if(null != ($timezone = DAO_WorkerPref::get($worker->id,'timezone'))) {
@@ -111,7 +111,7 @@ class UmSignInPage extends UsermeetPageExtension {
 		$session = DevblocksPlatform::getSessionService();
 		$visit = $session->getVisit();
 		
-		if(null != ($worker = UsermeetApplication::getActiveWorker())) {
+		if(null != ($worker = FegApplication::getActiveWorker())) {
 			DAO_Worker::logActivity($worker->id, new Model_Activity(null));
 		}
 		
@@ -127,7 +127,7 @@ class UmSignInPage extends UsermeetPageExtension {
 	    @$email = DevblocksPlatform::importGPC($_REQUEST['email'],'string');
 	    
 	    $worker = null;
-	    $results = DAO_Worker::getWhere(sprintf("%s = %s",DAO_Worker::EMAIL, Um_ORMHelper::qstr($email)));
+	    $results = DAO_Worker::getWhere(sprintf("%s = %s",DAO_Worker::EMAIL, Feg_ORMHelper::qstr($email)));
 	    if(!empty($results))
 	    	$worker = array_shift($results);
 	    
@@ -137,14 +137,14 @@ class UmSignInPage extends UsermeetPageExtension {
 	    $_SESSION[self::KEY_FORGOT_EMAIL] = $email;
 	    
 	    try {
-		    $code = UsermeetApplication::generatePassword(10);
+		    $code = FegApplication::generatePassword(10);
 		    $_SESSION[self::KEY_FORGOT_SENTCODE] = $code;
 		    
 	    	$to = $email;
 	    	$subject = $translate->_('login.forgot.mail.subject');
 	    	$body = vsprintf($translate->_('login.forgot.mail.body'), $code);
 	    	
-	    	UsermeetMail::quickSend($to, $subject, $body);
+	    	FegMail::quickSend($to, $subject, $body);
 	    	
 	    } catch (Exception $e) {
 	    	DevblocksPlatform::redirect(new DevblocksHttpResponse(array('login','forgot','step1','failed')));
@@ -162,7 +162,7 @@ class UmSignInPage extends UsermeetPageExtension {
         $_SESSION[self::KEY_FORGOT_CODE] = $code;
         
 	    $worker = null;
-	    $results = DAO_Worker::getWhere(sprintf("%s = %s",DAO_Worker::EMAIL,Um_ORMHelper::qstr($email)));
+	    $results = DAO_Worker::getWhere(sprintf("%s = %s",DAO_Worker::EMAIL,Feg_ORMHelper::qstr($email)));
 	    if(!empty($results))
 	    	$worker = array_shift($results);
 	    
@@ -185,7 +185,7 @@ class UmSignInPage extends UsermeetPageExtension {
         $code = $_SESSION[self::KEY_FORGOT_CODE];
 
 	    $worker = null;
-	    $results = DAO_Worker::getWhere(sprintf("%s = %s",DAO_Worker::EMAIL,Um_ORMHelper::qstr($email)));
+	    $results = DAO_Worker::getWhere(sprintf("%s = %s",DAO_Worker::EMAIL,Feg_ORMHelper::qstr($email)));
 	    if(!empty($results))
 	    	$worker = array_shift($results);
         

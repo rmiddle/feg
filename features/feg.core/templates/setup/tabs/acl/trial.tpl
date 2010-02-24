@@ -1,5 +1,5 @@
 <div class="block">
-<h3>This professional feature is disabled in the free version.  The following worker permissions are configurable with a <a href="http://www.usermeet.com/buy" target="_blank">purchased license</a>:</h3>
+<h3>This professional feature is disabled in the free version.  The following worker permissions are configurable with a <a href="http://feg.answernet.com/buy" target="_blank">purchased license</a>:</h3>
 <br>
 
 {foreach from=$plugins item=plugin key=plugin_id}

@@ -1,5 +1,5 @@
 <?php
-class UmSetupPage extends UsermeetPageExtension  {
+class FegSetupPage extends FegPageExtension  {
 	private $_TPL_PATH = '';
 	
 	function __construct($manifest) {
@@ -9,7 +9,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 	
 	// [TODO] Refactor to isAuthorized
 	function isVisible() {
-		$worker = UsermeetApplication::getActiveWorker();
+		$worker = FegApplication::getActiveWorker();
 		
 		if(empty($worker)) {
 			return false;
@@ -28,7 +28,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
 
-		$worker = UsermeetApplication::getActiveWorker();
+		$worker = FegApplication::getActiveWorker();
 		if(!$worker || !$worker->is_superuser) {
 			echo $translate->_('common.access_denied');
 			return;
@@ -38,7 +38,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 			$tpl->assign('install_dir_warning', true);
 		}
 		
-		$tab_manifests = DevblocksPlatform::getExtensions('usermeet.setup.tab', false);
+		$tab_manifests = DevblocksPlatform::getExtensions('feg.setup.tab', false);
 		uasort($tab_manifests, create_function('$a, $b', "return strcasecmp(\$a->name,\$b->name);\n"));
 		$tpl->assign('tab_manifests', $tab_manifests);
 		
@@ -99,7 +99,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
 		
-		$license = UsermeetLicense::getInstance();
+		$license = FegLicense::getInstance();
 		$tpl->assign('license', $license);
 		
 		$db = DevblocksPlatform::getDatabaseService();
@@ -142,7 +142,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 	// Post
 	function saveTabSettingsAction() {
 		$translate = DevblocksPlatform::getTranslationService();
-		$worker = UsermeetApplication::getActiveWorker();
+		$worker = FegApplication::getActiveWorker();
 		
 		if(!$worker || !$worker->is_superuser) {
 			echo $translate->_('common.access_denied');
@@ -154,12 +154,12 @@ class UmSetupPage extends UsermeetPageExtension  {
 	    @$authorized_ips_str = DevblocksPlatform::importGPC($_POST['authorized_ips'],'string','');
 
 	    if(empty($title))
-	    	$title = 'Usermeet - Powered by Community Feedback';
+	    	$title = 'Feg - Fax Email Gateway';
 	    
 	    $settings = DevblocksPlatform::getPluginSettingsService();
-	    $settings->set('usermeet.core',UsermeetSettings::APP_TITLE, $title);
-	    $settings->set('usermeet.core',UsermeetSettings::APP_LOGO_URL, $logo); // [TODO] Enforce some kind of max resolution?
-	    $settings->set('usermeet.core',UsermeetSettings::AUTHORIZED_IPS, $authorized_ips_str);
+	    $settings->set('feg.core',FegSettings::APP_TITLE, $title);
+	    $settings->set('feg.core',FegSettings::APP_LOGO_URL, $logo); // [TODO] Enforce some kind of max resolution?
+	    $settings->set('feg.core',FegSettings::AUTHORIZED_IPS, $authorized_ips_str);
 	    
 	    DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','settings')));
 	}
@@ -173,13 +173,13 @@ class UmSetupPage extends UsermeetPageExtension  {
         DevblocksPlatform::readPlugins();
 		
 		$plugins = DevblocksPlatform::getPluginRegistry();
-		unset($plugins['usermeet.core']);
+		unset($plugins['feg.core']);
 		$tpl->assign('plugins', $plugins);
 		
 //		$points = DevblocksPlatform::getExtensionPoints();
 //		$tpl->assign('points', $points);
 		
-		$license = UsermeetLicense::getInstance();
+		$license = FegLicense::getInstance();
 		$tpl->assign('license', $license);
 		
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/plugins/index.tpl');
@@ -187,7 +187,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 	
 	function saveTabPluginsAction() {
 		$translate = DevblocksPlatform::getTranslationService();
-		$worker = UsermeetApplication::getActiveWorker();
+		$worker = FegApplication::getActiveWorker();
 		
 		if(!$worker || !$worker->is_superuser) {
 			echo $translate->_('common.access_denied');
@@ -207,7 +207,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 		// [JAS]: Clear unchecked plugins
 		foreach($pluginStack as $plugin) {
 			// [JAS]: We can't force disable core here [TODO] Improve
-			if($plugin->id=='usermeet.core') continue;
+			if($plugin->id=='feg.core') continue;
 			$plugin->setEnabled(false);
 		}
 
@@ -247,16 +247,16 @@ class UmSetupPage extends UsermeetPageExtension  {
 		
 		$tpl->assign('response_uri', 'setup/workers');
 		
-		$defaults = new Um_AbstractViewModel();
+		$defaults = new Feg_AbstractViewModel();
 		$defaults->id = 'workers_cfg';
-		$defaults->class_name = 'Um_WorkerView';
+		$defaults->class_name = 'Feg_WorkerView';
 		
-		$view = Um_AbstractViewLoader::getView($defaults->id, $defaults);
+		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 		$tpl->assign('view', $view);
-		$tpl->assign('view_fields', Um_WorkerView::getFields());
-		$tpl->assign('view_searchable_fields', Um_WorkerView::getSearchFields());
+		$tpl->assign('view_fields', Feg_WorkerView::getFields());
+		$tpl->assign('view_searchable_fields', Feg_WorkerView::getSearchFields());
 		
-		$tpl->assign('license', UsermeetLicense::getInstance());
+		$tpl->assign('license', FegLicense::getInstance());
 		
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/workers/index.tpl');
 	}
@@ -277,10 +277,10 @@ class UmSetupPage extends UsermeetPageExtension  {
 //		$tpl->assign('teams', $teams);
 		
 		// Custom Fields
-		$custom_fields = DAO_CustomField::getBySource(UmCustomFieldSource_Worker::ID);
+		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Worker::ID);
 		$tpl->assign('custom_fields', $custom_fields);
 		
-		$custom_field_values = DAO_CustomFieldValue::getValuesBySourceIds(UmCustomFieldSource_Worker::ID, $id);
+		$custom_field_values = DAO_CustomFieldValue::getValuesBySourceIds(FegCustomFieldSource_Worker::ID, $id);
 		if(isset($custom_field_values[$id]))
 			$tpl->assign('custom_field_values', $custom_field_values[$id]);
 		
@@ -289,7 +289,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 	
 	function saveWorkerPeekAction() {
 		$translate = DevblocksPlatform::getTranslationService();
-		$active_worker = UsermeetApplication::getActiveWorker();
+		$active_worker = FegApplication::getActiveWorker();
 		
 		if(!$active_worker || !$active_worker->is_superuser) {
 			return;
@@ -318,18 +318,18 @@ class UmSetupPage extends UsermeetPageExtension  {
 				DAO_Worker::delete($id);
 			
 		} else {
-			if(empty($id) && null == DAO_Worker::getWhere(sprintf("%s=%s",DAO_Worker::EMAIL,Um_ORMHelper::qstr($email)))) {
+			if(empty($id) && null == DAO_Worker::getWhere(sprintf("%s=%s",DAO_Worker::EMAIL,Feg_ORMHelper::qstr($email)))) {
 				$workers = DAO_Worker::getAll();
-				$license = UsermeetLicense::getInstance();
+				$license = FegLicense::getInstance();
 				if ((!empty($license) && !empty($license['serial'])) || count($workers) < 3) {
 					// Creating new worker.  If password is empty, email it to them
 				    if(empty($password)) {
 				    	$settings = DevblocksPlatform::getPluginSettingsService();
-						$replyFrom = $settings->get('usermeet.core',UsermeetSettings::DEFAULT_REPLY_FROM);
-						$replyPersonal = $settings->get('usermeet.core',UsermeetSettings::DEFAULT_REPLY_PERSONAL, '');
+						$replyFrom = $settings->get('feg.core',FegSettings::DEFAULT_REPLY_FROM);
+						$replyPersonal = $settings->get('feg.core',FegSettings::DEFAULT_REPLY_PERSONAL, '');
 						$url = DevblocksPlatform::getUrlService();
 				    	
-						$password = UsermeetApplication::generatePassword(8);
+						$password = FegApplication::generatePassword(8);
 				    	
 //						try {
 //					        $mail_service = DevblocksPlatform::getMailService();
@@ -420,11 +420,11 @@ class UmSetupPage extends UsermeetPageExtension  {
 			
 			// Custom field saves
 			@$field_ids = DevblocksPlatform::importGPC($_POST['field_ids'], 'array', array());
-			DAO_CustomFieldValue::handleFormPost(UmCustomFieldSource_Worker::ID, $id, $field_ids);
+			DAO_CustomFieldValue::handleFormPost(FegCustomFieldSource_Worker::ID, $id, $field_ids);
 		}
 		
 		if(!empty($view_id)) {
-			$view = Um_AbstractViewLoader::getView($view_id);
+			$view = Feg_AbstractViewLoader::getView($view_id);
 			$view->render();
 		}
 		
@@ -450,7 +450,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 //	    $tpl->assign('lists', $lists);
 	    
 		// Custom Fields
-		$custom_fields = DAO_CustomField::getBySource(UmCustomFieldSource_Worker::ID);
+		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Worker::ID);
 		$tpl->assign('custom_fields', $custom_fields);
 		
 		$tpl->display('file:' . $path . 'setup/tabs/workers/bulk.tpl');
@@ -466,7 +466,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 	    
 	    // View
 		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string');
-		$view = Um_AbstractViewLoader::getView($view_id);
+		$view = Feg_AbstractViewLoader::getView($view_id);
 		
 		// Worker fields
 		@$is_disabled = trim(DevblocksPlatform::importGPC($_POST['is_disabled'],'string',''));
@@ -497,7 +497,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 //		$teams = DAO_Group::getAll();
 //		$tpl->assign('teams', $teams);
 //		
-//		$tpl->assign('license',UsermeetLicense::getInstance());
+//		$tpl->assign('license',FegLicense::getInstance());
 //		
 //		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/groups/index.tpl');
 //	}
@@ -510,18 +510,18 @@ class UmSetupPage extends UsermeetPageExtension  {
 		$settings = DevblocksPlatform::getPluginSettingsService();
 		$mail_service = DevblocksPlatform::getMailService();
 		
-		$smtp_host = $settings->get('usermeet.core',UsermeetSettings::SMTP_HOST,'');
-		$smtp_port = $settings->get('usermeet.core',UsermeetSettings::SMTP_PORT,25);
-		$smtp_auth_enabled = $settings->get('usermeet.core',UsermeetSettings::SMTP_AUTH_ENABLED,false);
+		$smtp_host = $settings->get('feg.core',FegSettings::SMTP_HOST,'');
+		$smtp_port = $settings->get('feg.core',FegSettings::SMTP_PORT,25);
+		$smtp_auth_enabled = $settings->get('feg.core',FegSettings::SMTP_AUTH_ENABLED,false);
 		if ($smtp_auth_enabled) {
-			$smtp_auth_user = $settings->get('usermeet.core',UsermeetSettings::SMTP_AUTH_USER,'');
-			$smtp_auth_pass = $settings->get('usermeet.core',UsermeetSettings::SMTP_AUTH_PASS,''); 
+			$smtp_auth_user = $settings->get('feg.core',FegSettings::SMTP_AUTH_USER,'');
+			$smtp_auth_pass = $settings->get('feg.core',FegSettings::SMTP_AUTH_PASS,''); 
 		} else {
 			$smtp_auth_user = '';
 			$smtp_auth_pass = ''; 
 		}
-		$smtp_enc = $settings->get('usermeet.core',UsermeetSettings::SMTP_ENCRYPTION_TYPE,'None');
-		$smtp_max_sends = $settings->get('usermeet.core',UsermeetSettings::SMTP_MAX_SENDS,'20');
+		$smtp_enc = $settings->get('feg.core',FegSettings::SMTP_ENCRYPTION_TYPE,'None');
+		$smtp_max_sends = $settings->get('feg.core',FegSettings::SMTP_MAX_SENDS,'20');
 		
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/mail/index.tpl');
 	}
@@ -529,7 +529,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 	// Form Submit
 	function saveTabMailSetupAction() {
 		$translate = DevblocksPlatform::getTranslationService();
-		$worker = UsermeetApplication::getActiveWorker();
+		$worker = FegApplication::getActiveWorker();
 		
 		if(!$worker || !$worker->is_superuser) {
 			echo $translate->_('common.access_denied');
@@ -557,18 +557,18 @@ class UmSetupPage extends UsermeetPageExtension  {
 	    }
 	    
 	    $settings = DevblocksPlatform::getPluginSettingsService();
-	    $settings->set('usermeet.core',UsermeetSettings::DEFAULT_REPLY_FROM, $default_reply_address);
-	    $settings->set('usermeet.core',UsermeetSettings::DEFAULT_REPLY_PERSONAL, $default_reply_personal);
-//	    $settings->set('usermeet.core',UsermeetSettings::DEFAULT_SIGNATURE, $default_signature);
-//	    $settings->set('usermeet.core',UsermeetSettings::DEFAULT_SIGNATURE_POS, $default_signature_pos);
-	    $settings->set('usermeet.core',UsermeetSettings::SMTP_HOST, $smtp_host);
-	    $settings->set('usermeet.core',UsermeetSettings::SMTP_PORT, $smtp_port);
-	    $settings->set('usermeet.core',UsermeetSettings::SMTP_AUTH_ENABLED, $smtp_auth_enabled);
-	    $settings->set('usermeet.core',UsermeetSettings::SMTP_AUTH_USER, $smtp_auth_user);
-	    $settings->set('usermeet.core',UsermeetSettings::SMTP_AUTH_PASS, $smtp_auth_pass);
-	    $settings->set('usermeet.core',UsermeetSettings::SMTP_ENCRYPTION_TYPE, $smtp_enc);
-	    $settings->set('usermeet.core',UsermeetSettings::SMTP_TIMEOUT, !empty($smtp_timeout) ? $smtp_timeout : 30);
-	    $settings->set('usermeet.core',UsermeetSettings::SMTP_MAX_SENDS, !empty($smtp_max_sends) ? $smtp_max_sends : 20);
+	    $settings->set('feg.core',FegSettings::DEFAULT_REPLY_FROM, $default_reply_address);
+	    $settings->set('feg.core',FegSettings::DEFAULT_REPLY_PERSONAL, $default_reply_personal);
+//	    $settings->set('feg.core',FegSettings::DEFAULT_SIGNATURE, $default_signature);
+//	    $settings->set('feg.core',FegSettings::DEFAULT_SIGNATURE_POS, $default_signature_pos);
+	    $settings->set('feg.core',FegSettings::SMTP_HOST, $smtp_host);
+	    $settings->set('feg.core',FegSettings::SMTP_PORT, $smtp_port);
+	    $settings->set('feg.core',FegSettings::SMTP_AUTH_ENABLED, $smtp_auth_enabled);
+	    $settings->set('feg.core',FegSettings::SMTP_AUTH_USER, $smtp_auth_user);
+	    $settings->set('feg.core',FegSettings::SMTP_AUTH_PASS, $smtp_auth_pass);
+	    $settings->set('feg.core',FegSettings::SMTP_ENCRYPTION_TYPE, $smtp_enc);
+	    $settings->set('feg.core',FegSettings::SMTP_TIMEOUT, !empty($smtp_timeout) ? $smtp_timeout : 30);
+	    $settings->set('feg.core',FegSettings::SMTP_MAX_SENDS, !empty($smtp_max_sends) ? $smtp_max_sends : 20);
 	    
 	    DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','mail','outgoing','test')));
 	}	
@@ -621,7 +621,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
 		
-		$license = UsermeetLicense::getInstance();
+		$license = FegLicense::getInstance();
 		$tpl->assign('license', $license);	
 		
 		$plugins = DevblocksPlatform::getPluginRegistry();
@@ -637,7 +637,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 		$tpl->assign('workers', $workers);
 		
 		// Permissions enabled
-		$acl_enabled = $settings->get('usermeet.core',UsermeetSettings::ACL_ENABLED);
+		$acl_enabled = $settings->get('feg.core',FegSettings::ACL_ENABLED);
 		$tpl->assign('acl_enabled', $acl_enabled);
 		
 		if(empty($license) || (!empty($license)&&isset($license['a'])))
@@ -647,7 +647,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 	}
 	
 	function toggleACLAction() {
-		$worker = UsermeetApplication::getActiveWorker();
+		$worker = FegApplication::getActiveWorker();
 		$settings = DevblocksPlatform::getPluginSettingsService();
 		
 		if(!$worker || !$worker->is_superuser) {
@@ -656,12 +656,12 @@ class UmSetupPage extends UsermeetPageExtension  {
 		
 		@$enabled = DevblocksPlatform::importGPC($_REQUEST['enabled'],'integer',0);
 		
-		$settings->set('usermeet.core',UsermeetSettings::ACL_ENABLED, $enabled);
+		$settings->set('feg.core',FegSettings::ACL_ENABLED, $enabled);
 	}
 	
 	function getRoleAction() {
 		$translate = DevblocksPlatform::getTranslationService();
-		$worker = UsermeetApplication::getActiveWorker();
+		$worker = FegApplication::getActiveWorker();
 		
 		if(!$worker || !$worker->is_superuser) {
 			echo $translate->_('common.access_denied');
@@ -691,7 +691,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 		$role_roster = DAO_WorkerRole::getRoleWorkers($id);
 		$tpl->assign('role_workers', $role_roster);
 		
-		$tpl->assign('license', UsermeetLicense::getInstance());
+		$tpl->assign('license', FegLicense::getInstance());
 		
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/acl/edit_role.tpl');
 	}
@@ -699,7 +699,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 	// Post
 	function saveRoleAction() {
 		$translate = DevblocksPlatform::getTranslationService();
-		$worker = UsermeetApplication::getActiveWorker();
+		$worker = FegApplication::getActiveWorker();
 		
 		if(!$worker || !$worker->is_superuser) {
 			echo $translate->_('common.access_denied');
@@ -747,7 +747,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
 		
-	    $jobs = DevblocksPlatform::getExtensions('usermeet.cron', true);
+	    $jobs = DevblocksPlatform::getExtensions('feg.cron', true);
 		$tpl->assign('jobs', $jobs);
 		
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/scheduler/index.tpl');
@@ -757,7 +757,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 	function saveTabSchedulerAction() {
 		$translate = DevblocksPlatform::getTranslationService();
 		
-		$worker = UsermeetApplication::getActiveWorker();
+		$worker = FegApplication::getActiveWorker();
 		if(!$worker || !$worker->is_superuser) {
 			echo $translate->_('common.access_denied');
 			return;
@@ -772,23 +772,23 @@ class UmSetupPage extends UsermeetPageExtension  {
 	    @$starting = DevblocksPlatform::importGPC($_REQUEST['starting'],'string','');
 	    	    
 	    $manifest = DevblocksPlatform::getExtension($id);
-	    $job = $manifest->createInstance(); /* @var $job UsermeetCronExtension */
+	    $job = $manifest->createInstance(); /* @var $job FegCronExtension */
 
 	    if(!empty($starting)) {
 		    $starting_time = strtotime($starting);
 		    if(false === $starting_time) $starting_time = time();
-		    $starting_time -= UsermeetCronExtension::getIntervalAsSeconds($duration, $term);
-    	    $job->setParam(UsermeetCronExtension::PARAM_LASTRUN, $starting_time);
+		    $starting_time -= FegCronExtension::getIntervalAsSeconds($duration, $term);
+    	    $job->setParam(FegCronExtension::PARAM_LASTRUN, $starting_time);
 	    }
 	    
-	    if(!$job instanceof UsermeetCronExtension)
+	    if(!$job instanceof FegCronExtension)
 	        die($translate->_('common.access_denied'));
 	    
 	    // [TODO] This is really kludgey
-	    $job->setParam(UsermeetCronExtension::PARAM_ENABLED, $enabled);
-	    $job->setParam(UsermeetCronExtension::PARAM_LOCKED, $locked);
-	    $job->setParam(UsermeetCronExtension::PARAM_DURATION, $duration);
-	    $job->setParam(UsermeetCronExtension::PARAM_TERM, $term);
+	    $job->setParam(FegCronExtension::PARAM_ENABLED, $enabled);
+	    $job->setParam(FegCronExtension::PARAM_LOCKED, $locked);
+	    $job->setParam(FegCronExtension::PARAM_DURATION, $duration);
+	    $job->setParam(FegCronExtension::PARAM_TERM, $term);
 	    
 	    $job->saveConfigurationAction();
 	    	    
@@ -801,7 +801,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 		$tpl->assign('path', $this->_TPL_PATH);
 		
 		// Alphabetize
-		$source_manifests = DevblocksPlatform::getExtensions('usermeet.fields.source', false);
+		$source_manifests = DevblocksPlatform::getExtensions('feg.fields.source', false);
 		uasort($source_manifests, create_function('$a, $b', "return strcasecmp(\$a->name,\$b->name);\n"));
 		$tpl->assign('source_manifests', $source_manifests);
 		
@@ -831,7 +831,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 	// Ajax
 	function getFieldSourceAction() {
 		$translate = DevblocksPlatform::getTranslationService();
-		$worker = UsermeetApplication::getActiveWorker();
+		$worker = FegApplication::getActiveWorker();
 		
 		if(!$worker || !$worker->is_superuser) {
 			echo $translate->_('common.access_denied');
@@ -846,7 +846,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 	function saveFieldsAction() {
 		$translate = DevblocksPlatform::getTranslationService();
 		
-		$worker = UsermeetApplication::getActiveWorker();
+		$worker = FegApplication::getActiveWorker();
 		if(!$worker || !$worker->is_superuser) {
 			echo $translate->_('common.access_denied');
 			return;
@@ -905,7 +905,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 	function saveLicensesAction() {
 		$translate = DevblocksPlatform::getTranslationService();
 		$settings = DevblocksPlatform::getPluginSettingsService();
-		$worker = UsermeetApplication::getActiveWorker();
+		$worker = FegApplication::getActiveWorker();
 		
 		if(!$worker || !$worker->is_superuser) {
 			echo $translate->_('common.access_denied');
@@ -917,7 +917,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 		@$do_delete = DevblocksPlatform::importGPC($_POST['do_delete'],'integer',0);
 
 		if(!empty($do_delete)) {
-			$settings->set('usermeet.core',UsermeetSettings::LICENSE, '');
+			$settings->set('feg.core',FegSettings::LICENSE, '');
 			DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','settings')));
 			return;
 		}
@@ -927,7 +927,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 			return;
 		}
 		
-		if(null==($valid = UsermeetLicense::validate($key,$email)) || 5 != count($valid)) {
+		if(null==($valid = FegLicense::validate($key,$email)) || 5 != count($valid)) {
 			DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','settings','invalid')));
 			return;
 		}
@@ -936,11 +936,11 @@ class UmSetupPage extends UsermeetPageExtension  {
 		 * [IMPORTANT -- Yes, this is simply a line in the sand.]
 		 * You're welcome to modify the code to meet your needs, but please respect 
 		 * our licensing.  Buy a legitimate copy to help support the project!
-		 * http://www.usermeet.com/
+		 * http://www.feg.com/
 		 */
 		$license = $valid;
 		
-		$settings->set('usermeet.core',UsermeetSettings::LICENSE, serialize($license));
+		$settings->set('feg.core',FegSettings::LICENSE, serialize($license));
 		
 		DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','settings')));
 	}
@@ -948,7 +948,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 //	// Ajax
 //	function getTeamAction() {
 //		$translate = DevblocksPlatform::getTranslationService();
-//		$worker = UsermeetApplication::getActiveWorker();
+//		$worker = FegApplication::getActiveWorker();
 //		
 //		if(!$worker || !$worker->is_superuser) {
 //			echo $translate->_('common.access_denied');
@@ -974,7 +974,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 //		$workers = DAO_Worker::getAllActive();
 //		$tpl->assign('workers', $workers);
 //		
-//		$tpl->assign('license',UsermeetLicense::getInstance());
+//		$tpl->assign('license',FegLicense::getInstance());
 //		
 //		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/groups/edit_group.tpl');
 //	}
@@ -982,7 +982,7 @@ class UmSetupPage extends UsermeetPageExtension  {
 //	// Post
 //	function saveTeamAction() {
 //		$translate = DevblocksPlatform::getTranslationService();
-//		$worker = UsermeetApplication::getActiveWorker();
+//		$worker = FegApplication::getActiveWorker();
 //		
 //		if(!$worker || !$worker->is_superuser) {
 //			echo $translate->_('common.access_denied');

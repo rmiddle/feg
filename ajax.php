@@ -12,7 +12,7 @@ DevblocksPlatform::setExtensionDelegate('UM_DevblocksExtensionDelegate');
 
 $session = DevblocksPlatform::getSessionService();
 $settings = DevblocksPlatform::getPluginSettingsService();
-$worker = UsermeetApplication::getActiveWorker();
+$worker = FegApplication::getActiveWorker();
 
 // Localization
 DevblocksPlatform::setLocale((isset($_SESSION['locale']) && !empty($_SESSION['locale'])) ? $_SESSION['locale'] : 'en_US');
@@ -24,7 +24,7 @@ $tpl->assign('session', $_SESSION);
 $tpl->assign('visit', $session->getVisit());
 $tpl->assign('active_worker', $worker);
 $tpl->assign('settings', $settings);
-$tpl->assign('core_tpl', APP_PATH . '/features/usermeet.core/templates/');
+$tpl->assign('core_tpl', APP_PATH . '/features/feg.core/templates/');
 
 if(!empty($worker)) {
 //	$active_worker_memberships = $worker->getMemberships();
@@ -34,6 +34,6 @@ if(!empty($worker)) {
 //	$tpl->assign('pref_keyboard_shortcuts', $keyboard_shortcuts);
 }
 
-UsermeetApplication::processRequest($request,true);
+FegApplication::processRequest($request,true);
 
 exit;

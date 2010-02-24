@@ -1,6 +1,6 @@
 <?php
 
-class UsermeetVisit extends DevblocksVisit {
+class FegVisit extends DevblocksVisit {
 	private $worker;
 
 //	const KEY_MY_WORKSPACE = 'view_my_workspace';
@@ -91,7 +91,7 @@ class Model_CustomField {
 	}
 };
 
-abstract class Um_AbstractView {
+abstract class Feg_AbstractView {
 	public $id = 0;
 	public $name = "";
 	public $view_columns = array();
@@ -115,7 +115,7 @@ abstract class Um_AbstractView {
 
 	protected function _renderCriteriaCustomField($tpl, $field_id) {
 		$field = DAO_CustomField::get($field_id);
-		$tpl_path = APP_PATH . '/features/usermeet.core/templates/';
+		$tpl_path = APP_PATH . '/features/feg.core/templates/';
 		
 		switch($field->type) {
 			case Model_CustomField::TYPE_DROPDOWN:
@@ -263,7 +263,7 @@ abstract class Um_AbstractView {
     	}
     	
     	if($needs_save) {
-    		Um_AbstractViewLoader::setView($this->id, $this);
+    		Feg_AbstractViewLoader::setView($this->id, $this);
     	}
 	}
 	
@@ -417,11 +417,11 @@ abstract class Um_AbstractView {
 };
 
 /**
- * Used to persist a Um_AbstractView instance and not be encumbered by
+ * Used to persist a Feg_AbstractView instance and not be encumbered by
  * classloading issues (out of the session) from plugins that might have
  * concrete AbstractView implementations.
  */
-class Um_AbstractViewModel {
+class Feg_AbstractViewModel {
 	public $class_name = '';
 
 	public $id = 0;
@@ -438,12 +438,12 @@ class Um_AbstractViewModel {
 /**
  * This is essentially an AbstractView Factory
  */
-class Um_AbstractViewLoader {
+class Feg_AbstractViewLoader {
 	static $views = null;
 	const VISIT_ABSTRACTVIEWS = 'abstractviews_list';
 
 	static private function _init() {
-		$visit = UsermeetApplication::getVisit();
+		$visit = FegApplication::getVisit();
 		self::$views = $visit->get(self::VISIT_ABSTRACTVIEWS,array());
 	}
 
@@ -459,12 +459,12 @@ class Um_AbstractViewLoader {
 	/**
 	 * Enter description here...
 	 *
-	 * @param string $class Um_AbstractView
+	 * @param string $class Feg_AbstractView
 	 * @param string $view_label ID
-	 * @return Um_AbstractView instance
+	 * @return Feg_AbstractView instance
 	 */
-	static function getView($view_label, Um_AbstractViewModel $defaults=null) {
-		$active_worker = UsermeetApplication::getActiveWorker();
+	static function getView($view_label, Feg_AbstractViewModel $defaults=null) {
+		$active_worker = FegApplication::getActiveWorker();
 		if(is_null(self::$views)) self::_init();
 
 		if(self::exists($view_label)) {
@@ -476,11 +476,11 @@ class Um_AbstractViewLoader {
 			@$prefs = unserialize(DAO_WorkerPref::get($active_worker->id, 'view'.$view_label));
 
 			// If no worker prefsd, check if we're passed defaults
-			if((empty($prefs) || !$prefs instanceof Um_AbstractViewModel) && !empty($defaults))
+			if((empty($prefs) || !$prefs instanceof Feg_AbstractViewModel) && !empty($defaults))
 				$prefs = $defaults;
 			
 			// Create a default view if it doesn't exist
-			if(!empty($prefs) && $prefs instanceof Um_AbstractViewModel) {
+			if(!empty($prefs) && $prefs instanceof Feg_AbstractViewModel) {
 				if(!empty($prefs->class_name) || class_exists($prefs->class_name)) {
 					$view = new $prefs->class_name;
 					$view->id = $view_label;
@@ -505,9 +505,9 @@ class Um_AbstractViewLoader {
 	/**
 	 * Enter description here...
 	 *
-	 * @param string $class Um_AbstractView
+	 * @param string $class Feg_AbstractView
 	 * @param string $view_label ID
-	 * @param Um_AbstractView $view
+	 * @param Feg_AbstractView $view
 	 */
 	static function setView($view_label, $view) {
 		if(is_null(self::$views)) self::_init();
@@ -522,16 +522,16 @@ class Um_AbstractViewLoader {
 	
 	static private function _save() {
 		// persist
-		$visit = UsermeetApplication::getVisit();
+		$visit = FegApplication::getVisit();
 		$visit->set(self::VISIT_ABSTRACTVIEWS, self::$views);
 	}
 
 	static function serializeAbstractView($view) {
-		if(!$view instanceof Um_AbstractView) {
+		if(!$view instanceof Feg_AbstractView) {
 			return null;
 		}
 
-		$model = new Um_AbstractViewModel();
+		$model = new Feg_AbstractViewModel();
 			
 		$model->class_name = get_class($view);
 
@@ -548,14 +548,14 @@ class Um_AbstractViewLoader {
 		return $model;
 	}
 
-	static function unserializeAbstractView(Um_AbstractViewModel $model) {
+	static function unserializeAbstractView(Feg_AbstractViewModel $model) {
 		if(!class_exists($model->class_name, true))
 			return null;
 		
 		if(null == ($inst = new $model->class_name))
 			return null;
 
-		/* @var $inst Um_AbstractView */
+		/* @var $inst Feg_AbstractView */
 			
 		$inst->id = $model->id;
 		$inst->name = $model->name;
@@ -589,10 +589,10 @@ class Model_Worker {
 			return true;
 		
 		$settings = DevblocksPlatform::getPluginSettingsService();
-		$acl_enabled = $settings->get('usermeet.core',UsermeetSettings::ACL_ENABLED);
+		$acl_enabled = $settings->get('feg.core',FegSettings::ACL_ENABLED);
 			
 		// ACL is a paid feature (please respect the licensing and support the project!)
-		$license = UsermeetLicense::getInstance();
+		$license = FegLicense::getInstance();
 		if(!$acl_enabled || !isset($license['serial']) || isset($license['a']))
 			return ("core.setup"==substr($priv_id,0,11)) ? false : true;
 			
@@ -630,7 +630,7 @@ class Model_WorkerRole {
 	public $name;
 };
 
-class Um_WorkerView extends Um_AbstractView {
+class Feg_WorkerView extends Feg_AbstractView {
 	const DEFAULT_ID = 'workers';
 
 	function __construct() {
@@ -670,11 +670,11 @@ class Um_WorkerView extends Um_AbstractView {
 		$tpl->assign('id', $this->id);
 		$tpl->assign('view', $this);
 
-		$custom_fields = DAO_CustomField::getBySource(UmCustomFieldSource_Worker::ID);
+		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Worker::ID);
 		$tpl->assign('custom_fields', $custom_fields);
 
 		$tpl->assign('view_fields', $this->getColumns());
-		$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/setup/tabs/workers/view.tpl');
+		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/workers/view.tpl');
 	}
 
 	function renderCriteria($field) {
@@ -686,14 +686,14 @@ class Um_WorkerView extends Um_AbstractView {
 			case SearchFields_Worker::FIRST_NAME:
 			case SearchFields_Worker::LAST_NAME:
 			case SearchFields_Worker::TITLE:
-				$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/internal/views/criteria/__string.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__string.tpl');
 				break;
 			case SearchFields_Worker::IS_DISABLED:
 			case SearchFields_Worker::IS_SUPERUSER:
-				$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/internal/views/criteria/__bool.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__bool.tpl');
 				break;
 			case SearchFields_Worker::LAST_ACTIVITY_DATE:
-				$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/internal/views/criteria/__date.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__date.tpl');
 				break;
 			default:
 				// Custom Fields
@@ -850,7 +850,7 @@ class Um_WorkerView extends Um_AbstractView {
 			DAO_Worker::update($batch_ids, $change_fields);
 			
 			// Custom Fields
-			self::_doBulkSetCustomFields(UmCustomFieldSource_Worker::ID, $custom_fields, $batch_ids);
+			self::_doBulkSetCustomFields(FegCustomFieldSource_Worker::ID, $custom_fields, $batch_ids);
 			
 			unset($batch_ids);
 		}
@@ -870,7 +870,7 @@ class Model_WorkerEvent {
 	public $url;
 };
 
-class Um_WorkerEventView extends Um_AbstractView {
+class Feg_WorkerEventView extends Feg_AbstractView {
 	const DEFAULT_ID = 'worker_events';
 
 	function __construct() {
@@ -910,7 +910,7 @@ class Um_WorkerEventView extends Um_AbstractView {
 		$tpl->assign('workers', $workers);
 		
 		$tpl->assign('view_fields', $this->getColumns());
-		$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/home/tabs/my_notifications/view.tpl');
+		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/home/tabs/my_notifications/view.tpl');
 	}
 
 	function renderCriteria($field) {
@@ -921,24 +921,24 @@ class Um_WorkerEventView extends Um_AbstractView {
 			case SearchFields_WorkerEvent::TITLE:
 			case SearchFields_WorkerEvent::CONTENT:
 			case SearchFields_WorkerEvent::URL:
-				$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/internal/views/criteria/__string.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__string.tpl');
 				break;
 //			case SearchFields_WorkerEvent::ID:
 //			case SearchFields_WorkerEvent::MESSAGE_ID:
 //			case SearchFields_WorkerEvent::TICKET_ID:
 //			case SearchFields_WorkerEvent::FILE_SIZE:
-//				$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/internal/views/criteria/__number.tpl');
+//				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__number.tpl');
 //				break;
 			case SearchFields_WorkerEvent::IS_READ:
-				$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/internal/views/criteria/__bool.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__bool.tpl');
 				break;
 			case SearchFields_WorkerEvent::CREATED_DATE:
-				$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/internal/views/criteria/__date.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__date.tpl');
 				break;
 			case SearchFields_WorkerEvent::WORKER_ID:
 				$workers = DAO_Worker::getAllActive();
 				$tpl->assign('workers', $workers);
-				$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/internal/views/criteria/__worker.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__worker.tpl');
 				break;
 			default:
 				echo '';

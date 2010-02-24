@@ -1,5 +1,5 @@
 <?php
-class UmTranslatorsSetupTab extends Extension_SetupTab {
+class FegTranslatorsSetupTab extends Extension_SetupTab {
 	const ID = 'translators.setup.tab';
 	
 	function showTab() {
@@ -7,20 +7,20 @@ class UmTranslatorsSetupTab extends Extension_SetupTab {
 		
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
-		$core_tplpath = dirname(dirname(dirname(__FILE__))) . '/usermeet.core/templates/';
+		$core_tplpath = dirname(dirname(dirname(__FILE__))) . '/feg.core/templates/';
 		$tpl->assign('core_tplpath', $core_tplpath);
 
 		$tpl->assign('response_uri', 'setup/translations');
 		
-		$defaults = new Um_AbstractViewModel();
-		$defaults->class_name = 'Um_TranslationView';
-		$defaults->id = Um_TranslationView::DEFAULT_ID;
+		$defaults = new Feg_AbstractViewModel();
+		$defaults->class_name = 'Feg_TranslationView';
+		$defaults->id = Feg_TranslationView::DEFAULT_ID;
 		
-		$view = Um_AbstractViewLoader::getView(Um_TranslationView::DEFAULT_ID, $defaults);
+		$view = Feg_AbstractViewLoader::getView(Feg_TranslationView::DEFAULT_ID, $defaults);
 		
 		$tpl->assign('view', $view);
-		$tpl->assign('view_fields', Um_TranslationView::getFields());
-		$tpl->assign('view_searchable_fields', Um_TranslationView::getSearchFields());
+		$tpl->assign('view_fields', Feg_TranslationView::getFields());
+		$tpl->assign('view_searchable_fields', Feg_TranslationView::getSearchFields());
 		
 		$tpl->display('file:' . $tpl_path . 'setup/translations/index.tpl');
 	}
@@ -34,7 +34,7 @@ class UmTranslatorsSetupTab extends Extension_SetupTab {
 	
 };
 
-class Um_TranslationView extends Um_AbstractView {
+class Feg_TranslationView extends Feg_AbstractView {
 	const DEFAULT_ID = 'translations';
 
 	function __construct() {
@@ -79,7 +79,7 @@ class Um_TranslationView extends Um_AbstractView {
 		$tpl->assign('english_map', $english_map);
 		
 		$tpl->assign('view_fields', $this->getColumns());
-		$tpl->display('file:' . APP_PATH . '/features/usermeet.translators/templates/setup/translations/view.tpl');
+		$tpl->display('file:' . APP_PATH . '/features/feg.translators/templates/setup/translations/view.tpl');
 	}
 
 	function renderCriteria($field) {
@@ -90,15 +90,15 @@ class Um_TranslationView extends Um_AbstractView {
 			case SearchFields_Translation::STRING_ID:
 			case SearchFields_Translation::STRING_DEFAULT:
 			case SearchFields_Translation::STRING_OVERRIDE:
-				$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/internal/views/criteria/__string.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__string.tpl');
 				break;
 			case SearchFields_Translation::ID:
-				$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/internal/views/criteria/__number.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__number.tpl');
 				break;
 			case SearchFields_Translation::LANG_CODE:
 				$langs = DAO_Translation::getDefinedLangCodes(); // [TODO] Cache!
 				$tpl->assign('langs', $langs);
-				$tpl->display('file:' . APP_PATH . '/features/usermeet.core/templates/internal/views/criteria/__language.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__language.tpl');
 				break;
 			default:
 				echo '';
@@ -184,7 +184,7 @@ class Um_TranslationView extends Um_AbstractView {
 	}
 };
 
-class UmTranslatorsAjaxController extends DevblocksControllerExtension {
+class FegTranslatorsAjaxController extends DevblocksControllerExtension {
 	function __construct($manifest) {
 		parent::__construct($manifest);
 	}
@@ -255,7 +255,7 @@ class UmTranslatorsAjaxController extends DevblocksControllerExtension {
 	}
 
 	function saveFindStringsPanelAction() {
-		$active_worker = UsermeetApplication::getActiveWorker();
+		$active_worker = FegApplication::getActiveWorker();
 		
 		// Make sure we're an active worker
 		if(empty($active_worker) || empty($active_worker->id))
@@ -291,12 +291,12 @@ class UmTranslatorsAjaxController extends DevblocksControllerExtension {
 			}
 		}
 		
-		$defaults = new Um_AbstractViewModel();
-		$defaults->class_name = 'Um_TranslationView';
-		$defaults->id = Um_TranslationView::DEFAULT_ID;
+		$defaults = new Feg_AbstractViewModel();
+		$defaults->class_name = 'Feg_TranslationView';
+		$defaults->id = Feg_TranslationView::DEFAULT_ID;
 			
 		// Clear the existing view
-		$view = Um_AbstractViewLoader::getView(Um_TranslationView::DEFAULT_ID, $defaults);
+		$view = Feg_AbstractViewLoader::getView(Feg_TranslationView::DEFAULT_ID, $defaults);
 		$view->doResetCriteria();
 		
 		// Set search to untranslated strings that aren't English
@@ -306,7 +306,7 @@ class UmTranslatorsAjaxController extends DevblocksControllerExtension {
 			SearchFields_Translation::STRING_OVERRIDE => new DevblocksSearchCriteria(SearchFields_Translation::STRING_OVERRIDE,DevblocksSearchCriteria::OPER_EQ,''),
 			SearchFields_Translation::LANG_CODE => new DevblocksSearchCriteria(SearchFields_Translation::LANG_CODE,DevblocksSearchCriteria::OPER_NEQ,'en_US'),
 		);
-		Um_AbstractViewLoader::setView($view->id, $view);
+		Feg_AbstractViewLoader::setView($view->id, $view);
 
 		self::_clearCache();
 		
@@ -331,7 +331,7 @@ class UmTranslatorsAjaxController extends DevblocksControllerExtension {
 	}
 
 	function saveAddLanguagePanelAction() {
-		$active_worker = UsermeetApplication::getActiveWorker();
+		$active_worker = FegApplication::getActiveWorker();
 		
 		// Make sure we're an active worker
 		if(empty($active_worker) || empty($active_worker->id))
@@ -392,12 +392,12 @@ class UmTranslatorsAjaxController extends DevblocksControllerExtension {
 		
 		// If we added a new language then change the view to display it
 		if(!empty($add_lang_code)) {
-			$defaults = new Um_AbstractViewModel();
-			$defaults->class_name = 'Um_TranslationView';
-			$defaults->id = Um_TranslationView::DEFAULT_ID;
+			$defaults = new Feg_AbstractViewModel();
+			$defaults->class_name = 'Feg_TranslationView';
+			$defaults->id = Feg_TranslationView::DEFAULT_ID;
 			
 			// Clear the existing view
-			$view = Um_AbstractViewLoader::getView(Um_TranslationView::DEFAULT_ID, $defaults);
+			$view = Feg_AbstractViewLoader::getView(Feg_TranslationView::DEFAULT_ID, $defaults);
 			$view->doResetCriteria();
 			
 			// Set search to untranslated strings that aren't English
@@ -415,7 +415,7 @@ class UmTranslatorsAjaxController extends DevblocksControllerExtension {
 				$view->params[SearchFields_Translation::STRING_OVERRIDE] = new DevblocksSearchCriteria(SearchFields_Translation::STRING_OVERRIDE,DevblocksSearchCriteria::OPER_EQ,'');
 			}
 			
-			Um_AbstractViewLoader::setView($view->id, $view);
+			Feg_AbstractViewLoader::setView($view->id, $view);
 			
 		}
 
@@ -441,11 +441,11 @@ class UmTranslatorsAjaxController extends DevblocksControllerExtension {
 	}
 	
 	function exportTmxAction() {
-		$defaults = new Um_AbstractViewModel();
-		$defaults->class_name = 'Um_TranslationView';
-		$defaults->id = Um_TranslationView::DEFAULT_ID;
+		$defaults = new Feg_AbstractViewModel();
+		$defaults->class_name = 'Feg_TranslationView';
+		$defaults->id = Feg_TranslationView::DEFAULT_ID;
 		
-		$view = Um_AbstractViewLoader::getView(Um_TranslationView::DEFAULT_ID, $defaults);
+		$view = Feg_AbstractViewLoader::getView(Feg_TranslationView::DEFAULT_ID, $defaults);
 
 		// Extract every result from the view
 		list($results, $null) = DAO_Translation::search(
@@ -504,7 +504,7 @@ class UmTranslatorsAjaxController extends DevblocksControllerExtension {
 		$simplexml = $doc->importNode($simplexml, true);
 		$simplexml = $doc->appendChild($simplexml);
 
-		$filename = "portsensor_lang_" . implode('_', array_keys($codes)) . ".xml";
+		$filename = "feg_lang_" . implode('_', array_keys($codes)) . ".xml";
 		
 		header("Content-type: text/xml");
 		header("Content-Disposition: attachment; filename=\"$filename\"");

@@ -1,6 +1,6 @@
 <?php
 
-abstract class UsermeetPageExtension extends DevblocksExtension {
+abstract class FegPageExtension extends DevblocksExtension {
 	function __construct($manifest) {
 		$this->DevblocksExtension($manifest);
 	}
@@ -16,7 +16,7 @@ abstract class UsermeetPageExtension extends DevblocksExtension {
 	}
 };
 
-abstract class UsermeetCronExtension extends DevblocksExtension {
+abstract class FegCronExtension extends DevblocksExtension {
     const PARAM_ENABLED = 'enabled';
     const PARAM_LOCKED = 'locked';
     const PARAM_DURATION = 'duration';
@@ -117,7 +117,7 @@ abstract class Extension_AppPostBodyRenderer extends DevblocksExtension {
 };
 
 abstract class Extension_CustomFieldSource extends DevblocksExtension {
-	const EXTENSION_POINT = 'usermeet.fields.source';
+	const EXTENSION_POINT = 'feg.fields.source';
 	
 	function __construct($manifest) {
 		$this->DevblocksExtension($manifest);

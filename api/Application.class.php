@@ -1,6 +1,6 @@
 <?php
 /***********************************************************************
-| Usermeet(tm) developed by WebGroup Media, LLC.
+| Feg(tm) developed by WebGroup Media, LLC.
 |-----------------------------------------------------------------------
 | All source code & content (c) Copyright 2010, WebGroup Media LLC
 |   unless specifically noted otherwise.
@@ -8,7 +8,7 @@
 | By using this software, you acknowledge having read the license
 | and agree to be bound thereby.
 | ______________________________________________________________________
-|	http://www.usermeet.com	  http://www.webgroupmedia.com/
+|	http://www.feg.com	  http://www.webgroupmedia.com/
 ***********************************************************************/
 define("APP_BUILD", 2010021201);
 
@@ -20,13 +20,13 @@ require_once(APP_PATH . "/api/Extension.class.php");
 $path = APP_PATH . '/api/app/';
 
 DevblocksPlatform::registerClasses($path . 'Update.php', array(
-	'UmUpdateController',
+	'FegUpdateController',
 ));
 
 /**
  * Application-level Facade
  */
-class UsermeetApplication extends DevblocksApplication {
+class FegApplication extends DevblocksApplication {
 	
 	/**
 	 * @return CerberusVisit
@@ -53,7 +53,7 @@ class UsermeetApplication extends DevblocksApplication {
 		 * being populated from XML beforehand when /update loads it.
 		 */
 		if(!$is_ajax && isset($request->path[0]) && 0 == strcasecmp($request->path[0],'update')) {
-			if(null != ($update_controller = new UmUpdateController(null)))
+			if(null != ($update_controller = new FegUpdateController(null)))
 				$update_controller->handleRequest($request);
 			
 		} else {
@@ -117,7 +117,7 @@ class UsermeetApplication extends DevblocksApplication {
 		// PHP Version
 		if(version_compare(PHP_VERSION,"5.2") >=0) {
 		} else {
-			$errors[] = 'Usermeet requires PHP 5.2 or later. Your server PHP version is '.PHP_VERSION;
+			$errors[] = 'Feg requires PHP 5.2 or later. Your server PHP version is '.PHP_VERSION;
 		}
 		
 		// File Uploads
@@ -307,7 +307,7 @@ class UsermeetApplication extends DevblocksApplication {
 	    
 };
 
-class UsermeetLicense {
+class FegLicense {
 	public $name = '';
 	public $users = 3;
 	public $key = '';
@@ -317,7 +317,7 @@ class UsermeetLicense {
 	 */
 	public static function getInstance() {
 		$settings = DevblocksPlatform::getPluginSettingsService();
-		$license = $settings->get('usermeet.core',UsermeetSettings::LICENSE,array());
+		$license = $settings->get('feg.core',FegSettings::LICENSE,array());
 		if(!empty($license)) {
 			@$license = unserialize($license);
 		}
@@ -348,36 +348,36 @@ class UsermeetLicense {
 	}
 };
 
-class UsermeetMail {
+class FegMail {
 	private function __construct() {}
 	
 	static function getMailerDefaults() {
 		$settings = DevblocksPlatform::getPluginSettingsService();
 
 		return array(
-			'host' => $settings->get('usermeet.core',UsermeetSettings::SMTP_HOST,'localhost'),
-			'port' => $settings->get('usermeet.core',UsermeetSettings::SMTP_PORT,'25'),
-			'auth_user' => $settings->get('usermeet.core',UsermeetSettings::SMTP_AUTH_USER,null),
-			'auth_pass' => $settings->get('usermeet.core',UsermeetSettings::SMTP_AUTH_PASS,null),
-			'enc' => $settings->get('usermeet.core',UsermeetSettings::SMTP_ENCRYPTION_TYPE,'None'),
-			'max_sends' => $settings->get('usermeet.core',UsermeetSettings::SMTP_MAX_SENDS,20),
-			'timeout' => $settings->get('usermeet.core',UsermeetSettings::SMTP_TIMEOUT,30),
+			'host' => $settings->get('feg.core',FegSettings::SMTP_HOST,'localhost'),
+			'port' => $settings->get('feg.core',FegSettings::SMTP_PORT,'25'),
+			'auth_user' => $settings->get('feg.core',FegSettings::SMTP_AUTH_USER,null),
+			'auth_pass' => $settings->get('feg.core',FegSettings::SMTP_AUTH_PASS,null),
+			'enc' => $settings->get('feg.core',FegSettings::SMTP_ENCRYPTION_TYPE,'None'),
+			'max_sends' => $settings->get('feg.core',FegSettings::SMTP_MAX_SENDS,20),
+			'timeout' => $settings->get('feg.core',FegSettings::SMTP_TIMEOUT,30),
 		);
 	}
 	
 	static function quickSend($to, $subject, $body, $from_addy=null, $from_personal=null) {
 		try {
 			$mail_service = DevblocksPlatform::getMailService();
-			$mailer = $mail_service->getMailer(UsermeetMail::getMailerDefaults());
+			$mailer = $mail_service->getMailer(FegMail::getMailerDefaults());
 			$mail = $mail_service->createMessage();
 	
 		    $settings = DevblocksPlatform::getPluginSettingsService();
 		    
 		    if(empty($from_addy))
-				@$from_addy = $settings->get('usermeet.core',UsermeetSettings::DEFAULT_REPLY_FROM, $_SERVER['SERVER_ADMIN']);
+				@$from_addy = $settings->get('feg.core',FegSettings::DEFAULT_REPLY_FROM, $_SERVER['SERVER_ADMIN']);
 		    
 		    if(empty($from_personal))
-				@$from_personal = $settings->get('usermeet.core',UsermeetSettings::DEFAULT_REPLY_PERSONAL,'');
+				@$from_personal = $settings->get('feg.core',FegSettings::DEFAULT_REPLY_PERSONAL,'');
 			
 			$mail->setTo(array($to));
 			$mail->setFrom(array($from_addy => $from_personal));
@@ -386,7 +386,7 @@ class UsermeetMail {
 			
 			$headers = $mail->getHeaders();
 			
-			$headers->addTextHeader('X-Mailer','Usermeet (Build '.APP_BUILD.')');
+			$headers->addTextHeader('X-Mailer','Feg (Build '.APP_BUILD.')');
 			
 			$mail->setBody($body);
 		
@@ -403,7 +403,7 @@ class UsermeetMail {
 	}
 };
 
-class UsermeetSettings {
+class FegSettings {
 	const APP_TITLE = 'app_title'; 
 	const APP_LOGO_URL = 'app_logo_url'; 
 	const DEFAULT_REPLY_FROM = 'default_reply_from'; 
@@ -425,13 +425,13 @@ class UsermeetSettings {
 class UM_DevblocksExtensionDelegate implements DevblocksExtensionDelegate {
 	static function shouldLoadExtension(DevblocksExtensionManifest $extension_manifest) {
 		// Always allow core
-		if("usermeet.core" == $extension_manifest->plugin_id)
+		if("feg.core" == $extension_manifest->plugin_id)
 			return true;
 		
 		// [TODO] This should limit to just things we can run with no session
 		// Community Tools, Cron/Update.  They are still limited by their own
 		// isVisible() otherwise.
-		if(null == ($active_worker = UsermeetApplication::getActiveWorker()))
+		if(null == ($active_worker = FegApplication::getActiveWorker()))
 			return true;
 		
 		// [TODO] ACL

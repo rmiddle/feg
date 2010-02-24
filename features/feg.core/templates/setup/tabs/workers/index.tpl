@@ -4,10 +4,10 @@
 	<div class="error">
 		You have reached the number of workers permitted by your license.
 		<a href="{devblocks_url}c=setup&a=settings{/devblocks_url}">[Enter License]</a>
-		<a href="http://www.usermeet.com/buy" target="_blank">[Purchase License]</a>
+		<a href="http://feg.answernet.com/buy" target="_blank">[Purchase License]</a>
 	</div>
 	{else}
-	<button type="button" onclick="genericAjaxPanel('c=setup&a=showWorkerPeek&id=0&view_id={$view->id|escape:'url'}',null,false,'500');"><img src="{devblocks_url}c=resource&p=usermeet.core&f=images/businessman_add.gif{/devblocks_url}" align="top"> Add Worker</button>
+	<button type="button" onclick="genericAjaxPanel('c=setup&a=showWorkerPeek&id=0&view_id={$view->id|escape:'url'}',null,false,'500');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/businessman_add.gif{/devblocks_url}" align="top"> Add Worker</button>
 	{/if}
 </form>
 

@@ -1,8 +1,8 @@
 <?php
-class MaintCron extends UsermeetCronExtension {
+class MaintCron extends FegCronExtension {
 	function run() {
 		$logger = DevblocksPlatform::getConsoleLog();
-		$logger->info("[Maint] Starting Maintenance Task");
+		$logger->info("[FEG] Starting Maintenance Task");
 		
 		@ini_set('memory_limit','64M');
 
@@ -53,7 +53,7 @@ class MaintCron extends UsermeetCronExtension {
  * time-dependent or interval-based events.  For example, doing a workflow
  * action every 5 minutes.
  */
-class HeartbeatCron extends UsermeetCronExtension {
+class HeartbeatCron extends FegCronExtension {
 	function run() {
 		$logger = DevblocksPlatform::getConsoleLog();
 		$logger->info("[Heartbeat] Starting Heartbeat Task");

@@ -1,6 +1,6 @@
 <?php
 /***********************************************************************
-| Usermeet(tm) developed by WebGroup Media, LLC.
+| UFeg(tm) developed by WebGroup Media, LLC.
 |-----------------------------------------------------------------------
 | All source code & content (c) Copyright 2009, WebGroup Media LLC
 |   unless specifically noted otherwise.
@@ -8,15 +8,15 @@
 | By using this software, you acknowledge having read the license
 | and agree to be bound thereby.
 | ______________________________________________________________________
-|	http://www.usermeet.com	  http://www.webgroupmedia.com/
+|	http://www.feg.com	  http://www.webgroupmedia.com/
 ***********************************************************************/
 
-define('INSTALL_APP_NAME', 'Usermeet');
+define('INSTALL_APP_NAME', 'Feg');
 
 // -----------
 
 if(version_compare(PHP_VERSION, "5.2", "<"))
-	die("Usermeet requires PHP 5.2 or later.");
+	die("Feg requires PHP 5.2 or later.");
 
 @set_time_limit(3600);
 require('../framework.config.php');
@@ -59,7 +59,7 @@ define('TOTAL_STEPS', 11);
  */
 if(empty($step)) $step = STEP_ENVIRONMENT;
 
-// [TODO] Could convert to UsermeetApplication::checkRequirements()
+// [TODO] Could convert to FegApplication::checkRequirements()
 
 @chmod(APP_TEMP_PATH, 0774);
 @mkdir(APP_TEMP_PATH . '/templates_c/');
@@ -403,7 +403,7 @@ switch($step) {
 				if(is_array($plugins))
 				foreach($plugins as $plugin_manifest) { /* @var $plugin_manifest DevblocksPluginManifest */
 					switch ($plugin_manifest->id) {
-						case "usermeet.core":
+						case "feg.core":
 							$plugin_manifest->setEnabled(true);
 							break;
 						
@@ -459,9 +459,9 @@ switch($step) {
 	case STEP_CONTACT:
 		$settings = DevblocksPlatform::getPluginSettingsService();
 		
-		@$default_reply_from = DevblocksPlatform::importGPC($_POST['default_reply_from'],'string',$settings->get('usermeet.core',UsermeetSettings::DEFAULT_REPLY_FROM));
-		@$default_reply_personal = DevblocksPlatform::importGPC($_POST['default_reply_personal'],'string',$settings->get('usermeet.core',UsermeetSettings::DEFAULT_REPLY_PERSONAL));
-		@$app_title = DevblocksPlatform::importGPC($_POST['app_title'],'string',$settings->get('usermeet.core',UsermeetSettings::APP_TITLE,'Usermeet - Powered by Community Feedback'));
+		@$default_reply_from = DevblocksPlatform::importGPC($_POST['default_reply_from'],'string',$settings->get('feg.core',FegSettings::DEFAULT_REPLY_FROM));
+		@$default_reply_personal = DevblocksPlatform::importGPC($_POST['default_reply_personal'],'string',$settings->get('feg.core',FegSettings::DEFAULT_REPLY_PERSONAL));
+		@$app_title = DevblocksPlatform::importGPC($_POST['app_title'],'string',$settings->get('feg.core',FegSettings::APP_TITLE,'Feg - Fat Email Gateway'));
 		@$form_submit = DevblocksPlatform::importGPC($_POST['form_submit'],'integer');
 		
 		if(!empty($form_submit)) { // && !empty($default_reply_from)
@@ -469,15 +469,15 @@ switch($step) {
 			$validate = imap_rfc822_parse_adrlist(sprintf("<%s>", $default_reply_from),"localhost");
 			
 			if(!empty($default_reply_from) && is_array($validate) && 1==count($validate)) {
-				$settings->set('usermeet.core',UsermeetSettings::DEFAULT_REPLY_FROM, $default_reply_from);
+				$settings->set('feg.core',FegSettings::DEFAULT_REPLY_FROM, $default_reply_from);
 			}
 			
 			if(!empty($default_reply_personal)) {
-				$settings->set('usermeet.core',UsermeetSettings::DEFAULT_REPLY_PERSONAL, $default_reply_personal);
+				$settings->set('feg.core',FegSettings::DEFAULT_REPLY_PERSONAL, $default_reply_personal);
 			}
 			
 			if(!empty($app_title)) {
-				$settings->set('usermeet.core',UsermeetSettings::APP_TITLE, $app_title);
+				$settings->set('feg.core',FegSettings::APP_TITLE, $app_title);
 			}
 			
 			$tpl->assign('step', STEP_OUTGOING_MAIL);
@@ -501,9 +501,9 @@ switch($step) {
 	case STEP_OUTGOING_MAIL:
 		$settings = DevblocksPlatform::getPluginSettingsService();
 		
-		@$smtp_host = DevblocksPlatform::importGPC($_POST['smtp_host'],'string',$settings->get('usermeet.core',UsermeetSettings::SMTP_HOST,'localhost'));
-		@$smtp_port = DevblocksPlatform::importGPC($_POST['smtp_port'],'integer',$settings->get('usermeet.core',UsermeetSettings::SMTP_PORT,25));
-		@$smtp_enc = DevblocksPlatform::importGPC($_POST['smtp_enc'],'string',$settings->get('usermeet.core',UsermeetSettings::SMTP_ENCRYPTION_TYPE,'None'));
+		@$smtp_host = DevblocksPlatform::importGPC($_POST['smtp_host'],'string',$settings->get('feg.core',FegSettings::SMTP_HOST,'localhost'));
+		@$smtp_port = DevblocksPlatform::importGPC($_POST['smtp_port'],'integer',$settings->get('feg.core',FegSettings::SMTP_PORT,25));
+		@$smtp_enc = DevblocksPlatform::importGPC($_POST['smtp_enc'],'string',$settings->get('feg.core',FegSettings::SMTP_ENCRYPTION_TYPE,'None'));
 		@$smtp_auth_user = DevblocksPlatform::importGPC($_POST['smtp_auth_user'],'string');
 		@$smtp_auth_pass = DevblocksPlatform::importGPC($_POST['smtp_auth_pass'],'string');
 		@$form_submit = DevblocksPlatform::importGPC($_POST['form_submit'],'integer');
@@ -527,18 +527,18 @@ switch($step) {
 				$transport->stop();
 				
 				if(!empty($smtp_host))
-					$settings->set('usermeet.core',UsermeetSettings::SMTP_HOST, $smtp_host);
+					$settings->set('feg.core',FegSettings::SMTP_HOST, $smtp_host);
 				if(!empty($smtp_port))
-					$settings->set('usermeet.core',UsermeetSettings::SMTP_PORT, $smtp_port);
+					$settings->set('feg.core',FegSettings::SMTP_PORT, $smtp_port);
 				if(!empty($smtp_auth_user)) {
-					$settings->set('usermeet.core',UsermeetSettings::SMTP_AUTH_ENABLED, 1);
-					$settings->set('usermeet.core',UsermeetSettings::SMTP_AUTH_USER, $smtp_auth_user);
-					$settings->set('usermeet.core',UsermeetSettings::SMTP_AUTH_PASS, $smtp_auth_pass);
+					$settings->set('feg.core',FegSettings::SMTP_AUTH_ENABLED, 1);
+					$settings->set('feg.core',FegSettings::SMTP_AUTH_USER, $smtp_auth_user);
+					$settings->set('feg.core',FegSettings::SMTP_AUTH_PASS, $smtp_auth_pass);
 				} else {
-					$settings->set('usermeet.core',UsermeetSettings::SMTP_AUTH_ENABLED, 0);
+					$settings->set('feg.core',FegSettings::SMTP_AUTH_ENABLED, 0);
 				}
 				if(!empty($smtp_enc))
-					$settings->set('usermeet.core',UsermeetSettings::SMTP_ENCRYPTION_TYPE, $smtp_enc);
+					$settings->set('feg.core',FegSettings::SMTP_ENCRYPTION_TYPE, $smtp_enc);
 				
 				$tpl->assign('step', STEP_DEFAULTS);
 				$tpl->display('steps/redirect.tpl');
@@ -682,7 +682,7 @@ switch($step) {
 			
 			if(empty($skip) && !empty($contact_name)) {
 				$settings = DevblocksPlatform::getPluginSettingsService();
-				@$default_from = $settings->get('usermeet.core',UsermeetSettings::DEFAULT_REPLY_FROM,'');
+				@$default_from = $settings->get('feg.core',FegSettings::DEFAULT_REPLY_FROM,'');
 				
 				@$contact_phone = stripslashes($_REQUEST['contact_phone']);
 				@$contact_refer = stripslashes($_REQUEST['contact_refer']);
@@ -732,7 +732,7 @@ switch($step) {
 				    $comments
 				  );
 
-				  UsermeetMail::quickSend('sales@webgroupmedia.com',"About: $contact_name of $contact_company",$msg, $contact_email, $contact_name);
+				  FegMail::quickSend('sales@webgroupmedia.com',"About: $contact_name of $contact_company",$msg, $contact_email, $contact_name);
 				}
 			}
 			
@@ -752,21 +752,21 @@ switch($step) {
 	case STEP_FINISHED:
 		
 		// Set up the default cron jobs
-		$crons = DevblocksPlatform::getExtensions('usermeet.cron', true, true);
+		$crons = DevblocksPlatform::getExtensions('feg.cron', true, true);
 		if(is_array($crons))
-		foreach($crons as $id => $cron) { /* @var $cron UsermeetCronExtension */
+		foreach($crons as $id => $cron) { /* @var $cron FegCronExtension */
 			switch($id) {
 				case 'cron.maint':
-					$cron->setParam(UsermeetCronExtension::PARAM_ENABLED, true);
-					$cron->setParam(UsermeetCronExtension::PARAM_DURATION, '24');
-					$cron->setParam(UsermeetCronExtension::PARAM_TERM, 'h');
-					$cron->setParam(UsermeetCronExtension::PARAM_LASTRUN, strtotime('Yesterday'));
+					$cron->setParam(FegCronExtension::PARAM_ENABLED, true);
+					$cron->setParam(FegCronExtension::PARAM_DURATION, '24');
+					$cron->setParam(FegCronExtension::PARAM_TERM, 'h');
+					$cron->setParam(FegCronExtension::PARAM_LASTRUN, strtotime('Yesterday'));
 					break;
 				case 'cron.heartbeat':
-					$cron->setParam(UsermeetCronExtension::PARAM_ENABLED, true);
-					$cron->setParam(UsermeetCronExtension::PARAM_DURATION, '5');
-					$cron->setParam(UsermeetCronExtension::PARAM_TERM, 'm');
-					$cron->setParam(UsermeetCronExtension::PARAM_LASTRUN, strtotime('Yesterday'));
+					$cron->setParam(FegCronExtension::PARAM_ENABLED, true);
+					$cron->setParam(FegCronExtension::PARAM_DURATION, '5');
+					$cron->setParam(FegCronExtension::PARAM_TERM, 'm');
+					$cron->setParam(FegCronExtension::PARAM_LASTRUN, strtotime('Yesterday'));
 					break;
 			}
 			

@@ -22,8 +22,8 @@
 				<tr>
 					<td style="padding-left:5px;">
 						{if empty($license.serial) || (!empty($license.serial) && isset($license.a))}{assign var=free_mode value=1}{/if}
-						{if $plugin->id=="portsensor.xxx" && $free_mode}
-							(<a href="http://www.usermeet.com/buy" target="_blank" style="font-weight:bold;">Limited to 10 time tracking entries for evaluation with a free license</a>)<br>
+						{if $plugin->id=="feg.xxx" && $free_mode}
+							(<a href="http://feg.answernet.com/buy" target="_blank" style="font-weight:bold;">Limited to 10 time tracking entries for evaluation with a free license</a>)<br>
 						{/if}					
 						{$plugin->description}	
 					</td>
@@ -36,6 +36,6 @@
 {/foreach}
 </ul>
 
-<button type="submit"><img src="{devblocks_url}c=resource&p=usermeet.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('common.save_changes')|capitalize}</button>
+<button type="submit"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('common.save_changes')|capitalize}</button>
 </form>
 

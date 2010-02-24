@@ -7,18 +7,18 @@
 <H3>Plain English License</H3>
 
 <ul style="line-height:175%;margin:20px;">
-	<li>This software is the exclusive property and copyright of <b>WebGroup Media LLC ("WGM")</b></li>
-	<li>You may not resell, rebrand or sub-license this software without written permission from WGM.</li>
+	<li>This software is the exclusive property and copyright of <b>Answernet ("Answernet")</b></li>
+	<li>You may not resell, rebrand or sub-license this software without written permission from Answernet.</li>
 	<li>You may not remove or alter any copyright notices found in the source code.</li>
 	<li>This software is provided to you "as is".</li>
-	<li>Under no condition may you hold WGM liable for more than the total payments received from you.</li>
+	<li>Under no condition may you hold Answernet liable for more than the total payments received from you.</li>
 	<li>
 		You may create, adapt, sell and distribute improvements to this software pursuant to these conditions:
 		<ul>
-			<li>WebGroup Media LLC retains full ownership rights to this software.</li>
+			<li>Answernet retains full ownership rights to this software.</li>
 			<li>The use of this licensed source code is only permitted within the scope of this license.</li>
 			<li>Your source code may not be obfuscated, encoded or otherwise not human-readable.</li>
-			<li>WebGroup Media LLC disclaims all liability for third-party modifications.</li>
+			<li>Answernet disclaims all liability for third-party modifications.</li>
 		</ul> 
 	</li>
 </ul>

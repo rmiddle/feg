@@ -1,5 +1,5 @@
 <?php
-class UmHomePage extends UsermeetPageExtension {
+class FegHomePage extends FegPageExtension {
 	private $_TPL_PATH = '';
 	
 	const VIEW_MY_NOTIFICATIONS = 'home_my_notifications';
@@ -25,8 +25,8 @@ class UmHomePage extends UsermeetPageExtension {
 	}
 	
 	function render() {
-		$active_worker = UsermeetApplication::getActiveWorker();
-		$visit = UsermeetApplication::getVisit();
+		$active_worker = FegApplication::getActiveWorker();
+		$visit = FegApplication::getVisit();
 		
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
@@ -40,7 +40,7 @@ class UmHomePage extends UsermeetPageExtension {
 		}
 		$tpl->assign('selected_tab', $selected_tab);
 		
-		$tab_manifests = DevblocksPlatform::getExtensions('usermeet.home.tab', false);
+		$tab_manifests = DevblocksPlatform::getExtensions('feg.home.tab', false);
 		$tpl->assign('tab_manifests', $tab_manifests);
 		
 		// Custom workspaces
@@ -98,23 +98,23 @@ class UmHomePage extends UsermeetPageExtension {
 	}
 	
 	function showTabNotificationsAction() {
-		$visit = UsermeetApplication::getVisit();
+		$visit = FegApplication::getVisit();
 		$translate = DevblocksPlatform::getTranslationService();
-		$active_worker = UsermeetApplication::getActiveWorker();
+		$active_worker = FegApplication::getActiveWorker();
 		
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
 		
 		// Select tab
-		$visit->set(UsermeetVisit::KEY_HOME_SELECTED_TAB, 'notifications');
+		$visit->set(FegVisit::KEY_HOME_SELECTED_TAB, 'notifications');
 		
 		// My Notifications
-		$myNotificationsView = Um_AbstractViewLoader::getView(self::VIEW_MY_NOTIFICATIONS);
+		$myNotificationsView = Feg_AbstractViewLoader::getView(self::VIEW_MY_NOTIFICATIONS);
 		
 		$title = vsprintf($translate->_('home.my_notifications.view.title'), $active_worker->getName());
 		
 		if(null == $myNotificationsView) {
-			$myNotificationsView = new Um_WorkerEventView();
+			$myNotificationsView = new Feg_WorkerEventView();
 			$myNotificationsView->id = self::VIEW_MY_NOTIFICATIONS;
 			$myNotificationsView->name = $title;
 			$myNotificationsView->renderLimit = 25;
@@ -134,7 +134,7 @@ class UmHomePage extends UsermeetPageExtension {
 		 * lose the params in the saved version of the view in the DB w/o recovery.
 		 * This should be moved back into the if(null==...) check in a later build.
 		 */
-		Um_AbstractViewLoader::setView($myNotificationsView->id,$myNotificationsView);
+		Feg_AbstractViewLoader::setView($myNotificationsView->id,$myNotificationsView);
 		
 		$tpl->assign('view', $myNotificationsView);
 		$tpl->display('file:' . $this->_TPL_PATH . 'home/tabs/my_notifications/index.tpl');
@@ -146,7 +146,7 @@ class UmHomePage extends UsermeetPageExtension {
 	 *
 	 */
 	function redirectReadAction() {
-		$worker = UsermeetApplication::getActiveWorker();
+		$worker = FegApplication::getActiveWorker();
 		
 		$request = DevblocksPlatform::getHttpRequest();
 		$stack = $request->path;
@@ -170,7 +170,7 @@ class UmHomePage extends UsermeetPageExtension {
 	} 
 	
 	function doNotificationsMarkReadAction() {
-		$worker = UsermeetApplication::getActiveWorker();
+		$worker = FegApplication::getActiveWorker();
 		
 		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'], 'string', '');
 		@$row_ids = DevblocksPlatform::importGPC($_REQUEST['row_id'],'array',array());
@@ -191,7 +191,7 @@ class UmHomePage extends UsermeetPageExtension {
 			DAO_WorkerEvent::clearCountCache($worker->id);
 		}
 		
-		$myEventsView = Um_AbstractViewLoader::getView($view_id);
+		$myEventsView = Feg_AbstractViewLoader::getView($view_id);
 		$myEventsView->render();
 	}
 		

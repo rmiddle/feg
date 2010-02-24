@@ -1,11 +1,11 @@
 <!DOCTYPE plugin SYSTEM "../../libs/devblocks/plugin.dtd">
 <plugin>
-	<id>usermeet.webapi</id>
-	<name>[Usermeet] Web Services API</name>
-	<description>A RESTful XML/JSON interface for integrating PortSensor with other applications and tools.</description>
-	<author>WebGroup Media, LLC.</author>
+	<id>feg.webapi</id>
+	<name>[Feg] Web Services API</name>
+	<description>A RESTful XML/JSON interface for integrating Feg with other applications and tools.</description>
+	<author>Answernet</author>
 	<revision>0</revision>
-	<link>http://wiki.usermeet.com/wiki/Web-API</link>
+	<link>http://feg.answernet.com</link>
 
 	<!-- Exported Classes -->
 	
@@ -27,7 +27,7 @@
 			<name>Web API Strings</name>
 			<class>
 				<file>api/Plugin.php</file>
-				<name>UmWebApiTranslations</name>
+				<name>FegWebApiTranslations</name>
 			</class>
 			<params>
 			</params>
@@ -36,11 +36,11 @@
 		<!-- Controllers -->
 	
 		<extension point="devblocks.controller">
-			<id>portsensor.controller.rest</id>
+			<id>feg.controller.rest</id>
 			<name>REST Controller</name>
 			<class>
 				<file>api/App.php</file>
-				<name>UmRestFrontController</name>
+				<name>FegRestFrontController</name>
 			</class>
 			<params>
 				<param key="uri" value="webapi" />

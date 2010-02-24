@@ -7,11 +7,11 @@
 <br>
 
 <b>Browser Title:</b><br>
-<input type="text" name="title" value="{$settings->get('usermeet.core','app_title','Usermeet - Powered by Community Feedback')|escape:"html"}" size="64"><br>
+<input type="text" name="title" value="{$settings->get('feg.core','app_title','Feg - Fax Email Gateway')|escape:"html"}" size="64"><br>
 <br>
 
 <b>Logo URL:</b> (leave blank for default)<br>
-<input type="text" name="logo" value="{$settings->get('usermeet.core','app_logo_url')|escape:"html"}" size="64"><br>
+<input type="text" name="logo" value="{$settings->get('feg.core','app_logo_url')|escape:"html"}" size="64"><br>
 <br>
 
 <!-- 
@@ -26,12 +26,12 @@
 <br>
 <b>Allow remote administration tools (upgrade, cron) from these IPs:</b> (one IP per line)
 <br>
-<textarea name="authorized_ips" rows="5" cols="24" style="width: 400;">{$settings->get('usermeet.core','authorized_ips')|escape:"html"}</textarea>	
+<textarea name="authorized_ips" rows="5" cols="24" style="width: 400;">{$settings->get('feg.core','authorized_ips')|escape:"html"}</textarea>	
 <br>
 (Partial IP matches OK. For example: 192.168.1.)<br>
 
 <br>
-<button type="submit"><img src="{devblocks_url}c=resource&p=usermeet.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('common.save_changes')|capitalize}</button>
+<button type="submit"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('common.save_changes')|capitalize}</button>
 </div>
 </form>
 
@@ -107,8 +107,8 @@ Total Disk Space: <b>{$total_file_size} MB</b><br>
 <textarea rows="8" cols="80" name="key"></textarea><br>
 <br>
 
-<button type="submit"><img src="{devblocks_url}c=resource&p=usermeet.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('common.save_changes')|capitalize}</button>
-<button type="button" onclick="if(confirm('Are you sure you want to remove your license?')){literal}{{/literal}this.form.do_delete.value='1';this.form.submit();{literal}}{/literal}"><img src="{devblocks_url}c=resource&p=usermeet.core&f=images/document_delete.gif{/devblocks_url}" align="top"> Clear License</button>
+<button type="submit"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('common.save_changes')|capitalize}</button>
+<button type="button" onclick="if(confirm('Are you sure you want to remove your license?')){literal}{{/literal}this.form.do_delete.value='1';this.form.submit();{literal}}{/literal}"><img src="{devblocks_url}c=resource&p=feg.core&f=images/document_delete.gif{/devblocks_url}" align="top"> Clear License</button>
 
 </form>
 </div>

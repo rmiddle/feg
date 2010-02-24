@@ -1,5 +1,5 @@
 <?php
-class UmUpdateController extends DevblocksControllerExtension {
+class FegUpdateController extends DevblocksControllerExtension {
 	function __construct($manifest) {
 		parent::__construct($manifest);
 	}
@@ -21,7 +21,7 @@ class UmUpdateController extends DevblocksControllerExtension {
 	    	case 'locked':
 	    		if(!DevblocksPlatform::versionConsistencyCheck()) {
 	    			$url = DevblocksPlatform::getUrlService();
-	    			echo "<h1>Usermeet</h1>";
+	    			echo "<h1>Feg</h1>";
 	    			echo "The application is currently waiting for an administrator to finish upgrading. ".
 	    				"Please wait a few minutes and then ". 
 		    			sprintf("<a href='%s'>try again</a>.<br><br>",
@@ -37,11 +37,11 @@ class UmUpdateController extends DevblocksControllerExtension {
 	    		
 	    	default:
 			    $path = APP_TEMP_PATH . DIRECTORY_SEPARATOR;
-				$file = $path . 'umupdate_lock';	    		
+				$file = $path . 'fegupdate_lock';	    		
 				
 				$settings = DevblocksPlatform::getPluginSettingsService();
 				
-			    $authorized_ips_str = $settings->get('usermeet.core',UsermeetSettings::AUTHORIZED_IPS);
+			    $authorized_ips_str = $settings->get('feg.core',FegSettings::AUTHORIZED_IPS);
 			    $authorized_ips = DevblocksPlatform::parseCrlfString($authorized_ips_str);
 			    
 		   	    $authorized_ip_defaults = DevblocksPlatform::parseCsvString(AUTHORIZED_IPS_DEFAULTS);
@@ -60,7 +60,7 @@ class UmUpdateController extends DevblocksControllerExtension {
 			    }
 				
 			    // Check requirements
-			    $errors = UsermeetApplication::checkRequirements();
+			    $errors = FegApplication::checkRequirements();
 			    
 			    if(!empty($errors)) {
 			    	echo $translate->_('update.correct_errors');

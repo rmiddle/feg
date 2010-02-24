@@ -1,5 +1,5 @@
 <?php
-class UmPreferencesPage extends UsermeetPageExtension {
+class FegPreferencesPage extends FegPageExtension {
 	private $_TPL_PATH = '';
 	
 	function __construct($manifest) {
@@ -31,7 +31,7 @@ class UmPreferencesPage extends UsermeetPageExtension {
 		
 		array_shift($path); // preferences
 		
-		$tab_manifests = DevblocksPlatform::getExtensions('usermeet.preferences.tab', false);
+		$tab_manifests = DevblocksPlatform::getExtensions('feg.preferences.tab', false);
 		$tpl->assign('tab_manifests', $tab_manifests);
 		
 		@$section = array_shift($path); // section
@@ -91,7 +91,7 @@ class UmPreferencesPage extends UsermeetPageExtension {
 		$tpl_path = $this->_TPL_PATH;
 		$tpl->assign('path', $tpl_path);
 		
-		$worker = UsermeetApplication::getActiveWorker();
+		$worker = FegApplication::getActiveWorker();
 		$tpl->assign('worker', $worker);
 		
 		$assist_mode = intval(DAO_WorkerPref::get($worker->id, 'assist_mode', 1));
@@ -118,7 +118,7 @@ class UmPreferencesPage extends UsermeetPageExtension {
 		@$timezone = DevblocksPlatform::importGPC($_REQUEST['timezone'],'string');
 		@$lang_code = DevblocksPlatform::importGPC($_REQUEST['lang_code'],'string','en_US');
 	    
-		$worker = UsermeetApplication::getActiveWorker();
+		$worker = FegApplication::getActiveWorker();
 		$translate = DevblocksPlatform::getTranslationService();
    		$tpl = DevblocksPlatform::getTemplateService();
    		

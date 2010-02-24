@@ -1,6 +1,6 @@
 <?php
 /***********************************************************************
-| Usermeet(tm) developed by WebGroup Media, LLC.
+| Feg(tm) developed by WebGroup Media, LLC.
 |-----------------------------------------------------------------------
 | All source code & content (c) Copyright 2009, WebGroup Media LLC
 |   unless specifically noted otherwise.
@@ -8,10 +8,10 @@
 | By using this software, you acknowledge having read the license
 | and agree to be bound thereby.
 | ______________________________________________________________________
-|	http://www.usermeet.com	  http://www.webgroupmedia.com/
+|	http://feg.answernet.com	  http://www.webgroupmedia.com/
 ***********************************************************************/
 
-class UmTranslations extends DevblocksTranslationsExtension {
+class FegTranslations extends DevblocksTranslationsExtension {
 	function __construct($manifest) {
 		parent::__construct($manifest);	
 	}
@@ -23,11 +23,11 @@ class UmTranslations extends DevblocksTranslationsExtension {
 
 // Custom Field Sources
 
-class UmCustomFieldSource_Worker extends Extension_CustomFieldSource {
-	const ID = 'usermeet.fields.source.worker';
+class FegCustomFieldSource_Worker extends Extension_CustomFieldSource {
+	const ID = 'feg.fields.source.worker';
 };
 
-class UmPageController extends DevblocksControllerExtension {
+class FegPageController extends DevblocksControllerExtension {
     const ID = 'core.controller.page';
     
 	function __construct($manifest) {
@@ -41,7 +41,7 @@ class UmPageController extends DevblocksControllerExtension {
 	 * @return string $id
 	 */
 	public function _getPageIdByUri($uri) {
-        $pages = DevblocksPlatform::getExtensions('usermeet.page', false);
+        $pages = DevblocksPlatform::getExtensions('feg.page', false);
         foreach($pages as $manifest) { /* @var $manifest DevblocksExtensionManifest */
             if(0 == strcasecmp($uri,$manifest->params['uri'])) {
                 return $manifest->id;
@@ -50,10 +50,10 @@ class UmPageController extends DevblocksControllerExtension {
         return NULL;
 	}
 	
-	// [TODO] We probably need a UsermeetApplication scope for getting content that has ACL applied
+	// [TODO] We probably need a FegApplication scope for getting content that has ACL applied
 	private function _getAllowedPages() {
-		$active_worker = UsermeetApplication::getActiveWorker();
-		$page_manifests = DevblocksPlatform::getExtensions('usermeet.page', false);
+		$active_worker = FegApplication::getActiveWorker();
+		$page_manifests = DevblocksPlatform::getExtensions('feg.page', false);
 
 		// [TODO] This may cause problems on other pages where an active worker isn't required
 		// Check RSS/etc (was bugged on login)
@@ -77,7 +77,7 @@ class UmPageController extends DevblocksControllerExtension {
 
 		// [TODO] _getAllowedPages() should take over, but it currently blocks hidden stubs
         $page_id = $this->_getPageIdByUri($controller);
-		$page = DevblocksPlatform::getExtension($page_id, true); /* @var $page UsermeetPageExtension */
+		$page = DevblocksPlatform::getExtension($page_id, true); /* @var $page FegPageExtension */
 		
         if(empty($page)) {
 	        switch($controller) {
@@ -125,7 +125,7 @@ class UmPageController extends DevblocksControllerExtension {
 		$session = DevblocksPlatform::getSessionService();
 		$settings = DevblocksPlatform::getPluginSettingsService();
 		$translate = DevblocksPlatform::getTranslationService();
-	    $active_worker = UsermeetApplication::getActiveWorker();
+	    $active_worker = FegApplication::getActiveWorker();
 		
 		$visit = $session->getVisit();
 		$page_manifests = $this->_getAllowedPages();
@@ -136,7 +136,7 @@ class UmPageController extends DevblocksControllerExtension {
 		if(empty($controller)) 
 			$controller = 'home';
 
-	    // [JAS]: Require us to always be logged in for Usermeet pages
+	    // [JAS]: Require us to always be logged in for Feg pages
 		if(empty($visit) && 0 != strcasecmp($controller,'login')) {
 			$query = array();
 			if(!empty($response->path))
@@ -145,7 +145,7 @@ class UmPageController extends DevblocksControllerExtension {
 		}
 
 	    $page_id = $this->_getPageIdByUri($controller);
-		@$page = DevblocksPlatform::getExtension($page_id, true); /* @var $page UsermeetPageExtension */
+		@$page = DevblocksPlatform::getExtension($page_id, true); /* @var $page FegPageExtension */
         
         if(empty($page)) {
    		    header("Status: 404");
@@ -183,23 +183,23 @@ class UmPageController extends DevblocksControllerExtension {
 		$tpl->assign('session', $_SESSION);
 		$tpl->assign('translate', $translate);
 		$tpl->assign('visit', $visit);
-		$tpl->assign('license',UsermeetLicense::getInstance());
+		$tpl->assign('license',FegLicense::getInstance());
 		
 		$tpl->assign('page_manifests',$page_manifests);		
 		$tpl->assign('page',$page);
 
 		$tpl->assign('response_uri', implode('/', $response->path));
 		
-		$core_tpl = APP_PATH . '/features/usermeet.core/templates/';
+		$core_tpl = APP_PATH . '/features/feg.core/templates/';
 		$tpl->assign('core_tpl', $core_tpl);
 		
 		// Prebody Renderers
-		$preBodyRenderers = DevblocksPlatform::getExtensions('usermeet.renderer.prebody', true);
+		$preBodyRenderers = DevblocksPlatform::getExtensions('feg.renderer.prebody', true);
 		if(!empty($preBodyRenderers))
 			$tpl->assign('prebody_renderers', $preBodyRenderers);
 
 		// Postbody Renderers
-		$postBodyRenderers = DevblocksPlatform::getExtensions('usermeet.renderer.postbody', true);
+		$postBodyRenderers = DevblocksPlatform::getExtensions('feg.renderer.postbody', true);
 		if(!empty($postBodyRenderers))
 			$tpl->assign('postbody_renderers', $postBodyRenderers);
 		

@@ -1,5 +1,5 @@
 <?php
-class UmWelcomePage extends UsermeetPageExtension {
+class FegWelcomePage extends FegPageExtension {
 	private $_TPL_PATH = '';
 	
 	function __construct($manifest) {
@@ -9,7 +9,7 @@ class UmWelcomePage extends UsermeetPageExtension {
 		
 	function isVisible() {
 		// check login
-		$visit = UsermeetApplication::getVisit();
+		$visit = FegApplication::getVisit();
 		
 		if(empty($visit)) {
 			return false;

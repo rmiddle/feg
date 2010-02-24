@@ -1,6 +1,6 @@
 <?php
 /***********************************************************************
-| Usermeet(tm) developed by WebGroup Media, LLC.
+| Feg(tm) developed by WebGroup Media, LLC.
 |-----------------------------------------------------------------------
 | All source code & content (c) Copyright 2009, WebGroup Media LLC
 |   unless specifically noted otherwise.
@@ -8,7 +8,7 @@
 | By using this software, you acknowledge having read the license
 | and agree to be bound thereby.
 | ______________________________________________________________________
-|	http://www.usermeet.com	  http://www.webgroupmedia.com/
+|	http://www.feg.answernet.com	  http://www.webgroupmedia.com/
 ***********************************************************************/
 
 if(version_compare(PHP_VERSION, "5.2", "<"))

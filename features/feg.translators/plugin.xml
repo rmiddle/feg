@@ -1,17 +1,17 @@
 <!DOCTYPE plugin SYSTEM "../../libs/devblocks/plugin.dtd">
 <plugin>
-	<id>usermeet.translators</id>
-	<name>[Usermeet] Translation Editor</name>
+	<id>feg.translators</id>
+	<name>[Feg] Translation Editor</name>
 	<description>A GUI for translating the PortSensor interface into other languages.  This adds a 'Translations' tab to Configuration.</description>
 	<author>WebGroup Media, LLC.</author>
 	<revision>0</revision>
-	<link>http://wiki.usermeet.com/wiki/</link>
+	<link>http://feg.answernet.com/</link>
 	
 	<!-- Exported Classes -->
 	
 	<class_loader>
 		<file path="api/App.php">
-			<class name="Um_TranslationView" />
+			<class name="Feg_TranslationView" />
 		</file>
 	</class_loader>
 	
@@ -24,7 +24,7 @@
 			<name>Translate Strings</name>
 			<class>
 				<file>api/Plugin.php</file>
-				<name>UmTranslateTranslations</name>
+				<name>FegTranslateTranslations</name>
 			</class>
 			<params>
 			</params>
@@ -32,12 +32,12 @@
 	
 		<!-- Config Tabs -->
 		
-		<extension point="usermeet.setup.tab">
+		<extension point="feg.setup.tab">
 			<id>translators.setup.tab</id>
 			<name>Translators Tab</name>
 			<class>
 				<file>api/App.php</file>
-				<name>UmTranslatorsSetupTab</name>
+				<name>FegTranslatorsSetupTab</name>
 			</class>
 			<params>
 				<param key="uri" value="translations" />
@@ -52,7 +52,7 @@
 			<name>Translators Ajax Controller</name>
 			<class>
 				<file>api/App.php</file>
-				<name>UmTranslatorsAjaxController</name>
+				<name>FegTranslatorsAjaxController</name>
 			</class>
 			<params>
 				<param key="uri" value="translators" />

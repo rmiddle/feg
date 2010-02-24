@@ -14,12 +14,12 @@
 	{assign var=lastrun value=$job->getParam('lastrun',0)}
 	
 	{if $locked}
-		<img src="{devblocks_url}c=resource&p=usermeet.core&f=images/lock.gif{/devblocks_url}" align="top" title="Locked">
+		<img src="{devblocks_url}c=resource&p=feg.core&f=images/lock.gif{/devblocks_url}" align="top" title="Locked">
 	{else}
 		{if $enabled}
-			<img src="{devblocks_url}c=resource&p=usermeet.core&f=images/check.gif{/devblocks_url}" align="top" title="Enabled">
+			<img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top" title="Enabled">
 		{else}
-			<img src="{devblocks_url}c=resource&p=usermeet.core&f=images/delete.gif{/devblocks_url}" align="top" title="Disabled">
+			<img src="{devblocks_url}c=resource&p=feg.core&f=images/delete.gif{/devblocks_url}" align="top" title="Disabled">
 		{/if}
 	{/if}
 	{*<a href="{devblocks_url}c=setup&a=jobs&b=manage&id={$job_id}{/devblocks_url}">{$job->manifest->name}</a>*}

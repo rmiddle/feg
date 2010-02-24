@@ -1,5 +1,5 @@
 <?php
-class UmCorePatchContainer extends DevblocksPatchContainerExtension {
+class FegCorePatchContainer extends DevblocksPatchContainerExtension {
 	function __construct($manifest) {
 		parent::__construct($manifest);
 		
@@ -11,6 +11,6 @@ class UmCorePatchContainer extends DevblocksPatchContainerExtension {
 
 		$file_prefix = dirname(dirname(__FILE__)) . '/patches/';
 		
-		$this->registerPatch(new DevblocksPatch('usermeet.core',2,$file_prefix.'1.0.0__.php',''));
+		$this->registerPatch(new DevblocksPatch('feg.core',2,$file_prefix.'1.0.0__.php',''));
 	}
 };

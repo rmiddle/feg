@@ -1,5 +1,5 @@
 <?php
-class UmRestFrontController extends DevblocksControllerExtension {
+class FegRestFrontController extends DevblocksControllerExtension {
 	function __construct($manifest) {
 		parent::__construct($manifest);
 	}
@@ -74,7 +74,7 @@ abstract class Ps_RestController implements DevblocksHttpRequestHandler {
 			$this->_error("Access denied! (Invalid worker)");
 		}
 
-		if(!$worker->hasPriv('plugin.usermeet.webapi')) {
+		if(!$worker->hasPriv('plugin.feg.webapi')) {
 			$this->_error("Access denied! (No permission)");
 		}
 		

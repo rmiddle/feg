@@ -30,9 +30,9 @@
 			{* add arrow if sorting by this column, finish table header tag *}
 			{if $header==$view->renderSortBy}
 				{if $view->renderSortAsc}
-					<img src="{devblocks_url}c=resource&p=usermeet.core&f=images/sort_ascending.png{/devblocks_url}" align="absmiddle">
+					<img src="{devblocks_url}c=resource&p=feg.core&f=images/sort_ascending.png{/devblocks_url}" align="absmiddle">
 				{else}
-					<img src="{devblocks_url}c=resource&p=usermeet.core&f=images/sort_descending.png{/devblocks_url}" align="absmiddle">
+					<img src="{devblocks_url}c=resource&p=feg.core&f=images/sort_descending.png{/devblocks_url}" align="absmiddle">
 				{/if}
 			{/if}
 			</th>
@@ -90,7 +90,7 @@
 					{else}{* String not set *}
 						{if 'en_US' != $result.tl_lang_code}
 						{if !empty($english_string)}
-						<img src="{devblocks_url}c=resource&p=usermeet.translators&f=images/16x16/warning.png{/devblocks_url}" align="top"> 
+						<img src="{devblocks_url}c=resource&p=feg.translators&f=images/16x16/warning.png{/devblocks_url}" align="top"> 
 						<b style="color:rgb(175,0,0);">{$langs.$lang_code}</b><br>
 						<span style="color:rgb(50,50,50);">{'translators.config.translate_from'|devblocks_translate:$langs.en_US}</span><br>
 						<table cellpadding="0" cellspacing="0" style="margin-top:5px;margin-bottom:5px;border:1px dotted rgb(200,0,0);">
@@ -146,8 +146,8 @@
 	{if $total}
 	<tr>
 		<td colspan="2">
-			<button type="button" onclick="this.form.a.value='saveView';this.form.submit();"><img src="{devblocks_url}c=resource&p=usermeet.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('common.save_changes')|capitalize}</button>
-			<button type="button" onclick="document.location.href='{devblocks_url}c=translators&a=exportTmx{/devblocks_url}';"><img src="{devblocks_url}c=resource&p=usermeet.translators&f=images/16x16/document_down.png{/devblocks_url}" align="top"> {$translate->_('common.export')|capitalize}</button>
+			<button type="button" onclick="this.form.a.value='saveView';this.form.submit();"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('common.save_changes')|capitalize}</button>
+			<button type="button" onclick="document.location.href='{devblocks_url}c=translators&a=exportTmx{/devblocks_url}';"><img src="{devblocks_url}c=resource&p=feg.translators&f=images/16x16/document_down.png{/devblocks_url}" align="top"> {$translate->_('common.export')|capitalize}</button>
 		</td>
 	</tr>
 	{/if}

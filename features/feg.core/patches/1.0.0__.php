@@ -158,16 +158,4 @@ if(!isset($tables['worker_event'])) {
 	$db->Execute($sql);	
 }
 
-// ===========================================================================
-// Hand 'setting' over to 'devblocks_setting' (and copy)
-
-if(isset($tables['setting']) && isset($tables['devblocks_setting'])) {
-	$sql = "INSERT INTO devblocks_setting (plugin_id, setting, value) ".
-		"SELECT 'usermeet.core', setting, value FROM setting";
-	$db->Execute($sql);
-	
-	$db->Execute("DROP TABLE setting");
-    unset($tables['setting']);
-}
-
 return TRUE;

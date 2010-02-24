@@ -10,14 +10,14 @@
 	<META HTTP-EQUIV="Expires" CONTENT="0">
 	-->
 
-  <title>{$settings->get('usermeet.core','app_title')}</title>
+  <title>{$settings->get('feg.core','app_title')}</title>
   <link type="image/x-icon" rel="shortcut icon" href="{devblocks_url}favicon.ico{/devblocks_url}">
   
-  <link type="text/css" rel="stylesheet" href="{devblocks_url}c=resource&p=usermeet.core&f=css/jquery-ui-1.7.2.custom.css{/devblocks_url}?v={$smarty.const.APP_BUILD}">
-  <link type="text/css" rel="stylesheet" href="{devblocks_url}c=resource&p=usermeet.core&f=css/usermeet.css{/devblocks_url}?v={$smarty.const.APP_BUILD}">
+  <link type="text/css" rel="stylesheet" href="{devblocks_url}c=resource&p=feg.core&f=css/jquery-ui-1.7.2.custom.css{/devblocks_url}?v={$smarty.const.APP_BUILD}">
+  <link type="text/css" rel="stylesheet" href="{devblocks_url}c=resource&p=feg.core&f=css/feg.css{/devblocks_url}?v={$smarty.const.APP_BUILD}">
 
   <!-- Production -->
-  <script language="javascript" type="text/javascript" src="{devblocks_url}c=resource&p=usermeet.core&f=js/jquery/jquery.combined.min.js{/devblocks_url}?v={$smarty.const.APP_BUILD}"></script>
+  <script language="javascript" type="text/javascript" src="{devblocks_url}c=resource&p=feg.core&f=js/jquery/jquery.combined.min.js{/devblocks_url}?v={$smarty.const.APP_BUILD}"></script>
 
   <!-- [TODO] Cache this -->
   <script language="javascript" type="text/javascript">

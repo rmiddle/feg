@@ -1,11 +1,11 @@
 <!DOCTYPE plugin SYSTEM "../../libs/devblocks/plugin.dtd">
 <plugin>
-	<id>usermeet.core</id>
-	<name>[Usermeet] Core</name>
-	<description>The core functionality of Usermeet.</description>
-	<author>WebGroup Media, LLC.</author>
+	<id>feg.core</id>
+	<name>[FEG] Core</name>
+	<description>The core functionality of FEG.</description>
+	<author>Robert Middleswarth</author>
 	<revision>0</revision>
-	<link>http://wiki.usermeet.com/wiki/</link>
+	<link>feg.answernet.com</link>
 	
 	<!-- Plugin Dependencies -->
 	
@@ -35,8 +35,8 @@
 	
 	<class_loader>
 		<file path="api/plugin.classes.php">
-			<class name="UmPageController" />
-			<class name="UmCustomFieldSource_Worker" />
+			<class name="FegPageController" />
+			<class name="FegCustomFieldSource_Worker" />
 			<!--
 			<class name="ChTaskSource_Ticket" />
 			<class name="ChWorkspaceSource_Worker" />
@@ -86,11 +86,11 @@
 
 		<!-- Event Listeners -->
 		<extension point="devblocks.listener.event">
-			<id>portsensor.listeners.event</id>
+			<id>feg.listeners.event</id>
 			<name>Global Event Listener</name>
 			<class>
 				<file>api/listeners.classes.php</file>
-				<name>UmCoreEventListener</name>
+				<name>FegCoreEventListener</name>
 			</class>
 			<params>
 			</params>
@@ -103,7 +103,7 @@
 			<name>Internal Controller</name>
 			<class>
 				<file>api/uri/internal.php</file>
-				<name>UmInternalController</name>
+				<name>FegInternalController</name>
 			</class>
 			<params>
 				<param key="uri" value="internal" />
@@ -129,7 +129,7 @@
 			<name>Scheduled Tasks (Cron) Controller</name>
 			<class>
 				<file>api/uri/cron.php</file>
-				<name>UmCronController</name>
+				<name>FegCronController</name>
 			</class>
 			<params>
 				<param key="uri" value="cron" />
@@ -138,10 +138,10 @@
 
 		<extension point="devblocks.controller">
 			<id>core.controller.page</id>
-			<name>PortSensor Front Controller</name>
+			<name>FEG Front Controller</name>
 			<class>
 				<file>api/plugin.classes.php</file>
-				<name>UmPageController</name>
+				<name>FegPageController</name>
 			</class>
 			<params>
 			</params>
@@ -151,10 +151,10 @@
 		
 		<extension point="devblocks.i18n.strings">
 			<id>core.translations</id>
-			<name>PortSensor Strings</name>
+			<name>Feg Strings</name>
 			<class>
 				<file>api/plugin.classes.php</file>
-				<name>UmTranslations</name>
+				<name>FegTranslations</name>
 			</class>
 			<params/>
 		</extension>
@@ -163,10 +163,10 @@
 		
 		<extension point="devblocks.patch.container">
 			<id>core.patches</id>
-			<name>PortSensor Patches</name>
+			<name>Feg Patches</name>
 			<class>
 				<file>api/patch.classes.php</file>
-				<name>UmCorePatchContainer</name>
+				<name>FegCorePatchContainer</name>
 			</class>
 			<params>
 			</params>
@@ -179,7 +179,7 @@
 			<name>Core App Tour</name>
 			<class>
 				<file>api/listeners.classes.php</file>
-				<name>UmCoreTour</name>
+				<name>FegCoreTour</name>
 			</class>
 			<params>
 			</params>
@@ -187,12 +187,12 @@
 	
 		<!-- Pages -->
 
-		<extension point="usermeet.page">
+		<extension point="feg.page">
 			<id>core.page.welcome</id>
 			<name>Welcome Page</name>
 			<class>
 				<file>api/uri/welcome.php</file>
-				<name>UmWelcomePage</name>
+				<name>FegWelcomePage</name>
 			</class>
 			<params>
 				<param key="uri" value="welcome" />
@@ -200,12 +200,12 @@
 			</params>
 		</extension>
 
-		<extension point="usermeet.page">
+		<extension point="feg.page">
 			<id>core.page.home</id>
 			<name>Home Page</name>
 			<class>
 				<file>api/uri/home.php</file>
-				<name>UmHomePage</name>
+				<name>FegHomePage</name>
 			</class>
 			<params>
 				<param key="uri" value="home" />
@@ -213,12 +213,12 @@
 			</params>
 		</extension>
 
-		<extension point="usermeet.page">
+		<extension point="feg.page">
 			<id>core.page.signin</id>
 			<name>Signin Page</name>
 			<class>
 				<file>api/uri/login.php</file>
-				<name>UmSignInPage</name>
+				<name>FegSignInPage</name>
 			</class>
 			<params>
 				<param key="uri" value="login" />
@@ -226,12 +226,12 @@
 			</params>
 		</extension>
 
-		<extension point="usermeet.page">
+		<extension point="feg.page">
 			<id>core.page.setup</id>
 			<name>Setup Page</name>
 			<class>
 				<file>api/uri/setup.php</file>
-				<name>UmSetupPage</name>
+				<name>FegSetupPage</name>
 			</class>
 			<params>
 				<param key="uri" value="setup" />
@@ -239,12 +239,12 @@
 			</params>
 		</extension>
 
-		<extension point="usermeet.page">
+		<extension point="feg.page">
 			<id>core.page.preferences</id>
 			<name>Preferences Page</name>
 			<class>
 				<file>api/uri/preferences.php</file>
-				<name>UmPreferencesPage</name>
+				<name>FegPreferencesPage</name>
 			</class>
 			<params>
 				<param key="uri" value="preferences" />
@@ -253,7 +253,7 @@
 		
 		<!-- Cron Extensions -->
 		
-		<extension point="usermeet.cron">
+		<extension point="feg.cron">
 			<id>cron.maint</id>
 			<name>Maintenance</name>
 			<class>
@@ -264,7 +264,7 @@
 			</params>
 		</extension>
 		
-		<extension point="usermeet.cron">
+		<extension point="feg.cron">
 			<id>cron.heartbeat</id>
 			<name>Heartbeat</name>
 			<class>
@@ -276,7 +276,7 @@
 		</extension>
 		
 		<!--
-		<extension point="usermeet.cron">
+		<extension point="feg.cron">
 			<id>cron.import</id>
 			<name>Background Importing and Synchronization</name>
 			<class>
@@ -290,23 +290,23 @@
 		
 		<!-- Custom Field Sources -->
 
-		<extension point="usermeet.fields.source">
-			<id>usermeet.fields.source.sensor</id>
+		<extension point="feg.fields.source">
+			<id>feg.fields.source.sensor</id>
 			<name>Sensor</name>
 			<class>
 				<file>api/plugin.classes.php</file>
-				<name>UmCustomFieldSource_Sensor</name>
+				<name>FegCustomFieldSource_Sensor</name>
 			</class>
 			<params>
 			</params>
 		</extension>
 		
-		<extension point="usermeet.fields.source">
-			<id>usermeet.fields.source.worker</id>
+		<extension point="feg.fields.source">
+			<id>feg.fields.source.worker</id>
 			<name>Worker</name>
 			<class>
 				<file>api/plugin.classes.php</file>
-				<name>UmCustomFieldSource_Worker</name>
+				<name>FegCustomFieldSource_Worker</name>
 			</class>
 			<params>
 			</params>

@@ -7,7 +7,7 @@
 
 <H3>You are now operating in Unlicensed Mode</H3>
 
-Each new Usermeet installation defaults to a "Unlicensed Free Version",
+Each new Feg installation defaults to a "Unlicensed Free Version",
 allowing nearly full functionality with no expiration. In this mode you are limited to XX
 workers and XX projects. Companies with light requirements may find the unlicensed free version
 does everything they need. Go ahead, enjoy!<br>
@@ -17,7 +17,7 @@ does everything they need. Go ahead, enjoy!<br>
 registered license</b> for XX workers.<br>
 <br>
 
-For organizations with more than 3 workers, <a href="http://www.usermeet.com/buy/" target="_blank">we offer affordable and flexible licensing
+For organizations with more than 3 workers, <a href="http://feg.answernet.com/buy/" target="_blank">we offer affordable and flexible licensing
 options</a>.<br>
 
 <H3>How can we help improve your community interaction?</H3>
@@ -26,7 +26,7 @@ options</a>.<br>
 	We respect the fact that you likely have
 	a pile of things to do, and we'd like to make a small part of your day
 	easier by helping you quickly find useful information during your
-	Usermeet evaluation.<br>
+	Feg evaluation.<br>
 	<br>
 	If you can take a couple minutes out of your day to answer these quick
 	questions we'll be able to focus our conversation on your most important

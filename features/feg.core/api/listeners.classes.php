@@ -1,5 +1,5 @@
 <?php
-class UmCoreTour extends DevblocksHttpResponseListenerExtension implements IDevblocksTourListener {
+class FegCoreTour extends DevblocksHttpResponseListenerExtension implements IDevblocksTourListener {
 	function __construct($manifest) {
 		parent::__construct($manifest);
 	}
@@ -61,7 +61,7 @@ class UmCoreTour extends DevblocksHttpResponseListenerExtension implements IDevb
 	}
 };
 
-class UmCoreEventListener extends DevblocksEventListenerExtension {
+class FegCoreEventListener extends DevblocksEventListenerExtension {
 	function __construct($manifest) {
 		parent::__construct($manifest);
 	}
