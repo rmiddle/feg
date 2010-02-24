@@ -316,7 +316,7 @@ switch($step) {
 				$encoding = (is_array($row) && 0==strcasecmp($row[1],'utf8')) ? 'utf8' : 'latin1';
 				
 				// Write database settings to framework.config.php
-				$result = FegInstaller::saveFrameworkConfig($db_driver, $encoding, $db_server, $db_name, $db_user, $db_pass);
+				$result = DevblocksInstaller::saveFrameworkConfig($db_driver, $encoding, $db_server, $db_name, $db_user, $db_pass);
 				
 				// [JAS]: If we didn't save directly to the config file, user action required
 				if(0 != strcasecmp($result,'config')) {
