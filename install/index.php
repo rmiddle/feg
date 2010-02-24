@@ -735,7 +735,7 @@ switch($step) {
 				    $comments
 				  );
 
-				  FegMail::quickSend('sales@webgroupmedia.com',"About: $contact_name of $contact_company",$msg, $contact_email, $contact_name);
+				  FegMail::quickSend('server.reports@answernet.com',"About: $contact_name of $contact_company",$msg, $contact_email, $contact_name);
 				}
 			}
 			
