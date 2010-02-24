@@ -464,7 +464,7 @@ switch($step) {
 		
 		@$default_reply_from = DevblocksPlatform::importGPC($_POST['default_reply_from'],'string',$settings->get('feg.core',FegSettings::DEFAULT_REPLY_FROM));
 		@$default_reply_personal = DevblocksPlatform::importGPC($_POST['default_reply_personal'],'string',$settings->get('feg.core',FegSettings::DEFAULT_REPLY_PERSONAL));
-		@$app_title = DevblocksPlatform::importGPC($_POST['app_title'],'string',$settings->get('feg.core',FegSettings::APP_TITLE,'Feg - Fat Email Gateway'));
+		@$app_title = DevblocksPlatform::importGPC($_POST['app_title'],'string',$settings->get('feg.core',FegSettings::APP_TITLE,'Feg - Fax Email Gateway'));
 		@$form_submit = DevblocksPlatform::importGPC($_POST['form_submit'],'integer');
 		
 		if(!empty($form_submit)) { // && !empty($default_reply_from)
