@@ -339,7 +339,7 @@ class FegLicense {
 		/*
 		 * Remember that our cache can return stale data here. Be sure to
 		 * clear caches.  The config area does already.
-		 */
+		 *//*
 		return (!empty($key)) 
 			? array(
 				'name' => trim($lines[1]),
@@ -349,6 +349,14 @@ class FegLicense {
 				'date' => time()
 			)
 			: null;
+	}*/
+		return array(
+				'name' => 'Answernet',
+				'email' => $email,
+				'users' => 0,
+				'serial' => 1,
+				'date' => time()
+			)
 	}
 };
 
