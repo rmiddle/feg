@@ -356,7 +356,7 @@ class FegLicense {
 				'users' => 0,
 				'serial' => 1,
 				'date' => time()
-			)
+			);
 	}
 };
 
