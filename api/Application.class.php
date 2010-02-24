@@ -342,10 +342,10 @@ class FegLicense {
 		 */
 		return (!empty($key)) 
 			? array(
-				'name' => (list($k,$v)=explode(":",$lines[1]))?trim($v):null,
+				'name' => trim($lines[1]),
 				'email' => $email,
-				'users' => (list($k,$v)=explode(":",$lines[2]))?trim($v):null,
-				'serial' => (list($k,$v)=explode(":",$lines[3]))?trim($v):null,
+				'users' => trim($lines[2]),
+				'serial' => $lines[3]),
 				'date' => time()
 			)
 			: null;
