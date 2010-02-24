@@ -334,7 +334,7 @@ class FegLicense {
 		/*
 		 * we're sure being generous here! [TODO]
 		 */
-		$lines = explode("\n", $key);
+//		$lines = explode("\n", $key);
 		
 		/*
 		 * Remember that our cache can return stale data here. Be sure to
