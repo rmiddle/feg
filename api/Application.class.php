@@ -345,7 +345,7 @@ class FegLicense {
 				'name' => trim($lines[1]),
 				'email' => $email,
 				'users' => trim($lines[2]),
-				'serial' => $lines[3]),
+				'serial' => trim($lines[3]),
 				'date' => time()
 			)
 			: null;
