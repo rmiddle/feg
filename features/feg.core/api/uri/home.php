@@ -11,7 +11,7 @@ class FegHomePage extends FegPageExtension {
 		
 	function isVisible() {
 		// check login
-		$visit = Application::getVisit();
+		$visit = FegApplication::getVisit();
 		
 		if(empty($visit)) {
 			return false;
