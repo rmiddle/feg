@@ -290,6 +290,7 @@
 		
 		<!-- Custom Field Sources -->
 
+		<!--
 		<extension point="feg.fields.source">
 			<id>feg.fields.source.sensor</id>
 			<name>Sensor</name>
@@ -300,6 +301,7 @@
 			<params>
 			</params>
 		</extension>
+		-->
 		
 		<extension point="feg.fields.source">
 			<id>feg.fields.source.worker</id>
