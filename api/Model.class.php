@@ -1080,3 +1080,228 @@ class Feg_WorkerEventView extends Feg_AbstractView {
 //	}
 
 };
+
+class Model_Recipient {
+	public $id;
+	public $is_disabled;
+	public $recipient_name;
+	public $type;
+	public $address;
+	public $notes;
+};
+
+class Feg_RecipientView extends Feg_AbstractView {
+	const DEFAULT_ID = 'recipient';
+
+	function __construct() {
+		$this->id = self::DEFAULT_ID;
+		$this->name = 'Recipient';
+		$this->renderLimit = 25;
+		$this->renderSortBy = SearchFields_Recipient::RECIPIENT_NAME;
+		$this->renderSortAsc = true;
+
+		$this->view_columns = array(
+			SearchFields_Recipient::ID,
+			SearchFields_Recipient::IS_DISABLED,
+			SearchFields_Recipient::RECIPIENT_NAME,
+			SearchFields_Recipient::TYPE,
+			SearchFields_Recipient::ADDRESS,
+			SearchFields_Recipient::NOTES
+		);
+		
+		$this->doResetCriteria();
+	}
+
+	function getData() {
+		return DAO_Recipient::search(
+			$this->view_columns,
+			$this->params,
+			$this->renderLimit,
+			$this->renderPage,
+			$this->renderSortBy,
+			$this->renderSortAsc
+		);
+	}
+
+	function render() {
+		$this->_sanitize();
+		
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('id', $this->id);
+		$tpl->assign('view', $this);
+
+		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Recipient::ID);
+		$tpl->assign('custom_fields', $custom_fields);
+
+		$tpl->assign('view_fields', $this->getColumns());
+		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/recipient/view.tpl');
+	}
+
+	function renderCriteria($field) {
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('id', $this->id);
+		
+		switch($field) {
+			case SearchFields_Recipient::RECIPIENT_NAME:
+			case SearchFields_Recipient::ADDRESS:
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__string.tpl');
+				break;
+			case SearchFields_Recipient::ID:
+			case SearchFields_Recipient::TYPE:
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__number.tpl');
+				break;
+			case SearchFields_Recipient::IS_DISABLED:
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__bool.tpl');
+				break;
+			default:
+				// Custom Fields
+				if('cf_' == substr($field,0,3)) {
+					$this->_renderCriteriaCustomField($tpl, substr($field,3));
+				} else {
+					echo ' ';
+				}
+				break;
+		}
+	}
+
+	function renderCriteriaParam($param) {
+		$field = $param->field;
+		$values = !is_array($param->value) ? array($param->value) : $param->value;
+
+		switch($field) {
+//			case SearchFields_WorkerEvent::WORKER_ID:
+//				$workers = DAO_Worker::getAll();
+//				$strings = array();
+//
+//				foreach($values as $val) {
+//					if(empty($val))
+//					$strings[] = "Nobody";
+//					elseif(!isset($workers[$val]))
+//					continue;
+//					else
+//					$strings[] = $workers[$val]->getName();
+//				}
+//				echo implode(", ", $strings);
+//				break;
+			default:
+				parent::renderCriteriaParam($param);
+				break;
+		}
+	}
+
+	static function getFields() {
+		return SearchFields_Worker::getFields();
+	}
+
+	static function getSearchFields() {
+		$fields = self::getFields();
+		unset($fields[SearchFields_Recipient::ID]);
+		return $fields;
+	}
+
+	static function getColumns() {
+		$fields = self::getFields();
+		return $fields;
+	}
+
+	function doResetCriteria() {
+		parent::doResetCriteria();
+		
+//		$this->params = array(
+//			SearchFields_WorkerEvent::NUM_NONSPAM => new DevblocksSearchCriteria(SearchFields_WorkerEvent::NUM_NONSPAM,'>',0),
+//		);
+	}
+	
+	function doSetCriteria($field, $oper, $value) {
+		$criteria = null;
+
+		switch($field) {
+			case SearchFields_Recipient::RECIPIENT_NAME:
+			case SearchFields_Recipient::ADDRESS:
+			case SearchFields_Recipient::NOTES:
+				// force wildcards if none used on a LIKE
+				if(($oper == DevblocksSearchCriteria::OPER_LIKE || $oper == DevblocksSearchCriteria::OPER_NOT_LIKE)
+				&& false === (strpos($value,'*'))) {
+					$value = '*'.$value.'*';
+				}
+				$criteria = new DevblocksSearchCriteria($field, $oper, $value);
+				break;
+				
+			case SearchFields_Recipient::ID:
+			case SearchFields_Recipient::TYPE:
+			case SearchFields_Recipient::IS_DISABLED:
+				@$bool = DevblocksPlatform::importGPC($_REQUEST['bool'],'integer',1);
+				$criteria = new DevblocksSearchCriteria($field,$oper,$bool);
+				break;
+			default:
+				// Custom Fields
+				if(substr($field,0,3)=='cf_') {
+					$criteria = $this->_doSetCriteriaCustomField($field, substr($field,3));
+				}
+				break;
+		}
+
+		if(!empty($criteria)) {
+			$this->params[$field] = $criteria;
+			$this->renderPage = 0;
+		}
+	}
+
+	function doBulkUpdate($filter, $do, $ids=array()) {
+		@set_time_limit(600); // [TODO] Temp!
+	  
+		$change_fields = array();
+		$custom_fields = array();
+
+		if(empty($do))
+			return;
+
+		if(is_array($do))
+		foreach($do as $k => $v) {
+			switch($k) {
+				case 'is_disabled':
+					$change_fields[DAO_Recipient::IS_DISABLED] = intval($v);
+					break;
+				default:
+					// Custom fields
+					if(substr($k,0,3)=="cf_") {
+						$custom_fields[substr($k,3)] = $v;
+					}
+					break;
+
+			}
+		}
+
+		$pg = 0;
+
+		if(empty($ids))
+		do {
+			list($objects,$null) = DAO_Recipient::search(
+			array(),
+			$this->params,
+			100,
+			$pg++,
+			SearchFields_Recipient::ID,
+			true,
+			false
+			);
+			 
+			$ids = array_merge($ids, array_keys($objects));
+			 
+		} while(!empty($objects));
+
+		$batch_total = count($ids);
+		for($x=0;$x<=$batch_total;$x+=100) {
+			$batch_ids = array_slice($ids,$x,100);
+			DAO_Recipient::update($batch_ids, $change_fields);
+			
+			// Custom Fields
+			self::_doBulkSetCustomFields(FegCustomFieldSource_Recipient::ID, $custom_fields, $batch_ids);
+			
+			unset($batch_ids);
+		}
+
+		unset($ids);
+	}
+
+};

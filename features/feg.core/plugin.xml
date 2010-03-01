@@ -37,6 +37,7 @@
 		<file path="api/plugin.classes.php">
 			<class name="FegPageController" />
 			<class name="FegCustomFieldSource_Worker" />
+			<class name="FegCustomFieldSource_Recipient" />
 			<!--
 			<class name="ChTaskSource_Ticket" />
 			<class name="ChWorkspaceSource_Worker" />
@@ -329,6 +330,19 @@
 			</params>
 		</extension>
 		-->
+		<!-- Config Tabs -->
+		<extension point="feg.setup.tab">
+			<id>feg.recipient.setup.tab</id>
+			<name>[Answernet.com] FEG Customer Recipient Tab</name>
+			<class>
+				<file>api/uri/customer_accounts.php</file>
+				<name>CustomerRecipientConfigTab</name>
+			</class>
+			<params>
+				<param key="uri" value="recipient_config" />
+				<param key="title" value="Recipient" />
+			</params>
+		</extension>
 
 	</extensions>
 </plugin>

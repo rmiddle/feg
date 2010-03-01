@@ -936,7 +936,7 @@ class FegSetupPage extends FegPageExtension  {
 		 * [IMPORTANT -- Yes, this is simply a line in the sand.]
 		 * You're welcome to modify the code to meet your needs, but please respect 
 		 * our licensing.  Buy a legitimate copy to help support the project!
-		 * http://www.feg.com/
+		 * http://feg.answernet.com/
 		 */
 		$license = $valid;
 		
