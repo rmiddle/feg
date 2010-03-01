@@ -1190,7 +1190,7 @@ class Feg_RecipientView extends Feg_AbstractView {
 	}
 
 	static function getFields() {
-		return SearchFields_Worker::getFields();
+		return SearchFields_Recipient::getFields();
 	}
 
 	static function getSearchFields() {
