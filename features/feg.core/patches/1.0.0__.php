@@ -164,14 +164,11 @@ if(!isset($tables['customer_recipient'])) {
 			id INT UNSIGNED DEFAULT 0 NOT NULL,
 			account_id INT UNSIGNED DEFAULT 0 NOT NULL,
 			is_disabled TINYINT UNSIGNED DEFAULT 0 NOT NULL,
-			recipient_name varchar(255) NOT NULL DEFAULT '',
 			type TINYINT(1) UNSIGNED DEFAULT 0 NOT NULL,
 			address varchar(255) NOT NULL DEFAULT '',
-			notes longtext,
 			PRIMARY KEY (id),
 			INDEX is_disabled (is_disabled),
 			INDEX account_id (account_id),
-			INDEX recipient_name (recipient_name),
 			INDEX address (address)
 		) ENGINE=MyISAM;
 	";
