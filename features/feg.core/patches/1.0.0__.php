@@ -158,10 +158,11 @@ if(!isset($tables['worker_event'])) {
 	$db->Execute($sql);	
 }
 
-if(!isset($tables['recipient'])) {
+if(!isset($tables['customer_recipient'])) {
 	$sql = "
-		CREATE TABLE IF NOT EXISTS recipient (
+		CREATE TABLE IF NOT EXISTS customer_recipient (
 			id INT UNSIGNED DEFAULT 0 NOT NULL,
+			account_id INT UNSIGNED DEFAULT 0 NOT NULL,
 			is_disabled TINYINT UNSIGNED DEFAULT 0 NOT NULL,
 			recipient_name varchar(255) NOT NULL DEFAULT '',
 			type TINYINT(1) UNSIGNED DEFAULT 0 NOT NULL,
@@ -169,8 +170,26 @@ if(!isset($tables['recipient'])) {
 			notes longtext,
 			PRIMARY KEY (id),
 			INDEX is_disabled (is_disabled),
+			INDEX account_id (account_id),
 			INDEX recipient_name (recipient_name),
 			INDEX address (address)
+		) ENGINE=MyISAM;
+	";
+	$db->Execute($sql);	
+}
+
+if(!isset($tables['customer_account'])) {
+	$sql = "
+		CREATE TABLE IF NOT EXISTS customer_account (
+			id INT UNSIGNED DEFAULT 0 NOT NULL,
+			is_disabled TINYINT UNSIGNED DEFAULT 0 NOT NULL,
+			account_number varchar(255) NOT NULL DEFAULT '',
+			account_name varchar(255) NOT NULL DEFAULT '',
+			notes longtext,
+			PRIMARY KEY (id),
+			INDEX is_disabled (is_disabled),
+			INDEX account_number (account_number),
+			INDEX account_name (account_name)
 		) ENGINE=MyISAM;
 	";
 	$db->Execute($sql);	

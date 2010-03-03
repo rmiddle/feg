@@ -318,6 +318,9 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='setup.tab.workers'>
 			<tuv xml:lang="en_US"><seg>Workers</seg></tuv>
 		</tu>
+		<tu tuid='setup.tab.customer_recipient'>
+			<tuv xml:lang="en_US"><seg>Customer Recipient</seg></tuv>
+		</tu>
 		
 		<!-- Update -->
 
@@ -393,7 +396,28 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='worker_event.worker_id'>
 			<tuv xml:lang="en_US"><seg>Worker</seg></tuv>
 		</tu>
+	
+		<!-- Customer Recipient Type -->
 
+
+		<tu tuid='recipient.notes'>
+			<tuv xml:lang="en_US"><seg>Notes</seg></tuv>
+		</tu>
+		<tu tuid='recipient.recipient_name'>
+			<tuv xml:lang="en_US"><seg>Account Name</seg></tuv>
+		</tu>
+		<tu tuid='recipient.address'>
+			<tuv xml:lang="en_US"><seg>Email/Fax Address</seg></tuv>
+		</tu>
+		<tu tuid='recipient.type.email'>
+			<tuv xml:lang="en_US"><seg>Email</seg></tuv>
+		</tu>
+		<tu tuid='recipient.type.fax'>
+			<tuv xml:lang="en_US"><seg>Fax</seg></tuv>
+		</tu>
+		<tu tuid='recipient.type.snpp'>
+			<tuv xml:lang="en_US"><seg>Paging</seg></tuv>
+		</tu>
 	</body>
 </tmx>
 <!-- 

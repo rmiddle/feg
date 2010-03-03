@@ -503,6 +503,260 @@ class FegSetupPage extends FegPageExtension  {
 //	}
 	
 	// Ajax
+	function showTabRecipientAction() {
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('$path', $this->_TPL_PATH);
+
+		$worker = FegApplication::getActiveWorker();
+		if(!$worker || !$worker->is_superuser) {
+			echo $translate->_('common.access_denied');
+			return;
+		}
+		
+		$tpl->assign('core_tplpath', $core_tplpath);
+		$tpl->assign('view_id', $view_id);
+		
+		$defaults = new Feg_AbstractViewModel();
+		$defaults->id = 'CustomerRecipient';
+		$defaults->class_name = 'View_CustomerRecipient';
+		
+		$defaults->renderSortBy = SearchFields_CustomerRecipient::ID;
+		$defaults->renderSortAsc = 0;
+		
+		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
+		$tpl->assign('view', $view);
+		$tpl->assign('view_fields', View_CustomerRecipient::getFields());
+		$tpl->assign('view_searchable_fields', View_CustomerRecipient::getSearchFields());
+				
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_recipient/index.tpl');		
+	}
+	
+	function showRecipientPeekAction() {
+		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
+		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
+		
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('path', $this->_TPL_PATH);
+		
+		$tpl->assign('view_id', $view_id);
+		
+		$worker = DAO_Worker::get($id);
+		$tpl->assign('worker', $worker);
+		
+//		$teams = DAO_Group::getAll();
+//		$tpl->assign('teams', $teams);
+		
+		// Custom Fields
+		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Worker::ID);
+		$tpl->assign('custom_fields', $custom_fields);
+		
+		$custom_field_values = DAO_CustomFieldValue::getValuesBySourceIds(FegCustomFieldSource_CustomerRecipient::ID, $id);
+		if(isset($custom_field_values[$id]))
+			$tpl->assign('custom_field_values', $custom_field_values[$id]);
+		
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_recipient/peek.tpl');		
+	}
+	
+	function saveRecipientPeekAction() {
+		$translate = DevblocksPlatform::getTranslationService();
+		$active_worker = FegApplication::getActiveWorker();
+		
+		if(!$active_worker || !$active_worker->is_superuser) {
+			return;
+		}
+		
+		@$id = DevblocksPlatform::importGPC($_POST['id'],'integer');
+		@$view_id = DevblocksPlatform::importGPC($_POST['view_id'],'string');
+		@$first_name = DevblocksPlatform::importGPC($_POST['first_name'],'string');
+		@$last_name = DevblocksPlatform::importGPC($_POST['last_name'],'string');
+		@$title = DevblocksPlatform::importGPC($_POST['title'],'string');
+		@$email = DevblocksPlatform::importGPC($_POST['email'],'string');
+		@$password = DevblocksPlatform::importGPC($_POST['password'],'string');
+		@$is_superuser = DevblocksPlatform::importGPC($_POST['is_superuser'],'integer', 0);
+		@$disabled = DevblocksPlatform::importGPC($_POST['is_disabled'],'integer',0);
+//		@$group_ids = DevblocksPlatform::importGPC($_POST['group_ids'],'array');
+//		@$group_roles = DevblocksPlatform::importGPC($_POST['group_roles'],'array');
+		@$delete = DevblocksPlatform::importGPC($_POST['do_delete'],'integer',0);
+
+		// [TODO] The superuser set bit here needs to be protected by ACL
+		
+		if(empty($first_name)) $first_name = "Anonymous";
+		
+		if(!empty($id) && !empty($delete)) {
+			// Can't delete or disable self
+			if($active_worker->id != $id)
+				DAO_Worker::delete($id);
+			
+		} else {
+			if(empty($id) && null == DAO_Worker::getWhere(sprintf("%s=%s",DAO_Worker::EMAIL,Feg_ORMHelper::qstr($email)))) {
+				$workers = DAO_Worker::getAll();
+				$license = FegLicense::getInstance();
+				if ((!empty($license) && !empty($license['serial'])) || count($workers) < 3) {
+					// Creating new worker.  If password is empty, email it to them
+				    if(empty($password)) {
+				    	$settings = DevblocksPlatform::getPluginSettingsService();
+						$replyFrom = $settings->get('feg.core',FegSettings::DEFAULT_REPLY_FROM);
+						$replyPersonal = $settings->get('feg.core',FegSettings::DEFAULT_REPLY_PERSONAL, '');
+						$url = DevblocksPlatform::getUrlService();
+				    	
+						$password = FegApplication::generatePassword(8);
+				    	
+//						try {
+//					        $mail_service = DevblocksPlatform::getMailService();
+//					        $mailer = $mail_service->getMailer(CerberusMail::getMailerDefaults());
+//					        $mail = $mail_service->createMessage();
+//					        
+//							$mail->setTo(array($email => $first_name . ' ' . $last_name));
+//							$mail->setFrom(array($replyFrom => $replyPersonal));
+//					        $mail->setSubject('Your new helpdesk login information!');
+//					        $mail->generateId();
+//							
+//							$headers = $mail->getHeaders();
+//							
+//					        $headers->addTextHeader('X-Mailer','Cerberus Helpdesk (Build '.APP_BUILD.')');
+//					        
+//						    $body = sprintf("Your new helpdesk login information is below:\r\n".
+//								"\r\n".
+//						        "URL: %s\r\n".
+//						        "Login: %s\r\n".
+//						        "Password: %s\r\n".
+//						        "\r\n".
+//						        "You should change your password from Preferences after logging in for the first time.\r\n".
+//						        "\r\n",
+//							        $url->write('',true),
+//							        $email,
+//							        $password
+//						    );
+//					        
+//							$mail->setBody($body);
+//	
+//							if(!$mailer->send($mail)) {
+//								throw new Exception('Password notification email failed to send.');
+//							}
+//						} catch (Exception $e) {
+//							// [TODO] need to report to the admin when the password email doesn't send.  The try->catch
+//							// will keep it from killing php, but the password will be empty and the user will never get an email.
+//						}
+				    }
+					
+				    $fields = array(
+				    	DAO_Worker::EMAIL => $email,
+				    	DAO_Worker::PASS => $password
+				    );
+				    
+					$id = DAO_Worker::create($fields);
+				}
+			} // end create worker
+		    
+		    // Update
+			$fields = array(
+				DAO_Worker::FIRST_NAME => $first_name,
+				DAO_Worker::LAST_NAME => $last_name,
+				DAO_Worker::TITLE => $title,
+				DAO_Worker::EMAIL => $email,
+				DAO_Worker::IS_SUPERUSER => $is_superuser,
+				DAO_Worker::IS_DISABLED => $disabled,
+			);
+			
+			// if we're resetting the password
+			if(!empty($password)) {
+				$fields[DAO_Worker::PASS] = md5($password);
+			}
+			
+			// Update worker
+			DAO_Worker::update($id, $fields);
+			
+			// Update group memberships
+//			if(is_array($group_ids) && is_array($group_roles))
+//			foreach($group_ids as $idx => $group_id) {
+//				if(empty($group_roles[$idx])) {
+//					DAO_Group::unsetTeamMember($group_id, $id);
+//				} else {
+//					DAO_Group::setTeamMember($group_id, $id, (2==$group_roles[$idx]));
+//				}
+//			}
+
+			// Add the worker e-mail to the addresses table
+//			if(!empty($email))
+//				DAO_Address::lookupAddress($email, true);
+			
+			// Addresses
+//			if(null == DAO_AddressToWorker::getByAddress($email)) {
+//				DAO_AddressToWorker::assign($email, $id);
+//				DAO_AddressToWorker::update($email, array(
+//					DAO_AddressToWorker::IS_CONFIRMED => 1
+//				));
+//			}
+			
+			// Custom field saves
+			@$field_ids = DevblocksPlatform::importGPC($_POST['field_ids'], 'array', array());
+			DAO_CustomFieldValue::handleFormPost(FegCustomFieldSource_Worker::ID, $id, $field_ids);
+		}
+		
+		if(!empty($view_id)) {
+			$view = Feg_AbstractViewLoader::getView($view_id);
+			$view->render();
+		}
+		
+		//DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','workers')));		
+	}
+	
+	function showRecipientBulkPanelAction() {
+		@$id_csv = DevblocksPlatform::importGPC($_REQUEST['ids']);
+		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id']);
+
+		$tpl = DevblocksPlatform::getTemplateService();
+		$path = $this->_TPL_PATH;
+		$tpl->assign('path', $path);
+		$tpl->assign('view_id', $view_id);
+
+	    if(!empty($id_csv)) {
+	        $ids = DevblocksPlatform::parseCsvString($id_csv);
+	        $tpl->assign('ids', implode(',', $ids));
+	    }
+		
+	    // Lists
+//	    $lists = DAO_FeedbackList::getWhere();
+//	    $tpl->assign('lists', $lists);
+	    
+		// Custom Fields
+		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Worker::ID);
+		$tpl->assign('custom_fields', $custom_fields);
+		
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_recipient/bulk.tpl');		
+	}
+	
+	function doRecipientBulkUpdateAction() {
+		// Checked rows
+	    @$ids_str = DevblocksPlatform::importGPC($_REQUEST['ids'],'string');
+		$ids = DevblocksPlatform::parseCsvString($ids_str);
+
+		// Filter: whole list or check
+	    @$filter = DevblocksPlatform::importGPC($_REQUEST['filter'],'string','');
+	    
+	    // View
+		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string');
+		$view = Feg_AbstractViewLoader::getView($view_id);
+		
+		// Worker fields
+		@$is_disabled = trim(DevblocksPlatform::importGPC($_POST['is_disabled'],'string',''));
+
+		$do = array();
+		
+		// Do: Disabled
+		if(0 != strlen($is_disabled))
+			$do['is_disabled'] = $is_disabled;
+			
+		// Do: Custom fields
+		$do = DAO_CustomFieldValue::handleBulkPost($do);
+		
+		$view->doBulkUpdate($filter, $do, $ids);
+		
+		$view->render();
+		return;
+	}
+	
+	// Ajax
 	function showTabMailSetupAction() {
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);

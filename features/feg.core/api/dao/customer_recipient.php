@@ -1,0 +1,494 @@
+<?php
+// Custom Field Sources
+
+class FegCustomFieldSource_CustomerRecipient extends Extension_CustomFieldSource {
+	const ID = 'feg.fields.source.customer_recipient';
+};
+
+class Model_CustomerRecipient {
+	public $id;
+	public $account_id;
+	public $is_disabled;
+	public $recipient_name;
+	public $type;
+	public $address;
+	public $notes;
+};
+
+class DAO_CustomerRecipient extends DevblocksORMHelper {
+	const ID = 'id';
+	const ACCOUNT_ID = 'account_id';
+	const IS_DISABLED = 'is_disabled';
+	const RECIPIENT_NAME = 'recipient_name';
+	const TYPE = 'type';
+	const ADDRESS = 'address';
+	const NOTES = 'notes';
+
+	static function create($fields) {
+		$db = DevblocksPlatform::getDatabaseService();
+		
+		$id = $db->GenID('generic_seq');
+		
+		$sql = sprintf("INSERT INTO customer_recipient (id) ".
+			"VALUES (%d)",
+			$id
+		);
+		$db->Execute($sql);
+		
+		self::update($id, $fields);
+		
+		return $id;
+	}
+	
+	static function update($ids, $fields) {
+		parent::_update($ids, 'customer_recipient', $fields);
+	}
+	
+	static function updateWhere($fields, $where) {
+		parent::_updateWhere('customer_recipient', $fields, $where);
+	}
+	
+	/**
+	 * @param string $where
+	 * @return Model_CustomerRecipient[]
+	 */
+	static function getWhere($where=null) {
+		$db = DevblocksPlatform::getDatabaseService();
+		
+		$sql = "SELECT id, account_id, is_disabled, recipient_name, type, address, notes ".
+			"FROM customer_recipient ".
+			(!empty($where) ? sprintf("WHERE %s ",$where) : "").
+			"ORDER BY id asc";
+		$rs = $db->Execute($sql);
+		
+		return self::_getObjectsFromResult($rs);
+	}
+
+	/**
+	 * @param integer $id
+	 * @return Model_CustomerRecipient	 */
+	static function get($id) {
+		$objects = self::getWhere(sprintf("%s = %d",
+			self::ID,
+			$id
+		));
+		
+		if(isset($objects[$id]))
+			return $objects[$id];
+		
+		return null;
+	}
+	
+	/**
+	 * @param resource $rs
+	 * @return Model_CustomerRecipient[]
+	 */
+	static private function _getObjectsFromResult($rs) {
+		$objects = array();
+		
+		while($row = mysql_fetch_assoc($rs)) {
+			$object = new Model_CustomerRecipient();
+			$object->id = $row['id'];
+			$object->account_id = $row['account_id'];
+			$object->is_disabled = $row['is_disabled'];
+			$object->recipient_name = $row['recipient_name'];
+			$object->type = $row['type'];
+			$object->address = $row['address'];
+			$object->notes = $row['notes'];
+			$objects[$object->id] = $object;
+		}
+		
+		mysql_free_result($rs);
+		
+		return $objects;
+	}
+	
+	static function delete($ids) {
+		if(!is_array($ids)) $ids = array($ids);
+		$db = DevblocksPlatform::getDatabaseService();
+		
+		if(empty($ids))
+			return;
+		
+		$ids_list = implode(',', $ids);
+		
+		$db->Execute(sprintf("DELETE FROM customer_recipient WHERE id IN (%s)", $ids_list));
+		
+		return true;
+	}
+	
+    /**
+     * Enter description here...
+     *
+     * @param array $columns
+     * @param DevblocksSearchCriteria[] $params
+     * @param integer $limit
+     * @param integer $page
+     * @param string $sortBy
+     * @param boolean $sortAsc
+     * @param boolean $withCounts
+     * @return array
+     */
+    static function search($columns, $params, $limit=10, $page=0, $sortBy=null, $sortAsc=null, $withCounts=true) {
+		$db = DevblocksPlatform::getDatabaseService();
+		$fields = SearchFields_CustomerRecipient::getFields();
+		
+		// Sanitize
+		if(!isset($fields[$sortBy]))
+			$sortBy=null;
+
+        list($tables,$wheres) = parent::_parseSearchParams($params, $columns, $fields, $sortBy);
+		$start = ($page * $limit); // [JAS]: 1-based
+		$total = -1;
+		
+		$select_sql = sprintf("SELECT ".
+			"customer_recipient.id as %s, ".
+			"customer_recipient.account_id as %s, ".
+			"customer_recipient.is_disabled as %s, ".
+			"customer_recipient.recipient_name as %s, ".
+			"customer_recipient.type as %s, ".
+			"customer_recipient.address as %s, ".
+			"customer_recipient.notes as %s ",
+				SearchFields_CustomerRecipient::ID,
+				SearchFields_CustomerRecipient::ACCOUNT_ID,
+				SearchFields_CustomerRecipient::IS_DISABLED,
+				SearchFields_CustomerRecipient::RECIPIENT_NAME,
+				SearchFields_CustomerRecipient::TYPE,
+				SearchFields_CustomerRecipient::ADDRESS,
+				SearchFields_CustomerRecipient::NOTES
+			);
+			
+		$join_sql = "FROM customer_recipient ";
+		
+		// Custom field joins
+		//list($select_sql, $join_sql, $has_multiple_values) = self::_appendSelectJoinSqlForCustomFieldTables(
+		//	$tables,
+		//	$params,
+		//	'customer_recipient.id',
+		//	$select_sql,
+		//	$join_sql
+		//);
+				
+		$where_sql = "".
+			(!empty($wheres) ? sprintf("WHERE %s ",implode(' AND ',$wheres)) : "");
+			
+		$sort_sql = (!empty($sortBy)) ? sprintf("ORDER BY %s %s ",$sortBy,($sortAsc || is_null($sortAsc))?"ASC":"DESC") : " ";
+			
+		$sql = 
+			$select_sql.
+			$join_sql.
+			$where_sql.
+			($has_multiple_values ? 'GROUP BY customer_recipient.id ' : '').
+			$sort_sql;
+			
+		// [TODO] Could push the select logic down a level too
+		if($limit > 0) {
+    		$rs = $db->SelectLimit($sql,$limit,$start) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); /* @var $rs ADORecordSet */
+		} else {
+		    $rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); /* @var $rs ADORecordSet */
+            $total = mysql_num_rows($rs);
+		}
+		
+		$results = array();
+		
+		while($row = mysql_fetch_assoc($rs)) {
+			$result = array();
+			foreach($row as $f => $v) {
+				$result[$f] = $v;
+			}
+			$object_id = intval($row[SearchFields_CustomerRecipient::ID]);
+			$results[$object_id] = $result;
+		}
+
+		// [JAS]: Count all
+		if($withCounts) {
+			$count_sql = 
+				($has_multiple_values ? "SELECT COUNT(DISTINCT customer_recipient.id) " : "SELECT COUNT(customer_recipient.id) ").
+				$join_sql.
+				$where_sql;
+			$total = $db->GetOne($count_sql);
+		}
+		
+		mysql_free_result($rs);
+		
+		return array($results,$total);
+	}
+
+};
+
+
+class SearchFields_CustomerRecipient implements IDevblocksSearchFields {
+	const ID = 'c_id';
+	const ACCOUNT_ID = 'c_account_id';
+	const IS_DISABLED = 'c_is_disabled';
+	const RECIPIENT_NAME = 'c_recipient_name';
+	const TYPE = 'c_type';
+	const ADDRESS = 'c_address';
+	const NOTES = 'c_notes';
+	
+	/**
+	 * @return DevblocksSearchField[]
+	 */
+	static function getFields() {
+		$translate = DevblocksPlatform::getTranslationService();
+		
+		$columns = array(
+			self::ID => new DevblocksSearchField(self::ID, 'customer_recipient', 'id', $translate->_('id')),
+			self::ACCOUNT_ID => new DevblocksSearchField(self::ACCOUNT_ID, 'customer_recipient', 'account_id', $translate->_('account_id')),
+			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'customer_recipient', 'is_disabled', $translate->_('is_disabled')),
+			self::RECIPIENT_NAME => new DevblocksSearchField(self::RECIPIENT_NAME, 'customer_recipient', 'recipient_name', $translate->_('recipient_name')),
+			self::TYPE => new DevblocksSearchField(self::TYPE, 'customer_recipient', 'type', $translate->_('type')),
+			self::ADDRESS => new DevblocksSearchField(self::ADDRESS, 'customer_recipient', 'address', $translate->_('address')),
+			self::NOTES => new DevblocksSearchField(self::NOTES, 'customer_recipient', 'notes', $translate->_('notes')),
+		);
+		
+		// Custom Fields
+		//$fields = DAO_CustomField::getBySource(PsCustomFieldSource_XXX::ID);
+
+		//if(is_array($fields))
+		//foreach($fields as $field_id => $field) {
+		//	$key = 'cf_'.$field_id;
+		//	$columns[$key] = new DevblocksSearchField($key,$key,'field_value',$field->name);
+		//}
+		
+		// Sort by label (translation-conscious)
+		uasort($columns, create_function('$a, $b', "return strcasecmp(\$a->db_label,\$b->db_label);\n"));
+
+		return $columns;		
+	}
+};
+
+
+class View_CustomerRecipient extends FEG_AbstractView {
+	const DEFAULT_ID = 'customer_recipient';
+	
+	function __construct() {
+		$this->id = self::DEFAULT_ID;
+		$this->name = 'CustomerRecipient';
+		$this->renderLimit = 25;
+		$this->renderSortBy = SearchFields_CustomerRecipient::ACCOUNT_ID;
+		$this->renderSortAsc = true;
+
+		$this->view_columns = array(
+			SearchFields_CustomerRecipient::ID,
+			SearchFields_CustomerRecipient::ACCOUNT_ID,
+			SearchFields_CustomerRecipient::IS_DISABLED,
+			SearchFields_CustomerRecipient::RECIPIENT_NAME,
+			SearchFields_CustomerRecipient::TYPE,
+			SearchFields_CustomerRecipient::ADDRESS,
+			SearchFields_CustomerRecipient::NOTES
+		);
+		$this->doResetCriteria();
+		
+//		$this->params = array(
+//			SearchFields_CustomerRecipient::FIXME => new DevblocksSearchCriteria(SearchFields_CustomerRecipient::FIXME,'=',1),
+//		);
+	}
+
+	function getData() {
+		$objects = DAO_CustomerRecipient::search(
+			$this->id,
+			$this->account_id,
+			$this->is_disabled,
+			$this->recipient_name,
+			$this->type,
+			$this->address,
+			$this->notes
+		);
+		return $objects;
+	}
+
+	function render() {
+		$this->_sanitize();
+		
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('id', $this->id);
+		
+		$tpl->assign('view', $this);
+
+		$address_fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerRecipient::ID);
+		$tpl->assign('custom_fields', $address_fields);
+		
+		$tpl->assign('view_fields', $this->getColumns());
+		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/customer_recipient/view.tpl');
+	}
+
+	function renderCriteria($field) {
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('id', $this->id);
+
+		$tpl_path = APP_PATH . '/features/feg.core/templates/';
+		
+		switch($field) {
+			case SearchFields_CustomerRecipient::RECIPIENT_NAME:
+			case SearchFields_CustomerRecipient::ADDRESS:
+			case SearchFields_CustomerRecipient::NOTES:
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__string.tpl');
+				break;
+			case SearchFields_CustomerRecipient::ID:
+			case SearchFields_CustomerRecipient::ACCOUNT_ID:
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__number.tpl');
+				break;
+			case SearchFields_CustomerRecipient::IS_DISABLED:
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__bool.tpl');
+				break;
+			case SearchFields_CustomerRecipient::TYPE:
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/customer_recipient/__type.tpl');
+				break;
+			default:
+				// Custom Fields
+				if('cf_' == substr($field,0,3)) {
+					$this->_renderCriteriaCustomField($tpl, substr($field,3));
+				} else {
+					echo ' ';
+				}
+				break;
+		}
+	}
+
+	function renderCriteriaParam($param) {
+		$field = $param->field;
+		$values = !is_array($param->value) ? array($param->value) : $param->value;
+
+		switch($field) {
+			default:
+				parent::renderCriteriaParam($param);
+				break;
+		}
+	}
+
+	static function getFields() {
+		unset($fields[SearchFields_CustomerRecipient::ID]);
+		unset($fields[SearchFields_CustomerRecipient::ACCOUNT_ID]);
+		return SearchFields_CustomerRecipient::getFields();
+	}
+
+	static function getSearchFields() {
+		$fields = self::getFields();
+		unset($fields[SearchFields_CustomerRecipient::ID]);
+		unset($fields[SearchFields_CustomerRecipient::ACCOUNT_ID]);
+		return $fields;
+	}
+
+	static function getColumns() {
+		$fields = self::getFields();
+//		unset($fields[SearchFields_CustomerRecipient::FIXME]);
+		return $fields;
+	}
+
+	function doResetCriteria() {
+		parent::doResetCriteria();
+		
+		$this->params = array(
+//			SearchFields_CustomerRecipient::ID => new DevblocksSearchCriteria(SearchFields_Address::ID,'=',1),
+		);
+	}
+
+	function doSetCriteria($field, $oper, $value) {
+		$criteria = null;
+
+		switch($field) {
+			case SearchFields_CustomerRecipient::ACCOUNT_ID:
+			case SearchFields_CustomerRecipient::TYPE:
+				break;
+				
+			case SearchFields_CustomerRecipient::ADDRESS:
+			case SearchFields_CustomerRecipient::NOTES:
+			case SearchFields_CustomerRecipient::RECIPIENT_NAME:
+				// force wildcards if none used on a LIKE
+				if(($oper == DevblocksSearchCriteria::OPER_LIKE || $oper == DevblocksSearchCriteria::OPER_NOT_LIKE)
+				&& false === (strpos($value,'*'))) {
+					$value = '*'.$value.'*';
+				}
+				$criteria = new DevblocksSearchCriteria($field, $oper, $value);
+				break;
+				
+			case SearchFields_CustomerRecipient::ID:
+				$criteria = new DevblocksSearchCriteria($field,$oper,$value);
+				break;
+				
+			case SearchFields_CustomerRecipient::IS_DISABLED:
+				@$bool = DevblocksPlatform::importGPC($_REQUEST['bool'],'integer',1);
+				$criteria = new DevblocksSearchCriteria($field,$oper,$bool);
+				break;
+			default:
+				// Custom Fields
+				if(substr($field,0,3)=='cf_') {
+					$criteria = $this->_doSetCriteriaCustomField($field, substr($field,3));
+				}
+				break;
+		}
+		if(!empty($criteria)) {
+			$this->params[$field] = $criteria;
+			$this->renderPage = 0;
+		}
+	}
+	
+	function doBulkUpdate($filter, $do, $ids=array()) {
+		@set_time_limit(600); // [TODO] Temp!
+	  
+		$change_fields = array();
+		$custom_fields = array();
+
+		// Make sure we have actions
+		if(empty($do))
+			return;
+
+		// Make sure we have checked items if we want a checked list
+		if(0 == strcasecmp($filter,"checks") && empty($ids))
+			return;
+			
+		if(is_array($do))
+		foreach($do as $k => $v) {
+			switch($k) {
+//			$change_fields[DAO_CustomerRecipient::ID] = intval($v);
+//			$change_fields[DAO_CustomerRecipient::ACCOUNT_ID] = intval($v);
+//			$change_fields[DAO_CustomerRecipient::IS_DISABLED] = intval($v);
+//			$change_fields[DAO_CustomerRecipient::RECIPIENT_NAME] = intval($v);
+//			$change_fields[DAO_CustomerRecipient::TYPE] = intval($v);
+//			$change_fields[DAO_CustomerRecipient::ADDRESS] = intval($v);
+//			$change_fields[DAO_CustomerRecipient::NOTES] = intval($v);
+//				case 'FIXME':
+//					break;
+//				case 'FIXME':
+//					break;
+				default:
+					// Custom fields
+					if(substr($k,0,3)=="cf_") {
+						$custom_fields[substr($k,3)] = $v;
+					}
+			}
+		}
+		
+		$pg = 0;
+
+		if(empty($ids))
+		do {
+			list($objects,$null) = DAO_CustomerRecipient::search(
+				array(),
+				$this->params,
+				100,
+				$pg++,
+				SearchFields_CustomerRecipient::ID,
+				true,
+				false
+			);
+			 
+			$ids = array_merge($ids, array_keys($objects));
+			 
+		} while(!empty($objects));
+
+		$batch_total = count($ids);
+		for($x=0;$x<=$batch_total;$x+=100) {
+			$batch_ids = array_slice($ids,$x,100);
+			DAO_CustomerRecipient::update($batch_ids, $change_fields);
+			
+			// Custom Fields
+			self::_doBulkSetCustomFields(FegCustomFieldSource_CustomerRecipient::ID, $custom_fields, $batch_ids);
+			
+			unset($batch_ids);
+		}
+
+		unset($ids);
+	}	
+};

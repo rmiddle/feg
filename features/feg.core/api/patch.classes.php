@@ -11,6 +11,6 @@ class FegCorePatchContainer extends DevblocksPatchContainerExtension {
 
 		$file_prefix = dirname(dirname(__FILE__)) . '/patches/';
 		
-		$this->registerPatch(new DevblocksPatch('feg.core',4,$file_prefix.'1.0.0__.php',''));
+		$this->registerPatch(new DevblocksPatch('feg.core',7,$file_prefix.'1.0.0__.php',''));
 	}
 };
