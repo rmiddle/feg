@@ -9,20 +9,16 @@ class Model_CustomerRecipient {
 	public $id;
 	public $account_id;
 	public $is_disabled;
-	public $recipient_name;
 	public $type;
 	public $address;
-	public $notes;
 };
 
 class DAO_CustomerRecipient extends DevblocksORMHelper {
 	const ID = 'id';
 	const ACCOUNT_ID = 'account_id';
 	const IS_DISABLED = 'is_disabled';
-	const RECIPIENT_NAME = 'recipient_name';
 	const TYPE = 'type';
 	const ADDRESS = 'address';
-	const NOTES = 'notes';
 
 	static function create($fields) {
 		$db = DevblocksPlatform::getDatabaseService();
@@ -55,7 +51,7 @@ class DAO_CustomerRecipient extends DevblocksORMHelper {
 	static function getWhere($where=null) {
 		$db = DevblocksPlatform::getDatabaseService();
 		
-		$sql = "SELECT id, account_id, is_disabled, recipient_name, type, address, notes ".
+		$sql = "SELECT id, account_id, is_disabled, type, address ".
 			"FROM customer_recipient ".
 			(!empty($where) ? sprintf("WHERE %s ",$where) : "").
 			"ORDER BY id asc";
@@ -91,10 +87,8 @@ class DAO_CustomerRecipient extends DevblocksORMHelper {
 			$object->id = $row['id'];
 			$object->account_id = $row['account_id'];
 			$object->is_disabled = $row['is_disabled'];
-			$object->recipient_name = $row['recipient_name'];
 			$object->type = $row['type'];
 			$object->address = $row['address'];
-			$object->notes = $row['notes'];
 			$objects[$object->id] = $object;
 		}
 		
@@ -145,17 +139,13 @@ class DAO_CustomerRecipient extends DevblocksORMHelper {
 			"customer_recipient.id as %s, ".
 			"customer_recipient.account_id as %s, ".
 			"customer_recipient.is_disabled as %s, ".
-			"customer_recipient.recipient_name as %s, ".
 			"customer_recipient.type as %s, ".
-			"customer_recipient.address as %s, ".
-			"customer_recipient.notes as %s ",
+			"customer_recipient.address as %s ",
 				SearchFields_CustomerRecipient::ID,
 				SearchFields_CustomerRecipient::ACCOUNT_ID,
 				SearchFields_CustomerRecipient::IS_DISABLED,
-				SearchFields_CustomerRecipient::RECIPIENT_NAME,
 				SearchFields_CustomerRecipient::TYPE,
-				SearchFields_CustomerRecipient::ADDRESS,
-				SearchFields_CustomerRecipient::NOTES
+				SearchFields_CustomerRecipient::ADDRESS
 			);
 			
 		$join_sql = "FROM customer_recipient ";
@@ -221,10 +211,8 @@ class SearchFields_CustomerRecipient implements IDevblocksSearchFields {
 	const ID = 'c_id';
 	const ACCOUNT_ID = 'c_account_id';
 	const IS_DISABLED = 'c_is_disabled';
-	const RECIPIENT_NAME = 'c_recipient_name';
 	const TYPE = 'c_type';
 	const ADDRESS = 'c_address';
-	const NOTES = 'c_notes';
 	
 	/**
 	 * @return DevblocksSearchField[]
@@ -236,10 +224,8 @@ class SearchFields_CustomerRecipient implements IDevblocksSearchFields {
 			self::ID => new DevblocksSearchField(self::ID, 'customer_recipient', 'id', $translate->_('id')),
 			self::ACCOUNT_ID => new DevblocksSearchField(self::ACCOUNT_ID, 'customer_recipient', 'account_id', $translate->_('account_id')),
 			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'customer_recipient', 'is_disabled', $translate->_('is_disabled')),
-			self::RECIPIENT_NAME => new DevblocksSearchField(self::RECIPIENT_NAME, 'customer_recipient', 'recipient_name', $translate->_('recipient_name')),
 			self::TYPE => new DevblocksSearchField(self::TYPE, 'customer_recipient', 'type', $translate->_('type')),
 			self::ADDRESS => new DevblocksSearchField(self::ADDRESS, 'customer_recipient', 'address', $translate->_('address')),
-			self::NOTES => new DevblocksSearchField(self::NOTES, 'customer_recipient', 'notes', $translate->_('notes')),
 		);
 		
 		// Custom Fields
@@ -273,10 +259,8 @@ class View_CustomerRecipient extends FEG_AbstractView {
 			SearchFields_CustomerRecipient::ID,
 			SearchFields_CustomerRecipient::ACCOUNT_ID,
 			SearchFields_CustomerRecipient::IS_DISABLED,
-			SearchFields_CustomerRecipient::RECIPIENT_NAME,
 			SearchFields_CustomerRecipient::TYPE,
 			SearchFields_CustomerRecipient::ADDRESS,
-			SearchFields_CustomerRecipient::NOTES
 		);
 		$this->doResetCriteria();
 		
@@ -290,10 +274,8 @@ class View_CustomerRecipient extends FEG_AbstractView {
 			$this->id,
 			$this->account_id,
 			$this->is_disabled,
-			$this->recipient_name,
 			$this->type,
-			$this->address,
-			$this->notes
+			$this->address
 		);
 		return $objects;
 	}
@@ -320,9 +302,7 @@ class View_CustomerRecipient extends FEG_AbstractView {
 		$tpl_path = APP_PATH . '/features/feg.core/templates/';
 		
 		switch($field) {
-			case SearchFields_CustomerRecipient::RECIPIENT_NAME:
 			case SearchFields_CustomerRecipient::ADDRESS:
-			case SearchFields_CustomerRecipient::NOTES:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__string.tpl');
 				break;
 			case SearchFields_CustomerRecipient::ID:
@@ -393,8 +373,6 @@ class View_CustomerRecipient extends FEG_AbstractView {
 				break;
 				
 			case SearchFields_CustomerRecipient::ADDRESS:
-			case SearchFields_CustomerRecipient::NOTES:
-			case SearchFields_CustomerRecipient::RECIPIENT_NAME:
 				// force wildcards if none used on a LIKE
 				if(($oper == DevblocksSearchCriteria::OPER_LIKE || $oper == DevblocksSearchCriteria::OPER_NOT_LIKE)
 				&& false === (strpos($value,'*'))) {
@@ -444,10 +422,8 @@ class View_CustomerRecipient extends FEG_AbstractView {
 //			$change_fields[DAO_CustomerRecipient::ID] = intval($v);
 //			$change_fields[DAO_CustomerRecipient::ACCOUNT_ID] = intval($v);
 //			$change_fields[DAO_CustomerRecipient::IS_DISABLED] = intval($v);
-//			$change_fields[DAO_CustomerRecipient::RECIPIENT_NAME] = intval($v);
 //			$change_fields[DAO_CustomerRecipient::TYPE] = intval($v);
 //			$change_fields[DAO_CustomerRecipient::ADDRESS] = intval($v);
-//			$change_fields[DAO_CustomerRecipient::NOTES] = intval($v);
 //				case 'FIXME':
 //					break;
 //				case 'FIXME':

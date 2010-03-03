@@ -569,8 +569,6 @@ class FegSetupPage extends FegPageExtension  {
 		@$view_id = DevblocksPlatform::importGPC($_POST['view_id'],'string');
 		@$first_name = DevblocksPlatform::importGPC($_POST['first_name'],'string');
 		@$last_name = DevblocksPlatform::importGPC($_POST['last_name'],'string');
-		@$title = DevblocksPlatform::importGPC($_POST['title'],'string');
-		@$email = DevblocksPlatform::importGPC($_POST['email'],'string');
 		@$password = DevblocksPlatform::importGPC($_POST['password'],'string');
 		@$is_superuser = DevblocksPlatform::importGPC($_POST['is_superuser'],'integer', 0);
 		@$disabled = DevblocksPlatform::importGPC($_POST['is_disabled'],'integer',0);
