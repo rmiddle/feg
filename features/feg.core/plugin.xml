@@ -36,12 +36,26 @@
 	<class_loader>
 		<file path="api/plugin.classes.php">
 			<class name="FegPageController" />
-			<class name="FegCustomFieldSource_Worker" />
-			<class name="FegCustomFieldSource_Recipient" />
 			<!--
 			<class name="ChTaskSource_Ticket" />
 			<class name="ChWorkspaceSource_Worker" />
 			-->
+		</file>
+		<file path="api/dao/worker.php">
+			<class name="DAO_Worker" />
+			<class name="DAO_WorkerPref" />
+			<class name="DAO_WorkerRole" />
+			<class name="Model_Worker" />
+			<class name="Model_WorkerRole" />
+			<class name="SearchFields_Worker" />
+			<class name="View_Worker" />
+		</file>
+		
+		<file path="api/dao/worker_event.php">
+			<class name="DAO_WorkerEvent" />
+			<class name="Model_WorkerEvent" />
+			<class name="SearchFields_WorkerEvent" />
+			<class name="View_WorkerEvent" />
 		</file>
 		<file path="api/dao/customer_recipient.php">
 			<class name="FegCustomFieldSource_CustomerRecipient" />

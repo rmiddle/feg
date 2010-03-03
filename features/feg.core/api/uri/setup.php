@@ -249,12 +249,12 @@ class FegSetupPage extends FegPageExtension  {
 		
 		$defaults = new Feg_AbstractViewModel();
 		$defaults->id = 'workers_cfg';
-		$defaults->class_name = 'Feg_WorkerView';
+		$defaults->class_name = 'View_Worker';
 		
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 		$tpl->assign('view', $view);
-		$tpl->assign('view_fields', Feg_WorkerView::getFields());
-		$tpl->assign('view_searchable_fields', Feg_WorkerView::getSearchFields());
+		$tpl->assign('view_fields', View_Worker::getFields());
+		$tpl->assign('view_searchable_fields', View_Worker::getSearchFields());
 		
 		$tpl->assign('license', FegLicense::getInstance());
 		

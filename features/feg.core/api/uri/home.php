@@ -114,7 +114,7 @@ class FegHomePage extends FegPageExtension {
 		$title = vsprintf($translate->_('home.my_notifications.view.title'), $active_worker->getName());
 		
 		if(null == $myNotificationsView) {
-			$myNotificationsView = new Feg_WorkerEventView();
+			$myNotificationsView = new View_WorkerEvent();
 			$myNotificationsView->id = self::VIEW_MY_NOTIFICATIONS;
 			$myNotificationsView->name = $title;
 			$myNotificationsView->renderLimit = 25;

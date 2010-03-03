@@ -23,14 +23,6 @@ class FegTranslations extends DevblocksTranslationsExtension {
 
 // Custom Field Sources
 
-class FegCustomFieldSource_Worker extends Extension_CustomFieldSource {
-	const ID = 'feg.fields.source.worker';
-};
-
-class FegCustomFieldSource_Recipient extends Extension_CustomFieldSource {
-	const ID = 'feg.fields.source.recipient';
-};
-
 class FegPageController extends DevblocksControllerExtension {
     const ID = 'core.controller.page';
     
