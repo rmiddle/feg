@@ -49,8 +49,7 @@ class FegCoreTour extends DevblocksHttpResponseListenerExtension implements IDev
 				$tour = array(
 	                'title' => 'Home',
 	                'body' => '...',
-	                'callouts' => array(
-					)
+	                'callouts' => array()
 				);
 				break;
 				

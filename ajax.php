@@ -33,7 +33,6 @@ if(!empty($worker)) {
 //	$keyboard_shortcuts = intval(DAO_WorkerPref::get($worker->id,'keyboard_shortcuts', 1));
 //	$tpl->assign('pref_keyboard_shortcuts', $keyboard_shortcuts);
 }
-
 FegApplication::processRequest($request,true);
 
 exit;

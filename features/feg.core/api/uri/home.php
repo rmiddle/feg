@@ -122,7 +122,6 @@ class FegHomePage extends FegPageExtension {
 			$myNotificationsView->renderSortBy = SearchFields_WorkerEvent::CREATED_DATE;
 			$myNotificationsView->renderSortAsc = 0;
 		}
-
 		// Overload criteria
 		$myNotificationsView->name = $title;
 		$myNotificationsView->params = array(

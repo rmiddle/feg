@@ -9,6 +9,9 @@
 		<tu tuid='core.menu.home'>
 			<tuv xml:lang="en_US"><seg>Home</seg></tuv>
 		</tu>
+		<tu tuid='core.menu.account'>
+			<tuv xml:lang="en_US"><seg>Accounts</seg></tuv>
+		</tu>
 		<tu tuid='core.menu.preferences'>
 			<tuv xml:lang="en_US"><seg>My Account</seg></tuv>
 		</tu>
@@ -165,6 +168,15 @@
 
 		<tu tuid='home.tab.notifications'>
 			<tuv xml:lang="en_US"><seg>Notifications</seg></tuv>
+		</tu>
+
+		<!-- Account Tab -->
+		
+		<tu tuid='account.tab.account'>
+			<tuv xml:lang="en_US"><seg>Accounts Managerment</seg></tuv>
+		</tu>
+		<tu tuid='account.tab.account.title'>
+			<tuv xml:lang="en_US"><seg>Account Manager</seg></tuv>
 		</tu>
 
 		<!-- Login -->

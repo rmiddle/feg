@@ -1,49 +1,39 @@
 <?php
-class CustomerRecipientConfigTab extends Extension_SetupTab {
-	const ID = 'feg.recipient.config.tab';
 
-  function __construct($manifest) {
-      parent::__construct($manifest);
-  }
-
+class FegAccountTab extends Extension_HomeTab {
+	const ID = 'home.tab.account';
+	
+	function __construct($manifest) {
+		$this->_TPL_PATH = dirname(dirname(dirname(__FILE__))) . '/templates/';
+		parent::__construct($manifest);
+	}
+		
+	// Ajax
 	function showTab() {
 		$tpl = DevblocksPlatform::getTemplateService();
-		$tpl_path = dirname(dirname(dirname(__FILE__))) . '/templates/';
-		$core_tplpath = dirname(dirname(dirname(dirname(__FILE__)))) . '/feg.core/templates/';
-
-		$worker = FegApplication::getActiveWorker();
-		if(!$worker || !$worker->is_superuser) {
-			echo $translate->_('common.access_denied');
-			return;
-		}
-		
+		$translate = DevblocksPlatform::getTranslationService();
+		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
+		$tpl->assign('path', $tpl_path);
 		$tpl->assign('core_tplpath', $core_tplpath);
+		
 		$tpl->assign('view_id', $view_id);
 		
-//		$recipient = DAO_Recipient::getAll();
-//		$tpl->assign('recipient', $recipient);
+		$title = $translate->_('account.tab.account.title');
 		
 		$defaults = new Feg_AbstractViewModel();
-		$defaults->id = 'Recipients';
-		$defaults->class_name = 'Feg_RecipientView';
+		$defaults->id = self::ID;
+		$defaults->class_name = 'View_CustomerAccount';
 		
-		$defaults->renderSortBy = SearchFields_Recipient::ID;
+		$defaults->renderSortBy = SearchFields_CustomerAccount::ID;
 		$defaults->renderSortAsc = 0;
+		$defaults->name = $title;
 		
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 		$tpl->assign('view', $view);
-		$tpl->assign('view_fields', Feg_RecipientView::getFields());
-		$tpl->assign('view_searchable_fields', Feg_RecipientView::getSearchFields());
+		$tpl->assign('view_fields', View_CustomerRecipient::getFields());
+		$tpl->assign('view_searchable_fields', View_CustomerRecipient::getSearchFields());
 				
-		$tpl->display('file:' . $tpl_path . 'setup/tabs/recipient/index.tpl');
-	}
-
-//	function saveAnswernetAction() {
-//    $tpl = DevblocksPlatform::getTemplateService();
-//    $tpl_path = dirname(dirname(__FILE__)) . '/templates/';
-//    $tpl->cache_lifetime = "0";
-
-//    $tpl->display('file:' . $tpl_path . 'config_success.tpl');
-//	}
+		$tpl->display('file:' . $this->_TPL_PATH . 'home/tabs/account/index.tpl');		
+	}	
+		
 };
-

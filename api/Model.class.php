@@ -5,6 +5,7 @@ class FegVisit extends DevblocksVisit {
 
 //	const KEY_MY_WORKSPACE = 'view_my_workspace';
 	const KEY_HOME_SELECTED_TAB = 'home_selected_tab';
+	const KEY_ACCOUNT_MANAGER = 'account_manager';
 
 	public function __construct() {
 		$this->worker = null;
