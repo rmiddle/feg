@@ -1,18 +1,18 @@
-<form action="{devblocks_url}{/devblocks_url}" method="POST" id="formRecipientPeek" name="formRecipientPeek" onsubmit="return false;">
+<form action="{devblocks_url}{/devblocks_url}" method="POST" id="formAccountPeek" name="formAccountPeek" onsubmit="return false;">
 <input type="hidden" name="c" value="setup">
-<input type="hidden" name="a" value="saveRecipientPeek">
+<input type="hidden" name="a" value="saveAccountPeek">
 <input type="hidden" name="id" value="{$recipient->id}">
 <input type="hidden" name="view_id" value="{$view_id}">
 <input type="hidden" name="do_delete" value="0">
 
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
-		<td width="0%" nowrap="nowrap" align="right"><b>{$translate->_('recipient.recipient_name')|capitalize}:</b> </td>
-		<td width="100%"><input type="text" name="first_name" value="{$recipient->recipient_name|escape}" style="width:98%;"></td>
+		<td width="0%" nowrap="nowrap" align="right"><b>{$translate->_('account.account_name')|capitalize}:</b> </td>
+		<td width="100%"><input type="text" name="first_name" value="{$account->name|escape}" style="width:98%;"></td>
 	</tr>
 	<tr>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address')|capitalize}: </td>
-		<td width="100%"><input type="text" name="title" value="{$recipient->address|escape}" style="width:98%;"></td>
+		<td width="0%" nowrap="nowrap" align="right">{$translate->_('account.address')|capitalize}: </td>
+		<td width="100%"><input type="text" name="title" value="{$account->address|escape}" style="width:98%;"></td>
 	</tr>
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right"><b>{$translate->_('recipient.notes')}</b>: </td>

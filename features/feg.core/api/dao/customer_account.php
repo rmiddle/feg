@@ -302,15 +302,15 @@ class View_CustomerAccount extends FEG_AbstractView {
 		$tpl_path = APP_PATH . '/features/feg.core/templates/';
 		
 		switch($field) {
-			case SearchFields_CustomerAccount::ID:
-			case SearchFields_CustomerAccount::IS_DISABLED:
 			case SearchFields_CustomerAccount::ACCOUNT_NUMBER:
 			case SearchFields_CustomerAccount::ACCOUNT_NAME:
 			case SearchFields_CustomerAccount::NOTES:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__string.tpl');
 				break;
+			case SearchFields_CustomerAccount::ID:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__number.tpl');
 				break;
+			case SearchFields_CustomerAccount::IS_DISABLED:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__bool.tpl');
 				break;
 			default:
@@ -363,8 +363,6 @@ class View_CustomerAccount extends FEG_AbstractView {
 		$criteria = null;
 
 		switch($field) {
-			case SearchFields_CustomerAccount::ID:
-			case SearchFields_CustomerAccount::IS_DISABLED:
 			case SearchFields_CustomerAccount::ACCOUNT_NUMBER:
 			case SearchFields_CustomerAccount::ACCOUNT_NAME:
 			case SearchFields_CustomerAccount::NOTES:
@@ -377,9 +375,11 @@ class View_CustomerAccount extends FEG_AbstractView {
 				$criteria = new DevblocksSearchCriteria($field, $oper, $value);
 				break;
 				
+			case SearchFields_CustomerAccount::ID:
 				$criteria = new DevblocksSearchCriteria($field,$oper,$value);
 				break;
 				
+			case SearchFields_CustomerAccount::IS_DISABLED:
 				@$bool = DevblocksPlatform::importGPC($_REQUEST['bool'],'integer',1);
 				$criteria = new DevblocksSearchCriteria($field,$oper,$bool);
 				break;
@@ -413,15 +413,9 @@ class View_CustomerAccount extends FEG_AbstractView {
 		if(is_array($do))
 		foreach($do as $k => $v) {
 			switch($k) {
-//			$change_fields[DAO_CustomerAccount::ID] = intval($v);
-//			$change_fields[DAO_CustomerAccount::IS_DISABLED] = intval($v);
-//			$change_fields[DAO_CustomerAccount::ACCOUNT_NUMBER] = intval($v);
-//			$change_fields[DAO_CustomerAccount::ACCOUNT_NAME] = intval($v);
-//			$change_fields[DAO_CustomerAccount::NOTES] = intval($v);
-//				case 'FIXME':
-//					break;
-//				case 'FIXME':
-//					break;
+				case 'is_disabled':
+					$change_fields[DAO_CustomerAccount::IS_DISABLED] = intval($v);
+					break;
 				default:
 					// Custom fields
 					if(substr($k,0,3)=="cf_") {

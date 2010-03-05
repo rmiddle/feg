@@ -57,7 +57,7 @@
 			{elseif $column=="r_id"}
 				<td>{$result.r_id}&nbsp;</td>
 			{elseif $column=="r_recipient_name" || $column=="r_address"}
-				<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showRecipientPeek&id={$result.w_id}&view_id={$view->id|escape:'url'}',null,false,'550');" &nbsp;</td>
+				<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showAccountPeek&id={$result.w_id}&view_id={$view->id|escape:'url'}',null,false,'550');" &nbsp;</td>
 			{else}
 			<td>{$result.$column}&nbsp;</td>
 			{/if}
@@ -71,7 +71,7 @@
 	<tr>
 		<td colspan="2">
 			{if $active_worker && $active_worker->is_superuser}
-				<button type="button" onclick="genericAjaxPanel('c=setup&a=showWorkersBulkPanel&view_id={$view->id}&ids=' + Devblocks.getFormEnabledCheckboxValues('viewForm{$view->id}','row_id[]'),null,false,'500');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/folder_gear.gif{/devblocks_url}" align="top"> bulk update</button>
+				<button type="button" onclick="genericAjaxPanel('c=setup&a=showAccountBulkPanel&view_id={$view->id}&ids=' + Devblocks.getFormEnabledCheckboxValues('viewForm{$view->id}','row_id[]'),null,false,'500');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/folder_gear.gif{/devblocks_url}" align="top"> bulk update</button>
 			{/if}
 		</td>
 	</tr>
