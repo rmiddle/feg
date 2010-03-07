@@ -132,9 +132,9 @@ class FegApplication extends DevblocksApplication {
 		if ($memory_limit == '') { // empty string means failure or not defined, assume no compiled memory limits
 		} else {
 			$ini_memory_limit = intval($memory_limit);
-			if($ini_memory_limit >= 16) {
+			if($ini_memory_limit >= 32) {
 			} else {
-				$errors[] = 'memory_limit must be 16M or larger (32M recommended) in your php.ini file.  Please increase it.';
+				$errors[] = 'memory_limit must be 32M or larger (64M recommended) in your php.ini file.  Please increase it.';
 			}
 		}
 		

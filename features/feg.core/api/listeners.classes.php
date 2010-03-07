@@ -44,6 +44,13 @@ class FegCoreTour extends DevblocksHttpResponseListenerExtension implements IDev
 				);
 				break;
 				
+			case "stats":
+				$tour = array(
+					'title' => 'Stats',
+					'body' => '...',
+				);
+				break;
+				
 			case NULL:
 			case 'home':
 				$tour = array(
