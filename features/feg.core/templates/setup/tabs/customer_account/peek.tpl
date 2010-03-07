@@ -8,7 +8,7 @@
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right"><b>{$translate->_('account.account_name')|capitalize}:</b> </td>
-		<td width="100%"><input type="text" name="first_name" value="{$account->name|escape}" style="width:98%;"></td>
+		<td width="100%"><input type="text" name="account_name" value="{$account->name|escape}" style="width:98%;"></td>
 	</tr>
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('account.address')|capitalize}: </td>

@@ -243,6 +243,19 @@
 		</extension>
 
 		<extension point="feg.page">
+			<id>core.page.home</id>
+			<name>Home Page</name>
+			<class>
+				<file>api/uri/stats.php</file>
+				<name>FegStatsPage</name>
+			</class>
+			<params>
+				<param key="uri" value="stats" />
+				<param key="menutitle" value="core.menu.stats" />
+			</params>
+		</extension>
+
+		<extension point="feg.page">
 			<id>core.page.signin</id>
 			<name>Signin Page</name>
 			<class>
