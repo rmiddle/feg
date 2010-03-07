@@ -243,7 +243,7 @@
 		</extension>
 
 		<extension point="feg.page">
-			<id>core.page.home</id>
+			<id>core.page.stats</id>
 			<name>Home Page</name>
 			<class>
 				<file>api/uri/stats.php</file>
