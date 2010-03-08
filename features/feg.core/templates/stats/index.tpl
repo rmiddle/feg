@@ -7,16 +7,16 @@ Stats Template.
 </div> 
 <table cellpadding="0" cellspacing="0" border="0">
 	<tr>
-		<td valign="top" width="25%" nowrap="nowrap">
+		<td valign="top" width="100%">
 			<div id="postfix_stats"></div><br>
 		</td>
-		<td valign="top" width="25%" nowrap="nowrap" style="padding-right:5px;">
+		<td valign="top" width="100%">
 			<div id="postfix_stats1"></div><br>
 		</td>
-		<td valign="top" width="25%">
+		<td valign="top" width="100%">
 			<div id="postfix_stats2"></div><br>
 		</td>
-		<td valign="top" width="25%">
+		<td valign="top" width="100%">
 			<div id="postfix_stats3"></div><br>
 		</td>
 	</tr>
