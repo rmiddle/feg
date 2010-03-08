@@ -45,7 +45,7 @@ class FegStatsPage extends FegPageExtension {
 	}
 	
 	function showPostfixStatsAction() {
-		echo system("bash_mailq.sh");
+		system("bash_mailq.sh");
 	  echo "<br>";
 		echo date("n:i:s A");
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
