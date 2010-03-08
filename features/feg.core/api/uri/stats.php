@@ -47,12 +47,12 @@ class FegStatsPage extends FegPageExtension {
 	
 	
 	function showPostfixStats() {
-		echo "PostFixStats":
+		echo "PostFixStats";
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
 
 	function showPostfixStatsAction() {
-		echo "PostFixStatsAction":
+		echo "PostFixStatsAction";
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
 
