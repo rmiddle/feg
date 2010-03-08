@@ -5,7 +5,22 @@
 <div id="stats">
 Stats Template.
 </div> 
-<div id="postfix_stats"></div><br>
+<table cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top" width="25%" nowrap="nowrap">
+			<div id="postfix_stats"></div><br>
+		</td>
+		<td valign="top" width="25%" nowrap="nowrap" style="padding-right:5px;">
+			<div id="postfix_stats"></div><br>
+		</td>
+		<td valign="top" width="25%">
+			<div id="postfix_stats"></div><br>
+		</td>
+		<td valign="top" width="25%">
+			<div id="postfix_stats"></div><br>
+		</td>
+	</tr>
+</table>
 
 
 <br>
