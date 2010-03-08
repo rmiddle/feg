@@ -45,54 +45,55 @@ class FegStatsPage extends FegPageExtension {
 	}
 	
 	function showPostfixMailqStatsAction() {
-		echo "Postfix Queue: ";
+		echo "Postfix Queue: <b>";
 		system("bash_mailq.sh");
+		echo "</b>";
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
 
 	function showPostfixStatsAction() {
-		echo "Email Sent Last Hour: ";
+		echo "Email Sent Last Hour: <b>";
 		echo "FIXME";
-		echo "<br>";
-		echo "Email Sent Last Day: ";
+		echo "</b><br>";
+		echo "Email Sent Last Day: <b>";
 		echo "FIXME";
-		echo "<br>";
-		echo "Email Sent Last Week: ";
+		echo "</b><br>";
+		echo "Email Sent Last Week: <b>";
 		echo "FIXME";
-		echo "<br>";
-		echo "Email Sent Last Month: ";
+		echo "</b><br>";
+		echo "Email Sent Last Month: <b>";
 		echo "FIXME";
-		echo "<br>";
-		echo "Email Sent Last Year: ";
+		echo "</b><br>";
+		echo "Email Sent Last Year: <b>";
 		echo "FIXME";
-		echo "<br>";
+		echo "</b><br>";
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
 
 	function showFaxQueStatsAction() {
-		echo "FaxQue: ";
+		echo "FaxQue: <b>";
 		echo "FIXME";
-		echo "<br>";
+		echo "</b><br>";
 		echo date("n:i:s A");
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
 
 	function showFaxStatsAction() {
-		echo "Fax Sent Last Hour: ";
+		echo "Fax Sent Last Hour: <b>";
 		echo "FIXME";
-		echo "<br>";
-		echo "Fax Sent Last Day: ";
+		echo "</b><br>";
+		echo "Fax Sent Last Day: <b>";
 		echo "FIXME";
-		echo "<br>";
-		echo "Fax Sent Last Week: ";
+		echo "</b><br>";
+		echo "Fax Sent Last Week: <b>";
 		echo "FIXME";
-		echo "<br>";
-		echo "Fax Sent Last Month: ";
+		echo "</b><br>";
+		echo "Fax Sent Last Month: <b>";
 		echo "FIXME";
-		echo "<br>";
-		echo "Fax Sent Last Year: ";
+		echo "</b><br>";
+		echo "Fax Sent Last Year: <b>";
 		echo "FIXME";
-		echo "<br>";
+		echo "</b><br>";
 		echo date("n:i:s A");
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
