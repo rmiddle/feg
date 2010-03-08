@@ -45,7 +45,7 @@ class FegStatsPage extends FegPageExtension {
 	}
 	
 	function showPostfixStatsAction() {
-		echo date("a:i:s A");
+		echo date("n:i:s A");
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
 
