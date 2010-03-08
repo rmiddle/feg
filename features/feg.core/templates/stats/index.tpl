@@ -18,7 +18,7 @@ Stats Template.
 		<td valign="top" width="25%">
 			<div id="postfix_stats2"></div><br>
 		</td>
-		<td valign="top" width="100%">
+		<td valign="top" width="25%" align="right">
 			<div id="postfix_stats3"></div><br>
 		</td>
 	</tr>
