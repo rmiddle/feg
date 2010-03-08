@@ -18,6 +18,6 @@ $(document).ready(function() {
 	$("#postfix_stats").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
 	var refreshId = setInterval(function() {
 		$("#postfix_stats").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
-	}, 5000);
+	}, 1000);
 });
 </script>
