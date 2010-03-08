@@ -9,11 +9,7 @@ Stats Template.
 	<tr>
 		<td valign="top" width="25%">
 			<div id="postfix_mailq_stats"></div><br>
-			<div id="postfix_sent_hour"></div><br>
-			<div id="postfix_sent_today"></div><br>
-			<div id="postfix_sent_week"></div><br>
-			<div id="postfix_sent_month"></div><br>
-			<div id="postfix_sent_year"></div><br>
+			<div id="postfix_sent_stats"></div><br>
 		</td>
 		<td valign="top" width="25%">
 			<div id="postfix_stats1"></div><br>
@@ -34,16 +30,16 @@ Stats Template.
 
 <script>
 $(document).ready(function() {
-	$("#postfix_mailq_stats").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
+	$("#postfix_mailq_stats").load("{devblocks_url}ajax.php?c=stats&a=showPostfixMailqStats{/devblocks_url}");
 	var refreshId = setInterval(function() {
-		$("#postfix_mailq_stats").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
+		$("#postfix_mailq_stats").load("{devblocks_url}ajax.php?c=stats&a=showPostfixMailqStats{/devblocks_url}");
 	}, 1000);
 });
 $(document).ready(function() {
-	$("#postfix_stats1").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
+	$("#postfix_sent_stats").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
 	var refreshId = setInterval(function() {
-		$("#postfix_stats1").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
-	}, 1000);
+		$("#postfix_sent_stats").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
+	}, 300000);
 });
 $(document).ready(function() {
 	$("#postfix_stats2").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
