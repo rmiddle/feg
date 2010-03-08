@@ -6,6 +6,7 @@
 Stats Template.
 </div> 
 <div id="postfix_stats">
+PostfixStatsDiv
 </div>
 
 <br>
