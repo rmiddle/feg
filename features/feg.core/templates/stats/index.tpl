@@ -31,26 +31,26 @@ $(document).ready(function() {
 	$("#postfix_mailq_stats").load("{devblocks_url}ajax.php?c=stats&a=showPostfixMailqStats{/devblocks_url}");
 	var refreshId = setInterval(function() {
 		$("#postfix_mailq_stats").load("{devblocks_url}ajax.php?c=stats&a=showPostfixMailqStats{/devblocks_url}");
-	}, 1000);
+	}, 5000);
 });
 $(document).ready(function() {
 	$("#postfix_sent_stats").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
 	var refreshId = setInterval(function() {
 		$("#postfix_sent_stats").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
-	}, 300000);
+	}, 60000);
 });
 
 $(document).ready(function() {
 	$("#showfaxquestats").load("{devblocks_url}ajax.php?c=stats&a=showFaxQueStats{/devblocks_url}");
 	var refreshId = setInterval(function() {
 		$("#showfaxquestats").load("{devblocks_url}ajax.php?c=stats&a=showFaxQueStats{/devblocks_url}");
-	}, 1000);
+	}, 5000);
 });
 $(document).ready(function() {
 	$("#showfaxstats").load("{devblocks_url}ajax.php?c=stats&a=showFaxStats{/devblocks_url}");
 	var refreshId = setInterval(function() {
 		$("#showfaxstats").load("{devblocks_url}ajax.php?c=stats&a=showFaxStats{/devblocks_url}");
-	}, 300000);
+	}, 60000);
 });
 
 </script>
