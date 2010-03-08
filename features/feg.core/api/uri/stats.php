@@ -43,4 +43,17 @@ class FegStatsPage extends FegPageExtension {
 		
 		$tpl->display('file:' . $this->_TPL_PATH . 'stats/index.tpl');
 	}
+	
+	
+	
+	function showPostfixStats() {
+		echo "PostFixStats":
+		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
+	}
+
+	function showPostfixStatsAction() {
+		echo "PostFixStatsAction":
+		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
+	}
+
 };

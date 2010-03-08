@@ -14,9 +14,9 @@ Stats Template.
 
 <script>
  $(document).ready(function() {
- 	 $("#responsecontainer").load("ajax.php");
+ 	 $("#postfix_stats").load("ajax.php");
    var refreshId = setInterval(function() {
-	  $("#postfix_stats").load({devblocks_url}ajax.php?c=setup&a=showTab&ext_id={$tab_manifest->id}&request={$request_path|escape:'url'}{/devblocks_url});
+	  $("#postfix_stats").load({devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url});
    }, 5000);
 });
 </script>
