@@ -132,6 +132,9 @@
 		<tu tuid='activity.setup'>
 			<tuv xml:lang="en_US"><seg>%s is configuring the application</seg></tuv>
 		</tu>
+		<tu tuid='activity.stats'>
+			<tuv xml:lang="en_US"><seg>%s is displaying application statics</seg></tuv>
+		</tu>
 
 		<!-- Cron -->
 
