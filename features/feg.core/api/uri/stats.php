@@ -45,13 +45,13 @@ class FegStatsPage extends FegPageExtension {
 	}
 	
 	function showPostfixMailqStatsAction() {
-		echo date("n:i:s A");
+		echo "Postfix Queue: ";
+		system("bash_mailq.sh");
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
 
 	function showPostfixStatsAction() {
-		echo "Postfix Queue: ";
-		system("bash_mailq.sh");
+		echo date("n:i:s A");
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
 
