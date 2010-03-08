@@ -14,10 +14,10 @@ PostfixStatsDiv
 {include file="file:$core_tpl/whos_online.tpl"}
 
 <script>
- $(document).ready(function() {
- 	 $("#postfix_stats").load("ajax.php");
-   var refreshId = setInterval(function() {
-	  $("#postfix_stats").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
-   }, 5000);
-});
+function update() {
+  $.get("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}", function(data) {
+    $("#postfix_stats").html(data);
+    window.setTimeout(update, 5000);
+  });
+}
 </script>
