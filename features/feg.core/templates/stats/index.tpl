@@ -8,7 +8,7 @@ Stats Template.
 <table cellpadding="0" cellspacing="0" border="0">
 	<tr>
 		<td valign="top" width="25%">
-			<div id="postfix_mailq_stats"></div><br>
+			<div id="postfix_mailq_stats"></div>
 			<div id="postfix_sent_stats"></div><br>
 		</td>
 		<td valign="top" width="25%">
