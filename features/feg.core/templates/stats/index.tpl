@@ -2,9 +2,6 @@
 	<div style="padding-bottom:5px;"></div>
 </div> 
 
-<div id="stats">
-Stats Template.
-</div> 
 <table cellpadding="0" cellspacing="0" border="0">
 	<tr>
 		<td valign="top" width="25%">
@@ -42,6 +39,7 @@ $(document).ready(function() {
 		$("#postfix_sent_stats").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
 	}, 300000);
 });
+
 $(document).ready(function() {
 	$("#showfaxquestats").load("{devblocks_url}ajax.php?c=stats&a=showFaxQueStats{/devblocks_url}");
 	var refreshId = setInterval(function() {
@@ -54,16 +52,5 @@ $(document).ready(function() {
 		$("#showfaxstats").load("{devblocks_url}ajax.php?c=stats&a=showFaxStats{/devblocks_url}");
 	}, 300000);
 });
-$(document).ready(function() {
-	$("#postfix_stats2").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
-	var refreshId = setInterval(function() {
-		$("#postfix_stats2").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
-	}, 1000);
-});
-$(document).ready(function() {
-	$("#postfix_stats3").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
-	var refreshId = setInterval(function() {
-		$("#postfix_stats3").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
-	}, 1000);
-});
+
 </script>
