@@ -1,9 +1,9 @@
 <?php
-define('APP_DB_DRIVER','');
-define('APP_DB_HOST','');
-define('APP_DB_DATABASE','');
-define('APP_DB_USER','');
-define('APP_DB_PASS','');
+define('APP_DB_DRIVER','mysql');
+define('APP_DB_HOST','localhost');
+define('APP_DB_DATABASE','feg');
+define('APP_DB_USER','feg');
+define('APP_DB_PASS','feg');
 define('APP_DB_PCONNECT',false);
 
 define('LANG_CHARSET_CODE','iso-8859-1'); // iso-8859-1, utf-8
