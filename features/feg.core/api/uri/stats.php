@@ -74,7 +74,6 @@ class FegStatsPage extends FegPageExtension {
 		echo "FaxQue: <b>";
 		echo "FIXME";
 		echo "</b><br>";
-		echo date("n:i:s A");
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
 
