@@ -12,7 +12,8 @@ Stats Template.
 			<div id="postfix_sent_stats"></div><br>
 		</td>
 		<td valign="top" width="25%">
-			<div id="postfix_stats1"></div><br>
+			<div id="showfaxquestats"></div>
+			<div id="showfaxstats"></div>
 		</td>
 		<td valign="top" width="25%">
 			<div id="postfix_stats2"></div><br>
@@ -39,6 +40,18 @@ $(document).ready(function() {
 	$("#postfix_sent_stats").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
 	var refreshId = setInterval(function() {
 		$("#postfix_sent_stats").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
+	}, 300000);
+});
+$(document).ready(function() {
+	$("#showfaxquestats").load("{devblocks_url}ajax.php?c=stats&a=showFaxQueStats{/devblocks_url}");
+	var refreshId = setInterval(function() {
+		$("#showfaxquestats").load("{devblocks_url}ajax.php?c=stats&a=showFaxQueStats{/devblocks_url}");
+	}, 1000);
+});
+$(document).ready(function() {
+	$("#showfaxstats").load("{devblocks_url}ajax.php?c=stats&a=showFaxStats{/devblocks_url}");
+	var refreshId = setInterval(function() {
+		$("#showfaxstats").load("{devblocks_url}ajax.php?c=stats&a=showFaxStats{/devblocks_url}");
 	}, 300000);
 });
 $(document).ready(function() {

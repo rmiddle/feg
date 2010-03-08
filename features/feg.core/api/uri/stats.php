@@ -51,8 +51,49 @@ class FegStatsPage extends FegPageExtension {
 	}
 
 	function showPostfixStatsAction() {
+		echo "Email Sent Last Hour: ";
+		echo "FIXME";
+		echo "<br>";
+		echo "Email Sent Last Day: ";
+		echo "FIXME";
+		echo "<br>";
+		echo "Email Sent Last Week: ";
+		echo "FIXME";
+		echo "<br>";
+		echo "Email Sent Last Month: ";
+		echo "FIXME";
+		echo "<br>";
+		echo "Email Sent Last Year: ";
+		echo "FIXME";
+		echo "<br>";
+		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
+	}
+
+	function showFaxQueStatsAction() {
+		echo "FaxQue: ";
+		echo "FIXME";
+		echo "<br>";
 		echo date("n:i:s A");
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
 
+	function showFaxStatsAction() {
+		echo "Fax Sent Last Hour: ";
+		echo "FIXME";
+		echo "<br>";
+		echo "Fax Sent Last Day: ";
+		echo "FIXME";
+		echo "<br>";
+		echo "Fax Sent Last Week: ";
+		echo "FIXME";
+		echo "<br>";
+		echo "Fax Sent Last Month: ";
+		echo "FIXME";
+		echo "<br>";
+		echo "Fax Sent Last Year: ";
+		echo "FIXME";
+		echo "<br>";
+		echo date("n:i:s A");
+		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
+	}
 };
