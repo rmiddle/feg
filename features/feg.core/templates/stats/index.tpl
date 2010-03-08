@@ -17,7 +17,7 @@ PostfixStatsDiv
  $(document).ready(function() {
  	 $("#postfix_stats").load("ajax.php");
    var refreshId = setInterval(function() {
-	  $("#postfix_stats").load("{devblocks_url}c=stats&a=showPostfixStats{/devblocks_url}");
+	  $("#postfix_stats").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
    }, 5000);
 });
 </script>
