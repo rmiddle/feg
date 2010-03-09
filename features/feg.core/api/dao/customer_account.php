@@ -366,7 +366,6 @@ class View_CustomerAccount extends FEG_AbstractView {
 			case SearchFields_CustomerAccount::ACCOUNT_NUMBER:
 			case SearchFields_CustomerAccount::ACCOUNT_NAME:
 			case SearchFields_CustomerAccount::NOTES:
-				
 				// force wildcards if none used on a LIKE
 				if(($oper == DevblocksSearchCriteria::OPER_LIKE || $oper == DevblocksSearchCriteria::OPER_NOT_LIKE)
 				&& false === (strpos($value,'*'))) {

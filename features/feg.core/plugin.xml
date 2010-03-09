@@ -243,6 +243,19 @@
 		</extension>
 
 		<extension point="feg.page">
+			<id>customer.tab.account</id>
+			<name>Home Page</name>    
+			<class>                   
+				<file>api/uri/customer_accounts.php</file>
+				<name>FegAccountPage</name>               
+			</class>                                          
+			<params>                                          
+				<param key="uri" value="account" />       
+				<param key="title" value="core.menu.account" />                                                                               
+			</params>                                                
+		</extension>
+		
+		<extension point="feg.page">
 			<id>core.page.stats</id>
 			<name>Home Page</name>
 			<class>
@@ -366,19 +379,6 @@
 		</extension>
 		
 		<!-- Home Tab -->
-		
-		<extension point="feg.home.tab">
-			<id>home.tab.account</id>
-			<name>Home Page</name>    
-			<class>                   
-				<file>api/uri/customer_accounts.php</file>
-				<name>FegAccountTab</name>               
-			</class>                                          
-			<params>                                          
-				<param key="uri" value="account" />       
-				<param key="title" value="core.menu.account" />                                                                               
-			</params>                                                
-		</extension>
 		
 		<!-- Workspace Sources -->
 		

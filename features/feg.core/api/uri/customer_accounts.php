@@ -1,15 +1,31 @@
 <?php
 
-class FegAccountTab extends Extension_HomeTab {
-	const ID = 'home.tab.account';
+class FegAccountPage extends FegPageExtension {
+	private $_TPL_PATH = '';
+
+	const VIEW_STATICS_PAGE = 'Account_page';
 	
 	function __construct($manifest) {
 		$this->_TPL_PATH = dirname(dirname(dirname(__FILE__))) . '/templates/';
 		parent::__construct($manifest);
 	}
 		
-	// Ajax
-	function showTab() {
+	function isVisible() {
+		// check login
+		$visit = FegApplication::getVisit();
+		
+		if(empty($visit)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	function getActivity() {
+		return new Model_Activity('activity.account');
+	}
+	
+	function render() {
 		$tpl = DevblocksPlatform::getTemplateService();
 		$translate = DevblocksPlatform::getTranslationService();
 		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
@@ -33,7 +49,7 @@ class FegAccountTab extends Extension_HomeTab {
 		$tpl->assign('view_fields', View_CustomerAccount::getFields());
 		$tpl->assign('view_searchable_fields', View_CustomerAccount::getSearchFields());
 				
-		$tpl->display('file:' . $this->_TPL_PATH . 'home/tabs/account/index.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'customer/index.tpl');		
 	}	
 		
 };

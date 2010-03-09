@@ -98,33 +98,33 @@ class FegStatsPage extends FegPageExtension {
 	}
 	
 	 
-	function eventFd($fd, $events, $arg) {
-		echo fread($fd, 4096);
-	}
+//	function eventFd($fd, $events, $arg) {
+//		echo fread($fd, 4096);
+//	}
 	
 	function showFaxStatsAction() {
 		// callback function called whenever the registered event is triggered
 
 		// create event base
-		$base_fd = event_base_new();
+//		$base_fd = event_base_new();
 
 		// create a new event
-		$event_fd = event_new();
+//		$event_fd = event_new();
 
 		// resource to be monitored
-		$fd = fopen('/var/log/mail.log', 'r');
+//		$fd = fopen('/var/log/mail.log', 'r');
 
 		// set event on passed file name
-		event_set($event_fd, $fd, EV_WRITE | EV_PERSIST, 'eventFd', array($event_fd, $base_fd));
+//		event_set($event_fd, $fd, EV_WRITE | EV_PERSIST, 'eventFd', array($event_fd, $base_fd));
 
 		// associate base with this event
-		event_base_set($event_fd, $base_fd);
+//		event_base_set($event_fd, $base_fd);
 
 		// register event
-		event_add($event_fd);
+//		event_add($event_fd);
 
 	// start event loop
-		event_base_loop($base_fd);
+//		event_base_loop($base_fd);
 	}
 	
 };
