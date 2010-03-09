@@ -173,6 +173,7 @@ class FegSetupPage extends FegPageExtension  {
         DevblocksPlatform::readPlugins();
 		
 		$plugins = DevblocksPlatform::getPluginRegistry();
+		unset($plugins['devblocks.core']);
 		unset($plugins['feg.core']);
 		$tpl->assign('plugins', $plugins);
 		
