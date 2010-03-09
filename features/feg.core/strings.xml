@@ -135,6 +135,9 @@
 		<tu tuid='activity.stats'>
 			<tuv xml:lang="en_US"><seg>%s is displaying application status</seg></tuv>
 		</tu>
+		<tu tuid='activity.account'>
+			<tuv xml:lang="en_US"><seg>%s is manging customer accounts</seg></tuv>
+		</tu>
 
 		<!-- Cron -->
 
