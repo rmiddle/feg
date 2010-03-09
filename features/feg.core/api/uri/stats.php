@@ -97,8 +97,4 @@ class FegStatsPage extends FegPageExtension {
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
 	 
-	function showFaxStatsAction() {
-		echo "FIXME";
-	}
-	
 };
