@@ -2,8 +2,8 @@
 
 class FegAccountPage extends FegPageExtension {
 	private $_TPL_PATH = '';
+	const ID = 'customer.page.account';
 
-	const VIEW_STATICS_PAGE = 'Account_page';
 	
 	function __construct($manifest) {
 		$this->_TPL_PATH = dirname(dirname(dirname(__FILE__))) . '/templates/';
