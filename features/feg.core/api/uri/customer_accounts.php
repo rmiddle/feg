@@ -30,8 +30,8 @@ class FegAccountTab extends Extension_HomeTab {
 		
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 		$tpl->assign('view', $view);
-		$tpl->assign('view_fields', View_CustomerRecipient::getFields());
-		$tpl->assign('view_searchable_fields', View_CustomerRecipient::getSearchFields());
+		$tpl->assign('view_fields', View_CustomerAccount::getFields());
+		$tpl->assign('view_searchable_fields', View_CustomerAccount::getSearchFields());
 				
 		$tpl->display('file:' . $this->_TPL_PATH . 'home/tabs/account/index.tpl');		
 	}	
