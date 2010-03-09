@@ -243,7 +243,7 @@
 		</extension>
 
 		<extension point="feg.page">
-			<id>customer.tab.account</id>
+			<id>customer.page.account</id>
 			<name>Home Page</name>    
 			<class>                   
 				<file>api/uri/customer_accounts.php</file>
@@ -251,7 +251,7 @@
 			</class>                                          
 			<params>                                          
 				<param key="uri" value="account" />       
-				<param key="title" value="core.menu.account" />                                                                               
+				<param key="menutitle" value="core.menu.account" />                                                                               
 			</params>                                                
 		</extension>
 		
