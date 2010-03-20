@@ -439,6 +439,9 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='recipient.type.snpp'>
 			<tuv xml:lang="en_US"><seg>Paging</seg></tuv>
 		</tu>
+		<tu tuid='recipient.type.web'>
+			<tuv xml:lang="en_US"><seg>Web Delivery</seg></tuv>
+		</tu>
 	</body>
 </tmx>
 <!-- 

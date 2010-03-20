@@ -20,6 +20,7 @@
 				<option value="0">{$translate->_('recipient.type.email')}</option>
 				<option value="1">{$translate->_('recipient.type.fax')}</option>
 				<option value="2">{$translate->_('recipient.type.snpp')}</option>
+				<option value="3">{$translate->_('recipient.type.web')}</option>
 			</select>
 			
 			<button type="button" onclick="this.form.is_disabled.selectedIndex=1;">{$translate->_('recipient.type.email')}</button>
