@@ -1,18 +1,4 @@
 <?php
-// Custom Field Sources
-
-class FegCustomFieldSource_CustomerRecipient extends Extension_CustomFieldSource {
-	const ID = 'feg.fields.source.customer_recipient';
-};
-
-class Model_CustomerRecipient {
-	public $id;
-	public $account_id;
-	public $is_disabled;
-	public $type;
-	public $address;
-};
-
 class DAO_CustomerRecipient extends DevblocksORMHelper {
 	const ID = 'id';
 	const ACCOUNT_ID = 'account_id';
@@ -206,7 +192,6 @@ class DAO_CustomerRecipient extends DevblocksORMHelper {
 
 };
 
-
 class SearchFields_CustomerRecipient implements IDevblocksSearchFields {
 	const ID = 'c_id';
 	const ACCOUNT_ID = 'c_account_id';
@@ -244,15 +229,25 @@ class SearchFields_CustomerRecipient implements IDevblocksSearchFields {
 	}
 };
 
+class Model_CustomerRecipient {
+	public $id;
+	public $account_id;
+	public $is_disabled;
+	public $type;
+	public $address;
+};
 
-class View_CustomerRecipient extends FEG_AbstractView {
-	const DEFAULT_ID = 'customer_recipient';
-	
+class View_CustomerRecipient extends C4_AbstractView {
+	const DEFAULT_ID = 'customerrecipient';
+
 	function __construct() {
+		$translate = DevblocksPlatform::getTranslationService();
+	
 		$this->id = self::DEFAULT_ID;
-		$this->name = 'CustomerRecipient';
+		// [TODO] Name the worklist view
+		$this->name = $translate->_('CustomerRecipient');
 		$this->renderLimit = 25;
-		$this->renderSortBy = SearchFields_CustomerRecipient::ACCOUNT_ID;
+		$this->renderSortBy = SearchFields_CustomerRecipient::ID;
 		$this->renderSortAsc = true;
 
 		$this->view_columns = array(
@@ -262,20 +257,17 @@ class View_CustomerRecipient extends FEG_AbstractView {
 			SearchFields_CustomerRecipient::TYPE,
 			SearchFields_CustomerRecipient::ADDRESS,
 		);
-		$this->doResetCriteria();
 		
-//		$this->params = array(
-//			SearchFields_CustomerRecipient::FIXME => new DevblocksSearchCriteria(SearchFields_CustomerRecipient::FIXME,'=',1),
-//		);
+		$this->doResetCriteria();
 	}
 
 	function getData() {
 		$objects = DAO_CustomerRecipient::search(
-			$this->id,
-			$this->account_id,
-			$this->is_disabled,
-			$this->type,
-			$this->address
+			$this->params,
+			$this->renderLimit,
+			$this->renderPage,
+			$this->renderSortBy,
+			$this->renderSortAsc
 		);
 		return $objects;
 	}
@@ -285,13 +277,10 @@ class View_CustomerRecipient extends FEG_AbstractView {
 		
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('id', $this->id);
-		
 		$tpl->assign('view', $this);
 
-		$address_fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerRecipient::ID);
-		$tpl->assign('custom_fields', $address_fields);
-		
 		$tpl->assign('view_fields', $this->getColumns());
+		// [TODO] Set your template path
 		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/customer_recipient/view.tpl');
 	}
 
@@ -299,29 +288,26 @@ class View_CustomerRecipient extends FEG_AbstractView {
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('id', $this->id);
 
-		$tpl_path = APP_PATH . '/features/feg.core/templates/';
-		
+		// [TODO] Move the fields into the proper data type
 		switch($field) {
 			case SearchFields_CustomerRecipient::ADDRESS:
-				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__string.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/cerberusweb.core/templates/internal/views/criteria/__string.tpl');
 				break;
 			case SearchFields_CustomerRecipient::ID:
 			case SearchFields_CustomerRecipient::ACCOUNT_ID:
-				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__number.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/cerberusweb.core/templates/internal/views/criteria/__number.tpl');
 				break;
 			case SearchFields_CustomerRecipient::IS_DISABLED:
-				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__bool.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/cerberusweb.core/templates/internal/views/criteria/__bool.tpl');
 				break;
+//			case 'placeholder_date':
+//				$tpl->display('file:' . APP_PATH . '/features/cerberusweb.core/templates/internal/views/criteria/__date.tpl');
+//				break;
 			case SearchFields_CustomerRecipient::TYPE:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/customer_recipient/__type.tpl');
 				break;
 			default:
-				// Custom Fields
-				if('cf_' == substr($field,0,3)) {
-					$this->_renderCriteriaCustomField($tpl, substr($field,3));
-				} else {
-					echo ' ';
-				}
+				echo '';
 				break;
 		}
 	}
@@ -338,13 +324,12 @@ class View_CustomerRecipient extends FEG_AbstractView {
 	}
 
 	static function getFields() {
-		unset($fields[SearchFields_CustomerRecipient::ID]);
-		unset($fields[SearchFields_CustomerRecipient::ACCOUNT_ID]);
 		return SearchFields_CustomerRecipient::getFields();
 	}
 
 	static function getSearchFields() {
 		$fields = self::getFields();
+		// [TODO] Filter fields
 		unset($fields[SearchFields_CustomerRecipient::ID]);
 		unset($fields[SearchFields_CustomerRecipient::ACCOUNT_ID]);
 		return $fields;
@@ -352,7 +337,7 @@ class View_CustomerRecipient extends FEG_AbstractView {
 
 	static function getColumns() {
 		$fields = self::getFields();
-//		unset($fields[SearchFields_CustomerRecipient::FIXME]);
+		// [TODO] Filter fields
 		return $fields;
 	}
 
@@ -360,18 +345,15 @@ class View_CustomerRecipient extends FEG_AbstractView {
 		parent::doResetCriteria();
 		
 		$this->params = array(
-//			SearchFields_CustomerRecipient::ID => new DevblocksSearchCriteria(SearchFields_Address::ID,'=',1),
+			//SearchFields_CustomerRecipient::ID => new DevblocksSearchCriteria(SearchFields_CustomerRecipient::ID,'!=',0),
 		);
 	}
-
+	
 	function doSetCriteria($field, $oper, $value) {
 		$criteria = null;
 
+		// [TODO] Move fields into the right data type
 		switch($field) {
-			case SearchFields_CustomerRecipient::ACCOUNT_ID:
-			case SearchFields_CustomerRecipient::TYPE:
-				break;
-				
 			case SearchFields_CustomerRecipient::ADDRESS:
 				// force wildcards if none used on a LIKE
 				if(($oper == DevblocksSearchCriteria::OPER_LIKE || $oper == DevblocksSearchCriteria::OPER_NOT_LIKE)
@@ -380,30 +362,36 @@ class View_CustomerRecipient extends FEG_AbstractView {
 				}
 				$criteria = new DevblocksSearchCriteria($field, $oper, $value);
 				break;
-				
 			case SearchFields_CustomerRecipient::ID:
+			case SearchFields_CustomerRecipient::ACCOUNT_ID:
+			case SearchFields_CustomerRecipient::TYPE:
 				$criteria = new DevblocksSearchCriteria($field,$oper,$value);
 				break;
+				
+//			case 'placeholder_date':
+//				@$from = DevblocksPlatform::importGPC($_REQUEST['from'],'string','');
+//				@$to = DevblocksPlatform::importGPC($_REQUEST['to'],'string','');
+//
+//				if(empty($from)) $from = 0;
+//				if(empty($to)) $to = 'today';
+//
+//				$criteria = new DevblocksSearchCriteria($field,$oper,array($from,$to));
+//				break;
 				
 			case SearchFields_CustomerRecipient::IS_DISABLED:
 				@$bool = DevblocksPlatform::importGPC($_REQUEST['bool'],'integer',1);
 				$criteria = new DevblocksSearchCriteria($field,$oper,$bool);
 				break;
-			default:
-				// Custom Fields
-				if(substr($field,0,3)=='cf_') {
-					$criteria = $this->_doSetCriteriaCustomField($field, substr($field,3));
-				}
-				break;
 		}
+
 		if(!empty($criteria)) {
 			$this->params[$field] = $criteria;
 			$this->renderPage = 0;
 		}
 	}
-	
+		
 	function doBulkUpdate($filter, $do, $ids=array()) {
-		@set_time_limit(600); // [TODO] Temp!
+		@set_time_limit(0);
 	  
 		$change_fields = array();
 		$custom_fields = array();
@@ -419,29 +407,20 @@ class View_CustomerRecipient extends FEG_AbstractView {
 		if(is_array($do))
 		foreach($do as $k => $v) {
 			switch($k) {
-//			$change_fields[DAO_CustomerRecipient::ID] = intval($v);
-//			$change_fields[DAO_CustomerRecipient::ACCOUNT_ID] = intval($v);
-//			$change_fields[DAO_CustomerRecipient::IS_DISABLED] = intval($v);
-//			$change_fields[DAO_CustomerRecipient::TYPE] = intval($v);
-//			$change_fields[DAO_CustomerRecipient::ADDRESS] = intval($v);
-//				case 'FIXME':
-//					break;
-//				case 'FIXME':
-//					break;
+				// [TODO] Implement actions
+				case 'example':
+					//$change_fields[DAO_CustomerRecipient::EXAMPLE] = 'some value';
+					break;
 				default:
-					// Custom fields
-					if(substr($k,0,3)=="cf_") {
-						$custom_fields[substr($k,3)] = $v;
-					}
+					break;
 			}
 		}
-		
+
 		$pg = 0;
 
 		if(empty($ids))
 		do {
 			list($objects,$null) = DAO_CustomerRecipient::search(
-				array(),
 				$this->params,
 				100,
 				$pg++,
@@ -449,7 +428,6 @@ class View_CustomerRecipient extends FEG_AbstractView {
 				true,
 				false
 			);
-			 
 			$ids = array_merge($ids, array_keys($objects));
 			 
 		} while(!empty($objects));
@@ -457,8 +435,9 @@ class View_CustomerRecipient extends FEG_AbstractView {
 		$batch_total = count($ids);
 		for($x=0;$x<=$batch_total;$x+=100) {
 			$batch_ids = array_slice($ids,$x,100);
-			DAO_CustomerRecipient::update($batch_ids, $change_fields);
 			
+			DAO_CustomerRecipient::update($batch_ids, $change_fields);
+
 			// Custom Fields
 			self::_doBulkSetCustomFields(FegCustomFieldSource_CustomerRecipient::ID, $custom_fields, $batch_ids);
 			
@@ -466,5 +445,5 @@ class View_CustomerRecipient extends FEG_AbstractView {
 		}
 
 		unset($ids);
-	}	
+	}			
 };
