@@ -158,6 +158,23 @@ if(!isset($tables['worker_event'])) {
 	$db->Execute($sql);	
 }
 
+if(!isset($tables['customer_account'])) {
+	$sql = "
+		CREATE TABLE IF NOT EXISTS customer_account (
+			id INT UNSIGNED DEFAULT 0 NOT NULL,
+			is_disabled TINYINT UNSIGNED DEFAULT 0 NOT NULL,
+			account_number varchar(255) NOT NULL DEFAULT '',
+			account_name varchar(255) NOT NULL DEFAULT '',
+			import_filter INT UNSIGNED DEFAULT 0 NOT NULL,
+			PRIMARY KEY (id),
+			INDEX is_disabled (is_disabled),
+			INDEX account_number (account_number),
+			INDEX account_name (account_name)
+		) ENGINE=MyISAM;
+	";
+	$db->Execute($sql);	
+}
+
 if(!isset($tables['customer_recipient'])) {
 	$sql = "
 		CREATE TABLE IF NOT EXISTS customer_recipient (
@@ -176,23 +193,32 @@ if(!isset($tables['customer_recipient'])) {
 	$db->Execute($sql);	
 }
 
-if(!isset($tables['customer_account'])) {
+if(!isset($tables['export_filter'])) {
 	$sql = "
-		CREATE TABLE IF NOT EXISTS customer_account (
+		CREATE TABLE IF NOT EXISTS export_filter (
 			id INT UNSIGNED DEFAULT 0 NOT NULL,
+			filter_name varchar(255) NOT NULL DEFAULT '',
 			is_disabled TINYINT UNSIGNED DEFAULT 0 NOT NULL,
-			account_number varchar(255) NOT NULL DEFAULT '',
-			account_name varchar(255) NOT NULL DEFAULT '',
-			import_filter INT UNSIGNED DEFAULT 0 NOT NULL,
-			notes longtext,
+			filter longtext,
 			PRIMARY KEY (id),
 			INDEX is_disabled (is_disabled),
-			INDEX account_number (account_number),
-			INDEX account_name (account_name)
 		) ENGINE=MyISAM;
 	";
 	$db->Execute($sql);	
 }
 
+if(!isset($tables['import_filter'])) {
+	$sql = "
+		CREATE TABLE IF NOT EXISTS import_filter (
+			id INT UNSIGNED DEFAULT 0 NOT NULL,
+			filter_name varchar(255) NOT NULL DEFAULT '',
+			is_disabled TINYINT UNSIGNED DEFAULT 0 NOT NULL,
+			filter longtext,
+			PRIMARY KEY (id),
+			INDEX is_disabled (is_disabled),
+		) ENGINE=MyISAM;
+	";
+	$db->Execute($sql);	
+}
 
 return TRUE;

@@ -57,6 +57,13 @@
 			<class name="SearchFields_WorkerEvent" />
 			<class name="View_WorkerEvent" />
 		</file>
+		<file path="api/dao/customer_account.php">
+			<class name="FegCustomFieldSource_CustomerAccount" />
+			<class name="DAO_CustomerAccount" />
+			<class name="Model_CustomerAccount" />
+			<class name="SearchFields_CustomerAccount" />
+			<class name="View_CustomerAccount" />
+		</file>
 		<file path="api/dao/customer_recipient.php">
 			<class name="FegCustomFieldSource_CustomerRecipient" />
 			<class name="DAO_CustomerRecipient" />
@@ -64,12 +71,19 @@
 			<class name="SearchFields_CustomerRecipient" />
 			<class name="View_CustomerRecipient" />
 		</file>
-		<file path="api/dao/customer_account.php">
-			<class name="FegCustomFieldSource_CustomerAccount" />
-			<class name="DAO_CustomerAccount" />
-			<class name="Model_CustomerAccount" />
-			<class name="SearchFields_CustomerAccount" />
-			<class name="View_CustomerAccount" />
+		<file path="api/dao/export_filter.php">
+			<class name="FegCustomFieldSource_ExportFilter" />
+			<class name="DAO_ExportFilter" />
+			<class name="Model_ExportFilter" />
+			<class name="SearchFields_ExportFilter" />
+			<class name="View_ExportFilter" />
+		</file>
+		<file path="api/dao/import_filter.php">
+			<class name="FegCustomFieldSource_ImportFilter" />
+			<class name="DAO_ImportFilter" />
+			<class name="Model_ImportFilter" />
+			<class name="SearchFields_ImportFilter" />
+			<class name="View_ImportFilter" />
 		</file>
 	</class_loader>
 	

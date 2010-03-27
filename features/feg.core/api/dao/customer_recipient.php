@@ -1,6 +1,6 @@
 <?php
-// Custom Field Sources
 
+// Custom Field Sources
 class FegCustomFieldSource_CustomerRecipient extends Extension_CustomFieldSource {
 	const ID = 'feg.fields.source.customer_recipient';
 };
@@ -8,6 +8,7 @@ class FegCustomFieldSource_CustomerRecipient extends Extension_CustomFieldSource
 class Model_CustomerRecipient {
 	public $id;
 	public $account_id;
+	public $export_filter;
 	public $is_disabled;
 	public $type;
 	public $address;
@@ -16,6 +17,7 @@ class Model_CustomerRecipient {
 class DAO_CustomerRecipient extends DevblocksORMHelper {
 	const ID = 'id';
 	const ACCOUNT_ID = 'account_id';
+	const EXPORT_FILTER = 'export_filter';
 	const IS_DISABLED = 'is_disabled';
 	const TYPE = 'type';
 	const ADDRESS = 'address';
@@ -51,7 +53,7 @@ class DAO_CustomerRecipient extends DevblocksORMHelper {
 	static function getWhere($where=null) {
 		$db = DevblocksPlatform::getDatabaseService();
 		
-		$sql = "SELECT id, account_id, is_disabled, type, address ".
+		$sql = "SELECT id, account_id, export_filter, is_disabled, type, address ".
 			"FROM customer_recipient ".
 			(!empty($where) ? sprintf("WHERE %s ",$where) : "").
 			"ORDER BY id asc";
@@ -86,6 +88,7 @@ class DAO_CustomerRecipient extends DevblocksORMHelper {
 			$object = new Model_CustomerRecipient();
 			$object->id = $row['id'];
 			$object->account_id = $row['account_id'];
+			$object->export_filter = $row['export_filter'];
 			$object->is_disabled = $row['is_disabled'];
 			$object->type = $row['type'];
 			$object->address = $row['address'];
@@ -138,11 +141,13 @@ class DAO_CustomerRecipient extends DevblocksORMHelper {
 		$select_sql = sprintf("SELECT ".
 			"customer_recipient.id as %s, ".
 			"customer_recipient.account_id as %s, ".
+			"customer_recipient.export_filter as %s, ".
 			"customer_recipient.is_disabled as %s, ".
 			"customer_recipient.type as %s, ".
 			"customer_recipient.address as %s ",
 				SearchFields_CustomerRecipient::ID,
 				SearchFields_CustomerRecipient::ACCOUNT_ID,
+				SearchFields_CustomerRecipient::EXPORT_FILTER,
 				SearchFields_CustomerRecipient::IS_DISABLED,
 				SearchFields_CustomerRecipient::TYPE,
 				SearchFields_CustomerRecipient::ADDRESS
@@ -151,13 +156,13 @@ class DAO_CustomerRecipient extends DevblocksORMHelper {
 		$join_sql = "FROM customer_recipient ";
 		
 		// Custom field joins
-		//list($select_sql, $join_sql, $has_multiple_values) = self::_appendSelectJoinSqlForCustomFieldTables(
-		//	$tables,
-		//	$params,
-		//	'customer_recipient.id',
-		//	$select_sql,
-		//	$join_sql
-		//);
+		list($select_sql, $join_sql, $has_multiple_values) = self::_appendSelectJoinSqlForCustomFieldTables(
+			$tables,
+			$params,
+			'customer_recipient.id',
+			$select_sql,
+			$join_sql
+		);
 				
 		$where_sql = "".
 			(!empty($wheres) ? sprintf("WHERE %s ",implode(' AND ',$wheres)) : "");
@@ -210,6 +215,7 @@ class DAO_CustomerRecipient extends DevblocksORMHelper {
 class SearchFields_CustomerRecipient implements IDevblocksSearchFields {
 	const ID = 'c_id';
 	const ACCOUNT_ID = 'c_account_id';
+	const EXPORT_FILTER = 'c_export_filter';
 	const IS_DISABLED = 'c_is_disabled';
 	const TYPE = 'c_type';
 	const ADDRESS = 'c_address';
@@ -223,19 +229,20 @@ class SearchFields_CustomerRecipient implements IDevblocksSearchFields {
 		$columns = array(
 			self::ID => new DevblocksSearchField(self::ID, 'customer_recipient', 'id', $translate->_('id')),
 			self::ACCOUNT_ID => new DevblocksSearchField(self::ACCOUNT_ID, 'customer_recipient', 'account_id', $translate->_('account_id')),
+			self::EXPORT_FILTER => new DevblocksSearchField(self::EXPORT_FILTER, 'customer_recipient', 'export_filter', $translate->_('export_filter')),
 			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'customer_recipient', 'is_disabled', $translate->_('is_disabled')),
 			self::TYPE => new DevblocksSearchField(self::TYPE, 'customer_recipient', 'type', $translate->_('type')),
 			self::ADDRESS => new DevblocksSearchField(self::ADDRESS, 'customer_recipient', 'address', $translate->_('address')),
 		);
 		
 		// Custom Fields
-		//$fields = DAO_CustomField::getBySource(PsCustomFieldSource_XXX::ID);
+		$fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerRecipient::ID);
 
-		//if(is_array($fields))
-		//foreach($fields as $field_id => $field) {
-		//	$key = 'cf_'.$field_id;
-		//	$columns[$key] = new DevblocksSearchField($key,$key,'field_value',$field->name);
-		//}
+		if(is_array($fields))
+		foreach($fields as $field_id => $field) {
+			$key = 'cf_'.$field_id;
+			$columns[$key] = new DevblocksSearchField($key,$key,'field_value',$field->name);
+		}
 		
 		// Sort by label (translation-conscious)
 		uasort($columns, create_function('$a, $b', "return strcasecmp(\$a->db_label,\$b->db_label);\n"));
@@ -246,36 +253,37 @@ class SearchFields_CustomerRecipient implements IDevblocksSearchFields {
 
 
 class View_CustomerRecipient extends FEG_AbstractView {
-	const DEFAULT_ID = 'customer_recipient';
+	const DEFAULT_ID = 'customerrecipient';
 	
 	function __construct() {
+		$translate = DevblocksPlatform::getTranslationService();
+	
 		$this->id = self::DEFAULT_ID;
-		$this->name = 'CustomerRecipient';
+		// [TODO] Name the worklist view
+		$this->name = $translate->_('CustomerRecipient');
 		$this->renderLimit = 25;
-		$this->renderSortBy = SearchFields_CustomerRecipient::ACCOUNT_ID;
+		$this->renderSortBy = SearchFields_CustomerRecipient::ID;
 		$this->renderSortAsc = true;
 
 		$this->view_columns = array(
 			SearchFields_CustomerRecipient::ID,
 			SearchFields_CustomerRecipient::ACCOUNT_ID,
+			SearchFields_CustomerRecipient::EXPORT_FILTER,
 			SearchFields_CustomerRecipient::IS_DISABLED,
 			SearchFields_CustomerRecipient::TYPE,
 			SearchFields_CustomerRecipient::ADDRESS,
 		);
 		$this->doResetCriteria();
-		
-//		$this->params = array(
-//			SearchFields_CustomerRecipient::FIXME => new DevblocksSearchCriteria(SearchFields_CustomerRecipient::FIXME,'=',1),
-//		);
 	}
 
 	function getData() {
-		$objects = DAO_CustomerRecipient::search(
+		$objects = CustomerRecipient::search(
 			$this->id,
 			$this->account_id,
+			$this->export_filter,
 			$this->is_disabled,
 			$this->type,
-			$this->address
+			$this->address,
 		);
 		return $objects;
 	}
@@ -285,13 +293,13 @@ class View_CustomerRecipient extends FEG_AbstractView {
 		
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('id', $this->id);
-		
 		$tpl->assign('view', $this);
 
-		$address_fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerRecipient::ID);
-		$tpl->assign('custom_fields', $address_fields);
+		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerRecipient::ID);
+		$tpl->assign('custom_fields', $custom_fields);
 		
 		$tpl->assign('view_fields', $this->getColumns());
+		// [TODO] Set your template path
 		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/customer_recipient/view.tpl');
 	}
 
@@ -301,7 +309,9 @@ class View_CustomerRecipient extends FEG_AbstractView {
 
 		$tpl_path = APP_PATH . '/features/feg.core/templates/';
 		
+		// [TODO] Move the fields into the proper data type
 		switch($field) {
+			case SearchFields_CustomerRecipient::EXPORT_FILTER:
 			case SearchFields_CustomerRecipient::ADDRESS:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__string.tpl');
 				break;
@@ -312,8 +322,11 @@ class View_CustomerRecipient extends FEG_AbstractView {
 			case SearchFields_CustomerRecipient::IS_DISABLED:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__bool.tpl');
 				break;
+//			case 'placeholder_date':
+//				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__date.tpl');
+//				break;
 			case SearchFields_CustomerRecipient::TYPE:
-				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/customer_recipient/__type.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/feg/customer_recipient_type.tpl');
 				break;
 			default:
 				// Custom Fields
@@ -338,21 +351,20 @@ class View_CustomerRecipient extends FEG_AbstractView {
 	}
 
 	static function getFields() {
-		unset($fields[SearchFields_CustomerRecipient::ID]);
-		unset($fields[SearchFields_CustomerRecipient::ACCOUNT_ID]);
 		return SearchFields_CustomerRecipient::getFields();
 	}
 
 	static function getSearchFields() {
 		$fields = self::getFields();
+		// [TODO] Filter fields
 		unset($fields[SearchFields_CustomerRecipient::ID]);
-		unset($fields[SearchFields_CustomerRecipient::ACCOUNT_ID]);
 		return $fields;
 	}
 
 	static function getColumns() {
 		$fields = self::getFields();
-//		unset($fields[SearchFields_CustomerRecipient::FIXME]);
+		// [TODO] Filter fields
+		//	unset($fields[SearchFields_CustomerRecipient::ID]);
 		return $fields;
 	}
 
@@ -360,7 +372,7 @@ class View_CustomerRecipient extends FEG_AbstractView {
 		parent::doResetCriteria();
 		
 		$this->params = array(
-//			SearchFields_CustomerRecipient::ID => new DevblocksSearchCriteria(SearchFields_Address::ID,'=',1),
+		//SearchFields_CustomerRecipient::ID => new DevblocksSearchCriteria(SearchFields_CustomerRecipient::ID,'!=',0),
 		);
 	}
 
@@ -369,9 +381,7 @@ class View_CustomerRecipient extends FEG_AbstractView {
 
 		switch($field) {
 			case SearchFields_CustomerRecipient::ACCOUNT_ID:
-			case SearchFields_CustomerRecipient::TYPE:
-				break;
-				
+			case SearchFields_CustomerRecipient::EXPORT_FILTER:
 			case SearchFields_CustomerRecipient::ADDRESS:
 				// force wildcards if none used on a LIKE
 				if(($oper == DevblocksSearchCriteria::OPER_LIKE || $oper == DevblocksSearchCriteria::OPER_NOT_LIKE)
@@ -380,10 +390,20 @@ class View_CustomerRecipient extends FEG_AbstractView {
 				}
 				$criteria = new DevblocksSearchCriteria($field, $oper, $value);
 				break;
-				
 			case SearchFields_CustomerRecipient::ID:
+			case SearchFields_CustomerRecipient::TYPE:
 				$criteria = new DevblocksSearchCriteria($field,$oper,$value);
 				break;
+				
+//			case 'placeholder_date':
+//				@$from = DevblocksPlatform::importGPC($_REQUEST['from'],'string','');
+//				@$to = DevblocksPlatform::importGPC($_REQUEST['to'],'string','');
+
+//				if(empty($from)) $from = 0;
+//				if(empty($to)) $to = 'today';
+
+//				$criteria = new DevblocksSearchCriteria($field,$oper,array($from,$to));
+//				break;
 				
 			case SearchFields_CustomerRecipient::IS_DISABLED:
 				@$bool = DevblocksPlatform::importGPC($_REQUEST['bool'],'integer',1);
@@ -403,7 +423,7 @@ class View_CustomerRecipient extends FEG_AbstractView {
 	}
 	
 	function doBulkUpdate($filter, $do, $ids=array()) {
-		@set_time_limit(600); // [TODO] Temp!
+		@set_time_limit(0); 
 	  
 		$change_fields = array();
 		$custom_fields = array();
@@ -421,13 +441,14 @@ class View_CustomerRecipient extends FEG_AbstractView {
 			switch($k) {
 //			$change_fields[DAO_CustomerRecipient::ID] = intval($v);
 //			$change_fields[DAO_CustomerRecipient::ACCOUNT_ID] = intval($v);
+//			$change_fields[DAO_CustomerRecipient::EXPORT_FILTER] = intval($v);
 //			$change_fields[DAO_CustomerRecipient::IS_DISABLED] = intval($v);
 //			$change_fields[DAO_CustomerRecipient::TYPE] = intval($v);
 //			$change_fields[DAO_CustomerRecipient::ADDRESS] = intval($v);
-//				case 'FIXME':
-//					break;
-//				case 'FIXME':
-//					break;
+				// [TODO] Implement actions
+				case 'example':
+					//$change_fields[DAO_CustomerRecipient::EXAMPLE] = 'some value';
+					break;
 				default:
 					// Custom fields
 					if(substr($k,0,3)=="cf_") {
@@ -441,7 +462,6 @@ class View_CustomerRecipient extends FEG_AbstractView {
 		if(empty($ids))
 		do {
 			list($objects,$null) = DAO_CustomerRecipient::search(
-				array(),
 				$this->params,
 				100,
 				$pg++,
@@ -449,7 +469,6 @@ class View_CustomerRecipient extends FEG_AbstractView {
 				true,
 				false
 			);
-			 
 			$ids = array_merge($ids, array_keys($objects));
 			 
 		} while(!empty($objects));
@@ -457,6 +476,7 @@ class View_CustomerRecipient extends FEG_AbstractView {
 		$batch_total = count($ids);
 		for($x=0;$x<=$batch_total;$x+=100) {
 			$batch_ids = array_slice($ids,$x,100);
+			
 			DAO_CustomerRecipient::update($batch_ids, $change_fields);
 			
 			// Custom Fields

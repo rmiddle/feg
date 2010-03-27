@@ -419,8 +419,7 @@ For example: *receipt*</seg></tuv>
 		</tu>
 	
 		<!-- Customer Recipient Type -->
-
-
+		
 		<tu tuid='recipient.notes'>
 			<tuv xml:lang="en_US"><seg>Notes</seg></tuv>
 		</tu>
@@ -441,6 +440,18 @@ For example: *receipt*</seg></tuv>
 		</tu>
 		<tu tuid='recipient.type.web'>
 			<tuv xml:lang="en_US"><seg>Web Delivery</seg></tuv>
+		</tu>
+		
+		<!-- Export Filter Translations -->
+		
+		<tu tuid='export_filter.name'>
+			<tuv xml:lang="en_US"><seg>Export Filters</seg></tuv>
+		</tu>
+		
+		<!-- Import Filter Translations -->
+		
+		<tu tuid='import_filter.name'>
+			<tuv xml:lang="en_US"><seg>Export Filters</seg></tuv>
 		</tu>
 	</body>
 </tmx>
