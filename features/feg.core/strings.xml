@@ -22,6 +22,21 @@
 			<tuv xml:lang="en_US"><seg>Setup</seg></tuv>
 		</tu>
 		
+		<!-- Access Controls -->
+
+		<tu tuid='acl.core.access.export_filter.create'>
+			<tuv xml:lang="en_US"><seg>Create Export Filter</seg></tuv>
+		</tu>
+		<tu tuid='acl.core.access.export_filter.update'>
+			<tuv xml:lang="en_US"><seg>Update Export Filter</seg></tuv>
+		</tu>
+		<tu tuid='acl.core.access.import_filter.create'>
+			<tuv xml:lang="en_US"><seg>Create Import Filter</seg></tuv>
+		</tu>
+		<tu tuid='acl.core.access.import_filter.update'>
+			<tuv xml:lang="en_US"><seg>Update Import Filter</seg></tuv>
+		</tu>
+		
 		<!-- Common Strings -->
 
 		<tu tuid='common.access_denied'>

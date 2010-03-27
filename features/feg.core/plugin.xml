@@ -107,13 +107,12 @@
 	<!-- Permissions -->
 
 	<acl>
-		<!-- Tasks -->
-		<!--
-		<priv id="core.tasks.actions.create" label="acl.core.tasks.actions.create" />
-		<priv id="core.tasks.actions.update_nobody" label="acl.core.tasks.actions.update_nobody" />
-		<priv id="core.tasks.actions.update_all" label="acl.core.tasks.actions.update_all" />
-		<priv id="core.tasks.view.actions.export" label="acl.core.tasks.view.actions.export" />
-		-->
+		<!-- Access -->
+
+		<priv id="core.access.export_filter.create" label="acl.core.access.export_filter.create" />
+		<priv id="core.access.export_filter.update" label="acl.core.access.export_filter.update" />
+		<priv id="core.access.import_filter.create" label="acl.core.access.import_filter.create" />
+		<priv id="core.access.import_filter.update" label="acl.core.access.import_filter.update" />
 		
 		<!-- Workspaces -->
 		<!--
@@ -371,22 +370,22 @@
 		</extension>
 				
 		<extension point="feg.fields.source">
-			<id>feg.fields.source.customer_recipient</id>
-			<name>Customer Recipient</name>
+			<id>feg.fields.source.customer_account</id>
+			<name>Customer Account</name>
 			<class>
-				<file>api/dao/customer_recipient.php</file>
-				<name>FegCustomFieldSource_CustomerRecipient</name>
+				<file>api/dao/customer_account.php</file>
+				<name>FegCustomFieldSource_CustomerAccount</name>
 			</class>
 			<params>
 			</params>
 		</extension>
 		
 		<extension point="feg.fields.source">
-			<id>feg.fields.source.customer_account</id>
-			<name>Customer Account</name>
+			<id>feg.fields.source.customer_recipient</id>
+			<name>Customer Recipient</name>
 			<class>
-				<file>api/dao/customer_account.php</file>
-				<name>FegCustomFieldSource_CustomerAccount</name>
+				<file>api/dao/customer_recipient.php</file>
+				<name>FegCustomFieldSource_CustomerRecipient</name>
 			</class>
 			<params>
 			</params>
