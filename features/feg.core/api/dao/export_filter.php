@@ -261,7 +261,7 @@ class View_ExportFilter extends FEG_AbstractView {
 	}
 
 	function getData() {
-		$objects = ExportFilter::search(
+		$objects = DAO_ExportFilter::search(
 			$this->id,
 			$this->filter_name,
 			$this->is_disabled,

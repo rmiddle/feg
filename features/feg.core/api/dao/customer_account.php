@@ -269,7 +269,7 @@ class View_CustomerAccount extends FEG_AbstractView {
 	}
 
 	function getData() {
-		$objects = CustomerAccount::search(
+		$objects = DAO_CustomerAccount::search(
 			$this->id,
 			$this->is_disabled,
 			$this->account_number,
