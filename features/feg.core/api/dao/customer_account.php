@@ -150,7 +150,7 @@ class DAO_CustomerAccount extends DevblocksORMHelper {
 			
 		$join_sql = "FROM customer_account ";
 		
-		 Custom field joins
+		 //Custom field joins
 		list($select_sql, $join_sql, $has_multiple_values) = self::_appendSelectJoinSqlForCustomFieldTables(
 			$tables,
 			$params,
