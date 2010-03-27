@@ -274,7 +274,7 @@ class View_CustomerAccount extends FEG_AbstractView {
 			$this->is_disabled,
 			$this->account_number,
 			$this->account_name,
-			$this->import_filter,
+			$this->import_filter
 		);
 		return $objects;
 	}

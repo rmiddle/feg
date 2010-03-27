@@ -283,7 +283,7 @@ class View_CustomerRecipient extends FEG_AbstractView {
 			$this->export_filter,
 			$this->is_disabled,
 			$this->type,
-			$this->address,
+			$this->address
 		);
 		return $objects;
 	}

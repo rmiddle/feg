@@ -265,7 +265,7 @@ class View_ImportFilter extends FEG_AbstractView {
 			$this->id,
 			$this->filter_name,
 			$this->is_disabled,
-			$this->filter,
+			$this->filter
 		);
 		return $objects;
 	}
