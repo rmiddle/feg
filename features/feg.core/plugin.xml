@@ -318,7 +318,20 @@
 				<param key="uri" value="preferences" />
 			</params>
 		</extension>
-		
+
+		<extension point="feg.page">
+			<id>core.page.customer</id>
+			<name>Display Customer Page</name>
+			<class>
+				<file>api/uri/customer.php</file>
+				<name>FegCustomerPage</name>
+			</class>
+			<params>
+				<param key="uri" value="customer" />
+				<param key="menutitle" value="" />
+			</params>
+		</extension>
+
 		<!-- Cron Extensions -->
 		
 		<extension point="feg.cron">
@@ -391,6 +404,28 @@
 			</params>
 		</extension>
 		
+		<extension point="feg.fields.source">
+			<id>feg.fields.source.export_filter'</id>
+			<name>Export Filter</name>
+			<class>
+				<file>api/dao/export_filter.php</file>
+				<name>FegCustomFieldSource_ExportFilter</name>
+			</class>
+			<params>
+			</params>
+		</extension>
+		
+		<extension point="feg.fields.source">
+			<id>feg.fields.source.import_filter</id>
+			<name>Import Filter</name>
+			<class>
+				<file>api/dao/customer_recipient.php</file>
+				<name>FegCustomFieldSource_ImportFilter</name>
+			</class>
+			<params>
+			</params>
+		</extension>
+
 		<!-- Home Tab -->
 		
 		<!-- Workspace Sources -->
