@@ -439,7 +439,7 @@ class View_CustomerRecipient extends Feg_AbstractView {
 			DAO_CustomerRecipient::update($batch_ids, $change_fields);
 
 			// Custom Fields
-			self::_doBulkSetCustomFields(FegCustomFieldSource_CustomerRecipient::ID, $custom_fields, $batch_ids);
+			//self::_doBulkSetCustomFields(FegCustomFieldSource_CustomerRecipient::ID, $custom_fields, $batch_ids);
 			
 			unset($batch_ids);
 		}
