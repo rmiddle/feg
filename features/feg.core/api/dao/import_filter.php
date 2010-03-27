@@ -12,7 +12,7 @@ class Model_ImportFilter {
 	public $filter;
 };
 
-class DAO_ImportFilter extends DevblocksORMHelper {
+class DAO_ImportFilter extends Feg_ORMHelper {
 	const ID = 'id';
 	const FILTER_NAME = 'filter_name';
 	const IS_DISABLED = 'is_disabled';

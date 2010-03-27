@@ -13,7 +13,7 @@ class Model_CustomerAccount {
 	public $import_filter;
 };
 
-class DAO_CustomerAccount extends DevblocksORMHelper {
+class DAO_CustomerAccount extends Feg_ORMHelper {
 	const ID = 'id';
 	const IS_DISABLED = 'is_disabled';
 	const ACCOUNT_NUMBER = 'account_number';

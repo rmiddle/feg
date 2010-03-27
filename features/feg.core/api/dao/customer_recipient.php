@@ -14,7 +14,7 @@ class Model_CustomerRecipient {
 	public $address;
 };
 
-class DAO_CustomerRecipient extends DevblocksORMHelper {
+class DAO_CustomerRecipient extends Feg_ORMHelper {
 	const ID = 'id';
 	const ACCOUNT_ID = 'account_id';
 	const EXPORT_FILTER = 'export_filter';
