@@ -237,7 +237,7 @@ class Model_CustomerRecipient {
 	public $address;
 };
 
-class View_CustomerRecipient extends C4_AbstractView {
+class View_CustomerRecipient extends Feg_AbstractView {
 	const DEFAULT_ID = 'customerrecipient';
 
 	function __construct() {
