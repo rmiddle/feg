@@ -124,85 +124,17 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
 		$tpl->assign('customer_id', $customer_id);
 
+		@$customer = DAO_CustomerAccount::get($customer_id);
+		if(empty($customer)) {
+			echo "<H1>".$translate->_('customer.display.invalid_customer')."</H1>";
+			return;
+		}
+		$tpl->assign('customer', $customer);
+		
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/property.tpl');
 	}
 
-	function saveTab() {
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
-		echo "Save tab called<br>";
+	function saveCustomerAccountAction() {
 		echo "Save tab called<br>";
 	}
 };
