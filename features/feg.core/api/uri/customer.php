@@ -114,13 +114,12 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 	}
  
 	function showTab() {
-//		@$ticket_id = DevblocksPlatform::importGPC($_REQUEST['ticket_id'],'integer',0);
-//		$tpl = DevblocksPlatform::getTemplateService();
-//		$tpl->cache_lifetime = "0";
-//		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
+		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->cache_lifetime = "0";
+		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
 
-		echo "Property Tab<br>";
-
+		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/property.tpl');
 }
 
 	function saveTab() {
@@ -133,13 +132,12 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 	}
  
 	function showTab() {
-//		@$ticket_id = DevblocksPlatform::importGPC($_REQUEST['ticket_id'],'integer',0);
-//		$tpl = DevblocksPlatform::getTemplateService();
-//		$tpl->cache_lifetime = "0";
-//		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
+		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->cache_lifetime = "0";
+		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
 
-		echo "Recipient Tab<br>";
-
+		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recipient.tpl');
 }
 
 	function saveTab() {
