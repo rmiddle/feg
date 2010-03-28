@@ -205,6 +205,10 @@ if(!isset($tables['export_filter'])) {
 		) ENGINE=MyISAM;
 	";
 	$db->Execute($sql);	
+
+	$db->Execute(sprintf("INSERT INTO export_filter (id, filter_name, filter) ".
+		"VALUES (0,'Default','')",
+	));
 }
 
 if(!isset($tables['import_filter'])) {
@@ -219,6 +223,11 @@ if(!isset($tables['import_filter'])) {
 		) ENGINE=MyISAM;
 	";
 	$db->Execute($sql);	
+
+	$db->Execute(sprintf("INSERT INTO import_filter (id, filter_name, filter) ".
+		"VALUES (0,'Default','')",
+	));
 }
 
+	
 return TRUE;
