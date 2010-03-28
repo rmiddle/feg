@@ -201,7 +201,7 @@ if(!isset($tables['export_filter'])) {
 			is_disabled TINYINT UNSIGNED DEFAULT 0 NOT NULL,
 			filter longtext,
 			PRIMARY KEY (id),
-			INDEX is_disabled (is_disabled),
+			INDEX is_disabled (is_disabled)
 		) ENGINE=MyISAM;
 	";
 	$db->Execute($sql);	
@@ -215,7 +215,7 @@ if(!isset($tables['import_filter'])) {
 			is_disabled TINYINT UNSIGNED DEFAULT 0 NOT NULL,
 			filter longtext,
 			PRIMARY KEY (id),
-			INDEX is_disabled (is_disabled),
+			INDEX is_disabled (is_disabled)
 		) ENGINE=MyISAM;
 	";
 	$db->Execute($sql);	
