@@ -148,6 +148,8 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 //			return;
 //		}
 		
+		$tpl->assign('customer_id', $customer_id);
+		
 		$defaults = new Feg_AbstractViewModel();
 		$defaults->name = 'Recipient List';
 		$defaults->id = 'ticket_view_recipient';
@@ -168,8 +170,30 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recipient.tpl');
 	}
 
-	function saveTab() {
+	function showRecipientPeekAction() {
+		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
+		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
+		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
+		
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('path', $this->_TPL_PATH);
+		
+		$tpl->assign('view_id', $view_id);
+		
+		$worker = DAO_Worker::get($id);
+		$tpl->assign('worker', $worker);
+		
+		// Custom Fields
+		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Worker::ID);
+		$tpl->assign('custom_fields', $custom_fields);
+		
+		$custom_field_values = DAO_CustomFieldValue::getValuesBySourceIds(FegCustomFieldSource_CustomerRecipient::ID, $id);
+		if(isset($custom_field_values[$id]))
+			$tpl->assign('custom_field_values', $custom_field_values[$id]);
+		
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_recipient/peek.tpl');		
 	}
+	
 };
 
 class FegCustomerTabRecentMessages extends Extension_CustomerTab {
