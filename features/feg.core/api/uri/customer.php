@@ -125,6 +125,7 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 	}
 
 	function saveTab() {
+		echo "Save tab called<br>";
 	}
 };
 
@@ -213,7 +214,42 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		@$customer_recipient_address = DevblocksPlatform::importGPC($_POST['customer_recipient_address'],'integer');
 		@$customer_recipient_export_filter= DevblocksPlatform::importGPC($_POST['customer_recipient_export_filter'],'integer');
 		
-		echo "Save Recipient<br>";
+		if(!empty($id) && !empty($delete)) {
+			//Delete reciepent.
+			return;
+		} 
+		
+		if(empty($id)) {
+			// Update fields array
+			$fields = array(
+				DAO_CustomerRecipient::ID] => $id;
+				DAO_CustomerRecipient::ACCOUNT_ID] => $customer_id;
+				DAO_CustomerRecipient::EXPORT_FILTER] => $customer_recipient_export_filter;
+				DAO_CustomerRecipient::TYPE] => $customer_recipient_type;
+				DAO_CustomerRecipient::ADDRESS] => $customer_recipient_address;
+				DAO_CustomerRecipient::IS_DISABLED => $disabled,
+			);
+			// Update Customer Recipients 
+			DAO_CustomerRecipient::update($id, $fields);
+		} else {
+			// Update fields array
+			$fields = array(
+				DAO_CustomerRecipient::ACCOUNT_ID] => $customer_id;
+				DAO_CustomerRecipient::EXPORT_FILTER] => $customer_recipient_export_filter;
+				DAO_CustomerRecipient::TYPE] => $customer_recipient_type;
+				DAO_CustomerRecipient::ADDRESS] => $customer_recipient_address;
+				DAO_CustomerRecipient::IS_DISABLED => $disabled,
+			);
+			// Update Customer Recipients 
+			DAO_CustomerRecipient::create($fields);
+		}
+		// Custom field saves
+		@$field_ids = DevblocksPlatform::importGPC($_POST['field_ids'], 'array', array());
+		DAO_CustomFieldValue::handleFormPost(FegCustomFieldSource_Worker::ID, $id, $field_ids);
+		if(!empty($view_id)) {
+			$view = Feg_AbstractViewLoader::getView($view_id);
+			$view->render();
+		}
 	}
 	
 };
