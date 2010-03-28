@@ -468,6 +468,12 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='import_filter.name'>
 			<tuv xml:lang="en_US"><seg>Export Filters</seg></tuv>
 		</tu>
+		
+		<!-- Customer Translations -->
+		
+		<tu tuid='customer.display.title'>
+			<tuv xml:lang="en_US"><seg>Customer Editor</seg></tuv>
+		</tu>
 	</body>
 </tmx>
 <!-- 
