@@ -138,7 +138,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 //		$tpl->cache_lifetime = "0";
 //		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
 
-		echo "Property Tab<br>";
+		echo "Recipient Tab<br>";
 
 }
 
