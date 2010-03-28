@@ -1,5 +1,5 @@
 <div id="customerData">
-			<form action="{devblocks_url}ajax.php{/devblocks_url}" method="post">
+			<form action="{devblocks_url}{/devblocks_url}" method="post">
 			<input type="hidden" name="c" value="customer">
 			<input type="hidden" name="a" value="saveTab">
 			<input type="hidden" name="tab" value="feg.customer.tab.recipient">
