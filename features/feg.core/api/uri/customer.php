@@ -39,6 +39,23 @@ class FegCustomerPage extends FegPageExtension {
 		@array_shift($stack); // customer
 		
 		@$customer_id = array_shift($stack);
+		if($customer_id == 0) {
+			$fields = array(
+				DAO_CustomerAccount::IMPORT_FILTER => 0,
+				DAO_CustomerAccount::ACCOUNT_NAME => "",
+				DAO_CustomerAccount::ACCOUNT_NUMBER => "",
+				DAO_CustomerAccount::IS_DISABLED => 1,
+			);
+			// Create a new Customer Recipients 
+			$customer_id = DAO_CustomerAccount::create($fields);
+		} else {
+			@$customer = DAO_CustomerAccount::get($customer_id);
+			if(empty($customer)) {
+				echo "<H1>".$translate->_('customer.display.invalid_customer')."</H1>";
+				return;
+			}
+		}
+
 		$tpl->assign('customer_id', $customer_id);
 		
 		// Tabs
@@ -125,11 +142,6 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
 		$tpl->assign('customer_id', $customer_id);
 
-		@$customer = DAO_CustomerAccount::get($customer_id);
-		if(empty($customer)) {
-			echo "<H1>".$translate->_('customer.display.invalid_customer')."</H1>";
-			return;
-		}
 		$tpl->assign('customer', $customer);
 		
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/property.tpl');
