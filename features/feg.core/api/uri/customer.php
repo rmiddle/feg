@@ -211,6 +211,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		@$disabled = DevblocksPlatform::importGPC($_POST['is_disabled'],'integer',0);
 		@$customer_recipient_type = DevblocksPlatform::importGPC($_POST['customer_recipient_type'],'integer');
 		@$customer_recipient_address = DevblocksPlatform::importGPC($_POST['customer_recipient_address'],'integer');
+		@$customer_recipient_export_filter= DevblocksPlatform::importGPC($_POST['customer_recipient_export_filter'],'integer');
 		
 		echo "Save Recipient<br>";
 	}

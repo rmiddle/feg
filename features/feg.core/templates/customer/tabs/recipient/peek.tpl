@@ -31,6 +31,14 @@
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address')|capitalize}: </td>
 		<td width="100%"><input type="text" name="customer_recipient_address" value="{$recipient->address|escape}" style="width:98%;"></td>
 	</tr>
+	<tr>
+		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.export_filter')|capitalize}: </td>
+		<td width="100%">
+			<select name="customer_recipient_export_filter">
+				<option value="0" {if $recipient->export_filter == 0}selected{/if}>{$translate->_('common.default')|capitalize}</option>
+			</select>
+		</td>
+	</tr>
 	
 </table>
 

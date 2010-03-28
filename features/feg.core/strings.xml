@@ -72,6 +72,9 @@
 		<tu tuid='common.customize'>
 			<tuv xml:lang="en_US"><seg>customize</seg></tuv>
 		</tu>
+		<tu tuid='common.default'>
+			<tuv xml:lang="en_US"><seg>default</seg></tuv>
+		</tu>
 		<tu tuid='common.delete'>
 			<tuv xml:lang="en_US"><seg>delete</seg></tuv>
 		</tu>
@@ -456,8 +459,8 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='recipient.type.snpp'>
 			<tuv xml:lang="en_US"><seg>Paging</seg></tuv>
 		</tu>
-		<tu tuid='recipient.type.web'>
-			<tuv xml:lang="en_US"><seg>Web Delivery</seg></tuv>
+		<tu tuid='recipient.export_filter'>
+			<tuv xml:lang="en_US"><seg>Export Filter</seg></tuv>
 		</tu>
 		
 		<!-- Export Filter Translations -->
