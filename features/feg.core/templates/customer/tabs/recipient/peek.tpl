@@ -1,6 +1,6 @@
 <form action="{devblocks_url}{/devblocks_url}" method="POST" id="formRecipientPeek" name="formRecipientPeek" onsubmit="return false;">
 <input type="hidden" name="c" value="customer">
-<input type="hidden" name="a" value="shandleTabAction">
+<input type="hidden" name="a" value="handleTabAction">
 <input type="hidden" name="tab" value="feg.customer.tab.recipient">
 <input type="hidden" name="action=" value="saveRecipientPeek">
 <input type="hidden" name="id" value="{$recipient->id}">
