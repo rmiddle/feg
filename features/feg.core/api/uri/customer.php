@@ -107,3 +107,22 @@ class FegCustomerPage extends FegPageExtension {
 	}
 	
 };
+
+class FegCustomerTabProperty extends Extension_CustomerTab {
+	function __construct($manifest) {
+		$this->DevblocksExtension($manifest,1);
+	}
+ 
+	function showTab() {
+//		@$ticket_id = DevblocksPlatform::importGPC($_REQUEST['ticket_id'],'integer',0);
+//		$tpl = DevblocksPlatform::getTemplateService();
+//		$tpl->cache_lifetime = "0";
+//		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
+
+		echo "Property Tab<br>";
+
+}
+
+	function saveTab() {
+	}
+};
