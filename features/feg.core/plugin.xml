@@ -452,5 +452,18 @@
 			</params>
 		</extension>
 
+		<extension point="feg.customer.tab">
+			<id>feg.customer.tab.recipient</id>
+			<name>Property Tab</name>
+			<class>
+				<file>api/url/customer.php</file>
+				<name>FegCustomerTabRecipient</name>
+			</class>
+			<params>
+				<param key="uri" value="recipient." />
+				<param key="title" value="feg.customer.tab.recipient.title" />
+			</params>
+		</extension>
+
 	</extensions>
 </plugin>
