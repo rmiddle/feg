@@ -139,10 +139,28 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
  
 	function showTab() {
 		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
-		$tpl = DevblocksPlatform::getTemplateService();
-		$tpl->cache_lifetime = "0";
-		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
-
+		
+//  FIXME setup ACL check.
+//		$worker = FegApplication::getActiveWorker();
+//		if(!$worker || !$worker->is_superuser) {
+//			echo $translate->_('common.access_denied');
+//			return;
+//		}
+		
+		$defaults = new Feg_AbstractViewModel();
+		$defaults->id = 'Recipient List';
+		$defaults->class_name = 'View_CustomerRecipient';
+		
+		$defaults->renderSortBy = SearchFields_CustomerRecipient::ID;
+		$defaults->renderSortAsc = 0;
+		
+		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
+		$view->params = array(
+			SearchFields_CustomerRecipient::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_CustomerRecipient::ACCOUNT_ID,DevblocksSearchCriteria::OPER_EQ,$customer_id)
+		);
+		$tpl->assign('view', $view);
+		$tpl->assign('view_fields', View_CustomerRecipient::getFields());
+				
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recipient.tpl');
 	}
 
