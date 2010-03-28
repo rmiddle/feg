@@ -17,11 +17,6 @@
 	{if $tab_label==$tab_selected}{$tab_selected_idx = $smarty.foreach.tabs.index}{/if}
 {/foreach}
 
-<div id="CustomerData">
-CustomerData
-</div> 
-
-
 {include file="file:$core_tpl/whos_online.tpl"}
 
 <script type="text/javascript">
