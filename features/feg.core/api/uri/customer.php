@@ -118,6 +118,7 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 	}
  
 	function showTab() {
+		$translate = DevblocksPlatform::getTranslationService();
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->cache_lifetime = "0";
 		
