@@ -121,7 +121,7 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->cache_lifetime = "0";
-		sleep(60);
+		sleep(15);
 
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/property.tpl');
 	}
@@ -203,7 +203,6 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 		echo "Save tab called<br>";
 		echo "Save tab called<br>";
 		echo "Save tab called<br>";
-		sleep(60);
 	}
 };
 
