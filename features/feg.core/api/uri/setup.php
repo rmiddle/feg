@@ -1165,7 +1165,8 @@ class FegSetupPage extends FegPageExtension  {
 			return;
 		}
 		
-		@$key = DevblocksPlatform::importGPC($_POST['key'],'string','');
+		@$name = DevblocksPlatform::importGPC($_POST['company_name'],'string','');
+		@$serial = DevblocksPlatform::importGPC($_POST['company_serial'],'string','');
 		@$email = DevblocksPlatform::importGPC($_POST['email'],'string','');
 		@$do_delete = DevblocksPlatform::importGPC($_POST['do_delete'],'integer',0);
 
@@ -1175,12 +1176,12 @@ class FegSetupPage extends FegPageExtension  {
 			return;
 		}
 		
-		if(empty($key) || empty($email)) {
+		if(empty($name) || empty($serial) || empty($email)) {
 			DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','settings','empty')));
 			return;
 		}
 		
-		if(null==($valid = FegLicense::validate($key,$email)) || 5 != count($valid)) {
+		if(null==($valid = FegLicense::validate($name, $serial, $email)) || 5 != count($valid)) {
 			DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','settings','invalid')));
 			return;
 		}

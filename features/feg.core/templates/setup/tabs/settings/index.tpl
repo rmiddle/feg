@@ -100,11 +100,15 @@ Total Disk Space: <b>{$total_file_size} MB</b><br>
 <input type="hidden" name="do_delete" value="0">
 
 <b>Enter the e-mail address from your order:</b></br>
-<input type="text" name="email" size="45" value=""><br>
+<input type="text" name="email" size="60" value=""><br>
 <br>
 
-<b>Paste the license information you received with your order:</b><br>
-<textarea rows="8" cols="80" name="key"></textarea><br>
+<b>Enter your company name:</b></br>
+<input type="text" name="company_name" size="60" value=""><br>
+<br>
+
+<b>Enter your serial number:</b></br>
+<input type="text" name="company_serial" size="60" value=""><br>
 <br>
 
 <button type="submit"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('common.save_changes')|capitalize}</button>

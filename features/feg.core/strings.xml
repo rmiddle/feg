@@ -153,6 +153,9 @@
 		<tu tuid='activity.account'>
 			<tuv xml:lang="en_US"><seg>%s is manging customer accounts</seg></tuv>
 		</tu>
+		<tu tuid='activity.account'>
+			<tuv xml:lang="en_US"><seg>%s is editing a customers record</seg></tuv>
+		</tu>
 
 		<!-- Cron -->
 
