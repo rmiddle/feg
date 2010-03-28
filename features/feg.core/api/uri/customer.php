@@ -148,19 +148,22 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 //		}
 		
 		$defaults = new Feg_AbstractViewModel();
-		$defaults->id = 'Recipient List';
+		$defaults->name = 'Recipient List';
+		$defaults->id = 'ticket_view_recipient';
 		$defaults->class_name = 'View_CustomerRecipient';
+		$defaults->renderLimit = 15;
 		
 		$defaults->renderSortBy = SearchFields_CustomerRecipient::ID;
 		$defaults->renderSortAsc = 0;
-		$defaults->params = array(
+
+		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
+		$view->params = array(
 			SearchFields_CustomerRecipient::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_CustomerRecipient::ACCOUNT_ID,DevblocksSearchCriteria::OPER_EQ,$customer_id)
 		);
+		$view->renderPage = 0;
+		Feg_AbstractViewLoader::setView($view->id,$view);
 		
-		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 		$tpl->assign('view', $view);
-		$tpl->assign('view_fields', View_CustomerRecipient::getFields());
-				
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recipient.tpl');
 	}
 
