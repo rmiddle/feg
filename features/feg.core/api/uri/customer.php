@@ -36,9 +36,10 @@ class FegCustomerPage extends FegPageExtension {
 		$url = DevblocksPlatform::getUrlService();
 
 		$stack = $response->path;
-		@array_shift($stack); // display
+		@array_shift($stack); // customer
 		
-		@$id = array_shift($stack);
+		@$customer_id = array_shift($stack);
+		$tpl->assign('customer_id', $customer_id);
 		
 		// Tabs
 
