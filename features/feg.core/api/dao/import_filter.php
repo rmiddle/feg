@@ -1,9 +1,4 @@
 <?php
-// Custom Field Sources
-
-class FegCustomFieldSource_ImportFilter extends Extension_CustomFieldSource {
-	const ID = 'feg.fields.source.import_filter';
-};
 
 class Model_ImportFilter {
 	public $id;
@@ -12,7 +7,7 @@ class Model_ImportFilter {
 	public $filter;
 };
 
-class DAO_ImportFilter extends Feg_ORMHelper {
+class DAO_ImportFilter extends DevblocksORMHelper  {
 	const ID = 'id';
 	const FILTER_NAME = 'filter_name';
 	const IS_DISABLED = 'is_disabled';
@@ -145,15 +140,6 @@ class DAO_ImportFilter extends Feg_ORMHelper {
 			
 		$join_sql = "FROM import_filter ";
 		
-		// Custom field joins
-		list($select_sql, $join_sql, $has_multiple_values) = self::_appendSelectJoinSqlForCustomFieldTables(
-			$tables,
-			$params,
-			'import_filter.id',
-			$select_sql,
-			$join_sql
-		);
-				
 		$where_sql = "".
 			(!empty($wheres) ? sprintf("WHERE %s ",implode(' AND ',$wheres)) : "");
 			
@@ -221,15 +207,6 @@ class SearchFields_ImportFilter implements IDevblocksSearchFields {
 			self::FILTER => new DevblocksSearchField(self::FILTER, 'import_filter', 'filter', $translate->_('filter')),
 		);
 		
-		// Custom Fields
-		$fields = DAO_CustomField::getBySource(FegCustomFieldSource_ImportFilter::ID);
-
-		if(is_array($fields))
-		foreach($fields as $field_id => $field) {
-			$key = 'cf_'.$field_id;
-			$columns[$key] = new DevblocksSearchField($key,$key,'field_value',$field->name);
-		}
-		
 		// Sort by label (translation-conscious)
 		uasort($columns, create_function('$a, $b', "return strcasecmp(\$a->db_label,\$b->db_label);\n"));
 
@@ -277,9 +254,6 @@ class View_ImportFilter extends FEG_AbstractView {
 		$tpl->assign('id', $this->id);
 		$tpl->assign('view', $this);
 
-		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_ImportFilter::ID);
-		$tpl->assign('custom_fields', $custom_fields);
-		
 		$tpl->assign('view_fields', $this->getColumns());
 		// [TODO] Set your template path
 		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/import_filter/view.tpl');
@@ -307,12 +281,7 @@ class View_ImportFilter extends FEG_AbstractView {
 //				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__date.tpl');
 //				break;
 			default:
-				// Custom Fields
-				if('cf_' == substr($field,0,3)) {
-					$this->_renderCriteriaCustomField($tpl, substr($field,3));
-				} else {
-					echo ' ';
-				}
+				echo ' ';
 				break;
 		}
 	}
@@ -387,10 +356,6 @@ class View_ImportFilter extends FEG_AbstractView {
 				$criteria = new DevblocksSearchCriteria($field,$oper,$bool);
 				break;
 			default:
-				// Custom Fields
-				if(substr($field,0,3)=='cf_') {
-					$criteria = $this->_doSetCriteriaCustomField($field, substr($field,3));
-				}
 				break;
 		}
 		if(!empty($criteria)) {
@@ -425,10 +390,7 @@ class View_ImportFilter extends FEG_AbstractView {
 					//$change_fields[DAO_ImportFilter::EXAMPLE] = 'some value';
 					break;
 				default:
-					// Custom fields
-					if(substr($k,0,3)=="cf_") {
-						$custom_fields[substr($k,3)] = $v;
-					}
+					break;
 			}
 		}
 		
@@ -453,9 +415,6 @@ class View_ImportFilter extends FEG_AbstractView {
 			$batch_ids = array_slice($ids,$x,100);
 			
 			DAO_ImportFilter::update($batch_ids, $change_fields);
-			
-			// Custom Fields
-			self::_doBulkSetCustomFields(FegCustomFieldSource_ImportFilter::ID, $custom_fields, $batch_ids);
 			
 			unset($batch_ids);
 		}

@@ -404,28 +404,6 @@
 			</params>
 		</extension>
 		
-		<extension point="feg.fields.source">
-			<id>feg.fields.source.export_filter'</id>
-			<name>Export Filter</name>
-			<class>
-				<file>api/dao/export_filter.php</file>
-				<name>FegCustomFieldSource_ExportFilter</name>
-			</class>
-			<params>
-			</params>
-		</extension>
-		
-		<extension point="feg.fields.source">
-			<id>feg.fields.source.import_filter</id>
-			<name>Import Filter</name>
-			<class>
-				<file>api/dao/customer_recipient.php</file>
-				<name>FegCustomFieldSource_ImportFilter</name>
-			</class>
-			<params>
-			</params>
-		</extension>
-
 		<!-- Home Tab -->
 		
 		<!-- Workspace Sources -->
