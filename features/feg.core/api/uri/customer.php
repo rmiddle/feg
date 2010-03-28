@@ -109,7 +109,10 @@ class FegCustomerPage extends FegPageExtension {
 };
 
 class FegCustomerTabProperty extends Extension_CustomerTab {
+	private $_TPL_PATH = '';
+
 	function __construct($manifest) {
+		$this->_TPL_PATH = dirname(dirname(dirname(__FILE__))) . '/templates/';
 		$this->DevblocksExtension($manifest,1);
 	}
  
@@ -120,14 +123,17 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
 
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/property.tpl');
-}
+	}
 
 	function saveTab() {
 	}
 };
 
 class FegCustomerTabRecipient extends Extension_CustomerTab {
+	private $_TPL_PATH = '';
+
 	function __construct($manifest) {
+		$this->_TPL_PATH = dirname(dirname(dirname(__FILE__))) . '/templates/';
 		$this->DevblocksExtension($manifest,1);
 	}
  
@@ -138,7 +144,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
 
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recipient.tpl');
-}
+	}
 
 	function saveTab() {
 	}
