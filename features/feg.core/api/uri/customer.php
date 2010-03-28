@@ -26,23 +26,35 @@ class FegCustomerPage extends FegPageExtension {
 	}
 	
 	function render() {
-		$active_worker = FegApplication::getActiveWorker();
-		$visit = FegApplication::getVisit();
-		
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
 
+		$active_worker = FegApplication::getActiveWorker();
+		$visit = FegApplication::getVisit();
 		$response = DevblocksPlatform::getHttpResponse();
-		$tpl->assign('request_path', implode('/',$response->path));
+		$translate = DevblocksPlatform::getTranslationService();
+		$url = DevblocksPlatform::getUrlService();
+
+		$stack = $response->path;
+		@array_shift($stack); // display
 		
-		// Remember the last tab/URL
-		if(null == ($selected_tab = @$response->path[1])) {
-			$selected_tab = $visit->get(FegVisit::KEY_CUSTOMER_SELECTED_TAB, 'property');
-		}
-		$tpl->assign('selected_tab', $selected_tab);
+		@$id = array_shift($stack);
 		
+		// Tabs
+
 		$tab_manifests = DevblocksPlatform::getExtensions('feg.customer.tab', false);
 		$tpl->assign('tab_manifests', $tab_manifests);
+
+
+		@$tab_selected = array_shift($stack);
+		if(empty($tab_selected)) $tab_selected = 'property';
+		$tpl->assign('tab_selected', $tab_selected);
+		
+		switch($tab_selected) {
+			case 'property':
+				@$tab_option = array_shift($stack);				
+				break;
+		}
 		
 		// ====== Who's Online
 		$whos_online = DAO_Worker::getAllOnline();
