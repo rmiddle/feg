@@ -9,6 +9,7 @@ CustomerTab
 
 {$tab_selected_idx=0}
 {foreach from=$tabs item=tab_label name=tabs}
+	text
 	{if $tab_label==$tab_selected}{$tab_selected_idx = $smarty.foreach.tabs.index}{/if}
 {/foreach}
 
