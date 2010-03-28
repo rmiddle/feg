@@ -465,5 +465,18 @@
 			</params>
 		</extension>
 
+		<extension point="feg.customer.tab">
+			<id>feg.customer.tab.recent.messages</id>
+			<name>Recent Messages Tab</name>
+			<class>
+				<file>api/url/customer.php</file>
+				<name>FegCustomerTabRecentMessages</name>
+			</class>
+			<params>
+				<param key="uri" value="recent_messages" />
+				<param key="title" value="feg.customer.tab.recent.messages.title" />
+			</params>
+		</extension>
+
 	</extensions>
 </plugin>

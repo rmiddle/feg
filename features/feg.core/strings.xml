@@ -483,6 +483,9 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.customer.tab.recipient.title'>
 			<tuv xml:lang="en_US"><seg>Recipient</seg></tuv>
 		</tu>
+		<tu tuid='feg.customer.tab.recent.messages.title'>
+			<tuv xml:lang="en_US"><seg>Recent Messages</seg></tuv>
+		</tu>
 	</body>
 </tmx>
 <!-- 

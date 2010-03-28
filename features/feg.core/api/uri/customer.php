@@ -171,3 +171,24 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 	function saveTab() {
 	}
 };
+
+class FegCustomerTabRecentMessages extends Extension_CustomerTab {
+	private $_TPL_PATH = '';
+
+	function __construct($manifest) {
+		$this->_TPL_PATH = dirname(dirname(dirname(__FILE__))) . '/templates/';
+		$this->DevblocksExtension($manifest,1);
+	}
+ 
+	function showTab() {
+		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->cache_lifetime = "0";
+
+		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recent/messages.tpl');
+	}
+
+	function saveTab() {
+	}
+};
+
