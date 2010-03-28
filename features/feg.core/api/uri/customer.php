@@ -193,6 +193,27 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recipient/peek.tpl');		
 	}
+
+	function saveRecipientPeekAction() {
+		$translate = DevblocksPlatform::getTranslationService();
+		$active_worker = FegApplication::getActiveWorker();
+		
+		// TODO add ACL to edit / create recipient.
+		//if(!$active_worker || !$active_worker->is_superuser) {
+		//	return;
+		//}
+		
+		@$view_id = DevblocksPlatform::importGPC($_POST['view_id'],'string');
+		@$delete = DevblocksPlatform::importGPC($_POST['do_delete'],'integer',0);
+		
+		@$id = DevblocksPlatform::importGPC($_POST['id'],'integer');
+		@$customer_id = DevblocksPlatform::importGPC($_POST['customer_id'],'integer');
+		@$disabled = DevblocksPlatform::importGPC($_POST['is_disabled'],'integer',0);
+		@$customer_recipient_type = DevblocksPlatform::importGPC($_POST['customer_recipient_type'],'integer');
+		@$customer_recipient_address = DevblocksPlatform::importGPC($_POST['customer_recipient_address'],'integer');
+		
+		echo "Save Recipient<br>";
+	}
 	
 };
 
