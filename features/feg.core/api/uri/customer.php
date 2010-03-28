@@ -118,9 +118,11 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 	}
  
 	function showTab() {
-		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->cache_lifetime = "0";
+		
+		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
+		$tpl->assign('customer_id', $customer_id);
 
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/property.tpl');
 	}
