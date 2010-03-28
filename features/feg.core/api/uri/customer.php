@@ -234,13 +234,12 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		} else {
 			// Update fields array
 			$fields = array(
-				DAO_CustomerRecipient::ACCOUNT_ID] => $customer_id;
-				DAO_CustomerRecipient::EXPORT_FILTER] => $customer_recipient_export_filter;
-				DAO_CustomerRecipient::TYPE] => $customer_recipient_type;
-				DAO_CustomerRecipient::ADDRESS] => $customer_recipient_address;
+				DAO_CustomerRecipient::EXPORT_FILTER => $customer_recipient_export_filter,
+				DAO_CustomerRecipient::TYPE => $customer_recipient_type,
+				DAO_CustomerRecipient::ADDRESS => $customer_recipient_address,
 				DAO_CustomerRecipient::IS_DISABLED => $disabled,
 			);
-			// Update Customer Recipients 
+			// Create a new Customer Recipients 
 			DAO_CustomerRecipient::create($fields);
 		}
 		// Custom field saves
