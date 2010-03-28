@@ -120,7 +120,6 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->cache_lifetime = "0";
-		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
 
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/property.tpl');
 	}
@@ -139,6 +138,8 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
  
 	function showTab() {
 		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->cache_lifetime = "0";
 		
 //  FIXME setup ACL check.
 //		$worker = FegApplication::getActiveWorker();
