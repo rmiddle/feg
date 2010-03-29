@@ -38,11 +38,8 @@
 
 {include file="file:$core_tpl/internal/custom_fields/bulk/form.tpl" bulk=false}
 <br>
-<button type="button" onclick="genericPanel.dialog('close');genericAjaxPost('formCustomerAccount', 'view{$view_id}', '');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('common.save_changes')}</button>
-{if $active_worker->is_superuser}
-	<button type="button" onclick="if(confirm('Are you sure you want to delete this Customers Account?')){literal}{{/literal}this.form.do_delete.value='1';{literal}}{/literal}"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete2.gif{/devblocks_url}" align="top"> {$translate->_('common.delete')|capitalize}</button>
-{/if}
-<button type="button" onclick="genericPanel.dialog('close');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete.gif{/devblocks_url}" align="top"> {$translate->_('common.cancel')|capitalize}</button>
+<button type="submit"><span class="cerb-sprite sprite-check"></span> {$translate->_('common.save_changes')|capitalize}</button>
+<button type="button" onclick="if(confirm('Are you sure you want to remove your license?')){literal}{{/literal}this.form.do_delete.value='1';this.form.submit();{literal}}{/literal}"><span class="cerb-sprite sprite-forbidden"></span> Delete Customer</button>
 
 <br>
 </form>
