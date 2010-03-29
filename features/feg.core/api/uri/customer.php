@@ -53,7 +53,7 @@ class FegCustomerPage extends FegPageExtension {
 			} else {
 				// Create a new Customer Recipients 
 				$customer_id = DAO_CustomerAccount::create($fields);
-			);
+			}
 		} else {
 			@$customer = DAO_CustomerAccount::get($customer_id);
 			if(empty($customer)) {
