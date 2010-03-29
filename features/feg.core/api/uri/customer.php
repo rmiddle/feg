@@ -50,11 +50,11 @@ class FegCustomerPage extends FegPageExtension {
 				DAO_CustomerAccount::IS_DISABLED => 1,
 			);
 			if(NULL == $customer_id) {
-				// Update Customer Recipients 
-				DAO_CustomerRecipient::update($customer_id, $fields);
-			} else {
 				// Create a new Customer Recipients 
 				$customer_id = DAO_CustomerAccount::create($fields);
+			} else {
+				// Update Customer Recipients 
+				DAO_CustomerRecipient::update($customer_id, $fields);
 			}
 		} else {
 			@$customer = DAO_CustomerAccount::get($customer_id);
