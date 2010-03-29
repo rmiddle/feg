@@ -41,8 +41,8 @@ class FegCustomerPage extends FegPageExtension {
 		@$customer_id = array_shift($stack);
 		if($customer_id == 0) {
 			$c_id = array_shift(DAO_CustomerAccount::getWhere("account_number = '' and is_disabled = 1 "));
-			$customer_id = $c_id['id'];
-			print_r($customer_id); 
+			
+			print_r($c_id); 
 			$fields = array(
 				DAO_CustomerAccount::IMPORT_FILTER => 0,
 				DAO_CustomerAccount::ACCOUNT_NAME => "",
