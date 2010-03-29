@@ -39,7 +39,7 @@
 {include file="file:$core_tpl/internal/custom_fields/bulk/form.tpl" bulk=false}
 <br>
 <button type="submit"><span class="cerb-sprite sprite-check"></span> {$translate->_('common.save_changes')|capitalize}</button>
-<button type="button" onclick="if(confirm('Are you sure you want to remove your license?')){literal}{{/literal}this.form.do_delete.value='1';this.form.submit();{literal}}{/literal}"><span class="cerb-sprite sprite-forbidden"></span> Delete Customer</button>
+<button type="button" onclick="if(confirm('Are you sure you want this Account?')){literal}{{/literal}this.form.do_delete.value='1';this.form.submit();{literal}}{/literal}"><span class="cerb-sprite sprite-forbidden"></span> Delete Customer</button>
 
 <br>
 </form>

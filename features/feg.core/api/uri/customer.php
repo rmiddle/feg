@@ -153,7 +153,29 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 	}
 
 	function saveCustomerAccountAction() {
-		echo "Save tab called<br>";
+		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
+		@$delete = DevblocksPlatform::importGPC($_POST['do_delete'],'integer',0);
+		
+		@$id = DevblocksPlatform::importGPC($_POST['id'],'integer');
+		@$disabled = DevblocksPlatform::importGPC($_POST['account_is_disabled'],'integer',0);
+		@$import_filter = DevblocksPlatform::importGPC($_POST['customer_account_import_filter'],'integer',0);
+		
+		@$account_number = DevblocksPlatform::importGPC($_REQUEST['customer_account_number'],'string','');
+		@$account_name = DevblocksPlatform::importGPC($_REQUEST['customer_account_name'],'string','');
+		
+		if($delete) {
+			return;
+		}
+		
+		$fields = array(
+			DAO_CustomerAccount::IMPORT_FILTER => 0,
+			DAO_CustomerAccount::ACCOUNT_NAME => "Test Name",
+			DAO_CustomerAccount::ACCOUNT_NUMBER => "Test Number",
+			DAO_CustomerAccount::IS_DISABLED => 0,
+		);
+		// Update Customer Recipients 
+		DAO_CustomerRecipient::update($customer_id, $fields);
+		
         DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('stats')));
 	}
 };
