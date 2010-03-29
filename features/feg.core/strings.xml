@@ -486,6 +486,15 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.customer.tab.property.title'>
 			<tuv xml:lang="en_US"><seg>Property</seg></tuv>
 		</tu>
+		<tu tuid='feg.customer.customer.account_number'>
+			<tuv xml:lang="en_US"><seg>Account Number</seg></tuv>
+		</tu>
+		<tu tuid='feg.customer.customer.account_name'>
+			<tuv xml:lang="en_US"><seg>Account Name</seg></tuv>
+		</tu>
+		<tu tuid='feg.customer.customer.import_filter'>
+			<tuv xml:lang="en_US"><seg>Import Filter</seg></tuv>
+		</tu>
 		<tu tuid='feg.customer.tab.recipient.title'>
 			<tuv xml:lang="en_US"><seg>Recipient</seg></tuv>
 		</tu>

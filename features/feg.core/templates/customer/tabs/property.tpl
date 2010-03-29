@@ -1,3 +1,4 @@
+<div id="customerData">
 <form action="{devblocks_url}{/devblocks_url}" method="POST" id="formCustomerAccount" name="formCustomerAccount" onsubmit="return false;">
 <input type="hidden" name="c" value="customer">
 <input type="hidden" name="a" value="handleTabAction">
@@ -6,39 +7,29 @@
 <input type="hidden" name="customer_id" value="{$customer_id}">
 <input type="hidden" name="do_delete" value="0">
 
-			SearchFields_CustomerAccount::IS_DISABLED,
-			SearchFields_CustomerAccount::ACCOUNT_NUMBER,
-			SearchFields_CustomerAccount::ACCOUNT_NAME,
-			SearchFields_CustomerAccount::IMPORT_FILTER,
-
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('common.disabled')|capitalize}: </td>
 		<td width="100%">
-			<select name="is_disabled">
-				<option value="0" {if isset($newcustomer) || !$recipient->is_disabled}selected{/if}>{$translate->_('common.no')|capitalize}</option>
-				<option value="1" {if !isset($newcustomer) && $recipient->is_disabled}selected{/if}>{$translate->_('common.yes')|capitalize}</option>
+			<select name="account_is_disabled">
+				<option value="0" {if !$customer->is_disabled}selected{/if}>{$translate->_('common.no')|capitalize}</option>
+				<option value="1" {if $customer->is_disabled}selected{/if}>{$translate->_('common.yes')|capitalize}</option>
 			</select>
 		</td>
 	</tr>
 	<tr>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.type')|capitalize}: </td>
-			<select name="customer_recipient_type">
-				<option value="0" {if $recipient->type == '0'}selected{/if}>{$translate->_('recipient.type.email')|capitalize}</option>
-				<option value="1" {if $recipient->type == '1'}selected{/if}>{$translate->_('recipient.type.fax')|capitalize}</option>
-				<option value="2" {if $recipient->type == '2'}selected{/if}>{$translate->_('recipient.type.snpp')|capitalize}</option>
-			</select>
-		</td>
+		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer.customer.account_number')|capitalize}: </td>
+		<td width="100%"><input type="text" name="customer_account_number" value="{$customer->account_number|escape}" style="width:98%;"></td>
 	</tr>
 	<tr>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address')|capitalize}: </td>
-		<td width="100%"><input type="text" name="customer_recipient_address" value="{$recipient->address|escape}" style="width:98%;"></td>
+		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer.customer.account_name')|capitalize}: </td>
+		<td width="100%"><input type="text" name="customer_account_name" value="{$customer>account_name|escape}" style="width:98%;"></td>
 	</tr>
 	<tr>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.export_filter')|capitalize}: </td>
+		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer.customer.import_filter')|capitalize}: </td>
 		<td width="100%">
-			<select name="customer_recipient_export_filter">
-				<option value="0" {if $recipient->export_filter == 0}selected{/if}>{$translate->_('common.default')|capitalize}</option>
+			<select name="customer_account_import_filter">
+				<option value="0" {if $customer->import_filter == 0}selected{/if}>{$translate->_('common.default')|capitalize}</option>
 			</select>
 		</td>
 	</tr>
@@ -55,27 +46,6 @@
 
 <br>
 </form>
-
-
-
-
-
-
-
-
-
-
-<div id="customerData">
-	<form action="{devblocks_url}{/devblocks_url}" method="POST" id="formRecipientPeek" name="formRecipientPeek" onsubmit="return false;">
-			<form action="{devblocks_url}{/devblocks_url}" method="post">
-			<input type="hidden" name="c" value="customer">
-			<input type="hidden" name="a" value="saveTab">
-			<input type="hidden" name="ext_id" value="feg.customer.tab.recipient">
-			<input type="hidden" name="customer_id" value="{$customer_id}">
-			<h2>Customer Account Property's</h2>
-
-			<button type="submit"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('common.save_changes')|capitalize}</button>
-			</form>
 </div>
 
 <br>
