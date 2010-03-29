@@ -1,5 +1,5 @@
 <div id="customerData">
-<form action="{devblocks_url}{/devblocks_url}" method="POST">
+<form method="POST">
 <input type="hidden" name="c" value="customer">
 <input type="hidden" name="a" value="handleTabAction">
 <input type="hidden" name="tab" value="feg.customer.tab.property">
