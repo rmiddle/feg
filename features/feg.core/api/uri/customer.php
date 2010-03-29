@@ -146,6 +146,9 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 		
 		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
 		$tpl->assign('customer_id', $customer_id);
+		
+		$core_tpl = $this->_TPL_PATH;
+		$tpl->assign('core_tpl', $core_tpl);
 
 		$tpl->assign('customer', $customer);
 		
