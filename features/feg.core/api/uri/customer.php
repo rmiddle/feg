@@ -40,14 +40,20 @@ class FegCustomerPage extends FegPageExtension {
 		
 		@$customer_id = array_shift($stack);
 		if($customer_id == 0) {
+			$customer_id = DAO_CustomerAccount::getWhere("account_number = '' and is_disabled = '1' ");
 			$fields = array(
 				DAO_CustomerAccount::IMPORT_FILTER => 0,
 				DAO_CustomerAccount::ACCOUNT_NAME => "",
 				DAO_CustomerAccount::ACCOUNT_NUMBER => "",
 				DAO_CustomerAccount::IS_DISABLED => 1,
 			);
-			// Create a new Customer Recipients 
-			$customer_id = DAO_CustomerAccount::create($fields);
+			if(NULL == $customer_id) {
+				// Update Customer Recipients 
+				DAO_CustomerRecipient::update($customer_id, $fields);
+			} else {
+				// Create a new Customer Recipients 
+				$customer_id = DAO_CustomerAccount::create($fields);
+			);
 		} else {
 			@$customer = DAO_CustomerAccount::get($customer_id);
 			if(empty($customer)) {
@@ -55,14 +61,11 @@ class FegCustomerPage extends FegPageExtension {
 				return;
 			}
 		}
-
 		$tpl->assign('customer_id', $customer_id);
 		
 		// Tabs
-
 		$tab_manifests = DevblocksPlatform::getExtensions('feg.customer.tab', false);
 		$tpl->assign('tab_manifests', $tab_manifests);
-
 
 		@$tab_selected = array_shift($stack);
 		if(empty($tab_selected)) $tab_selected = 'property';
