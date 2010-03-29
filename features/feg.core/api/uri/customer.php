@@ -154,7 +154,7 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 
 	function saveCustomerAccountAction() {
 		echo "Save tab called<br>";
-        DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('account')));
+        DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('stats')));
 	}
 };
 
