@@ -193,7 +193,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		
 		$defaults = new Feg_AbstractViewModel();
 		$defaults->name = 'Recipient List';
-		$defaults->id = 'ticket_view_recipient';
+		$defaults->id = 'customer_view_recipient';
 		$defaults->class_name = 'View_CustomerRecipient';
 		$defaults->renderLimit = 15;
 		
@@ -226,7 +226,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		$tpl->assign('recipient', $recipient);
 		
 		// Custom Fields
-		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Worker::ID);
+		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerRecipient::ID);
 		$tpl->assign('custom_fields', $custom_fields);
 		
 		$custom_field_values = DAO_CustomFieldValue::getValuesBySourceIds(FegCustomFieldSource_CustomerRecipient::ID, $id);
@@ -285,7 +285,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		}
 		// Custom field saves
 		@$field_ids = DevblocksPlatform::importGPC($_POST['field_ids'], 'array', array());
-		DAO_CustomFieldValue::handleFormPost(FegCustomFieldSource_Worker::ID, $id, $field_ids);
+		DAO_CustomFieldValue::handleFormPost(FegCustomFieldSource_CustomerRecipient::ID, $id, $field_ids);
 		if(!empty($view_id)) {
 			$view = Feg_AbstractViewLoader::getView($view_id);
 			$view->render();
