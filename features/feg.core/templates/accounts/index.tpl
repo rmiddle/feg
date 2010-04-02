@@ -1,5 +1,5 @@
 <form>
-	<button type="button" onclick="{devblocks_url}ajax.php?c=account&a=createNewCustomer{/devblocks_url}"><img src="{devblocks_url}c=resource&p=feg.core&f=images/businessman_add.gif{/devblocks_url}" align="top"> Add Account</button>
+	<button type="button" onclick="genericAjaxGet('c=account&a=createNewCustomer');" <img src="{devblocks_url}c=resource&p=feg.core&f=images/businessman_add.gif{/devblocks_url}" align="top"> Add Account</button>
 </form>
 
 <table cellpadding="0" cellspacing="0" border="0">
