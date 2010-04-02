@@ -40,30 +40,30 @@ class FegCustomerPage extends FegPageExtension {
 		
 		@$customer_id = array_shift($stack);
 		// Remove and convert to a create_new var.
-		if($customer_id == 0) {
-			$c_id = array_shift(DAO_CustomerAccount::getWhere("account_number = '' and is_disabled = 1 "));
+//		if($customer_id == 0) {
+//			$c_id = array_shift(DAO_CustomerAccount::getWhere("account_number = '' and is_disabled = 1 "));
 			
-			$customer_id = $c_id->id; 
-			$fields = array(
-				DAO_CustomerAccount::IMPORT_FILTER => 0,
-				DAO_CustomerAccount::ACCOUNT_NAME => "",
-				DAO_CustomerAccount::ACCOUNT_NUMBER => "",
-				DAO_CustomerAccount::IS_DISABLED => 1,
-			);
-			if(NULL == $customer_id) {
-				// Create a new Customer Recipients 
-				$customer_id = DAO_CustomerAccount::create($fields);
-			} else {
-				// Update Customer Recipients 
-				DAO_CustomerRecipient::update($customer_id, $fields);
-			}
-		} else {
+//			$customer_id = $c_id->id; 
+//			$fields = array(
+//				DAO_CustomerAccount::IMPORT_FILTER => 0,
+//				DAO_CustomerAccount::ACCOUNT_NAME => "",
+//				DAO_CustomerAccount::ACCOUNT_NUMBER => "",
+//				DAO_CustomerAccount::IS_DISABLED => 1,
+//			);
+//			if(NULL == $customer_id) {
+//				// Create a new Customer Recipients 
+//				$customer_id = DAO_CustomerAccount::create($fields);
+//			} else {
+//				// Update Customer Recipients 
+//				DAO_CustomerRecipient::update($customer_id, $fields);
+//			}
+//		} else {
 			@$customer = DAO_CustomerAccount::get($customer_id);
 			if(empty($customer)) {
 				echo "<H1>".$translate->_('customer.display.invalid_customer')."</H1>";
 				return;
 			}
-		}
+//		}
 		$tpl->assign('customer_id', $customer_id);
 		
 		// Tabs
@@ -163,14 +163,21 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 
 	function saveCustomerAccountAction() {
 		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
+print_r($customer_id);
 		@$delete = DevblocksPlatform::importGPC($_POST['do_delete'],'integer',0);
+print_r($delete);
 		
 		@$id = DevblocksPlatform::importGPC($_POST['id'],'integer');
+print_r($id);
 		@$disabled = DevblocksPlatform::importGPC($_POST['account_is_disabled'],'integer',0);
+print_r($disabled );
 		@$import_filter = DevblocksPlatform::importGPC($_POST['customer_account_import_filter'],'integer',0);
+print_r($import_filter);
 		
 		@$account_number = DevblocksPlatform::importGPC($_REQUEST['customer_account_number'],'string','');
+print_r($account_number);
 		@$account_name = DevblocksPlatform::importGPC($_REQUEST['customer_account_name'],'string','');
+print_r($account_name);
 		
 		if($delete) {
 			return;
