@@ -165,19 +165,13 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
 print_r($customer_id);
 		@$delete = DevblocksPlatform::importGPC($_POST['do_delete'],'integer',0);
-print_r($delete);
 		
 		@$id = DevblocksPlatform::importGPC($_POST['id'],'integer');
-print_r($id);
 		@$disabled = DevblocksPlatform::importGPC($_POST['account_is_disabled'],'integer',0);
-print_r($disabled );
 		@$import_filter = DevblocksPlatform::importGPC($_POST['customer_account_import_filter'],'integer',0);
-print_r($import_filter);
 		
 		@$account_number = DevblocksPlatform::importGPC($_REQUEST['customer_account_number'],'string','');
-print_r($account_number);
 		@$account_name = DevblocksPlatform::importGPC($_REQUEST['customer_account_name'],'string','');
-print_r($account_name);
 		
 		if($delete) {
 			return;
