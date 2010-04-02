@@ -157,10 +157,10 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 		}
 		
 		$fields = array(
-			DAO_CustomerAccount::IMPORT_FILTER => 0,
-			DAO_CustomerAccount::ACCOUNT_NAME => "Test Name",
-			DAO_CustomerAccount::ACCOUNT_NUMBER => "Test Number",
-			DAO_CustomerAccount::IS_DISABLED => 0,
+			DAO_CustomerAccount::IMPORT_FILTER => $import_filter,
+			DAO_CustomerAccount::ACCOUNT_NAME => $account_name,
+			DAO_CustomerAccount::ACCOUNT_NUMBER => $account_number,
+			DAO_CustomerAccount::IS_DISABLED => $disabled,
 		);
 		// Update Customer Recipients 
 		$status = DAO_CustomerAccount::update($customer_id, $fields);
@@ -215,6 +215,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
 		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
+		$tpl->assign('customer_id', $customer_id);
 		
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
