@@ -55,7 +55,6 @@ class FegAccountPage extends FegPageExtension {
 	function createNewCustomerAction() {
 		$active_worker = FegApplication::getActiveWorker();
 
-echo "createNewCustomerAction called";
 		$fields = array(
 			DAO_CustomerAccount::IMPORT_FILTER => 0,
 			DAO_CustomerAccount::ACCOUNT_NAME => "",
