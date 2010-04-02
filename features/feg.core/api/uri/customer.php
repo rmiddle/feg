@@ -183,13 +183,8 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 			DAO_CustomerAccount::IS_DISABLED => 0,
 		);
 		// Update Customer Recipients 
-		$status = DAO_CustomerRecipient::update($customer_id, $fields);
-echo "<pre>";
-print_r($status);
-print_r($customer_id);
-print_r($fields);
-echo "</pre>";
-
+		$status = DAO_CustomerAccount::update($customer_id, $fields);
+		
         DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('account')));
 	}
 };
