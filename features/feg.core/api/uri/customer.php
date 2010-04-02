@@ -39,6 +39,7 @@ class FegCustomerPage extends FegPageExtension {
 		@array_shift($stack); // customer
 		
 		@$customer_id = array_shift($stack);
+		// Remove and convert to a create_new var.
 		if($customer_id == 0) {
 			$c_id = array_shift(DAO_CustomerAccount::getWhere("account_number = '' and is_disabled = 1 "));
 			
@@ -150,6 +151,11 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 		$core_tpl = $this->_TPL_PATH;
 		$tpl->assign('core_tpl', $core_tpl);
 
+		@$customer = DAO_CustomerAccount::get($customer_id);
+		if(empty($customer)) {
+			echo "<H1>".$translate->_('customer.display.invalid_customer')."</H1>";
+			return;
+		}
 		$tpl->assign('customer', $customer);
 		
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/property.tpl');
