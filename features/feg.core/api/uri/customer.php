@@ -158,7 +158,7 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 		}
 		$tpl->assign('customer', $customer);
 		
-		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/property.tpl');
+		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/property/index.tpl');
 	}
 
 	function saveCustomerAccountAction() {
