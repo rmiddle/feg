@@ -3,7 +3,7 @@
 <input type="hidden" name="c" value="customer">
 <input type="hidden" name="a" value="handleTabAction">
 <input type="hidden" name="tab" value="feg.customer.tab.property">
-<input type="hidden" name="action=" value="saveCustomerAccount">
+<input type="hidden" name="action" value="saveCustomerAccount">
 <input type="hidden" name="customer_id" value="{$customer_id}">
 <input type="hidden" name="do_delete" value="0">
 
