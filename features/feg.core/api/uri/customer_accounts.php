@@ -65,7 +65,7 @@ echo "createNewCustomerAction called";
 		// Create a new Customer Recipients 
 		$customer_id = DAO_CustomerAccount::create($fields);
 
-		DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('customer', $customer_id)));
+		DevblocksPlatform::redirect(new DevblocksHttpResponse(array('customer', $customer_id)));
 	}
 		
 };
