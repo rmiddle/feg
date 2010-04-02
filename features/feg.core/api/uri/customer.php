@@ -215,15 +215,15 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
 		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
-		$tpl->assign('customer_id', $customer_id);
 		
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
 		
+		$tpl->assign('customer_id', $customer_id);
 		$tpl->assign('view_id', $view_id);
 		
-		$worker = DAO_Worker::get($id);
-		$tpl->assign('worker', $worker);
+		$recipient = DAO_CustomerRecipient::get($id);
+		$tpl->assign('recipient', $recipient);
 		
 		// Custom Fields
 		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Worker::ID);
