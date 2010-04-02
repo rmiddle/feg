@@ -64,7 +64,7 @@ class FegAccountPage extends FegPageExtension {
 		// Create a new Customer Recipients 
 		$customer_id = DAO_CustomerAccount::create($fields);
 
-		DevblocksPlatform::redirect(new DevblocksHttpResponse(array('customer', $customer_id)));
+		DevblocksPlatform::redirect(new DevblocksHttpResponse(array('customer', $customer_id,'property')));
 	}
 		
 };
