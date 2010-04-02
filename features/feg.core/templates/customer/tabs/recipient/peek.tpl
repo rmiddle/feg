@@ -1,12 +1,12 @@
-<form action="{devblocks_url}{/devblocks_url}" method="POST" id="formRecipientPeek" name="formRecipientPeek" onsubmit="return false;">
+<form action="{devblocks_url}{/devblocks_url}" method="post" id="formRecipientPeek" name="formRecipientPeek" >
 <input type="hidden" name="c" value="customer">
 <input type="hidden" name="a" value="handleTabAction">
 <input type="hidden" name="tab" value="feg.customer.tab.recipient">
 <input type="hidden" name="action" value="saveRecipientPeek">
 <input type="hidden" name="id" value="{$recipient->id}">
 <input type="hidden" name="customer_id" value="{$customer_id}">
-<input type="hidden" name="view_id" value="{$view_id}">
 <input type="hidden" name="do_delete" value="0">
+{if !empty($view_id)}<input type="hidden" name="view_id" value="{$view_id}">{/if}
 
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
@@ -44,9 +44,17 @@
 
 {include file="file:$core_tpl/internal/custom_fields/bulk/form.tpl" bulk=false}
 <br>
-<button type="button" onclick="genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('common.save_changes')}</button>
+{if !empty($view_id)}
+	<button type="button" onclick="ajax.postAndReloadView('formRecipientPeek','view{$view_id}');"><span class="cerb-sprite sprite-check"></span> {$translate->_('common.save_changes')|capitalize}</button>
+{else}
+	<button type="submit"><span class="cerb-sprite sprite-check"></span> {$translate->_('common.save_changes')}</button>
+{/if}
 {if $active_worker->is_superuser}
-	<button type="button" onclick="if(confirm('Are you sure you want to delete this Customers Recipient?')){literal}{{/literal}this.form.do_delete.value='1';genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');{literal}}{/literal}"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete2.gif{/devblocks_url}" align="top"> {$translate->_('common.delete')|capitalize}</button>
+	{if !empty($view_id)}
+		<button type="button" onclick="if(confirm('Are you sure you want to delete this Customers Recipient?')){literal}{{/literal}this.form.do_delete.value='1';ajax.postAndReloadView('formRecipientPeek','view{$view_id}');{literal}}{/literal}"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete2.gif{/devblocks_url}" align="top"> {$translate->_('common.delete')|capitalize}</button>
+	{else}
+		<button type="button" onclick="if(confirm('Are you sure you want to delete this Customers Recipient?')){literal}{{/literal}this.form.do_delete.value='1';genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');{literal}}{/literal}"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete2.gif{/devblocks_url}" align="top"> {$translate->_('common.delete')|capitalize}</button>
+	{/if}
 {/if}
 <button type="button" onclick="genericPanel.dialog('close');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete.gif{/devblocks_url}" align="top"> {$translate->_('common.cancel')|capitalize}</button>
 
