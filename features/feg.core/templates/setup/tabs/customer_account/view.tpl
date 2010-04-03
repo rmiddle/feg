@@ -56,6 +56,8 @@
 				{include file="file:$core_tpl/internal/custom_fields/view/cell_renderer.tpl"}
 			{elseif $column=="c_id" || $column=="c_account_number" ||  $column=="c_account_name"}
 				<td><a href="{devblocks_url}{/devblocks_url}customer/{$result.c_id}/property">{$result.$column}&nbsp;</a></td>
+			{elseif $column=="c_is_disabled"}
+				<td>{if $result.c_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</td>
 			{else}
 			<td>{$result.$column}&nbsp;</td>
 			{/if}
