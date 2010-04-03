@@ -2,7 +2,7 @@
 <form action="{devblocks_url}{/devblocks_url}" method="post" id="formCustomerAdd" name="formCustomerAdd">
 	<input type="hidden" name="c" value="account">
 	<input type="hidden" name="a" value="createNewCustomer">
-	<button type="submit"><span class="cerb-sprite sprite-check"></span>  align="top"> Add Account</button>
+	<button type="submit"><span class="cerb-sprite sprite-check"></span>Add Account</button>
 </form>
 
 <table cellpadding="0" cellspacing="0" border="0">
