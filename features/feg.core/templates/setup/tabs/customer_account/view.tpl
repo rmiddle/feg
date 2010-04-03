@@ -55,9 +55,9 @@
 			{if substr($column,0,3)=="cf_"}
 				{include file="file:$core_tpl/internal/custom_fields/view/cell_renderer.tpl"}
 			{elseif $column=="c_id"}
-				<td>{$result.c_id}&nbsp;</td>
+				<td><td><a href="{devblocks_url}c=customer&customer_id={$result.t_id}{/devblocks_url}">{$result.t_id}</a></td>{$result.c_id}&nbsp;</td>
 			{elseif $column=="c_account_number" ||  $column=="c_account_name"}
-				<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showAccountPeek&id={$result.c_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}</a></td>
+				<td><td><a href="{devblocks_url}c=customer&customer_id={$result.t_id}{/devblocks_url}">{$result.t_id}</a></td>{$result.$column}&nbsp;</td>
 			{else}
 			<td>{$result.$column}&nbsp;</td>
 			{/if}
