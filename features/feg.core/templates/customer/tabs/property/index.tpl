@@ -6,6 +6,7 @@
 <input type="hidden" name="action" value="saveCustomerAccount">
 <input type="hidden" name="customer_id" value="{$customer_id}">
 <input type="hidden" name="do_delete" value="0">
+<input type="hidden" name="and_close" value="0">
 
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
@@ -39,7 +40,8 @@
 {include file="file:$core_tpl/internal/custom_fields/bulk/form.tpl" bulk=false}
 <br>
 <button type="submit"><span class="cerb-sprite sprite-check"></span> {$translate->_('common.save_changes')|capitalize}</button>
-<button type="button" onclick="if(confirm('Are you sure you want this Account?')){literal}{{/literal}this.form.do_delete.value='1';this.form.submit();{literal}}{/literal}"><span class="cerb-sprite sprite-forbidden"></span> Delete Customer</button>
+<button type="button" onclick="if(confirm('Are you sure you want this Account?')){literal}{{/literal}this.form.do_delete.value='1';this.form.submit();{literal}}{/literal}"><span class="feg-sprite sprite-check"></span>{$translate->_('common.save_changes')|capitalize} and close</button>
+<button type="button" onclick="if(confirm('Are you sure you want this Account?')){literal}{{/literal}this.form.do_delete.value='1';this.form.submit();{literal}}{/literal}"><span class="feg-sprite sprite-forbidden"></span> Delete Customer</button>
 
 <br>
 </form>
