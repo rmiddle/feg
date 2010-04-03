@@ -213,7 +213,7 @@ DIV.subtle2 {
 /* Sprite container */
 
 .feg-sprite { 
-	background:url(cerb_icons.png);
+	background:url(feg_icons.png);
 	background-repeat:no-repeat;
 	background-position:top left;
 	display:inline-block;
