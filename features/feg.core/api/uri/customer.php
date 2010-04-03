@@ -166,8 +166,11 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 		// Update Customer Recipients 
 		$status = DAO_CustomerAccount::update($customer_id, $fields);
 		
-		if($and_close)
+		if($and_close) {
 			DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('account')));
+		} else {
+			DevblocksPlatform::redirect(new DevblocksHttpResponse(array('customer', $customer_id,'property')));
+		}
 	}
 };
 
