@@ -173,7 +173,7 @@ class DAO_CustomerAccount extends Feg_ORMHelper {
 			
 		// [TODO] Could push the select logic down a level too
 		if($limit > 0) {
-    		$rs = $db->SelectLimit($sql,$limit,$start) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); /* @var $rs ADORecordSet */
+    		$rs = $db->SelectLimit($sql,$limit,$start) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
 		} else {
 		    $rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); /* @var $rs */
             $total = mysql_num_rows($rs);
@@ -252,7 +252,6 @@ class View_CustomerAccount extends FEG_AbstractView {
 		$translate = DevblocksPlatform::getTranslationService();
 	
 		$this->id = self::DEFAULT_ID;
-		// [TODO] Name the worklist view
 		$this->name = $translate->_('core.menu.account');
 		$this->renderLimit = 25;
 		$this->renderSortBy = SearchFields_CustomerAccount::ID;
@@ -343,7 +342,7 @@ class View_CustomerAccount extends FEG_AbstractView {
 	static function getSearchFields() {
 		$fields = self::getFields();
 		// [TODO] Filter fields
-		unset($fields[SearchFields_CustomerAccount::ID]);
+		// unset($fields[SearchFields_CustomerAccount::ID]);
 		return $fields;
 	}
 
@@ -358,14 +357,13 @@ class View_CustomerAccount extends FEG_AbstractView {
 		parent::doResetCriteria();
 		
 		$this->params = array(
-		//SearchFields_CustomerAccount::ID => new DevblocksSearchCriteria(SearchFields_CustomerAccount::ID,'!=',0),
+		//	SearchFields_CustomerAccount::IS_DISABLED => new DevblocksSearchCriteria(SearchFields_CustomerAccount::IS_DISABLED,'==',0),
 		);
 	}
 
 	function doSetCriteria($field, $oper, $value) {
 		$criteria = null;
 
-		// [TODO] Move fields into the right data type
 		switch($field) {
 			case SearchFields_CustomerAccount::ACCOUNT_NUMBER:
 			case SearchFields_CustomerAccount::ACCOUNT_NAME:
