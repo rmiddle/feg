@@ -1,5 +1,5 @@
 <form>
-<form action="{devblocks_url}{/devblocks_url}" method="post" id="formCustomerAdd" name="formCustomerAdd">
+<form action="{devblocks_url}{/devblocks_url}" method="post">
 	<input type="hidden" name="c" value="account">
 	<input type="hidden" name="a" value="createNewCustomer">
 	<button type="submit"><span class="cerb-sprite sprite-check"></span>Add Account</button>
