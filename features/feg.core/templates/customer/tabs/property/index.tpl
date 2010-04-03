@@ -41,7 +41,7 @@
 <br>
 <button type="submit"><span class="feg-sprite sprite-check"></span> {$translate->_('common.save_changes')|capitalize}</button>
 <button type="button" onclick="this.form.and_close.value='1';this.form.submit();"><span class="feg-sprite sprite-check"></span>{$translate->_('common.save_changes')|capitalize} and close</button>
-<button type="button" onclick="if(confirm('Are you sure you want this Account?')){literal}{{/literal}this.form.do_delete.value='1';this.form.submit();{literal}}{/literal}"><span class="feg-sprite sprite-forbidden"></span> Delete Customer</button>
+<button type="button" onclick="if(confirm('Are you sure you want to delete this Account?')){literal}{{/literal}this.form.do_delete.value='1';this.form.submit();{literal}}{/literal}"><span class="feg-sprite sprite-forbidden"></span> Delete Customer</button>
 
 <br>
 </form>
