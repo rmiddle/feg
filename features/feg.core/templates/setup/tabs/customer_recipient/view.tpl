@@ -70,7 +70,7 @@
 					{if $result.c_account_id == 0}
 						{$translate->_('customer.display.invalid_customer')|capitalize}
 					{else}
-						{assign var=account value=DAO_CustomerAccount::get($result.c_account_id);}
+						{$account = DAO_CustomerAccount::get($result.c_account_id);}
 						{$account.account_number}
 					{/if}
 				</td>
