@@ -2,6 +2,7 @@
 <form action="{devblocks_url}{/devblocks_url}" method="post">
 	<input type="hidden" name="c" value="account">
 	<input type="hidden" name="a" value="createNewCustomer">
+<button type="button" onclick="this.form.submit()"><span class="cerb-sprite sprite-forbidden"></span> Add Customer</button>
 	<button type="submit"><span class="cerb-sprite sprite-check"></span>Add Account</button>
 </form>
 
