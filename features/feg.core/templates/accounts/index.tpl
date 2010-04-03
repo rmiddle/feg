@@ -1,5 +1,8 @@
 <form>
-	<button type="button" onclick="genericAjaxGet('','c=account&a=createNewCustomer');" <img src="{devblocks_url}c=resource&p=feg.core&f=images/businessman_add.gif{/devblocks_url}" align="top"> Add Account</button>
+<form action="{devblocks_url}{/devblocks_url}" method="post" id="formCustomerAdd" name="formCustomerAdd">
+	<input type="hidden" name="c" value="account">
+	<input type="hidden" name="a" value="createNewCustomer">
+	<button type="submit"><span class="cerb-sprite sprite-check"></span>  align="top"> Add Account</button>
 </form>
 
 <table cellpadding="0" cellspacing="0" border="0">
