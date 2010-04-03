@@ -54,10 +54,8 @@
 		{foreach from=$view->view_columns item=column name=columns}
 			{if substr($column,0,3)=="cf_"}
 				{include file="file:$core_tpl/internal/custom_fields/view/cell_renderer.tpl"}
-			{elseif $column=="c_id"}
-				<td><a href="{devblocks_url}c=customer&customer_id={$result.t_id}{/devblocks_url}">{$result.c_id}&nbsp;</a></td>
-			{elseif $column=="c_account_number" ||  $column=="c_account_name"}
-				<td><a href="{devblocks_url}c=customer&customer_id={$result.t_id}{/devblocks_url}">{$result.$column}&nbsp;</a></td>
+			{elseif $column=="c_id" || $column=="c_account_number" ||  $column=="c_account_name"}
+				<td><a href="{devblocks_url}/customer/{$result.t_id}/property{/devblocks_url}">{$result.$column}&nbsp;</a></td>
 			{else}
 			<td>{$result.$column}&nbsp;</td>
 			{/if}
