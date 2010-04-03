@@ -71,7 +71,7 @@
 						{$translate->_('customer.display.invalid_customer')|capitalize}
 					{else}
 						{$account = DAO_CustomerAccount::get($result.c_account_id)}
-						{$account.account_number}
+						{$account->account_number}
 					{/if}
 				</td>
 			{else}
