@@ -37,7 +37,7 @@ class FegAccountPage extends FegPageExtension {
 		$title = $translate->_('account.tab.account.title');
 		
 		$defaults = new Feg_AbstractViewModel();
-		$defaults->id = self::ID;
+		$defaults->id = "customer_view_account";
 		$defaults->class_name = 'View_CustomerAccount';
 		
 		$defaults->renderSortBy = SearchFields_CustomerAccount::ID;
