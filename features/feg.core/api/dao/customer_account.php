@@ -308,7 +308,7 @@ class View_CustomerAccount extends FEG_AbstractView {
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__number.tpl');
 				break;
 			case SearchFields_CustomerAccount::IS_DISABLED:
-				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__bool.tpl');
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__is_disable.tpl');
 				break;
 //			case 'placeholder_date':
 //				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__date.tpl');
