@@ -138,6 +138,12 @@
 		<tu tuid='common.yes'>
 			<tuv xml:lang="en_US"><seg>yes</seg></tuv>
 		</tu>
+		<tu tuid='common.enable'>
+			<tuv xml:lang="en_US"><seg>enable</seg></tuv>
+		</tu>
+		<tu tuid='common.disable'>
+			<tuv xml:lang="en_US"><seg>disable</seg></tuv>
+		</tu>
 
 		<!-- Activities -->
 		
