@@ -1,8 +1,7 @@
 <form action="{devblocks_url}{/devblocks_url}" method="post">
 	<input type="hidden" name="c" value="account">
 	<input type="hidden" name="a" value="createNewCustomer">
-<button type="button" onclick="this.form.submit()"><span class="feg-sprite sprite-forbidden"></span> Add Customer</button>
-	<button type="submit"><span class="feg-sprite sprite-check"></span>Add Account</button>
+	<button type="submit"><span class="feg-sprite sprite-check"></span>Add Customer</button>
 </form>
 
 <table cellpadding="0" cellspacing="0" border="0">
