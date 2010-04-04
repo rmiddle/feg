@@ -641,6 +641,57 @@ class FegSetupPage extends FegPageExtension  {
 		return;
 	}
 	
+	function showAccountBulkPanelAction() {
+		@$id_csv = DevblocksPlatform::importGPC($_REQUEST['ids']);
+		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id']);
+
+		$tpl = DevblocksPlatform::getTemplateService();
+		$path = $this->_TPL_PATH;
+		$tpl->assign('path', $path);
+		$tpl->assign('view_id', $view_id);
+
+	    if(!empty($id_csv)) {
+	        $ids = DevblocksPlatform::parseCsvString($id_csv);
+	        $tpl->assign('ids', implode(',', $ids));
+	    }
+		
+		// Custom Fields
+		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Worker::ID);
+		$tpl->assign('custom_fields', $custom_fields);
+		
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_recipient/bulk.tpl');		
+	}
+	
+	function doAccountBulkUpdateAction() {
+		// Checked rows
+	    @$ids_str = DevblocksPlatform::importGPC($_REQUEST['ids'],'string');
+		$ids = DevblocksPlatform::parseCsvString($ids_str);
+
+		// Filter: whole list or check
+	    @$filter = DevblocksPlatform::importGPC($_REQUEST['filter'],'string','');
+	    
+	    // View
+		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string');
+		$view = Feg_AbstractViewLoader::getView($view_id);
+		
+		// Customer Recpiept Fields.
+		@$is_disabled = trim(DevblocksPlatform::importGPC($_POST['recipient_is_disabled'],'string',''));
+
+		$do = array();
+		
+		// Do: Disabled
+		if(0 != strlen($is_disabled))
+			$do['is_disabled'] = $is_disabled;
+			
+		// Do: Custom fields
+		$do = DAO_CustomFieldValue::handleBulkPost($do);
+		
+		$view->doBulkUpdate($filter, $do, $ids);
+		
+		$view->render();
+		return;
+	}
+	
 	// Ajax
 	function showTabMailSetupAction() {
 		$tpl = DevblocksPlatform::getTemplateService();
