@@ -5,6 +5,7 @@
 <input type="hidden" name="view_id" value="{$view_id}">
 <input type="hidden" name="do_delete" value="0">
 
+{$rec = DAO_CustomerRecipient::get($recipient_id)}
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
 		<td nowrap="nowrap" align="right">ID: </td>
@@ -14,17 +15,17 @@
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('common.disabled')|capitalize}: </td>
 		<td width="100%">
 			<select name="is_disabled">
-				<option value="0" {if !$recipient_arr->is_disabled}selected{/if}>{$translate->_('common.enable')|capitalize}</option>
-				<option value="1" {if $recipient_arr->is_disabled}selected{/if}>{$translate->_('common.disable')|capitalize}</option>
+				<option value="0" {if !$rec->is_disabled}selected{/if}>{$translate->_('common.enable')|capitalize}</option>
+				<option value="1" {if $rec->is_disabled}selected{/if}>{$translate->_('common.disable')|capitalize}</option>
 			</select>
 		</td>
 	</tr>
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.type')|capitalize}: </td>
 			<select name="is_superuser">
-				<option value="0" {if $recipient_arr->type == '0'}selected{/if}>{$translate->_('recipient.type.email')|capitalize}</option>
-				<option value="1" {if $recipient_arr->type == '1'}selected{/if}>{$translate->_('recipient.type.fax')|capitalize}</option>
-				<option value="2" {if $recipient_arr->type == '2'}selected{/if}>{$translate->_('recipient.type.snpp')|capitalize}</option>
+				<option value="0" {if $rec->type == '0'}selected{/if}>{$translate->_('recipient.type.email')|capitalize}</option>
+				<option value="1" {if $rec->type == '1'}selected{/if}>{$translate->_('recipient.type.fax')|capitalize}</option>
+				<option value="2" {if $rec->type == '2'}selected{/if}>{$translate->_('recipient.type.snpp')|capitalize}</option>
 			</select>
 		</td>
 	</tr>
