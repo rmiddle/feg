@@ -31,7 +31,7 @@
 	</tr>
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address')|capitalize}: </td>
-		<td width="100%"><input type="text" name="title" value="{$recipient_arr->address|escape}" style="width:98%;"></td>
+		<td width="100%"><input type="text" name="title" value="{$rec->address|escape}" style="width:98%;"></td>
 	</tr>
 	
 </table>
