@@ -4,7 +4,7 @@
 <input type="hidden" name="id" value="{$recipient.id}">
 <input type="hidden" name="view_id" value="{$view_id}">
 <input type="hidden" name="do_delete" value="0">
-{$recipient|@print_r}
+{$recipient_arr|@print_r}
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
 		<td nowrap="nowrap" align="right">ID: </td>
