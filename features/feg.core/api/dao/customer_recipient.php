@@ -461,6 +461,7 @@ class View_CustomerRecipient extends FEG_AbstractView {
 		if(empty($ids))
 		do {
 			list($objects,$null) = DAO_CustomerRecipient::search(
+				array(),
 				$this->params,
 				100,
 				$pg++,
