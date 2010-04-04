@@ -193,7 +193,7 @@ class DAO_CustomerAccount extends Feg_ORMHelper {
 		// [JAS]: Count all
 		if($withCounts) {
 			$count_sql = 
-				($has_multiple_values ? "SELECT COUNT(DISTINCT customer_account.id) " : "SELECT COUNT(customer_account.id) ").
+				($has_multiple_values ? "SELECT COUNT(DISTINCT ca.id) " : "SELECT COUNT(ca.id) ").
 				$join_sql.
 				$where_sql;
 			$total = $db->GetOne($count_sql);
@@ -208,11 +208,11 @@ class DAO_CustomerAccount extends Feg_ORMHelper {
 
 
 class SearchFields_CustomerAccount implements IDevblocksSearchFields {
-	const ID = 'c_id';
-	const IS_DISABLED = 'c_is_disabled';
-	const ACCOUNT_NUMBER = 'c_account_number';
-	const ACCOUNT_NAME = 'c_account_name';
-	const IMPORT_FILTER = 'c_import_filter';
+	const ID = 'ca_id';
+	const IS_DISABLED = 'ca_is_disabled';
+	const ACCOUNT_NUMBER = 'ca_account_number';
+	const ACCOUNT_NAME = 'ca_account_name';
+	const IMPORT_FILTER = 'ca_import_filter';
 	
 	/**
 	 * @return DevblocksSearchField[]

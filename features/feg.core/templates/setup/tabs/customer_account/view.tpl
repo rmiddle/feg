@@ -42,7 +42,7 @@
 	{* Column Data *}
 	{foreach from=$data item=result key=idx name=results}
 
-	{assign var=rowIdPrefix value="row_"|cat:$view->id|cat:"_"|cat:$result.c_id}
+	{assign var=rowIdPrefix value="row_"|cat:$view->id|cat:"_"|cat:$result.ca_id}
 	{if $smarty.foreach.results.iteration % 2}
 		{assign var=tableRowBg value="even"}
 	{else}
@@ -50,14 +50,14 @@
 	{/if}
 	
 		<tr class="{$tableRowBg}" id="{$rowIdPrefix}" onmouseover="$(this).addClass('hover');" onmouseout="$(this).removeClass('hover');" onclick="if(getEventTarget(event)=='TD') checkAll('{$rowIdPrefix}');">
-			<td align="center"><input type="checkbox" name="row_id[]" value="{$result.c_id}"></td>
+			<td align="center"><input type="checkbox" name="row_id[]" value="{$result.ca_id}"></td>
 		{foreach from=$view->view_columns item=column name=columns}
 			{if substr($column,0,3)=="cf_"}
 				{include file="file:$core_tpl/internal/custom_fields/view/cell_renderer.tpl"}
-			{elseif $column=="c_id" || $column=="c_account_number" ||  $column=="c_account_name"}
+			{elseif $column=="ca_id" || $column=="ca_account_number" ||  $column=="ca_account_name"}
 				<td><a href="{devblocks_url}{/devblocks_url}customer/{$result.c_id}/property">{$result.$column}&nbsp;</a></td>
-			{elseif $column=="c_is_disabled"}
-				<td>{if $result.c_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</td>
+			{elseif $column=="ca_is_disabled"}
+				<td>{if $result.ca_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</td>
 			{else}
 			<td>{$result.$column}&nbsp;</td>
 			{/if}
