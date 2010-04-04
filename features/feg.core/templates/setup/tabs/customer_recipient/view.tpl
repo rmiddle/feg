@@ -58,7 +58,7 @@
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showRecipientPeek&id={$result.cr_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
 			{elseif $column=="cr_is_disabled"}
 				<td>{if $result.cr_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</td>
-			{elseif $column=="c_type"}
+			{elseif $column=="cr_type"}
 				<td>
 					{if $result.cr_type == 0}{$translate->_('recipient.type.email')|capitalize}
 					{else if $result.cr_type == 1}{$translate->_('recipient.type.fax')|capitalize}
