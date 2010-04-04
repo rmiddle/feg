@@ -541,11 +541,8 @@ class FegSetupPage extends FegPageExtension  {
 		
 		$tpl->assign('view_id', $view_id);
 		
-		$worker = DAO_Worker::get($id);
-		$tpl->assign('worker', $worker);
-		
-//		$teams = DAO_Group::getAll();
-//		$tpl->assign('teams', $teams);
+		$recipient = DAO_CustomerRecipient::get($id);
+		$tpl->assign('recipient ', $recipient );
 		
 		// Custom Fields
 		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Worker::ID);
@@ -568,23 +565,11 @@ class FegSetupPage extends FegPageExtension  {
 		
 		@$id = DevblocksPlatform::importGPC($_POST['id'],'integer');
 		@$view_id = DevblocksPlatform::importGPC($_POST['view_id'],'string');
-		@$first_name = DevblocksPlatform::importGPC($_POST['first_name'],'string');
-		@$last_name = DevblocksPlatform::importGPC($_POST['last_name'],'string');
-		@$password = DevblocksPlatform::importGPC($_POST['password'],'string');
-		@$is_superuser = DevblocksPlatform::importGPC($_POST['is_superuser'],'integer', 0);
-		@$disabled = DevblocksPlatform::importGPC($_POST['is_disabled'],'integer',0);
-//		@$group_ids = DevblocksPlatform::importGPC($_POST['group_ids'],'array');
-//		@$group_roles = DevblocksPlatform::importGPC($_POST['group_roles'],'array');
 		@$delete = DevblocksPlatform::importGPC($_POST['do_delete'],'integer',0);
 
-		// [TODO] The superuser set bit here needs to be protected by ACL
-		
-		if(empty($first_name)) $first_name = "Anonymous";
+		@$disabled = DevblocksPlatform::importGPC($_POST['is_disabled'],'integer',0);
 		
 		if(!empty($id) && !empty($delete)) {
-			// Can't delete or disable self
-			if($active_worker->id != $id)
-				DAO_Worker::delete($id);
 			
 		} else {
 			if(empty($id) && null == DAO_Worker::getWhere(sprintf("%s=%s",DAO_Worker::EMAIL,Feg_ORMHelper::qstr($email)))) {
@@ -600,42 +585,6 @@ class FegSetupPage extends FegPageExtension  {
 				    	
 						$password = FegApplication::generatePassword(8);
 				    	
-//						try {
-//					        $mail_service = DevblocksPlatform::getMailService();
-//					        $mailer = $mail_service->getMailer(CerberusMail::getMailerDefaults());
-//					        $mail = $mail_service->createMessage();
-//					        
-//							$mail->setTo(array($email => $first_name . ' ' . $last_name));
-//							$mail->setFrom(array($replyFrom => $replyPersonal));
-//					        $mail->setSubject('Your new helpdesk login information!');
-//					        $mail->generateId();
-//							
-//							$headers = $mail->getHeaders();
-//							
-//					        $headers->addTextHeader('X-Mailer','Cerberus Helpdesk (Build '.APP_BUILD.')');
-//					        
-//						    $body = sprintf("Your new helpdesk login information is below:\r\n".
-//								"\r\n".
-//						        "URL: %s\r\n".
-//						        "Login: %s\r\n".
-//						        "Password: %s\r\n".
-//						        "\r\n".
-//						        "You should change your password from Preferences after logging in for the first time.\r\n".
-//						        "\r\n",
-//							        $url->write('',true),
-//							        $email,
-//							        $password
-//						    );
-//					        
-//							$mail->setBody($body);
-//	
-//							if(!$mailer->send($mail)) {
-//								throw new Exception('Password notification email failed to send.');
-//							}
-//						} catch (Exception $e) {
-//							// [TODO] need to report to the admin when the password email doesn't send.  The try->catch
-//							// will keep it from killing php, but the password will be empty and the user will never get an email.
-//						}
 				    }
 					
 				    $fields = array(
@@ -664,28 +613,6 @@ class FegSetupPage extends FegPageExtension  {
 			
 			// Update worker
 			DAO_Worker::update($id, $fields);
-			
-			// Update group memberships
-//			if(is_array($group_ids) && is_array($group_roles))
-//			foreach($group_ids as $idx => $group_id) {
-//				if(empty($group_roles[$idx])) {
-//					DAO_Group::unsetTeamMember($group_id, $id);
-//				} else {
-//					DAO_Group::setTeamMember($group_id, $id, (2==$group_roles[$idx]));
-//				}
-//			}
-
-			// Add the worker e-mail to the addresses table
-//			if(!empty($email))
-//				DAO_Address::lookupAddress($email, true);
-			
-			// Addresses
-//			if(null == DAO_AddressToWorker::getByAddress($email)) {
-//				DAO_AddressToWorker::assign($email, $id);
-//				DAO_AddressToWorker::update($email, array(
-//					DAO_AddressToWorker::IS_CONFIRMED => 1
-//				));
-//			}
 			
 			// Custom field saves
 			@$field_ids = DevblocksPlatform::importGPC($_POST['field_ids'], 'array', array());

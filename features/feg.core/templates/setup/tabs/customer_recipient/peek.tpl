@@ -7,6 +7,12 @@
 
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
+		<td width="0%" nowrap="nowrap" align="right">ID: </td>
+		<td width="100%">
+			{$recipient->id}
+		</td>
+	</tr>
+	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('common.disabled')|capitalize}: </td>
 		<td width="100%">
 			<select name="is_disabled">
@@ -21,7 +27,6 @@
 				<option value="0" {if $recipient->type == '0'}selected{/if}>{$translate->_('recipient.type.email')|capitalize}</option>
 				<option value="1" {if $recipient->type == '1'}selected{/if}>{$translate->_('recipient.type.fax')|capitalize}</option>
 				<option value="2" {if $recipient->type == '2'}selected{/if}>{$translate->_('recipient.type.snpp')|capitalize}</option>
-				<option value="3" {if $recipient->type == '3'}selected{/if}>{$translate->_('recipient.type.web')|capitalize}</option>
 			</select>
 		</td>
 	</tr>
