@@ -447,6 +447,10 @@ For example: *receipt*</seg></tuv>
 	
 		<!-- Customer Recipient Type -->
 		
+
+		<tu tuid='feg.customer_recipient.title'>
+			<tuv xml:lang="en_US"><seg>Customer Recipients</seg></tuv>
+		</tu>
 		<tu tuid='recipient.notes'>
 			<tuv xml:lang="en_US"><seg>Notes</seg></tuv>
 		</tu>
@@ -471,18 +475,21 @@ For example: *receipt*</seg></tuv>
 		
 		<!-- Export Filter Translations -->
 		
-		<tu tuid='export_filter.name'>
+		<tu tuid='feg.export_filter.title'>
 			<tuv xml:lang="en_US"><seg>Export Filters</seg></tuv>
 		</tu>
 		
 		<!-- Import Filter Translations -->
 		
-		<tu tuid='import_filter.name'>
-			<tuv xml:lang="en_US"><seg>Export Filters</seg></tuv>
+		<tu tuid='feg.import_filter.title'>
+			<tuv xml:lang="en_US"><seg>Import Filters</seg></tuv>
 		</tu>
 		
 		<!-- Customer Translations -->
 		
+		<tu tuid='feg.customer_account.title'>
+			<tuv xml:lang="en_US"><seg>Customer List</seg></tuv>
+		</tu>
 		<tu tuid='customer.display.title'>
 			<tuv xml:lang="en_US"><seg>Customer Editor</seg></tuv>
 		</tu>

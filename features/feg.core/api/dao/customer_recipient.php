@@ -213,12 +213,12 @@ class DAO_CustomerRecipient extends Feg_ORMHelper {
 
 
 class SearchFields_CustomerRecipient implements IDevblocksSearchFields {
-	const ID = 'c_id';
-	const ACCOUNT_ID = 'c_account_id';
-	const EXPORT_FILTER = 'c_export_filter';
-	const IS_DISABLED = 'c_is_disabled';
-	const TYPE = 'c_type';
-	const ADDRESS = 'c_address';
+	const ID = 'cr_id';
+	const ACCOUNT_ID = 'cr_account_id';
+	const EXPORT_FILTER = 'cr_export_filter';
+	const IS_DISABLED = 'cr_is_disabled';
+	const TYPE = 'cr_type';
+	const ADDRESS = 'cr_address';
 	
 	/**
 	 * @return DevblocksSearchField[]
@@ -260,7 +260,7 @@ class View_CustomerRecipient extends Feg_AbstractView {
 	
 		$this->id = self::DEFAULT_ID;
 		// [TODO] Name the worklist view
-		$this->name = $translate->_('CustomerRecipient');
+		$this->name = $translate->_('feg.customer_recipient.title');
 		$this->renderLimit = 25;
 		$this->renderSortBy = SearchFields_CustomerRecipient::ID;
 		$this->renderSortAsc = true;
@@ -356,7 +356,7 @@ class View_CustomerRecipient extends Feg_AbstractView {
 	static function getSearchFields() {
 		$fields = self::getFields();
 		// [TODO] Filter fields
-		unset($fields[SearchFields_CustomerRecipient::ID]);
+		//unset($fields[SearchFields_CustomerRecipient::ID]);
 		return $fields;
 	}
 
