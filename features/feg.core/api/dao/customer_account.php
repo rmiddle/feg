@@ -221,7 +221,7 @@ class SearchFields_CustomerAccount implements IDevblocksSearchFields {
 		$translate = DevblocksPlatform::getTranslationService();
 		
 		$columns = array(
-			self::ID => new DevblocksSearchField(self::ID, 'customer_account', 'id', $translate->_('id')),
+			self::ID => new DevblocksSearchField(self::ID, 'customer_account', 'id', $translate->_('feg.customer_account.id')),
 			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'customer_account', 'is_disabled', $translate->_('is_disabled')),
 			self::ACCOUNT_NUMBER => new DevblocksSearchField(self::ACCOUNT_NUMBER, 'customer_account', 'account_number', $translate->_('account_number')),
 			self::ACCOUNT_NAME => new DevblocksSearchField(self::ACCOUNT_NAME, 'customer_account', 'account_name', $translate->_('account_name')),
