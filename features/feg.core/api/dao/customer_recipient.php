@@ -442,12 +442,11 @@ class View_CustomerRecipient extends FEG_AbstractView {
 //			$change_fields[DAO_CustomerRecipient::ID] = intval($v);
 //			$change_fields[DAO_CustomerRecipient::ACCOUNT_ID] = intval($v);
 //			$change_fields[DAO_CustomerRecipient::EXPORT_FILTER] = intval($v);
-//			$change_fields[DAO_CustomerRecipient::IS_DISABLED] = intval($v);
 //			$change_fields[DAO_CustomerRecipient::TYPE] = intval($v);
 //			$change_fields[DAO_CustomerRecipient::ADDRESS] = intval($v);
 				// [TODO] Implement actions
-				case 'example':
-					//$change_fields[DAO_CustomerRecipient::EXAMPLE] = 'some value';
+				case 'is_disabled':
+					$change_fields[DAO_CustomerRecipient::IS_DISABLED] = intval($v);
 					break;
 				default:
 					// Custom fields

@@ -604,10 +604,6 @@ class FegSetupPage extends FegPageExtension  {
 	        $tpl->assign('ids', implode(',', $ids));
 	    }
 		
-	    // Lists
-//	    $lists = DAO_FeedbackList::getWhere();
-//	    $tpl->assign('lists', $lists);
-	    
 		// Custom Fields
 		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Worker::ID);
 		$tpl->assign('custom_fields', $custom_fields);
@@ -627,8 +623,8 @@ class FegSetupPage extends FegPageExtension  {
 		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string');
 		$view = Feg_AbstractViewLoader::getView($view_id);
 		
-		// Worker fields
-		@$is_disabled = trim(DevblocksPlatform::importGPC($_POST['is_disabled'],'string',''));
+		// Customer Recpiept Fields.
+		@$is_disabled = trim(DevblocksPlatform::importGPC($_POST['recipient_is_disabled'],'string',''));
 
 		$do = array();
 		

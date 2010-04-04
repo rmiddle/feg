@@ -25,21 +25,6 @@
 			<button type="button" onclick="this.form.recipient_is_disabled.selectedIndex=2;">{'common.disable'|devblocks_translate|capitalize}</button>
 		</td>
 	</tr>
-	<tr>
-		<td width="0%" nowrap="nowrap" align="right">{'recipient.type'|devblocks_translate|capitalize}:</td>
-		<td width="100%">
-			<select name="recipient_type">
-				<option value="">&nbsp;</option>
-				<option value="0">{$translate->_('recipient.type.email')}</option>
-				<option value="1">{$translate->_('recipient.type.fax')}</option>
-				<option value="2">{$translate->_('recipient.type.snpp')}</option>
-			</select>
-			
-			<button type="button" onclick="this.form.recipient_type.selectedIndex=1;">{$translate->_('recipient.type.email')}</button>
-			<button type="button" onclick="this.form.recipient_type.selectedIndex=2;">{$translate->_('recipient.type.fax')}</button>
-			<button type="button" onclick="this.form.recipient_type.selectedIndex=3;">{$translate->_('recipient.type.snpp')}</button>
-		</td>
-	</tr>
 </table>
 
 {include file="file:$core_tpl/internal/custom_fields/bulk/form.tpl" bulk=true}	
