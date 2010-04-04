@@ -21,8 +21,8 @@
 				<option value="1">{$translate->_('common.disable')}</option>
 			</select>
 			
-			<button type="button" onclick="this.form.recipient_is_disabled.selectedIndex=1;">{$translate->_('recipient.type.email')}</button>
-			<button type="button" onclick="this.form.recipient_is_disabled.selectedIndex=2;">{$translate->_('recipient.type.fax')}</button>
+			<button type="button" onclick="this.form.recipient_is_disabled.selectedIndex=1;">{'common.enable'|devblocks_translate|capitalize}</button>
+			<button type="button" onclick="this.form.recipient_is_disabled.selectedIndex=2;">{'common.disable'|devblocks_translate|capitalize}</button>
 		</td>
 	</tr>
 	<tr>
