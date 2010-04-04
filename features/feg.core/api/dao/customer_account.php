@@ -222,7 +222,7 @@ class SearchFields_CustomerAccount implements IDevblocksSearchFields {
 		
 		$columns = array(
 			self::ID => new DevblocksSearchField(self::ID, 'c', 'id', $translate->_('feg.customer_account.id')),
-			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'c', 'is_disabled', $translate->_('is_disabled')),
+			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'c', 'is_disabled', $translate->_('common.disabled')),
 			self::ACCOUNT_NUMBER => new DevblocksSearchField(self::ACCOUNT_NUMBER, 'c', 'account_number', $translate->_('account_number')),
 			self::ACCOUNT_NAME => new DevblocksSearchField(self::ACCOUNT_NAME, 'c', 'account_name', $translate->_('account_name')),
 			self::IMPORT_FILTER => new DevblocksSearchField(self::IMPORT_FILTER, 'c', 'import_filter', $translate->_('import_filter')),
@@ -254,7 +254,7 @@ class View_CustomerAccount extends Feg_AbstractView {
 		$this->id = self::DEFAULT_ID;
 		$this->name = $translate->_('core.menu.account');
 		$this->renderLimit = 25;
-		$this->renderSortBy = SearchFields_CustomerAccount::ID;
+		$this->renderSortBy = SearchFields_CustomerAccount::ACCOUNT_NUMBER;
 		$this->renderSortAsc = true;
 
 		$this->view_columns = array(
@@ -269,11 +269,12 @@ class View_CustomerAccount extends Feg_AbstractView {
 
 	function getData() {
 		$objects = DAO_CustomerAccount::search(
-			$this->id,
-			$this->is_disabled,
-			$this->account_number,
-			$this->account_name,
-			$this->import_filter
+			$this->view_columns,
+			$this->params,
+			$this->renderLimit,
+			$this->renderPage,
+			$this->renderSortBy,
+			$this->renderSortAsc
 		);
 		return $objects;
 	}

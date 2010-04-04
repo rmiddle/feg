@@ -278,12 +278,11 @@ class View_CustomerRecipient extends Feg_AbstractView {
 
 	function getData() {
 		$objects = DAO_CustomerRecipient::search(
-			$this->id,
-			$this->account_id,
-			$this->export_filter,
-			$this->is_disabled,
-			$this->type,
-			$this->address
+			$this->params,
+			$this->renderLimit,
+			$this->renderPage,
+			$this->renderSortBy,
+			$this->renderSortAsc
 		);
 		return $objects;
 	}
