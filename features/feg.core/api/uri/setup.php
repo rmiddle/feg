@@ -666,7 +666,7 @@ class FegSetupPage extends FegPageExtension  {
 		// Checked rows
 	    @$ids_str = DevblocksPlatform::importGPC($_REQUEST['ids'],'string');
 		$ids = DevblocksPlatform::parseCsvString($ids_str);
-
+echo "doAccountBulkUpdateAction call <br>";
 		// Filter: whole list or check
 	    @$filter = DevblocksPlatform::importGPC($_REQUEST['filter'],'string','');
 	    
