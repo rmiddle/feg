@@ -1,7 +1,7 @@
 <form action="{devblocks_url}{/devblocks_url}" method="POST" id="formRecipientPeek" name="formRecipientPeek" onsubmit="return false;">
 <input type="hidden" name="c" value="setup">
 <input type="hidden" name="a" value="saveRecipientPeek">
-<input type="hidden" name="id" value="{$recipient->id}">
+<input type="hidden" name="id" value="{$recipient.id}">
 <input type="hidden" name="view_id" value="{$view_id}">
 <input type="hidden" name="do_delete" value="0">
 
@@ -9,7 +9,7 @@
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">ID: </td>
 		<td width="100%">
-			{$recipient->id}
+			{$recipient.id}
 		</td>
 	</tr>
 	<tr>
