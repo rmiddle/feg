@@ -136,11 +136,11 @@ class DAO_CustomerAccount extends Feg_ORMHelper {
 		$total = -1;
 		
 		$select_sql = sprintf("SELECT ".
-			"customer_account.id as %s, ".
-			"customer_account.is_disabled as %s, ".
-			"customer_account.account_number as %s, ".
-			"customer_account.account_name as %s, ".
-			"customer_account.import_filter as %s ",
+			"ca.id as %s, ".
+			"ca.is_disabled as %s, ".
+			"ca.account_number as %s, ".
+			"ca.account_name as %s, ".
+			"ca.import_filter as %s ",
 				SearchFields_CustomerAccount::ID,
 				SearchFields_CustomerAccount::IS_DISABLED,
 				SearchFields_CustomerAccount::ACCOUNT_NUMBER,
