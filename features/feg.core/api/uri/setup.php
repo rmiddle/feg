@@ -545,16 +545,13 @@ class FegSetupPage extends FegPageExtension  {
 		$tpl->assign('recipient_arr ', $recipient_arr);
 		
 		// Custom Fields
-		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Worker::ID);
+		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerRecipient::ID);
 		$tpl->assign('custom_fields', $custom_fields);
 		
 		$custom_field_values = DAO_CustomFieldValue::getValuesBySourceIds(FegCustomFieldSource_CustomerRecipient::ID, $id);
 		if(isset($custom_field_values[$id]))
 			$tpl->assign('custom_field_values', $custom_field_values[$id]);
-echo "<pre>";
-print_r($tpl);
-echo "</pre>";
-		
+			
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_recipient/peek.tpl');		
 	}
 	
