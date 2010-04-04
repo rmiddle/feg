@@ -541,7 +541,7 @@ class FegSetupPage extends FegPageExtension  {
 		
 		$tpl->assign('view_id', $view_id);
 		
-		$recipient_arr = DAO_CustomerRecipient::getWhere("id = $id");
+		$recipient_arr = array_shift(DAO_CustomerRecipient::getWhere("id = $id"));
 		$tpl->assign('recipient_arr ', $recipient_arr);
 echo "<pre>";
 print_r($recipient_arr);		
