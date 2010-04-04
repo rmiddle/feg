@@ -221,11 +221,11 @@ class SearchFields_CustomerAccount implements IDevblocksSearchFields {
 		$translate = DevblocksPlatform::getTranslationService();
 		
 		$columns = array(
-			self::ID => new DevblocksSearchField(self::ID, 'customer_account', 'id', $translate->_('feg.customer_account.id')),
-			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'customer_account', 'is_disabled', $translate->_('is_disabled')),
-			self::ACCOUNT_NUMBER => new DevblocksSearchField(self::ACCOUNT_NUMBER, 'customer_account', 'account_number', $translate->_('account_number')),
-			self::ACCOUNT_NAME => new DevblocksSearchField(self::ACCOUNT_NAME, 'customer_account', 'account_name', $translate->_('account_name')),
-			self::IMPORT_FILTER => new DevblocksSearchField(self::IMPORT_FILTER, 'customer_account', 'import_filter', $translate->_('import_filter')),
+			self::ID => new DevblocksSearchField(self::ID, 'c', 'id', $translate->_('feg.customer_account.id')),
+			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'c', 'is_disabled', $translate->_('is_disabled')),
+			self::ACCOUNT_NUMBER => new DevblocksSearchField(self::ACCOUNT_NUMBER, 'c', 'account_number', $translate->_('account_number')),
+			self::ACCOUNT_NAME => new DevblocksSearchField(self::ACCOUNT_NAME, 'c', 'account_name', $translate->_('account_name')),
+			self::IMPORT_FILTER => new DevblocksSearchField(self::IMPORT_FILTER, 'c', 'import_filter', $translate->_('import_filter')),
 		);
 		
 		// Custom Fields
