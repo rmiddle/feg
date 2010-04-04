@@ -154,7 +154,7 @@ class DAO_CustomerAccount extends Feg_ORMHelper {
 		list($select_sql, $join_sql, $has_multiple_values) = self::_appendSelectJoinSqlForCustomFieldTables(
 			$tables,
 			$params,
-			'customer_account.id',
+			'ca.id',
 			$select_sql,
 			$join_sql
 		);
