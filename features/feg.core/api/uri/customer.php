@@ -229,7 +229,9 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		
 		$recipient = DAO_CustomerRecipient::get($id);
 		$tpl->assign('recipient', $recipient);
-		
+echo "<pre>";
+print_r($recipient);
+echo "</pre>";		
 		// Custom Fields
 		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerRecipient::ID);
 		$tpl->assign('custom_fields', $custom_fields);
