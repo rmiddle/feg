@@ -15,17 +15,29 @@
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{'common.disable'|devblocks_translate|capitalize}:</td>
 		<td width="100%">
-			<select name="is_disabled">
+			<select name="recipient_is_disabled">
+				<option value="">&nbsp;</option>
+				<option value="0">{$translate->_('common.enable')}</option>
+				<option value="1">{$translate->_('common.disable')}</option>
+			</select>
+			
+			<button type="button" onclick="this.form.recipient_is_disabled.selectedIndex=1;">{$translate->_('recipient.type.email')}</button>
+			<button type="button" onclick="this.form.recipient_is_disabled.selectedIndex=2;">{$translate->_('recipient.type.fax')}</button>
+		</td>
+	</tr>
+	<tr>
+		<td width="0%" nowrap="nowrap" align="right">{'recipient.type'|devblocks_translate|capitalize}:</td>
+		<td width="100%">
+			<select name="recipient_type">
 				<option value="">&nbsp;</option>
 				<option value="0">{$translate->_('recipient.type.email')}</option>
 				<option value="1">{$translate->_('recipient.type.fax')}</option>
 				<option value="2">{$translate->_('recipient.type.snpp')}</option>
-				<option value="3">{$translate->_('recipient.type.web')}</option>
 			</select>
 			
-			<button type="button" onclick="this.form.is_disabled.selectedIndex=1;">{$translate->_('recipient.type.email')}</button>
-			<button type="button" onclick="this.form.is_disabled.selectedIndex=2;">{$translate->_('recipient.type.fax')}</button>
-			<button type="button" onclick="this.form.is_disabled.selectedIndex=3;">{$translate->_('recipient.type.snpp')}</button>
+			<button type="button" onclick="this.form.recipient_type.selectedIndex=1;">{$translate->_('recipient.type.email')}</button>
+			<button type="button" onclick="this.form.recipient_type.selectedIndex=2;">{$translate->_('recipient.type.fax')}</button>
+			<button type="button" onclick="this.form.recipient_type.selectedIndex=3;">{$translate->_('recipient.type.snpp')}</button>
 		</td>
 	</tr>
 </table>
