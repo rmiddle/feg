@@ -207,7 +207,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 		$view->params = array(
-//			SearchFields_CustomerRecipient::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_CustomerRecipient::ACCOUNT_ID,DevblocksSearchCriteria::OPER_EQ, $customer_id)
+			SearchFields_CustomerRecipient::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_CustomerRecipient::ACCOUNT_ID,DevblocksSearchCriteria::OPER_EQ, sprintf("%d",$customer_id))
 		);
 		$view->renderPage = 0;
 		Feg_AbstractViewLoader::setView($view->id,$view);
