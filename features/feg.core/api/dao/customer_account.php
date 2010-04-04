@@ -444,6 +444,7 @@ class View_CustomerAccount extends FEG_AbstractView {
 		if(empty($ids))
 		do {
 			list($objects,$null) = DAO_CustomerAccount::search(
+				array(),
 				$this->params,
 				100,
 				$pg++,
