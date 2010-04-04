@@ -252,7 +252,7 @@ class SearchFields_CustomerRecipient implements IDevblocksSearchFields {
 };
 
 
-class View_CustomerRecipient extends FEG_AbstractView {
+class View_CustomerRecipient extends Feg_AbstractView {
 	const DEFAULT_ID = 'customerrecipient';
 	
 	function __construct() {

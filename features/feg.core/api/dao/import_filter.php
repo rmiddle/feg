@@ -215,7 +215,7 @@ class SearchFields_ImportFilter implements IDevblocksSearchFields {
 };
 
 
-class View_ImportFilter extends FEG_AbstractView {
+class View_ImportFilter extends Feg_AbstractView {
 	const DEFAULT_ID = 'importfilter';
 	
 	function __construct() {

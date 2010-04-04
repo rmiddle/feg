@@ -245,7 +245,7 @@ class SearchFields_CustomerAccount implements IDevblocksSearchFields {
 };
 
 
-class View_CustomerAccount extends FEG_AbstractView {
+class View_CustomerAccount extends Feg_AbstractView {
 	const DEFAULT_ID = 'customeraccount';
 	
 	function __construct() {
