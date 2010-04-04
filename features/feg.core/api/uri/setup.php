@@ -566,58 +566,22 @@ class FegSetupPage extends FegPageExtension  {
 		@$view_id = DevblocksPlatform::importGPC($_POST['view_id'],'string');
 		@$delete = DevblocksPlatform::importGPC($_POST['do_delete'],'integer',0);
 
-		@$disabled = DevblocksPlatform::importGPC($_POST['is_disabled'],'integer',0);
+		@$disabled = DevblocksPlatform::importGPC($_POST['irecipient_is_disabled'],'integer',0);
+		@$recipient_type = DevblocksPlatform::importGPC($_POST['recipient_type'],'integer',0);
+		@$recipient_account_id = DevblocksPlatform::importGPC($_POST['recipient_account_id'],'integer',0);
+		@$recipient_address = DevblocksPlatform::importGPC($_POST['recipient_address'],'string',"");
+		@$recipient_export_filter = DevblocksPlatform::importGPC($_POST['recipient_export_filter'],'integer',0);
 		
-		if(!empty($id) && !empty($delete)) {
-			
-		} else {
-			if(empty($id) && null == DAO_Worker::getWhere(sprintf("%s=%s",DAO_Worker::EMAIL,Feg_ORMHelper::qstr($email)))) {
-				$workers = DAO_Worker::getAll();
-				$license = FegLicense::getInstance();
-				if ((!empty($license) && !empty($license['serial'])) || count($workers) < 3) {
-					// Creating new worker.  If password is empty, email it to them
-				    if(empty($password)) {
-				    	$settings = DevblocksPlatform::getPluginSettingsService();
-						$replyFrom = $settings->get('feg.core',FegSettings::DEFAULT_REPLY_FROM);
-						$replyPersonal = $settings->get('feg.core',FegSettings::DEFAULT_REPLY_PERSONAL, '');
-						$url = DevblocksPlatform::getUrlService();
-				    	
-						$password = FegApplication::generatePassword(8);
-				    	
-				    }
-					
-				    $fields = array(
-				    	DAO_Worker::EMAIL => $email,
-				    	DAO_Worker::PASS => $password
-				    );
-				    
-					$id = DAO_Worker::create($fields);
-				}
-			} // end create worker
-		    
-		    // Update
-			$fields = array(
-				DAO_Worker::FIRST_NAME => $first_name,
-				DAO_Worker::LAST_NAME => $last_name,
-				DAO_Worker::TITLE => $title,
-				DAO_Worker::EMAIL => $email,
-				DAO_Worker::IS_SUPERUSER => $is_superuser,
-				DAO_Worker::IS_DISABLED => $disabled,
-			);
-			
-			// if we're resetting the password
-			if(!empty($password)) {
-				$fields[DAO_Worker::PASS] = md5($password);
-			}
-			
-			// Update worker
-			DAO_Worker::update($id, $fields);
-			
-			// Custom field saves
-			@$field_ids = DevblocksPlatform::importGPC($_POST['field_ids'], 'array', array());
-			DAO_CustomFieldValue::handleFormPost(FegCustomFieldSource_Worker::ID, $id, $field_ids);
-		}
-		
+		$fields = array(
+			DAO_CustomerRecipient::ACCOUNT_ID => $recipient_account_id,
+			DAO_CustomerRecipient::EXPORT_FILTER => $recipient_export_filter,
+			DAO_CustomerRecipient::IS_DISABLED => $disabled,
+			DAO_CustomerRecipient::TYPE => $recipient_type,
+			DAO_CustomerRecipient::ADDRESS => $recipient_address,
+		);
+		// Update Customer Recipients 
+		$status = DAO_CustomerRecipient::update($id, $fields);
+
 		if(!empty($view_id)) {
 			$view = Feg_AbstractViewLoader::getView($view_id);
 			$view->render();

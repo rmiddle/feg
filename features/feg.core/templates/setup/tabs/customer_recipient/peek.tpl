@@ -6,6 +6,7 @@
 <input type="hidden" name="do_delete" value="0">
 
 {$rec = DAO_CustomerRecipient::get($recipient_id)}
+<input type="hidden" name="recipient_account_id" value="{$rec->account_id}">
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
 		<td nowrap="nowrap" align="right">ID: </td>
@@ -14,7 +15,7 @@
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('common.disabled')|capitalize}: </td>
 		<td width="100%">
-			<select name="is_disabled">
+			<select name="recipient_is_disabled">
 				<option value="0" {if !$rec->is_disabled}selected{/if}>{$translate->_('common.enable')|capitalize}</option>
 				<option value="1" {if $rec->is_disabled}selected{/if}>{$translate->_('common.disable')|capitalize}</option>
 			</select>
@@ -22,7 +23,7 @@
 	</tr>
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.type')|capitalize}: </td>
-			<select name="is_superuser">
+			<select name="recipient_type">
 				<option value="0" {if $rec->type == '0'}selected{/if}>{$translate->_('recipient.type.email')|capitalize}</option>
 				<option value="1" {if $rec->type == '1'}selected{/if}>{$translate->_('recipient.type.fax')|capitalize}</option>
 				<option value="2" {if $rec->type == '2'}selected{/if}>{$translate->_('recipient.type.snpp')|capitalize}</option>
@@ -31,10 +32,10 @@
 	</tr>
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address')|capitalize}: </td>
-		<td width="100%"><input type="text" name="title" value="{$rec->address|escape}" style="width:98%;"></td>
+		<td width="100%"><input type="text" name="recipient_address" value="{$rec->address|escape}" style="width:98%;"></td>
 	</tr>
-	
 </table>
+<input type="hidden" name="recipient_export_filter" value="{$rec->export_filter}">
 
 {include file="file:$core_tpl/internal/custom_fields/bulk/form.tpl" bulk=false}
 <br>
