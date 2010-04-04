@@ -148,7 +148,7 @@ class DAO_CustomerAccount extends Feg_ORMHelper {
 				SearchFields_CustomerAccount::IMPORT_FILTER
 			);
 			
-		$join_sql = "FROM customer_account ";
+		$join_sql = "FROM customer_account ca ";
 		
 		 //Custom field joins
 		list($select_sql, $join_sql, $has_multiple_values) = self::_appendSelectJoinSqlForCustomFieldTables(
@@ -221,11 +221,11 @@ class SearchFields_CustomerAccount implements IDevblocksSearchFields {
 		$translate = DevblocksPlatform::getTranslationService();
 		
 		$columns = array(
-			self::ID => new DevblocksSearchField(self::ID, 'c', 'id', $translate->_('feg.customer_account.id')),
-			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'c', 'is_disabled', $translate->_('common.disabled')),
-			self::ACCOUNT_NUMBER => new DevblocksSearchField(self::ACCOUNT_NUMBER, 'c', 'account_number', $translate->_('account_number')),
-			self::ACCOUNT_NAME => new DevblocksSearchField(self::ACCOUNT_NAME, 'c', 'account_name', $translate->_('account_name')),
-			self::IMPORT_FILTER => new DevblocksSearchField(self::IMPORT_FILTER, 'c', 'import_filter', $translate->_('import_filter')),
+			self::ID => new DevblocksSearchField(self::ID, 'ca', 'id', $translate->_('feg.customer_account.id')),
+			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'ca', 'is_disabled', $translate->_('common.disabled')),
+			self::ACCOUNT_NUMBER => new DevblocksSearchField(self::ACCOUNT_NUMBER, 'ca', 'account_number', $translate->_('account_number')),
+			self::ACCOUNT_NAME => new DevblocksSearchField(self::ACCOUNT_NAME, 'ca', 'account_name', $translate->_('account_name')),
+			self::IMPORT_FILTER => new DevblocksSearchField(self::IMPORT_FILTER, 'ca', 'import_filter', $translate->_('import_filter')),
 		);
 		
 		// Custom Fields
