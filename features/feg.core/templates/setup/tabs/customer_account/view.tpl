@@ -55,7 +55,7 @@
 			{if substr($column,0,3)=="cf_"}
 				{include file="file:$core_tpl/internal/custom_fields/view/cell_renderer.tpl"}
 			{elseif $column=="ca_id" || $column=="ca_account_number" ||  $column=="ca_account_name"}
-				<td><a href="{devblocks_url}{/devblocks_url}customer/{$result.c_id}/property">{$result.$column}&nbsp;</a></td>
+				<td><a href="{devblocks_url}{/devblocks_url}customer/{$result.ca_id}/property">{$result.$column}&nbsp;</a></td>
 			{elseif $column=="ca_is_disabled"}
 				<td>{if $result.ca_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</td>
 			{else}
