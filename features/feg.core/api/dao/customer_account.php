@@ -390,7 +390,7 @@ class View_CustomerAccount extends FEG_AbstractView {
 //				break;
 				
 			case SearchFields_CustomerAccount::IS_DISABLED:
-				@$bool = DevblocksPlatform::importGPC($_REQUEST['bool'],'integer',1);
+				@$bool = DevblocksPlatform::importGPC($_REQUEST['bool'],'integer',0);
 				$criteria = new DevblocksSearchCriteria($field,$oper,$bool);
 				break;
 			default:
