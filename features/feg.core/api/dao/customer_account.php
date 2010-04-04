@@ -424,13 +424,12 @@ class View_CustomerAccount extends FEG_AbstractView {
 		foreach($do as $k => $v) {
 			switch($k) {
 //			$change_fields[DAO_CustomerAccount::ID] = intval($v);
-//			$change_fields[DAO_CustomerAccount::IS_DISABLED] = intval($v);
 //			$change_fields[DAO_CustomerAccount::ACCOUNT_NUMBER] = intval($v);
 //			$change_fields[DAO_CustomerAccount::ACCOUNT_NAME] = intval($v);
 //			$change_fields[DAO_CustomerAccount::IMPORT_FILTER] = intval($v);
 				// [TODO] Implement actions FIXME after bulkupdate form created
-				case 'example':
-					//$change_fields[DAO_CustomerAccount::EXAMPLE] = 'some value';
+				case 'is_disabled':
+					$change_fields[DAO_CustomerAccount::IS_DISABLED] = intval($v);
 					break;
 				default:
 					// Custom fields
