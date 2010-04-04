@@ -54,23 +54,23 @@
 		{foreach from=$view->view_columns item=column name=columns}
 			{if substr($column,0,3)=="cf_"}
 				{include file="file:$core_tpl/internal/custom_fields/view/cell_renderer.tpl"}
-			{elseif $column=="c_address" || $column=="c_id"}
-				<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showRecipientPeek&id={$result.c_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
-			{elseif $column=="c_is_disabled"}
-				<td>{if $result.c_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</td>
+			{elseif $column=="cr_address" || $column=="cr_id"}
+				<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showRecipientPeek&id={$result.cr_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
+			{elseif $column=="cr_is_disabled"}
+				<td>{if $result.cr_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</td>
 			{elseif $column=="c_type"}
 				<td>
-					{if $result.c_type == 0}{$translate->_('recipient.type.email')|capitalize}
-					{else if $result.c_type == 1}{$translate->_('recipient.type.fax')|capitalize}
-					{else if $result.c_type == 2}{$translate->_('recipient.type.snpp')|capitalize}
+					{if $result.cr_type == 0}{$translate->_('recipient.type.email')|capitalize}
+					{else if $result.cr_type == 1}{$translate->_('recipient.type.fax')|capitalize}
+					{else if $result.cr_type == 2}{$translate->_('recipient.type.snpp')|capitalize}
 					{/if}
 				</td>
-			{elseif $column=="c_account_id"}
+			{elseif $column=="cr_account_id"}
 				<td>
-					{if $result.c_account_id == 0}
+					{if $result.cr_account_id == 0}
 						{$translate->_('customer.display.invalid_customer')|capitalize}
 					{else}
-						{$account = DAO_CustomerAccount::get($result.c_account_id)}
+						{$account = DAO_CustomerAccount::get($result.cr_account_id)}
 						{$account->account_number}
 					{/if}
 				</td>
