@@ -534,6 +534,7 @@ class FegSetupPage extends FegPageExtension  {
 	
 	function showRecipientPeekAction() {
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
+		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
 		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
 		
 		$tpl = DevblocksPlatform::getTemplateService();
@@ -542,6 +543,8 @@ class FegSetupPage extends FegPageExtension  {
 		$tpl->assign('view_id', $view_id);
 		
 		$tpl->assign('recipient_id', $id);
+		
+		$tpl->assign('customer_id', $customer_id);
 
 		// Custom Fields
 		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerRecipient::ID);

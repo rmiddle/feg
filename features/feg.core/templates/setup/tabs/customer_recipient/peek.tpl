@@ -6,7 +6,6 @@
 <input type="hidden" name="do_delete" value="0">
 
 {$rec = DAO_CustomerRecipient::get($recipient_id)}
-<input type="hidden" name="recipient_account_id" value="{$rec->account_id}">
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
 		<td nowrap="nowrap" align="right">ID: </td>
@@ -34,6 +33,14 @@
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address')|capitalize}: </td>
 		<td width="100%"><input type="text" name="recipient_address" value="{$rec->address|escape}" style="width:98%;"></td>
 	</tr>
+{if $customer_id !== 0}
+	<input type="hidden" name="recipient_account_id" value="{$customer_id}">
+{else}
+	<tr>
+		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.id')|capitalize}: </td>
+		<td width="100%"><input type="text" name="recipient_account_id" value="{$rec->account_id}" style="width:98%;"></td>
+	</tr>
+{/if}
 </table>
 <input type="hidden" name="recipient_export_filter" value="{$rec->export_filter}">
 
