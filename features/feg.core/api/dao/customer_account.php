@@ -168,7 +168,7 @@ class DAO_CustomerAccount extends Feg_ORMHelper {
 			$select_sql.
 			$join_sql.
 			$where_sql.
-			($has_multiple_values ? 'GROUP BY customer_account.id ' : '').
+			($has_multiple_values ? 'GROUP BY ca.id ' : '').
 			$sort_sql;
 			
 		// [TODO] Could push the select logic down a level too
