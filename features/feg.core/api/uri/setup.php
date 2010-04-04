@@ -605,7 +605,7 @@ class FegSetupPage extends FegPageExtension  {
 	    }
 		
 		// Custom Fields
-		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Worker::ID);
+		$custom_fields = DAO_CustomField::getBySource(SearchFields_CustomerRecipient::ID);
 		$tpl->assign('custom_fields', $custom_fields);
 		
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_recipient/bulk.tpl');		
@@ -656,10 +656,10 @@ class FegSetupPage extends FegPageExtension  {
 	    }
 		
 		// Custom Fields
-		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Worker::ID);
+		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerAccount::ID);
 		$tpl->assign('custom_fields', $custom_fields);
 		
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_recipient/bulk.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_account/bulk.tpl');		
 	}
 	
 	function doAccountBulkUpdateAction() {
@@ -675,7 +675,7 @@ class FegSetupPage extends FegPageExtension  {
 		$view = Feg_AbstractViewLoader::getView($view_id);
 		
 		// Customer Recpiept Fields.
-		@$is_disabled = trim(DevblocksPlatform::importGPC($_POST['recipient_is_disabled'],'string',''));
+		@$is_disabled = trim(DevblocksPlatform::importGPC($_POST['account_is_disabled'],'string',''));
 
 		$do = array();
 		
