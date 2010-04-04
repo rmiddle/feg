@@ -379,7 +379,6 @@ class View_CustomerRecipient extends Feg_AbstractView {
 		$criteria = null;
 
 		switch($field) {
-			case SearchFields_CustomerRecipient::ACCOUNT_ID:
 			case SearchFields_CustomerRecipient::EXPORT_FILTER:
 			case SearchFields_CustomerRecipient::ADDRESS:
 				// force wildcards if none used on a LIKE
@@ -389,6 +388,7 @@ class View_CustomerRecipient extends Feg_AbstractView {
 				}
 				$criteria = new DevblocksSearchCriteria($field, $oper, $value);
 				break;
+			case SearchFields_CustomerRecipient::ACCOUNT_ID:
 			case SearchFields_CustomerRecipient::ID:
 			case SearchFields_CustomerRecipient::TYPE:
 				$criteria = new DevblocksSearchCriteria($field,$oper,$value);
