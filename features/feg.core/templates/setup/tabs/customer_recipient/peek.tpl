@@ -16,8 +16,8 @@
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('common.disabled')|capitalize}: </td>
 		<td width="100%">
 			<select name="recipient_is_disabled">
-				<option value="0" {if !$rec->is_disabled}selected{/if}>{$translate->_('common.enable')|capitalize}</option>
-				<option value="1" {if $rec->is_disabled}selected{/if}>{$translate->_('common.disable')|capitalize}</option>
+				<option value="0" {if $rec->is_disabled == 0}selected{/if}>{$translate->_('common.enable')|capitalize}</option>
+				<option value="1" {if $rec->is_disabled == 1}selected{/if}>{$translate->_('common.disable')|capitalize}</option>
 			</select>
 		</td>
 	</tr>
