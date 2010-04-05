@@ -4,7 +4,7 @@
 	<name>[FEG] Core</name>
 	<description>The core functionality of FEG.</description>
 	<author>Robert Middleswarth</author>
-	<revision>0</revision>
+	<revision>1</revision>
 	<link>feg.answernet.com</link>
 	
 	<!-- Plugin Dependencies -->
