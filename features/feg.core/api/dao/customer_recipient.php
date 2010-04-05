@@ -253,7 +253,7 @@ class SearchFields_CustomerRecipient implements IDevblocksSearchFields {
 
 
 class View_CustomerRecipient extends Feg_AbstractView {
-	const DEFAULT_ID = 'customerrecipient';
+	const DEFAULT_ID = 'customer_recipient';
 	
 	function __construct() {
 		$translate = DevblocksPlatform::getTranslationService();
