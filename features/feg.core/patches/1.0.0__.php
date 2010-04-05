@@ -208,7 +208,7 @@ if(!isset($tables['export_filter'])) {
 
 	$db->Execute(sprintf("INSERT INTO export_filter (id, filter_name, filter) ".
 		"VALUES (0,'Default','')",
-	));
+	);
 }
 
 if(!isset($tables['import_filter'])) {
@@ -226,7 +226,7 @@ if(!isset($tables['import_filter'])) {
 
 	$db->Execute(sprintf("INSERT INTO import_filter (id, filter_name, filter) ".
 		"VALUES (0,'Default','')",
-	));
+	);
 }
 
 	
