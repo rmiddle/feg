@@ -447,7 +447,6 @@ For example: *receipt*</seg></tuv>
 	
 		<!-- Customer Recipient Type -->
 		
-
 		<tu tuid='feg.customer_recipient.title'>
 			<tuv xml:lang="en_US"><seg>Customer Recipients</seg></tuv>
 		</tu>
