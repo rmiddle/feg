@@ -54,7 +54,7 @@ class DAO_CustomerRecipient extends Feg_ORMHelper {
 		$db = DevblocksPlatform::getDatabaseService();
 		
 		$sql = "SELECT id, account_id, export_filter, is_disabled, type, address ".
-			"FROM customer_recipient ".
+			"FROM customer_recipient cr ".
 			(!empty($where) ? sprintf("WHERE %s ",$where) : "").
 			"ORDER BY id asc";
 		$rs = $db->Execute($sql);
@@ -139,12 +139,12 @@ class DAO_CustomerRecipient extends Feg_ORMHelper {
 		$total = -1;
 		
 		$select_sql = sprintf("SELECT ".
-			"customer_recipient.id as %s, ".
-			"customer_recipient.account_id as %s, ".
-			"customer_recipient.export_filter as %s, ".
-			"customer_recipient.is_disabled as %s, ".
-			"customer_recipient.type as %s, ".
-			"customer_recipient.address as %s ",
+			"cr.id as %s, ".
+			"cr.account_id as %s, ".
+			"cr.export_filter as %s, ".
+			"cr.is_disabled as %s, ".
+			"cr.type as %s, ".
+			"cr.address as %s ",
 				SearchFields_CustomerRecipient::ID,
 				SearchFields_CustomerRecipient::ACCOUNT_ID,
 				SearchFields_CustomerRecipient::EXPORT_FILTER,
@@ -153,13 +153,13 @@ class DAO_CustomerRecipient extends Feg_ORMHelper {
 				SearchFields_CustomerRecipient::ADDRESS
 			);
 			
-		$join_sql = "FROM customer_recipient ";
+		$join_sql = "FROM customer_recipient cr ";
 		
 		// Custom field joins
 		list($select_sql, $join_sql, $has_multiple_values) = self::_appendSelectJoinSqlForCustomFieldTables(
 			$tables,
 			$params,
-			'customer_recipient.id',
+			'cr.id',
 			$select_sql,
 			$join_sql
 		);
@@ -173,7 +173,7 @@ class DAO_CustomerRecipient extends Feg_ORMHelper {
 			$select_sql.
 			$join_sql.
 			$where_sql.
-			($has_multiple_values ? 'GROUP BY customer_recipient.id ' : '').
+			($has_multiple_values ? 'GROUP BY cr.id ' : '').
 			$sort_sql;
 			
 		// [TODO] Could push the select logic down a level too
@@ -198,7 +198,7 @@ class DAO_CustomerRecipient extends Feg_ORMHelper {
 		// [JAS]: Count all
 		if($withCounts) {
 			$count_sql = 
-				($has_multiple_values ? "SELECT COUNT(DISTINCT customer_recipient.id) " : "SELECT COUNT(customer_recipient.id) ").
+				($has_multiple_values ? "SELECT COUNT(DISTINCT cr.id) " : "SELECT COUNT(cr.id) ").
 				$join_sql.
 				$where_sql;
 			$total = $db->GetOne($count_sql);
@@ -227,12 +227,12 @@ class SearchFields_CustomerRecipient implements IDevblocksSearchFields {
 		$translate = DevblocksPlatform::getTranslationService();
 		
 		$columns = array(
-			self::ID => new DevblocksSearchField(self::ID, 'customer_recipient', 'id', $translate->_('id')),
-			self::ACCOUNT_ID => new DevblocksSearchField(self::ACCOUNT_ID, 'customer_recipient', 'account_id', $translate->_('account_id')),
-			self::EXPORT_FILTER => new DevblocksSearchField(self::EXPORT_FILTER, 'customer_recipient', 'export_filter', $translate->_('export_filter')),
-			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'customer_recipient', 'is_disabled', $translate->_('is_disabled')),
-			self::TYPE => new DevblocksSearchField(self::TYPE, 'customer_recipient', 'type', $translate->_('type')),
-			self::ADDRESS => new DevblocksSearchField(self::ADDRESS, 'customer_recipient', 'address', $translate->_('address')),
+			self::ID => new DevblocksSearchField(self::ID, 'cr', 'id', $translate->_('id')),
+			self::ACCOUNT_ID => new DevblocksSearchField(self::ACCOUNT_ID, 'cr', 'account_id', $translate->_('account_id')),
+			self::EXPORT_FILTER => new DevblocksSearchField(self::EXPORT_FILTER, 'cr', 'export_filter', $translate->_('export_filter')),
+			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'cr', 'is_disabled', $translate->_('is_disabled')),
+			self::TYPE => new DevblocksSearchField(self::TYPE, 'cr', 'type', $translate->_('type')),
+			self::ADDRESS => new DevblocksSearchField(self::ADDRESS, 'cr', 'address', $translate->_('address')),
 		);
 		
 		// Custom Fields
