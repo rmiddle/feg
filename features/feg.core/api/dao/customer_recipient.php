@@ -227,12 +227,12 @@ class SearchFields_CustomerRecipient implements IDevblocksSearchFields {
 		$translate = DevblocksPlatform::getTranslationService();
 		
 		$columns = array(
-			self::ID => new DevblocksSearchField(self::ID, 'cr', 'id', $translate->_('id')),
-			self::ACCOUNT_ID => new DevblocksSearchField(self::ACCOUNT_ID, 'cr', 'account_id', $translate->_('account_id')),
-			self::EXPORT_FILTER => new DevblocksSearchField(self::EXPORT_FILTER, 'cr', 'export_filter', $translate->_('export_filter')),
-			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'cr', 'is_disabled', $translate->_('is_disabled')),
-			self::TYPE => new DevblocksSearchField(self::TYPE, 'cr', 'type', $translate->_('type')),
-			self::ADDRESS => new DevblocksSearchField(self::ADDRESS, 'cr', 'address', $translate->_('address')),
+			self::ID => new DevblocksSearchField(self::ID, 'cr', 'id', $translate->_('feg.customer_recipient.id')),
+			self::ACCOUNT_ID => new DevblocksSearchField(self::ACCOUNT_ID, 'cr', 'account_id', $translate->_('feg.customer_recipient.account_id')),
+			self::EXPORT_FILTER => new DevblocksSearchField(self::EXPORT_FILTER, 'cr', 'export_filter', $translate->_('feg.customer_recipient.export_filter')),
+			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'cr', 'is_disabled', $translate->_('feg.customer_recipient.is_disabled')),
+			self::TYPE => new DevblocksSearchField(self::TYPE, 'cr', 'type', $translate->_('feg.customer_recipient.type')),
+			self::ADDRESS => new DevblocksSearchField(self::ADDRESS, 'cr', 'address', $translate->_('feg.customer_recipient.address')),
 		);
 		
 		// Custom Fields

@@ -451,6 +451,24 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.customer_recipient.title'>
 			<tuv xml:lang="en_US"><seg>Customer Recipients</seg></tuv>
 		</tu>
+		<tu tuid='feg.customer_recipient.id'>
+			<tuv xml:lang="en_US"><seg>Recipient ID</seg></tuv>
+		</tu>
+		<tu tuid='feg.customer_recipient.account_id'>
+			<tuv xml:lang="en_US"><seg>Customer ID</seg></tuv>
+		</tu>
+		<tu tuid='feg.customer_recipient.export_filter'>
+			<tuv xml:lang="en_US"><seg>Export Filter</seg></tuv>
+		</tu>
+		<tu tuid='feg.customer_recipient.is_disabled'>
+			<tuv xml:lang="en_US"><seg>Disabled / Enabled</seg></tuv>
+		</tu>
+		<tu tuid='feg.customer_recipient.type'>
+			<tuv xml:lang="en_US"><seg>Recipient Type</seg></tuv>
+		</tu>
+		<tu tuid='feg.customer_recipient.address''>
+			<tuv xml:lang="en_US"><seg>Recipient Address</seg></tuv>
+		</tu>
 		<tu tuid='recipient.notes'>
 			<tuv xml:lang="en_US"><seg>Notes</seg></tuv>
 		</tu>
