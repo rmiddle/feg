@@ -223,9 +223,9 @@ class SearchFields_CustomerAccount implements IDevblocksSearchFields {
 		$columns = array(
 			self::ID => new DevblocksSearchField(self::ID, 'ca', 'id', $translate->_('feg.customer_account.id')),
 			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'ca', 'is_disabled', $translate->_('common.disabled')),
-			self::ACCOUNT_NUMBER => new DevblocksSearchField(self::ACCOUNT_NUMBER, 'ca', 'account_number', $translate->_('account_number')),
-			self::ACCOUNT_NAME => new DevblocksSearchField(self::ACCOUNT_NAME, 'ca', 'account_name', $translate->_('account_name')),
-			self::IMPORT_FILTER => new DevblocksSearchField(self::IMPORT_FILTER, 'ca', 'import_filter', $translate->_('import_filter')),
+			self::ACCOUNT_NUMBER => new DevblocksSearchField(self::ACCOUNT_NUMBER, 'ca', 'account_number', $translate->_('feg.customer_account.account_number')),
+			self::ACCOUNT_NAME => new DevblocksSearchField(self::ACCOUNT_NAME, 'ca', 'account_name', $translate->_('feg.customer_account.account_name')),
+			self::IMPORT_FILTER => new DevblocksSearchField(self::IMPORT_FILTER, 'ca', 'import_filter', $translate->_('feg.customer_account.import_filter')),
 		);
 		
 		// Custom Fields

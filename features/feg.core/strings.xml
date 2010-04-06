@@ -516,13 +516,13 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.customer.tab.property.title'>
 			<tuv xml:lang="en_US"><seg>Property</seg></tuv>
 		</tu>
-		<tu tuid='feg.customer.customer.account_number'>
+		<tu tuid='feg.customer_account.account_number'>
 			<tuv xml:lang="en_US"><seg>Account Number</seg></tuv>
 		</tu>
-		<tu tuid='feg.customer.customer.account_name'>
+		<tu tuid='feg.customer_account.account_name'>
 			<tuv xml:lang="en_US"><seg>Account Name</seg></tuv>
 		</tu>
-		<tu tuid='feg.customer.customer.import_filter'>
+		<tu tuid='feg.customer_account.import_filter'>
 			<tuv xml:lang="en_US"><seg>Import Filter</seg></tuv>
 		</tu>
 		<tu tuid='feg.customer.tab.recipient.title'>
