@@ -59,11 +59,12 @@
 			{elseif $column=="cr_is_disabled"}
 				<td>{if $result.cr_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</td>
 			{elseif $column=="cr_type"}
-				<td>
+				<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showRecipientPeek&id={$result.cr_id}&customer_id={$customer_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
 					{if $result.cr_type == 0}{$translate->_('recipient.type.email')|capitalize}
 					{else if $result.cr_type == 1}{$translate->_('recipient.type.fax')|capitalize}
 					{else if $result.cr_type == 2}{$translate->_('recipient.type.snpp')|capitalize}
 					{/if}
+					</a>
 				</td>
 			{elseif $column=="cr_account_id"}
 				<td>
