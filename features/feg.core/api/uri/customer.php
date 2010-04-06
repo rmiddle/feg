@@ -216,6 +216,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recipient/index.tpl');
 	}
 
+/*
 	function showRecipientPeekAction() {
 		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
@@ -298,7 +299,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 	}
 	
 };
-
+*/
 class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 	private $_TPL_PATH = '';
 
