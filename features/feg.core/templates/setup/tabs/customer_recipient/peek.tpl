@@ -39,8 +39,8 @@
 		<td width="100%"><input type="text" name="recipient_account_id" value="{$rec->account_id}" style="width:98%;"></td>
 	</tr>
 {else}*}
-	{$account = DAO_CustomerAccount::get($rec->account_id)}
-	{$account->account_number}
+		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.id')|capitalize}: </td>
+		<td width="100%">{$account = DAO_CustomerAccount::get($rec->account_id)}{$account->account_number}</td>
 {*{/if}*}
 </table>
 <input type="hidden" name="recipient_export_filter" value="{$rec->export_filter}">
