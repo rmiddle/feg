@@ -23,7 +23,7 @@ class DAO_CustomerAccount extends Feg_ORMHelper {
 	static function create($fields) {
 		$db = DevblocksPlatform::getDatabaseService();
 		
-		$id = $db->GenID('generic_seq');
+		$id = $db->GenID('customer_account_seq');
 		
 		$sql = sprintf("INSERT INTO customer_account (id) ".
 			"VALUES (%d)",

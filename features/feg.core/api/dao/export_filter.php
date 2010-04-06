@@ -16,7 +16,7 @@ class DAO_ExportFilter extends DevblocksORMHelper {
 	static function create($fields) {
 		$db = DevblocksPlatform::getDatabaseService();
 		
-		$id = $db->GenID('generic_seq');
+		$id = $db->GenID('filter_seq');
 		
 		$sql = sprintf("INSERT INTO export_filter (id) ".
 			"VALUES (%d)",

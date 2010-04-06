@@ -198,7 +198,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		
 		$defaults = new Feg_AbstractViewModel();
 		$defaults->name = 'Recipient List';
-		$defaults->id = 'customer_view_recipient';
+		$defaults->id = '_customer_view_recipient';
 		$defaults->class_name = 'View_CustomerRecipient';
 		$defaults->renderLimit = 15;
 		
@@ -215,89 +215,6 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		$tpl->assign('view', $view);
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recipient/index.tpl');
 	}
-
-/*
-	function showRecipientPeekAction() {
-		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
-		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
-		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
-		
-		$tpl = DevblocksPlatform::getTemplateService();
-		$tpl->assign('path', $this->_TPL_PATH);
-		
-		$tpl->assign('customer_id', $customer_id);
-		$tpl->assign('view_id', $view_id);
-		
-		$recipient = DAO_CustomerRecipient::get($id);
-		$tpl->assign('recipient', $recipient);
-		
-		// Custom Fields
-		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerRecipient::ID);
-		$tpl->assign('custom_fields', $custom_fields);
-		
-		$custom_field_values = DAO_CustomFieldValue::getValuesBySourceIds(FegCustomFieldSource_CustomerRecipient::ID, $id);
-		if(isset($custom_field_values[$id]))
-			$tpl->assign('custom_field_values', $custom_field_values[$id]);
-		
-		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recipient/peek.tpl');		
-	}
-
-	function saveRecipientPeekAction() {
-		$translate = DevblocksPlatform::getTranslationService();
-		$active_worker = FegApplication::getActiveWorker();
-		
-		// TODO add ACL to edit / create recipient.
-		//if(!$active_worker || !$active_worker->is_superuser) {
-		//	return;
-		//}
-		
-		@$view_id = DevblocksPlatform::importGPC($_POST['view_id'],'string');
-		@$delete = DevblocksPlatform::importGPC($_POST['do_delete'],'integer',0);
-		
-		@$id = DevblocksPlatform::importGPC($_POST['id'],'integer');
-		@$customer_id = DevblocksPlatform::importGPC($_POST['customer_id'],'integer');
-		@$disabled = DevblocksPlatform::importGPC($_POST['is_disabled'],'integer',0);
-		@$customer_recipient_type = DevblocksPlatform::importGPC($_POST['customer_recipient_type'],'integer');
-		@$customer_recipient_address = DevblocksPlatform::importGPC($_POST['customer_recipient_address'],'integer');
-		@$customer_recipient_export_filter= DevblocksPlatform::importGPC($_POST['customer_recipient_export_filter'],'integer');
-		
-		if(!empty($id) && !empty($delete)) {
-			//Delete reciepent.
-			return;
-		} 
-		
-		if(empty($id)) {
-			// Update fields array
-			$fields = array(
-				DAO_CustomerRecipient::ID => $id,
-				DAO_CustomerRecipient::ACCOUNT_ID => $customer_id,
-				DAO_CustomerRecipient::EXPORT_FILTER => $customer_recipient_export_filter,
-				DAO_CustomerRecipient::TYPE => $customer_recipient_type,
-				DAO_CustomerRecipient::ADDRESS => $customer_recipient_address,
-				DAO_CustomerRecipient::IS_DISABLED => $disabled,
-			);
-			// Update Customer Recipients 
-			DAO_CustomerRecipient::update($id, $fields);
-		} else {
-			// Update fields array
-			$fields = array(
-				DAO_CustomerRecipient::EXPORT_FILTER => $customer_recipient_export_filter,
-				DAO_CustomerRecipient::TYPE => $customer_recipient_type,
-				DAO_CustomerRecipient::ADDRESS => $customer_recipient_address,
-				DAO_CustomerRecipient::IS_DISABLED => $disabled,
-			);
-			// Create a new Customer Recipients 
-			DAO_CustomerRecipient::create($fields);
-		}
-		// Custom field saves
-		@$field_ids = DevblocksPlatform::importGPC($_POST['field_ids'], 'array', array());
-		DAO_CustomFieldValue::handleFormPost(FegCustomFieldSource_CustomerRecipient::ID, $id, $field_ids);
-		if(!empty($view_id)) {
-			$view = Feg_AbstractViewLoader::getView($view_id);
-			$view->render();
-		}
-	}
-*/
 	
 };
 class FegCustomerTabRecentMessages extends Extension_CustomerTab {
