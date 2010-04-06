@@ -9,7 +9,7 @@
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
 		<td nowrap="nowrap" align="right">ID: </td>
-		<td>{$recipient_id}</td>
+		<td>{if $recipient_id}{$recipient_id}{else}{$translate->_('feg.customer_recipient.id.new')|capitalize}{/if}</td>
 	</tr>
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('common.disabled')|capitalize}: </td>

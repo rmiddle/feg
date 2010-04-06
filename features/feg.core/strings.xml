@@ -453,6 +453,9 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.customer_recipient.id'>
 			<tuv xml:lang="en_US"><seg>Recipient ID</seg></tuv>
 		</tu>
+		<tu tuid='feg.customer_recipient.id.new'>
+			<tuv xml:lang="en_US"><seg>New Recipient Account</seg></tuv>
+		</tu>
 		<tu tuid='feg.customer_recipient.account_id'>
 			<tuv xml:lang="en_US"><seg>Customer ID</seg></tuv>
 		</tu>
