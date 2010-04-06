@@ -297,7 +297,7 @@ class View_CustomerRecipient extends Feg_AbstractView {
 		$tpl->assign('custom_fields', $custom_fields);
 		
 		$tpl->assign('view_fields', $this->getColumns());
-		// [TODO] Set your template path
+		
 		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/customer_recipient/view.tpl');
 	}
 

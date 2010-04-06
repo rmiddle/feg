@@ -331,43 +331,6 @@ class FegSetupPage extends FegPageExtension  {
 						$url = DevblocksPlatform::getUrlService();
 				    	
 						$password = FegApplication::generatePassword(8);
-				    	
-//						try {
-//					        $mail_service = DevblocksPlatform::getMailService();
-//					        $mailer = $mail_service->getMailer(CerberusMail::getMailerDefaults());
-//					        $mail = $mail_service->createMessage();
-//					        
-//							$mail->setTo(array($email => $first_name . ' ' . $last_name));
-//							$mail->setFrom(array($replyFrom => $replyPersonal));
-//					        $mail->setSubject('Your new helpdesk login information!');
-//					        $mail->generateId();
-//							
-//							$headers = $mail->getHeaders();
-//							
-//					        $headers->addTextHeader('X-Mailer','Cerberus Helpdesk (Build '.APP_BUILD.')');
-//					        
-//						    $body = sprintf("Your new helpdesk login information is below:\r\n".
-//								"\r\n".
-//						        "URL: %s\r\n".
-//						        "Login: %s\r\n".
-//						        "Password: %s\r\n".
-//						        "\r\n".
-//						        "You should change your password from Preferences after logging in for the first time.\r\n".
-//						        "\r\n",
-//							        $url->write('',true),
-//							        $email,
-//							        $password
-//						    );
-//					        
-//							$mail->setBody($body);
-//	
-//							if(!$mailer->send($mail)) {
-//								throw new Exception('Password notification email failed to send.');
-//							}
-//						} catch (Exception $e) {
-//							// [TODO] need to report to the admin when the password email doesn't send.  The try->catch
-//							// will keep it from killing php, but the password will be empty and the user will never get an email.
-//						}
 				    }
 					
 				    $fields = array(
@@ -397,28 +360,6 @@ class FegSetupPage extends FegPageExtension  {
 			// Update worker
 			DAO_Worker::update($id, $fields);
 			
-			// Update group memberships
-//			if(is_array($group_ids) && is_array($group_roles))
-//			foreach($group_ids as $idx => $group_id) {
-//				if(empty($group_roles[$idx])) {
-//					DAO_Group::unsetTeamMember($group_id, $id);
-//				} else {
-//					DAO_Group::setTeamMember($group_id, $id, (2==$group_roles[$idx]));
-//				}
-//			}
-
-			// Add the worker e-mail to the addresses table
-//			if(!empty($email))
-//				DAO_Address::lookupAddress($email, true);
-			
-			// Addresses
-//			if(null == DAO_AddressToWorker::getByAddress($email)) {
-//				DAO_AddressToWorker::assign($email, $id);
-//				DAO_AddressToWorker::update($email, array(
-//					DAO_AddressToWorker::IS_CONFIRMED => 1
-//				));
-//			}
-			
 			// Custom field saves
 			@$field_ids = DevblocksPlatform::importGPC($_POST['field_ids'], 'array', array());
 			DAO_CustomFieldValue::handleFormPost(FegCustomFieldSource_Worker::ID, $id, $field_ids);
@@ -428,8 +369,6 @@ class FegSetupPage extends FegPageExtension  {
 			$view = Feg_AbstractViewLoader::getView($view_id);
 			$view->render();
 		}
-		
-		//DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','workers')));		
 	}
 	
 	function showWorkersBulkPanelAction() {
@@ -446,10 +385,6 @@ class FegSetupPage extends FegPageExtension  {
 	        $tpl->assign('ids', implode(',', $ids));
 	    }
 		
-	    // Lists
-//	    $lists = DAO_FeedbackList::getWhere();
-//	    $tpl->assign('lists', $lists);
-	    
 		// Custom Fields
 		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Worker::ID);
 		$tpl->assign('custom_fields', $custom_fields);
@@ -487,23 +422,6 @@ class FegSetupPage extends FegPageExtension  {
 		return;
 	}
 	
-//	// Ajax
-//	function showTabGroupsAction() {
-//		$tpl = DevblocksPlatform::getTemplateService();
-//		$tpl->assign('path', $this->_TPL_PATH);
-//		
-//		$workers = DAO_Worker::getAllActive();
-//		$tpl->assign('workers', $workers);
-//
-//		$teams = DAO_Group::getAll();
-//		$tpl->assign('teams', $teams);
-//		
-//		$tpl->assign('license',FegLicense::getInstance());
-//		
-//		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/groups/index.tpl');
-//	}
-	
-	// Ajax
 	function showTabRecipientAction() {
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('$path', $this->_TPL_PATH);
@@ -559,11 +477,6 @@ class FegSetupPage extends FegPageExtension  {
 	
 	function saveRecipientPeekAction() {
 		$translate = DevblocksPlatform::getTranslationService();
-		$active_worker = FegApplication::getActiveWorker();
-		
-		if(!$active_worker || !$active_worker->is_superuser) {
-			return;
-		}
 		
 		@$id = DevblocksPlatform::importGPC($_POST['id'],'integer');
 		@$view_id = DevblocksPlatform::importGPC($_POST['view_id'],'string');
@@ -582,9 +495,15 @@ class FegSetupPage extends FegPageExtension  {
 			DAO_CustomerRecipient::TYPE => $recipient_type,
 			DAO_CustomerRecipient::ADDRESS => $recipient_address,
 		);
-		// Update Customer Recipients 
-		$status = DAO_CustomerRecipient::update($id, $fields);
-
+		
+		if($id == 0) {
+			// Create Customer Recipients 
+			$id = $status = DAO_CustomerRecipient::create($fields);
+		} else {
+			// Update Customer Recipients 
+			$status = DAO_CustomerRecipient::update($id, $fields);
+		}
+		
 		if(!empty($view_id)) {
 			$view = Feg_AbstractViewLoader::getView($view_id);
 			$view->render();
