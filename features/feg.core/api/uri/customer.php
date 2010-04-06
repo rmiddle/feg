@@ -297,9 +297,9 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 			$view->render();
 		}
 	}
+*/
 	
 };
-*/
 class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 	private $_TPL_PATH = '';
 
