@@ -39,7 +39,7 @@
 		<td width="100%"><input type="text" name="recipient_account_id" value="{$rec->account_id}" style="width:98%;"></td>
 	</tr>
 {else}*}
-	{$account = DAO_CustomerAccount::get($result.cr_account_id)}
+	{$account = DAO_CustomerAccount::get($rec->account_id)}
 	{$account->account_number}
 {*{/if}*}
 </table>
