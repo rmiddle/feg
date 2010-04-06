@@ -33,15 +33,22 @@
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address')|capitalize}: </td>
 		<td width="100%"><input type="text" name="recipient_address" value="{$rec->address|escape}" style="width:98%;"></td>
 	</tr>
-	<tr>
 {*{if $active_worker->is_superuser}
+	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.id')|capitalize}: </td>
 		<td width="100%"><input type="text" name="recipient_account_id" value="{$rec->account_id}" style="width:98%;"></td>
-{else}*}
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_number')|capitalize}: </td>
-		<td width="100%">{$account = DAO_CustomerAccount::get($rec->account_id)}{$account->account_number}</td>
-{*{/if}*}
 	</tr>
+{else}*}
+	{$account = DAO_CustomerAccount::get($rec->account_id)}
+	<tr>
+		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_number')|capitalize}: </td>
+		<td width="100%">{$account->account_number}</td>
+	</tr>
+	<tr>
+		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_name')|capitalize}: </td>
+		<td width="100%">{$account->account_name}</td>
+	</tr>
+{*{/if}*}
 </table>
 <input type="hidden" name="recipient_export_filter" value="{$rec->export_filter}">
 
