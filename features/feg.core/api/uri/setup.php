@@ -432,6 +432,8 @@ class FegSetupPage extends FegPageExtension  {
 			return;
 		}
 		
+		$tpl->assign('response_uri', 'setup/recipient');
+		
 		$tpl->assign('core_tplpath', $core_tplpath);
 		
 		$defaults = new Feg_AbstractViewModel();
