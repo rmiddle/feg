@@ -1,5 +1,4 @@
 <form>
-	{* [WGM]: Please respect our licensing and support the project! *}
 	{if ((empty($license) || empty($license.serial)) && count($workers) >= 3) || (!empty($license.serial)&&!empty($license.users)&&count($workers)>=$license.users)}
 	<div class="error">
 		You have reached the number of workers permitted by your license.

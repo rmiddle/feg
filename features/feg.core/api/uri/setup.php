@@ -243,9 +243,6 @@ class FegSetupPage extends FegPageExtension  {
 		$workers = DAO_Worker::getAllWithDisabled();
 		$tpl->assign('workers', $workers);
 
-//		$teams = DAO_Group::getAll();
-//		$tpl->assign('teams', $teams);
-		
 		$tpl->assign('response_uri', 'setup/workers');
 		
 		$defaults = new Feg_AbstractViewModel();
