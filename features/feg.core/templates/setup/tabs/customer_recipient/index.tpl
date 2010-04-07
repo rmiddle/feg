@@ -1,8 +1,10 @@
 <form>
 	<button type="button" onclick="genericAjaxPanel('c=setup&a=showRecipientPeek&id=0&view_id={$view->id|escape:'url'}',null,false,'500');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/businessman_add.gif{/devblocks_url}" align="top"> Add Recipient</button>
 </form>
+<pre>
 {$view_fields|print_r}
 {$view_searchable_fields|print_r}
+</pre>
 <table cellpadding="0" cellspacing="0" border="0">
 	<tr>
 		<td valign="top" width="0%" nowrap="nowrap">
