@@ -444,8 +444,8 @@ class FegSetupPage extends FegPageExtension  {
 		$defaults->renderSortAsc = 0;
 
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
-//		$view->params = array(
-//		);
+		$view->params = array(
+		);
 		$view->renderPage = 0;
 		Feg_AbstractViewLoader::setView($view->id,$view);
 		
