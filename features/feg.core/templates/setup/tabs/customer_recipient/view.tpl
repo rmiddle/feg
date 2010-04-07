@@ -42,7 +42,7 @@
 	{* Column Data *}
 	{foreach from=$data item=result key=idx name=results}
 
-	{assign var=rowIdPrefix value="row_"|cat:$view->id|cat:"_"|cat:$result.c_id}
+	{assign var=rowIdPrefix value="row_"|cat:$view->id|cat:"_"|cat:$result.cr_id}
 	{if $smarty.foreach.results.iteration % 2}
 		{assign var=tableRowBg value="even"}
 	{else}
@@ -50,7 +50,7 @@
 	{/if}
 	
 		<tr class="{$tableRowBg}" id="{$rowIdPrefix}" onmouseover="$(this).addClass('hover');" onmouseout="$(this).removeClass('hover');" onclick="if(getEventTarget(event)=='TD') checkAll('{$rowIdPrefix}');">
-			<td align="center"><input type="checkbox" name="row_id[]" value="{$result.c_id}"></td>
+			<td align="center"><input type="checkbox" name="row_id[]" value="{$result.cr_id}"></td>
 		{foreach from=$view->view_columns item=column name=columns}
 			{if substr($column,0,3)=="cf_"}
 				{include file="file:$core_tpl/internal/custom_fields/view/cell_renderer.tpl"}
