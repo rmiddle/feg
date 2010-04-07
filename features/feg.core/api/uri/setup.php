@@ -436,7 +436,7 @@ class FegSetupPage extends FegPageExtension  {
 		
 		$defaults = new Feg_AbstractViewModel();
 		$defaults->name = 'Full Customer Recipient List';
-		$defaults->id = '_full_view_recipient';
+		$defaults->id = 'full_view_recipient';
 		$defaults->class_name = 'View_CustomerRecipient';
 		$defaults->renderLimit = 15;
 		
