@@ -253,7 +253,7 @@ class SearchFields_CustomerRecipient implements IDevblocksSearchFields {
 
 
 class View_CustomerRecipient extends Feg_AbstractView {
-	const DEFAULT_ID = 'customer_recipient';
+	const DEFAULT_ID = 'customerrecipient';
 	
 	function __construct() {
 		$translate = DevblocksPlatform::getTranslationService();
@@ -277,6 +277,7 @@ class View_CustomerRecipient extends Feg_AbstractView {
 
 	function getData() {
 		$objects = DAO_CustomerRecipient::search(
+			$this->view_columns,
 			$this->params,
 			$this->renderLimit,
 			$this->renderPage,
@@ -296,8 +297,7 @@ class View_CustomerRecipient extends Feg_AbstractView {
 		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerRecipient::ID);
 		$tpl->assign('custom_fields', $custom_fields);
 		
-		$tpl->assign('view_fields', $this->getColumns());
-		
+		$tpl->assign('view_fields', $this->getColumns());	
 		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/customer_recipient/view.tpl');
 	}
 
@@ -307,7 +307,6 @@ class View_CustomerRecipient extends Feg_AbstractView {
 
 		$tpl_path = APP_PATH . '/features/feg.core/templates/';
 		
-		// [TODO] Move the fields into the proper data type
 		switch($field) {
 			case SearchFields_CustomerRecipient::EXPORT_FILTER:
 			case SearchFields_CustomerRecipient::ADDRESS:
