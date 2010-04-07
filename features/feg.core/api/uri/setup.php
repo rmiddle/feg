@@ -436,7 +436,8 @@ class FegSetupPage extends FegPageExtension  {
 		$tpl->assign('view_id', $view_id);
 		
 		$defaults = new Feg_AbstractViewModel();
-		$defaults->id = 'CustomerRecipient';
+		$defaults->name = 'Full Customer Recipient List';
+		$defaults->id = '_full_customer_view_recipient';
 		$defaults->class_name = 'View_CustomerRecipient';
 		
 		$defaults->renderSortBy = SearchFields_CustomerRecipient::ID;
@@ -458,12 +459,10 @@ class FegSetupPage extends FegPageExtension  {
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
 		
+		$tpl->assign('id', $id);
+		$tpl->assign('customer_id', $customer_id);
 		$tpl->assign('view_id', $view_id);
 		
-		$tpl->assign('recipient_id', $id);
-		
-		$tpl->assign('customer_id', $customer_id);
-
 		// Custom Fields
 		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerRecipient::ID);
 		$tpl->assign('custom_fields', $custom_fields);

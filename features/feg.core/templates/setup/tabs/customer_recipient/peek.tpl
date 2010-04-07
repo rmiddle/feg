@@ -1,15 +1,15 @@
 <form action="{devblocks_url}{/devblocks_url}" method="POST" id="formRecipientPeek" name="formRecipientPeek" onsubmit="return false;">
 <input type="hidden" name="c" value="setup">
 <input type="hidden" name="a" value="saveRecipientPeek">
-<input type="hidden" name="id" value="{$recipient_id}">
+<input type="hidden" name="id" value="{$id}">
 <input type="hidden" name="view_id" value="{$view_id}">
 <input type="hidden" name="do_delete" value="0">
 
-{$rec = DAO_CustomerRecipient::get($recipient_id)}
+{$rec = DAO_CustomerRecipient::get($id)}
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
 		<td nowrap="nowrap" align="right">ID: </td>
-		<td>{if $recipient_id}{$recipient_id}{else}{$translate->_('feg.customer_recipient.id.new')|capitalize}{/if}</td>
+		<td>{if $id}{$id}{else}{$translate->_('feg.customer_recipient.id.new')|capitalize}{/if}</td>
 	</tr>
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('common.disabled')|capitalize}: </td>
@@ -33,17 +33,17 @@
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address')|capitalize}: </td>
 		<td width="100%"><input type="text" name="recipient_address" value="{$rec->address|escape}" style="width:98%;"></td>
 	</tr>
-{*{if $active_worker->is_superuser}
+	{if $id}
+		{$account = DAO_CustomerAccount::get($rec->account_id)}
+	{else}
+		{$account = DAO_CustomerAccount::get($customer_id)}
+	{/if}
+{if $active_worker->is_superuser}
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.id')|capitalize}: </td>
-		<td width="100%"><input type="text" name="recipient_account_id" value="{$rec->account_id}" style="width:98%;"></td>
+		<td width="100%"><input type="text" name="recipient_account_id" value="{$account->id}" style="width:98%;"></td>
 	</tr>
-{else}*}
-	{if $recipient_id == 0} 
-		{$account = DAO_CustomerAccount::get($customer_id)}
-	{else}
-		{$account = DAO_CustomerAccount::get($rec->account_id)}
-	{/if}
+{/if}
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_number')|capitalize}: </td>
 		<td width="100%">{$account->account_number}</td>
@@ -52,7 +52,6 @@
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_name')|capitalize}: </td>
 		<td width="100%">{$account->account_name}</td>
 	</tr>
-{*{/if}*}
 </table>
 <input type="hidden" name="recipient_export_filter" value="{$rec->export_filter}">
 
