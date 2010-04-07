@@ -369,7 +369,7 @@ class View_CustomerRecipient extends Feg_AbstractView {
 		parent::doResetCriteria();
 		
 		$this->params = array(
-		//SearchFields_CustomerRecipient::ID => new DevblocksSearchCriteria(SearchFields_CustomerRecipient::ID,'!=',0),
+			SearchFields_CustomerRecipient::IS_DISABLED => new DevblocksSearchCriteria(SearchFields_CustomerRecipient::IS_DISABLED,'==',0),
 		);
 	}
 
