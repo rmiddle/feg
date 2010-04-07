@@ -433,11 +433,11 @@ class FegSetupPage extends FegPageExtension  {
 		}
 		
 		$tpl->assign('core_tplpath', $core_tplpath);
-		$tpl->assign('view_id', $view_id);
+		//$tpl->assign('view_id', $view_id);
 		
 		$defaults = new Feg_AbstractViewModel();
 		$defaults->name = 'Full Customer Recipient List';
-		$defaults->id = '_full_customer_view_recipient';
+		$defaults->id = '_full_view_recipient';
 		$defaults->class_name = 'View_CustomerRecipient';
 		
 		$defaults->renderSortBy = SearchFields_CustomerRecipient::ID;

@@ -1,5 +1,4 @@
 <form>
-	{* [WGM]: Please respect our licensing and support the project! *}
 	<button type="button" onclick="genericAjaxPanel('c=setup&a=showRecipientPeek&id=0&view_id={$view->id|escape:'url'}',null,false,'500');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/businessman_add.gif{/devblocks_url}" align="top"> Add Recipient</button>
 </form>
 
