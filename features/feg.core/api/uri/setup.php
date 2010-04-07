@@ -442,16 +442,11 @@ class FegSetupPage extends FegPageExtension  {
 		
 		$defaults->renderSortBy = SearchFields_CustomerRecipient::ID;
 		$defaults->renderSortAsc = 0;
-echo "<pre>";
-print_r($defaults);
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 		$view->name = 'Full Customer Recipient List';
-//		$view->params = array(
-//		);
 		$view->renderPage = 0;
 		Feg_AbstractViewLoader::setView($view->id,$view);
-print_r($view);		
-echo "</pre>";
+		
 		$tpl->assign('view', $view);
 		$tpl->assign('view_fields', View_CustomerRecipient::getFields());
 		$tpl->assign('view_searchable_fields', View_CustomerRecipient::getSearchFields());
