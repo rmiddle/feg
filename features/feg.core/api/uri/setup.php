@@ -446,8 +446,8 @@ echo "<pre>";
 print_r($defaults);
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 		$view->name = 'Full Customer Recipient List';
-		$view->params = array(
-		);
+//		$view->params = array(
+//		);
 		$view->renderPage = 0;
 		Feg_AbstractViewLoader::setView($view->id,$view);
 print_r($view);		
