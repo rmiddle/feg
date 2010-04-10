@@ -193,6 +193,85 @@ if(!isset($tables['customer_recipient'])) {
 	$db->Execute($sql);	
 }
 
+if(!isset($tables['message'])) {
+	$sql = "
+		CREATE TABLE IF NOT EXISTS message (
+			id BIGINT UNSIGNED DEFAULT 0 NOT NULL,
+			account_id INT UNSIGNED DEFAULT 0 NOT NULL,
+			is_closed TINYINT(1) UNSIGNED DEFAULT 0 NOT NULL,
+			subject VARCHAR(255)  DEFAULT '' NOT NULL,
+			created_date INT UNSIGNED DEFAULT 0 NOT NULL,
+			updated_date INT INT UNSIGNED DEFAULT 0 NOT NULL,
+			message longtext,
+			PRIMARY KEY (id),
+			INDEX account_id (account_id),
+			INDEX is_closed (is_closed)
+		) ENGINE=MyISAM;
+	";
+	$db->Execute($sql);	
+}
+
+if(!isset($tables['message_recipient'])) {
+	$sql = "
+		CREATE TABLE IF NOT EXISTS message_recipient (
+			id INT UNSIGNED DEFAULT 0 NOT NULL,
+			message_id BIGINT UNSIGNED DEFAULT 0 NOT NULL,
+			recipient_id INT UNSIGNED DEFAULT 0 NOT NULL,
+			send_status TINYINT UNSIGNED DEFAULT 0 NOT NULL
+			created_date INT UNSIGNED DEFAULT 0 NOT NULL,
+			updated_date INT UNSIGNED DEFAULT 0 NOT NULL,
+			closed_date INT UNSIGNED DEFAULT 0 NOT NULL,
+			PRIMARY KEY (id),
+			INDEX message_id (message_id),
+			INDEX recipient_id (recipient_id),
+			INDEX send_status (send_status)
+		) ENGINE=MyISAM;
+	";
+	$db->Execute($sql);	
+}
+
+if(!isset($tables['fax_xferlog'])) {
+	$sql = "
+		CREATE TABLE IF NOT EXISTS fax_xferlog (
+			id BIGINT UNSIGNED DEFAULT 0 NOT NULL AUTO_INCREMENT,
+			message_id BIGINT UNSIGNED DEFAULT 0 NOT NULL,
+			recipient_id INT UNSIGNED DEFAULT 0 NOT NULL,
+			send_status INT UNSIGNED DEFAULT 0 NOT NULL,
+			created_date INT UNSIGNED DEFAULT 0 NOT NULL,
+			updated_date INT UNSIGNED DEFAULT 0 NOT NULL,
+			closed_date INT UNSIGNED DEFAULT 0 NOT NULL,
+			timestamp DATETIME NOT NULL, 
+			entrytype varchar(20) NULL DEFAULT '',
+			commid varchar(20) NULL DEFAULT '',
+			modem varchar(20) NULL DEFAULT '',
+			jobid varchar(20) NULL DEFAULT '',
+			jobtag varchar(100) NULL DEFAULT '',
+			user varchar(100) NULL DEFAULT '',
+			localnumber varchar(50) NULL DEFAULT '',
+			tsi varchar(25) NULL DEFAULT '',
+			params varchar(20) NULL DEFAULT '',
+			npages INT UNSIGNED DEFAULT 0 NOT NULL,
+			jobtime time  NOT NULL,
+			conntime time  NOT NULL, 
+			reason varchar(200) NULL DEFAULT '',
+			CIDName varchar(100) NULL DEFAULT '',
+			CIDNumber varchar(100) NULL DEFAULT '',
+			callid varchar(200) NULL DEFAULT '',
+			owner varchar(50) NULL DEFAULT '',
+			dcs varchar(100) NULL DEFAULT '',
+			jobinfo varchar(200) NULL DEFAULT ''
+			PRIMARY KEY (id),
+			INDEX message_id (message_id),
+			INDEX recipient_id (recipient_id),
+			INDEX send_status (send_status),
+			INDEX  created_date (created_date),
+			INDEX  updated_date (updated_date),
+			INDEX  closed_date (closed_date)
+		) ENGINE=MyISAM;
+	";
+	$db->Execute($sql);	
+}
+
 if(!isset($tables['export_filter'])) {
 	$sql = "
 		CREATE TABLE IF NOT EXISTS export_filter (

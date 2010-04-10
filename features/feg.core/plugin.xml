@@ -71,6 +71,25 @@
 			<class name="SearchFields_CustomerRecipient" />
 			<class name="View_CustomerRecipient" />
 		</file>
+		<file path="api/dao/message.php">
+			<class name="FegCustomFieldSource_Message" />
+			<class name="DAO_Message" />
+			<class name="Model_Message" />
+			<class name="SearchFields_Message" />
+			<class name="View_Message" />
+		</file>
+		<file path="api/dao/message_recipient.php">
+			<class name="DAO_MessageRecipient" />
+			<class name="Model_MessageRecipient" />
+			<class name="SearchFields_MessageRecipient" />
+			<class name="View_MessageRecipient" />
+		</file>
+		<file path="api/dao/fax_xferlog.php">
+			<class name="DAO_FaxXferlog" />
+			<class name="Model_FaxXferlog" />
+			<class name="SearchFields_FaxXferlog" />
+			<class name="View_FaxXferlog" />
+		</file>
 		<file path="api/dao/export_filter.php">
 			<class name="FegCustomFieldSource_ExportFilter" />
 			<class name="DAO_ExportFilter" />
