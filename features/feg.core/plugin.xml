@@ -129,6 +129,10 @@
 		<priv id="core.access.export_filter.update" label="acl.core.access.export_filter.update" />
 		<priv id="core.access.import_filter.create" label="acl.core.access.import_filter.create" />
 		<priv id="core.access.import_filter.update" label="acl.core.access.import_filter.update" />
+		<priv id="core.access.customer.create" label="acl.core.access.customer.create" />
+		<priv id="core.access.customer.update" label="acl.core.access.customer.update" />
+		<priv id="core.access.recipient.create" label="acl.core.access.recipient.create" />
+		<priv id="core.access.recipient.update" label="acl.core.access.recipient.update" />
 		
 		<!-- Workspaces -->
 		<!--
