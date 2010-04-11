@@ -219,7 +219,7 @@ class DAO_ImportFilter extends DevblocksORMHelper  {
 class SearchFields_ImportFilter implements IDevblocksSearchFields {
 	const ID = 'i_id';
 	const FILTER_NAME = 'i_filter_name';
-	const FILTER_NAME = 'i_filter_folder';
+	const FILTER_FOLDER = 'i_filter_folder';
 	const IS_DISABLED = 'i_is_disabled';
 	const FILTER = 'i_filter';
 	
