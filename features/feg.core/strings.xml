@@ -40,7 +40,7 @@
 			<tuv xml:lang="en_US"><seg>Create Customers</seg></tuv>
 		</tu>
 		<tu tuid='acl.core.access.customer.update'>
-			<tuv xml:lang="en_US"><seg>Update Customer</seg></tuv>
+			<tuv xml:lang="en_US"><seg>Update Customers</seg></tuv>
 		</tu>
 		<tu tuid='acl.core.access.recipient.create'>
 			<tuv xml:lang="en_US"><seg>Create Recipients</seg></tuv>
