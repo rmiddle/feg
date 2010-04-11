@@ -109,14 +109,14 @@ class ImportCron extends FegCronExtension {
 		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
 		$tpl->assign('path', $tpl_path);
 
-		$tpl->assign('import_folder_path', $this->getParam('import_folder_path', APP_STORAGE_PATH . '/import/new'));
+//		$tpl->assign('import_folder_path', $this->getParam('import_folder_path', APP_STORAGE_PATH . '/import/new'));
 
 		$tpl->display($tpl_path . 'cron/import/config.tpl');
 	}
 
 	function saveConfigurationAction() {
-		@$import_folder_path = DevblocksPlatform::importGPC($_POST['import_folder_path'],'string');
-		$this->setParam('import_folder_path', $import_folder_path);
+//		@$import_folder_path = DevblocksPlatform::importGPC($_POST['import_folder_path'],'string');
+//		$this->setParam('import_folder_path', $import_folder_path);
 	}
 };
 
