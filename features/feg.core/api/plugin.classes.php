@@ -10,7 +10,7 @@
 | ______________________________________________________________________
 |	http://feg.answernet.com	  http://www.webgroupmedia.com/
 ***********************************************************************/
-
+/*
 class FegTranslations extends DevblocksTranslationsExtension {
 	function __construct($manifest) {
 		parent::__construct($manifest);	
@@ -20,6 +20,7 @@ class FegTranslations extends DevblocksTranslationsExtension {
 		return dirname(dirname(__FILE__)) . '/strings.xml';
 	}
 };
+*/
 
 // Custom Field Sources
 

@@ -211,6 +211,7 @@
 
 		<!-- Translations -->
 		
+<!-- 
 		<extension point="devblocks.i18n.strings">
 			<id>core.translations</id>
 			<name>Feg Strings</name>
@@ -220,6 +221,7 @@
 			</class>
 			<params/>
 		</extension>
+-->
 
 		<!-- Patch Containers -->
 		
