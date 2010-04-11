@@ -2,6 +2,6 @@
 <br>
 
 <b>Path of folder to import :</b><br>
-<input type="text" name="import_folder_path" maxlength="255" value="{$import_folder_path}"><br>
+<input type="text" name="import_folder_path" value="{$import_folder_path}" style="width:98%;">
 <br>
 
