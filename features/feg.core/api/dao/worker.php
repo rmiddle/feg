@@ -64,7 +64,7 @@ class Model_WorkerRole {
 };
 
 class DAO_Worker extends Feg_ORMHelper {
-	const CACHE_ALL = 'ps_workers';
+	const CACHE_ALL = 'feg_workers';
 	
 	const ID = 'id';
 	const FIRST_NAME = 'first_name';

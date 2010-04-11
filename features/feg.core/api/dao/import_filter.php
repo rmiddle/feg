@@ -9,6 +9,8 @@ class Model_ImportFilter {
 };
 
 class DAO_ImportFilter extends DevblocksORMHelper  {
+	const CACHE_ALL = 'feg_ifilter';
+	
 	const ID = 'id';
 	const FILTER_NAME = 'filter_name';
 	const FILTER_FOLDER = 'filter_folder';
@@ -190,6 +192,27 @@ class DAO_ImportFilter extends DevblocksORMHelper  {
 		return array($results,$total);
 	}
 
+	static function getAll($nocache=false, $with_disabled=false) {
+	    $cache = DevblocksPlatform::getCacheService();
+	    if($nocache || null === ($import_filters = $cache->load(self::CACHE_ALL))) {
+    	    $import_filters = self::getWhere();
+    	    $cache->save($import_filters, self::CACHE_ALL);
+	    }
+	    
+	    /*
+	     * Generally we don't want disabled filters so ignore those.
+	     * but don't bother caching two different versions (always cache all)
+	     */
+	    if(!$with_disabled) {
+	    	foreach($import_filters as $import_filter_id => $import_filter) { 
+	    		if($import_filter->is_disabled)
+	    			unset($import_filters[$import_filter_id]);
+	    	}
+	    }
+	    
+	    return $import_filters;
+	}	
+	
 };
 
 
