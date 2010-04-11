@@ -283,6 +283,7 @@ if(!isset($tables['import_filter'])) {
 		CREATE TABLE IF NOT EXISTS import_filter (
 			id INT UNSIGNED DEFAULT 0 NOT NULL,
 			filter_name varchar(255) NOT NULL DEFAULT '',
+			filter_folder varchar(255) NOT NULL DEFAULT '',
 			is_disabled TINYINT UNSIGNED DEFAULT 0 NOT NULL,
 			filter longtext,
 			PRIMARY KEY (id),

@@ -3,6 +3,7 @@
 class Model_ImportFilter {
 	public $id;
 	public $filter_name;
+	public $filter_folder;
 	public $is_disabled;
 	public $filter;
 };
@@ -10,6 +11,7 @@ class Model_ImportFilter {
 class DAO_ImportFilter extends DevblocksORMHelper  {
 	const ID = 'id';
 	const FILTER_NAME = 'filter_name';
+	const FILTER_FOLDER = 'filter_folder';
 	const IS_DISABLED = 'is_disabled';
 	const FILTER = 'filter';
 
@@ -79,6 +81,7 @@ class DAO_ImportFilter extends DevblocksORMHelper  {
 			$object = new Model_ImportFilter();
 			$object->id = $row['id'];
 			$object->filter_name = $row['filter_name'];
+			$object->filter_folder = $row['filter_folder'];
 			$object->is_disabled = $row['is_disabled'];
 			$object->filter = $row['filter'];
 			$objects[$object->id] = $object;
@@ -130,10 +133,12 @@ class DAO_ImportFilter extends DevblocksORMHelper  {
 		$select_sql = sprintf("SELECT ".
 			"import_filter.id as %s, ".
 			"import_filter.filter_name as %s, ".
+			"import_filter.filter_folder as %s, ".
 			"import_filter.is_disabled as %s, ".
 			"import_filter.filter as %s ",
 				SearchFields_ImportFilter::ID,
 				SearchFields_ImportFilter::FILTER_NAME,
+				SearchFields_ImportFilter::FILTER_FOLDER,
 				SearchFields_ImportFilter::IS_DISABLED,
 				SearchFields_ImportFilter::FILTER
 			);
@@ -154,9 +159,9 @@ class DAO_ImportFilter extends DevblocksORMHelper  {
 			
 		// [TODO] Could push the select logic down a level too
 		if($limit > 0) {
-    		$rs = $db->SelectLimit($sql,$limit,$start) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); /* @var $rs ADORecordSet */
+    		$rs = $db->SelectLimit($sql,$limit,$start) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
 		} else {
-		    $rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); /* @var $rs ADORecordSet */
+		    $rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg());
             $total = mysql_num_rows($rs);
 		}
 		
@@ -191,6 +196,7 @@ class DAO_ImportFilter extends DevblocksORMHelper  {
 class SearchFields_ImportFilter implements IDevblocksSearchFields {
 	const ID = 'i_id';
 	const FILTER_NAME = 'i_filter_name';
+	const FILTER_NAME = 'i_filter_folder';
 	const IS_DISABLED = 'i_is_disabled';
 	const FILTER = 'i_filter';
 	
@@ -203,6 +209,7 @@ class SearchFields_ImportFilter implements IDevblocksSearchFields {
 		$columns = array(
 			self::ID => new DevblocksSearchField(self::ID, 'import_filter', 'id', $translate->_('id')),
 			self::FILTER_NAME => new DevblocksSearchField(self::FILTER_NAME, 'import_filter', 'filter_name', $translate->_('filter_name')),
+			self::FILTER_FOLDER => new DevblocksSearchField(self::FILTER_FOLDER, 'import_filter', 'filter_folder', $translate->_('filter_folder')),
 			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'import_filter', 'is_disabled', $translate->_('is_disabled')),
 			self::FILTER => new DevblocksSearchField(self::FILTER, 'import_filter', 'filter', $translate->_('filter')),
 		);
@@ -231,6 +238,7 @@ class View_ImportFilter extends Feg_AbstractView {
 		$this->view_columns = array(
 			SearchFields_ImportFilter::ID,
 			SearchFields_ImportFilter::FILTER_NAME,
+			SearchFields_ImportFilter::FILTER_FOLDER,
 			SearchFields_ImportFilter::IS_DISABLED,
 			SearchFields_ImportFilter::FILTER,
 		);
@@ -266,9 +274,9 @@ class View_ImportFilter extends Feg_AbstractView {
 
 		$tpl_path = APP_PATH . '/features/feg.core/templates/';
 		
-		// [TODO] Move the fields into the proper data type
 		switch($field) {
 			case SearchFields_ImportFilter::FILTER_NAME:
+			case SearchFields_ImportFilter::FILTER_FOLDER:
 			case SearchFields_ImportFilter::FILTER:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__string.tpl');
 				break;
@@ -305,7 +313,7 @@ class View_ImportFilter extends Feg_AbstractView {
 	static function getSearchFields() {
 		$fields = self::getFields();
 		// [TODO] Filter fields
-		unset($fields[SearchFields_ImportFilter::ID]);
+//		unset($fields[SearchFields_ImportFilter::ID]);
 		return $fields;
 	}
 
@@ -330,6 +338,7 @@ class View_ImportFilter extends Feg_AbstractView {
 		// [TODO] Move fields into the right data type
 		switch($field) {
 			case SearchFields_ImportFilter::FILTER_NAME:
+			case SearchFields_ImportFilter::FILTER_FOLDER:
 			case SearchFields_ImportFilter::FILTER:
 				// force wildcards if none used on a LIKE
 				if(($oper == DevblocksSearchCriteria::OPER_LIKE || $oper == DevblocksSearchCriteria::OPER_NOT_LIKE)
@@ -384,6 +393,7 @@ class View_ImportFilter extends Feg_AbstractView {
 			switch($k) {
 //			$change_fields[DAO_ImportFilter::ID] = intval($v);
 //			$change_fields[DAO_ImportFilter::FILTER_NAME] = intval($v);
+//			$change_fields[DAO_ImportFilter::FILTER_FOLDER] = intval($v);
 //			$change_fields[DAO_ImportFilter::IS_DISABLED] = intval($v);
 //			$change_fields[DAO_ImportFilter::FILTER] = intval($v);
 				// [TODO] Implement actions
