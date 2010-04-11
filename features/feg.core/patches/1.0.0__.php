@@ -233,13 +233,8 @@ if(!isset($tables['message_recipient'])) {
 if(!isset($tables['fax_xferlog'])) {
 	$sql = "
 		CREATE TABLE IF NOT EXISTS fax_xferlog (
-			id BIGINT UNSIGNED DEFAULT 0 NOT NULL AUTO_INCREMENT,
-			message_id BIGINT UNSIGNED DEFAULT 0 NOT NULL,
-			recipient_id INT UNSIGNED DEFAULT 0 NOT NULL,
-			send_status INT UNSIGNED DEFAULT 0 NOT NULL,
-			created_date INT UNSIGNED DEFAULT 0 NOT NULL,
-			updated_date INT UNSIGNED DEFAULT 0 NOT NULL,
-			closed_date INT UNSIGNED DEFAULT 0 NOT NULL,
+			id BIGINT UNSIGNED AUTO_INCREMENT,
+			message_recipient_id BIGINT UNSIGNED DEFAULT 0 NOT NULL,
 			timestamp DATETIME NOT NULL, 
 			entrytype varchar(20) NULL DEFAULT '',
 			commid varchar(20) NULL DEFAULT '',
@@ -261,12 +256,8 @@ if(!isset($tables['fax_xferlog'])) {
 			dcs varchar(100) NULL DEFAULT '',
 			jobinfo varchar(200) NULL DEFAULT '',
 			PRIMARY KEY (id),
-			INDEX message_id (message_id),
-			INDEX recipient_id (recipient_id),
-			INDEX send_status (send_status),
-			INDEX  created_date (created_date),
-			INDEX  updated_date (updated_date),
-			INDEX  closed_date (closed_date)
+			INDEX message_recipient_id (message_recipient_id),
+			INDEX send_status (send_status)
 		) ENGINE=MyISAM;
 	";
 	$db->Execute($sql);	

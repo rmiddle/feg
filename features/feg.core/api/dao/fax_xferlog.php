@@ -2,11 +2,7 @@
 
 class Model_FaxXferlog {
 	public $id;
-	public $recipient_id;
-	public $message_id;
-	public $send_status;
-	public $updated_date;
-	public $closed_date;
+	public $message_recipient_id;
 	public $timestamp;
 	public $entrytype;
 	public $commid;
@@ -31,11 +27,7 @@ class Model_FaxXferlog {
 
 class DAO_FaxXferlog extends Feg_ORMHelper {
 	const ID = 'id';
-	const RECIPIENT_ID = 'recipient_id';
-	const MESSAGE_ID = 'message_id';
-	const SEND_STATUS = 'send_status';
-	const UPDATED_DATE = 'updated_date';
-	const CLOSED_DATE = 'closed_date';
+	const MESSAGE_RECIPIENT_ID = 'message_recipient_id';
 	const TIMESTAMP = 'timestamp';
 	const ENTRYTYPE = 'entrytype';
 	const COMMID = 'commid';
@@ -91,7 +83,7 @@ class DAO_FaxXferlog extends Feg_ORMHelper {
 	static function getWhere($where=null) {
 		$db = DevblocksPlatform::getDatabaseService();
 		
-		$sql = "SELECT id, recipient_id, message_id, send_status, updated_date, closed_date, timestamp, entrytype, commid, modem, jobid, jobtag, user, localnumber, tsi, params, npages, jobtime, conntime, reason, CIDName, CIDNumber, callid, owner, dcs, jobinfo ".
+		$sql = "SELECT id, message_recipient_id, timestamp, entrytype, commid, modem, jobid, jobtag, user, localnumber, tsi, params, npages, jobtime, conntime, reason, CIDName, CIDNumber, callid, owner, dcs, jobinfo ".
 			"FROM fax_xferlog ".
 			(!empty($where) ? sprintf("WHERE %s ",$where) : "").
 			"ORDER BY id asc";
@@ -125,11 +117,7 @@ class DAO_FaxXferlog extends Feg_ORMHelper {
 		while($row = mysql_fetch_assoc($rs)) {
 			$object = new Model_FaxXferlog();
 			$object->id = $row['id'];
-			$object->recipient_id = $row['recipient_id'];
-			$object->message_id = $row['message_id'];
-			$object->send_status = $row['send_status'];
-			$object->updated_date = $row['updated_date'];
-			$object->closed_date = $row['closed_date'];
+			$object->message_recipient_id = $row['message_recipient_id'];
 			$object->timestamp = $row['timestamp'];
 			$object->entrytype = $row['entrytype'];
 			$object->commid = $row['commid'];
@@ -198,11 +186,7 @@ class DAO_FaxXferlog extends Feg_ORMHelper {
 		
 		$select_sql = sprintf("SELECT ".
 			"fx.id as %s, ".
-			"fx.recipient_id as %s, ".
-			"fx.message_id as %s, ".
-			"fx.send_status as %s, ".
-			"fx.updated_date as %s, ".
-			"fx.closed_date as %s, ".
+			"fx.message_recipient_id as %s, ".
 			"fx.timestamp as %s, ".
 			"fx.entrytype as %s, ".
 			"fx.commid as %s, ".
@@ -224,11 +208,7 @@ class DAO_FaxXferlog extends Feg_ORMHelper {
 			"fx.dcs as %s, ".
 			"fx.jobinfo as %s ",
 				SearchFields_FaxXferlog::ID,
-				SearchFields_FaxXferlog::RECIPIENT_ID,
-				SearchFields_FaxXferlog::MESSAGE_ID,
-				SearchFields_FaxXferlog::SEND_STATUS,
-				SearchFields_FaxXferlog::UPDATED_DATE,
-				SearchFields_FaxXferlog::CLOSED_DATE,
+				SearchFields_FaxXferlog::MESSAGE_RECIPIENT_ID,
 				SearchFields_FaxXferlog::TIMESTAMP,
 				SearchFields_FaxXferlog::ENTRYTYPE,
 				SearchFields_FaxXferlog::COMMID,
@@ -312,11 +292,7 @@ class DAO_FaxXferlog extends Feg_ORMHelper {
 
 class SearchFields_FaxXferlog implements IDevblocksSearchFields {
 	const ID = 'fx_id';
-	const RECIPIENT_ID = 'fx_recipient_id';
-	const MESSAGE_ID = 'fx_message_id';
-	const SEND_STATUS = 'fx_send_status';
-	const UPDATED_DATE = 'fx_updated_date';
-	const CLOSED_DATE = 'fx_closed_date';
+	const MESSAGE_RECIPIENT_ID = 'fx_message_recipient_id';
 	const TIMESTAMP = 'fx_timestamp';
 	const ENTRYTYPE = 'fx_entrytype';
 	const COMMID = 'fx_commid';
@@ -346,11 +322,7 @@ class SearchFields_FaxXferlog implements IDevblocksSearchFields {
 		
 		$columns = array(
 			self::ID => new DevblocksSearchField(self::ID, 'fx', 'id', $translate->_('feg.fax_xferlog.id')),
-			self::RECIPIENT_ID => new DevblocksSearchField(self::RECIPIENT_ID, 'fx', 'recipient_id', $translate->_('feg.fax_xferlog.recipient_id')),
-			self::MESSAGE_ID => new DevblocksSearchField(self::MESSAGE_ID, 'fx', 'message_id', $translate->_('feg.fax_xferlog.message_id')),
-			self::SEND_STATUS => new DevblocksSearchField(self::SEND_STATUS, 'fx', 'send_status', $translate->_('feg.fax_xferlog.send_status')),
-			self::UPDATED_DATE => new DevblocksSearchField(self::UPDATED_DATE, 'fx', 'updated_date', $translate->_('feg.fax_xferlog.updated_date')),
-			self::CLOSED_DATE => new DevblocksSearchField(self::CLOSED_DATE, 'fx', 'closed_date', $translate->_('feg.fax_xferlog.closed_date')),
+			self::MESSAGE_RECIPIENT_ID => new DevblocksSearchField(self::MESSAGE_RECIPIENT_ID, 'fx', 'message_recipient_id', $translate->_('feg.fax_xferlog.message_recipient_id')),
 			self::TIMESTAMP => new DevblocksSearchField(self::TIMESTAMP, 'fx', 'timestamp', $translate->_('feg.fax_xferlog.timestamp')),
 			self::ENTRYTYPE => new DevblocksSearchField(self::ENTRYTYPE, 'fx', 'entrytype', $translate->_('feg.fax_xferlog.entrytype')),
 			self::COMMID => new DevblocksSearchField(self::COMMID, 'fx', 'commid', $translate->_('feg.fax_xferlog.commid')),
@@ -396,11 +368,7 @@ class View_FaxXferlog extends FEG_AbstractView {
 
 		$this->view_columns = array(
 			SearchFields_FaxXferlog::ID,
-			SearchFields_FaxXferlog::RECIPIENT_ID,
-			SearchFields_FaxXferlog::MESSAGE_ID,
-			SearchFields_FaxXferlog::SEND_STATUS,
-			SearchFields_FaxXferlog::UPDATED_DATE,
-			SearchFields_FaxXferlog::CLOSED_DATE,
+			SearchFields_FaxXferlog::MESSAGE_RECIPIENT_ID,
 			SearchFields_FaxXferlog::TIMESTAMP,
 			SearchFields_FaxXferlog::ENTRYTYPE,
 			SearchFields_FaxXferlog::COMMID,
@@ -483,9 +451,7 @@ class View_FaxXferlog extends FEG_AbstractView {
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__string.tpl');
 				break;
 			case SearchFields_FaxXferlog::ID:
-			case SearchFields_FaxXferlog::RECIPIENT_ID:
-			case SearchFields_FaxXferlog::MESSAGE_ID:
-			case SearchFields_FaxXferlog::SEND_STATUS:
+			case SearchFields_FaxXferlog::MESSAGE_RECIPIENT_ID:
 			case SearchFields_FaxXferlog::LOCALNUMBER:
 			case SearchFields_FaxXferlog::NPAGES:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__number.tpl');
@@ -493,10 +459,9 @@ class View_FaxXferlog extends FEG_AbstractView {
 //			case 'placeholder_bool':
 //				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__bool.tpl');
 //				break;
-			case SearchFields_FaxXferlog::UPDATED_DATE:
-			case SearchFields_FaxXferlog::CLOSED_DATE:
-				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__date.tpl');
-				break;
+//			case 'placeholder_date':
+//				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__date.tpl');
+//				break;
 			default:
 				echo ' ';
 				break;
@@ -576,23 +541,20 @@ class View_FaxXferlog extends FEG_AbstractView {
 				$criteria = new DevblocksSearchCriteria($field, $oper, $value);
 				break;
 			case SearchFields_FaxXferlog::ID:
-			case SearchFields_FaxXferlog::RECIPIENT_ID:
-			case SearchFields_FaxXferlog::MESSAGE_ID:
-			case SearchFields_FaxXferlog::SEND_STATUS:
+			case SearchFields_FaxXferlog::MESSAGE_RECIPIENT_ID:
 			case SearchFields_FaxXferlog::NPAGES:
 				$criteria = new DevblocksSearchCriteria($field,$oper,$value);
 				break;
 				
-			case SearchFields_FaxXferlog::UPDATED_DATE:
-			case SearchFields_FaxXferlog::CLOSED_DATE:
-				@$from = DevblocksPlatform::importGPC($_REQUEST['from'],'string','');
-				@$to = DevblocksPlatform::importGPC($_REQUEST['to'],'string','');
+//			case 'placeholder_date':
+//				@$from = DevblocksPlatform::importGPC($_REQUEST['from'],'string','');
+//				@$to = DevblocksPlatform::importGPC($_REQUEST['to'],'string','');
 
-				if(empty($from)) $from = 0;
-				if(empty($to)) $to = 'today';
+//				if(empty($from)) $from = 0;
+//				if(empty($to)) $to = 'today';
 
-				$criteria = new DevblocksSearchCriteria($field,$oper,array($from,$to));
-				break;
+//				$criteria = new DevblocksSearchCriteria($field,$oper,array($from,$to));
+//				break;
 				
 //			case 'placeholder_bool':
 //				@$bool = DevblocksPlatform::importGPC($_REQUEST['bool'],'integer',1);
@@ -626,11 +588,7 @@ class View_FaxXferlog extends FEG_AbstractView {
 			switch($k) {
 				// [TODO] Used for bulk update
 //			$change_fields[DAO_FaxXferlog::ID] = intval($v);
-//			$change_fields[DAO_FaxXferlog::RECIPIENT_ID] = intval($v);
-//			$change_fields[DAO_FaxXferlog::MESSAGE_ID] = intval($v);
-//			$change_fields[DAO_FaxXferlog::SEND_STATUS] = intval($v);
-//			$change_fields[DAO_FaxXferlog::UPDATED_DATE] = intval($v);
-//			$change_fields[DAO_FaxXferlog::CLOSED_DATE] = intval($v);
+//			$change_fields[DAO_FaxXferlog::MESSAGE_RECIPIENT_ID] = intval($v);
 //			$change_fields[DAO_FaxXferlog::TIMESTAMP] = intval($v);
 //			$change_fields[DAO_FaxXferlog::ENTRYTYPE] = intval($v);
 //			$change_fields[DAO_FaxXferlog::COMMID] = intval($v);
