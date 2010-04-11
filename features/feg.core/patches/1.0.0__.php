@@ -256,8 +256,7 @@ if(!isset($tables['fax_xferlog'])) {
 			dcs varchar(100) NULL,
 			jobinfo varchar(200) NULL,
 			PRIMARY KEY (id),
-			INDEX message_recipient_id (message_recipient_id),
-			INDEX send_status (send_status)
+			INDEX message_recipient_id (message_recipient_id)
 		) ENGINE=MyISAM;
 	";
 	$db->Execute($sql);	
