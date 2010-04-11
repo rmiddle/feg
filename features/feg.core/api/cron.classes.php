@@ -78,3 +78,45 @@ class HeartbeatCron extends FegCronExtension {
 	}
 };
 
+/**
+ * Plugins can implement an event listener on the import action being done 
+ * every 1 minutes.
+ */
+class ImportCron extends FegCronExtension {
+	function run() {
+		$logger = DevblocksPlatform::getConsoleLog();
+		$logger->info("[Message Import] Starting Import Task");
+		
+		//	System wide default should be fine will revisit if needed	
+		//	@ini_set('memory_limit','128M');
+
+		$db = DevblocksPlatform::getDatabaseService();
+
+		// Give plugins a chance to run import
+	    $eventMgr = DevblocksPlatform::getEventService();
+	    $eventMgr->trigger(
+	        new Model_DevblocksEvent(
+	            'cron.import',
+                array()
+            )
+	    );
+	  
+		$logger->info('[Message Import] finished.');
+	}
+
+	function configure($instance) {
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
+		$tpl->assign('path', $tpl_path);
+
+		$tpl->assign('import_folder_path', $this->getParam('import_folder_path', APP_STORAGE_PATH . '/import/new'));
+
+		$tpl->display($tpl_path . 'cron/import/config.tpl');
+	}
+
+	function saveConfigurationAction() {
+		@$import_folder_path = DevblocksPlatform::importGPC($_POST['import_folder_path'],'string');
+		$this->setParam('import_folder_path', $import_folder_path);
+	}
+};
+

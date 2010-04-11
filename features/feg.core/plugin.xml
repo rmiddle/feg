@@ -115,12 +115,9 @@
 		<event id="cron.maint">
 			<name>Maintenance</name>
 		</event>
-		<!--
-		<event id="worker.delete">
-			<name>Worker Delete</name>
-			<param key="worker_ids" />
+		<event id="cron.import">
+			<name>Import Messages</name>
 		</event>
-		-->
 	</event_points>
 
 	<!-- Permissions -->
@@ -375,10 +372,9 @@
 			</params>
 		</extension>
 		
-		<!--
 		<extension point="feg.cron">
 			<id>cron.import</id>
-			<name>Background Importing and Synchronization</name>
+			<name>Message Imports</name>
 			<class>
 				<file>api/cron.classes.php</file>
 				<name>ImportCron</name>
@@ -386,7 +382,6 @@
 			<params>
 			</params>
 		</extension>
-		-->
 		
 		<!-- Custom Field Sources -->
 
