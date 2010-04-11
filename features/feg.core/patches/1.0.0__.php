@@ -217,7 +217,7 @@ if(!isset($tables['message_recipient'])) {
 			id BIGINT UNSIGNED DEFAULT 0 NOT NULL,
 			message_id BIGINT UNSIGNED DEFAULT 0 NOT NULL,
 			recipient_id INT UNSIGNED DEFAULT 0 NOT NULL,
-			send_status TINYINT UNSIGNED DEFAULT 0 NOT NULL
+			send_status TINYINT UNSIGNED DEFAULT 0 NOT NULL,
 			created_date INT UNSIGNED DEFAULT 0 NOT NULL,
 			updated_date INT UNSIGNED DEFAULT 0 NOT NULL,
 			closed_date INT UNSIGNED DEFAULT 0 NOT NULL,
