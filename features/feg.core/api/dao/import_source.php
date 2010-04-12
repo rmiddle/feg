@@ -238,7 +238,7 @@ class View_ImportSource extends FEG_AbstractView {
 		$translate = DevblocksPlatform::getTranslationService();
 	
 		$this->id = self::DEFAULT_ID;
-		$this->name = $translate->_('feg.import_source.name');
+		$this->name = $translate->_('feg.import_source.default_name');
 		$this->renderLimit = 25;
 		$this->renderSortBy = SearchFields_ImportSource::NAME;
 		$this->renderSortAsc = true;

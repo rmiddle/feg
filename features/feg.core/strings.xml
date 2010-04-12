@@ -537,6 +537,31 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.customer_account.id'>
 			<tuv xml:lang="en_US"><seg>Customer ID</seg></tuv>
 		</tu>
+		
+		<!-- Source Imports Translations -->
+		
+		<tu tuid='feg.import_source.title'>
+			<tuv xml:lang="en_US"><seg>Import Sources</seg></tuv>
+		</tu>
+		<tu tuid='feg.import_source.id'>
+			<tuv xml:lang="en_US"><seg>Sources id</seg></tuv>
+		</tu>
+		<tu tuid='feg.import_source.name'>
+			<tuv xml:lang="en_US"><seg>Name</seg></tuv>
+		</tu>
+		<tu tuid='feg.import_source.path'>
+			<tuv xml:lang="en_US"><seg>Folder Path</seg></tuv>
+		</tu>
+		<tu tuid='feg.import_source.type'>
+			<tuv xml:lang="en_US"><seg>Source Type</seg></tuv>
+		</tu>
+		<tu tuid='feg.import_source.is_disabled'>
+			<tuv xml:lang="en_US"><seg>Disabled Status</seg></tuv>
+		</tu>
+		<tu tuid='feg.import_source.default_name'>
+			<tuv xml:lang="en_US"><seg>Import Sources List</seg></tuv>
+		</tu>
+				
 	</body>
 </tmx>
 <!-- 
