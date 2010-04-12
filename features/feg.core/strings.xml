@@ -561,6 +561,9 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.import_source.default_name'>
 			<tuv xml:lang="en_US"><seg>Import Sources List</seg></tuv>
 		</tu>
+		<tu tuid='feg.import_source.add_source'>
+			<tuv xml:lang="en_US"><seg>Add Import Sources</seg></tuv>
+		</tu>
 				
 	</body>
 </tmx>
