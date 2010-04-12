@@ -262,6 +262,22 @@ if(!isset($tables['fax_xferlog'])) {
 	$db->Execute($sql);	
 }
 
+if(!isset($tables['import_source'])) {
+	$sql = "
+		CREATE TABLE IF NOT EXISTS import_source (
+			id INT UNSIGNED DEFAULT 0 NOT NULL,
+			name varchar(255) NOT NULL DEFAULT '',
+			path varchar(255) NOT NULL DEFAULT '',
+			type INT UNSIGNED DEFAULT 0 NOT NULL,
+			is_disabled TINYINT UNSIGNED DEFAULT 0 NOT NULL,
+			PRIMARY KEY (id),
+			INDEX is_disabled (is_disabled)
+		) ENGINE=MyISAM;
+	";
+	$db->Execute($sql);	
+}
+
+
 if(!isset($tables['export_filter'])) {
 	$sql = "
 		CREATE TABLE IF NOT EXISTS export_filter (

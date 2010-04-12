@@ -90,6 +90,12 @@
 			<class name="SearchFields_FaxXferlog" />
 			<class name="View_FaxXferlog" />
 		</file>
+		<file path="api/dao/import_source.php">
+			<class name="DAO_ImportSource" />
+			<class name="Model_ImportSource" />
+			<class name="SearchFields_ImportSource" />
+			<class name="View_ImportSource" />
+		</file>
 		<file path="api/dao/export_filter.php">
 			<class name="FegCustomFieldSource_ExportFilter" />
 			<class name="DAO_ExportFilter" />
@@ -199,20 +205,6 @@
 			<params>
 			</params>
 		</extension>
-
-		<!-- Translations -->
-		
-<!-- 
-		<extension point="devblocks.i18n.strings">
-			<id>core.translations</id>
-			<name>Feg Strings</name>
-			<class>
-				<file>api/plugin.classes.php</file>
-				<name>FegTranslations</name>
-			</class>
-			<params/>
-		</extension>
--->
 
 		<!-- Patch Containers -->
 		

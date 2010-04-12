@@ -16,20 +16,6 @@
 	</class_loader>
 	
 	<extensions>
-	
-		<!-- Translations -->
-		
-		<extension point="devblocks.i18n.strings">
-			<id>translate.translations</id>
-			<name>Translate Strings</name>
-			<class>
-				<file>api/Plugin.php</file>
-				<name>FegTranslateTranslations</name>
-			</class>
-			<params>
-			</params>
-		</extension>
-	
 		<!-- Config Tabs -->
 		
 		<extension point="feg.setup.tab">

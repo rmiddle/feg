@@ -419,6 +419,151 @@ class FegSetupPage extends FegPageExtension  {
 		return;
 	}
 	
+	function showTabImportAction() {
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('$path', $this->_TPL_PATH);
+
+		$worker = FegApplication::getActiveWorker();
+		if(!$worker || !$worker->is_superuser) {
+			echo $translate->_('common.access_denied');
+			return;
+		}
+		
+		$tpl->assign('response_uri', 'setup/recipient');
+		
+		$tpl->assign('core_tplpath', $core_tplpath);
+		
+		$defaults = new Feg_AbstractViewModel();
+		$defaults->name = 'Full Customer Recipient List';
+		$defaults->id = 'full_view_recipient';
+		$defaults->class_name = 'View_CustomerRecipient';
+		$defaults->renderLimit = 15;
+		
+		$defaults->renderSortBy = SearchFields_CustomerRecipient::ID;
+		$defaults->renderSortAsc = 0;
+		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
+		$view->name = 'Full Customer Recipient List';
+		$view->renderPage = 0;
+		Feg_AbstractViewLoader::setView($view->id,$view);
+		
+		$tpl->assign('view', $view);
+		$tpl->assign('view_fields', View_CustomerRecipient::getFields());
+		$tpl->assign('view_searchable_fields', View_CustomerRecipient::getSearchFields());
+				
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_recipient/index.tpl');		
+	}
+	
+	function showImportPeekAction() {
+		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
+		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
+		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
+		
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('path', $this->_TPL_PATH);
+		
+		$tpl->assign('id', $id);
+		$tpl->assign('customer_id', $customer_id);
+		$tpl->assign('view_id', $view_id);
+		
+		// Custom Fields
+		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerRecipient::ID);
+		$tpl->assign('custom_fields', $custom_fields);
+		
+		$custom_field_values = DAO_CustomFieldValue::getValuesBySourceIds(FegCustomFieldSource_CustomerRecipient::ID, $id);
+		if(isset($custom_field_values[$id]))
+			$tpl->assign('custom_field_values', $custom_field_values[$id]);
+			
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_recipient/peek.tpl');		
+	}
+	
+	function saveImportPeekAction() {
+		$translate = DevblocksPlatform::getTranslationService();
+		
+		@$id = DevblocksPlatform::importGPC($_POST['id'],'integer');
+		@$view_id = DevblocksPlatform::importGPC($_POST['view_id'],'string');
+		@$delete = DevblocksPlatform::importGPC($_POST['do_delete'],'integer',0);
+
+		@$disabled = DevblocksPlatform::importGPC($_POST['recipient_is_disabled'],'integer',0);
+		@$recipient_type = DevblocksPlatform::importGPC($_POST['recipient_type'],'integer',0);
+		@$recipient_account_id = DevblocksPlatform::importGPC($_POST['recipient_account_id'],'integer',0);
+		@$recipient_address = DevblocksPlatform::importGPC($_POST['recipient_address'],'string',"");
+		@$recipient_export_filter = DevblocksPlatform::importGPC($_POST['recipient_export_filter'],'integer',0);
+		
+		$fields = array(
+			DAO_CustomerRecipient::ACCOUNT_ID => $recipient_account_id,
+			DAO_CustomerRecipient::EXPORT_FILTER => $recipient_export_filter,
+			DAO_CustomerRecipient::IS_DISABLED => $disabled,
+			DAO_CustomerRecipient::TYPE => $recipient_type,
+			DAO_CustomerRecipient::ADDRESS => $recipient_address,
+		);
+		
+		if($id == 0) {
+			// Create Customer Recipients 
+			$id = $status = DAO_CustomerRecipient::create($fields);
+		} else {
+			// Update Customer Recipients 
+			$status = DAO_CustomerRecipient::update($id, $fields);
+		}
+		
+		if(!empty($view_id)) {
+			$view = Feg_AbstractViewLoader::getView($view_id);
+			$view->render();
+		}
+		
+		//DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','workers')));		
+	}
+	
+	function showImportBulkPanelAction() {
+		@$id_csv = DevblocksPlatform::importGPC($_REQUEST['ids']);
+		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id']);
+
+		$tpl = DevblocksPlatform::getTemplateService();
+		$path = $this->_TPL_PATH;
+		$tpl->assign('path', $path);
+		$tpl->assign('view_id', $view_id);
+
+	    if(!empty($id_csv)) {
+	        $ids = DevblocksPlatform::parseCsvString($id_csv);
+	        $tpl->assign('ids', implode(',', $ids));
+	    }
+		
+		// Custom Fields
+		$custom_fields = DAO_CustomField::getBySource(SearchFields_CustomerRecipient::ID);
+		$tpl->assign('custom_fields', $custom_fields);
+		
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_recipient/bulk.tpl');		
+	}
+	
+	function doImportBulkUpdateAction() {
+		// Checked rows
+	    @$ids_str = DevblocksPlatform::importGPC($_REQUEST['ids'],'string');
+		$ids = DevblocksPlatform::parseCsvString($ids_str);
+
+		// Filter: whole list or check
+	    @$filter = DevblocksPlatform::importGPC($_REQUEST['filter'],'string','');
+	    
+	    // View
+		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string');
+		$view = Feg_AbstractViewLoader::getView($view_id);
+		
+		// Customer Recpiept Fields.
+		@$is_disabled = trim(DevblocksPlatform::importGPC($_POST['recipient_is_disabled'],'string',''));
+
+		$do = array();
+		
+		// Do: Disabled
+		if(0 != strlen($is_disabled))
+			$do['is_disabled'] = $is_disabled;
+			
+		// Do: Custom fields
+		$do = DAO_CustomFieldValue::handleBulkPost($do);
+		
+		$view->doBulkUpdate($filter, $do, $ids);
+		
+		$view->render();
+		return;
+	}
+	
 	function showTabRecipientAction() {
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('$path', $this->_TPL_PATH);
@@ -1059,100 +1204,4 @@ class FegSetupPage extends FegPageExtension  {
 		DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','settings')));
 	}
 	
-//	// Ajax
-//	function getTeamAction() {
-//		$translate = DevblocksPlatform::getTranslationService();
-//		$worker = FegApplication::getActiveWorker();
-//		
-//		if(!$worker || !$worker->is_superuser) {
-//			echo $translate->_('common.access_denied');
-//			return;
-//		}
-//		
-//		@$id = DevblocksPlatform::importGPC($_REQUEST['id']);
-//
-//		$tpl = DevblocksPlatform::getTemplateService();
-//		$tpl->assign('path', $this->_TPL_PATH);
-//
-//		$teams = DAO_Group::getAll();
-//		$tpl->assign('teams', $teams);
-//		
-//		@$team = $teams[$id];
-//		$tpl->assign('team', $team);
-//		
-//		if(!empty($id)) {
-//			@$members = DAO_Group::getTeamMembers($id);
-//			$tpl->assign('members', $members);
-//		}
-//		
-//		$workers = DAO_Worker::getAllActive();
-//		$tpl->assign('workers', $workers);
-//		
-//		$tpl->assign('license',FegLicense::getInstance());
-//		
-//		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/groups/edit_group.tpl');
-//	}
-//	
-//	// Post
-//	function saveTeamAction() {
-//		$translate = DevblocksPlatform::getTranslationService();
-//		$worker = FegApplication::getActiveWorker();
-//		
-//		if(!$worker || !$worker->is_superuser) {
-//			echo $translate->_('common.access_denied');
-//			return;
-//		}
-//		
-//		@$id = DevblocksPlatform::importGPC($_POST['id']);
-//		@$name = DevblocksPlatform::importGPC($_POST['name']);
-//		@$delete = DevblocksPlatform::importGPC($_POST['delete_box']);
-//		@$delete_move_id = DevblocksPlatform::importGPC($_POST['delete_move_id'],'integer',0);
-//		
-//		if(empty($name)) $name = "No Name";
-//		
-//		if(!empty($id) && !empty($delete)) {
-//			if(!empty($delete_move_id)) {
-//				$fields = array(
-//					DAO_Ticket::TEAM_ID => $delete_move_id
-//				);
-//				$where = sprintf("%s=%d",
-//					DAO_Ticket::TEAM_ID,
-//					$id
-//				);
-//				DAO_Ticket::updateWhere($fields, $where);
-//				
-//				DAO_Group::deleteTeam($id);
-//			}
-//			
-//		} elseif(!empty($id)) {
-//			$fields = array(
-//				DAO_Group::TEAM_NAME => $name,
-//			);
-//			DAO_Group::updateTeam($id, $fields);
-//			
-//		} else {
-//			$fields = array(
-//				DAO_Group::TEAM_NAME => $name,
-//			);
-//			$id = DAO_Group::createTeam($fields);
-//		}
-//		
-//		@$worker_ids = DevblocksPlatform::importGPC($_POST['worker_ids'],'array',array());
-//		@$worker_levels = DevblocksPlatform::importGPC($_POST['worker_levels'],'array',array());
-//		
-//	    @$members = DAO_Group::getTeamMembers($id);
-//	    
-//	    if(is_array($worker_ids) && !empty($worker_ids))
-//	    foreach($worker_ids as $idx => $worker_id) {
-//	    	@$level = $worker_levels[$idx];
-//	    	if(isset($members[$worker_id]) && empty($level)) {
-//	    		DAO_Group::unsetTeamMember($id, $worker_id);
-//	    	} elseif(!empty($level)) { // member|manager
-//				 DAO_Group::setTeamMember($id, $worker_id, (1==$level)?false:true);
-//	    	}
-//	    }
-//		
-//		DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','groups')));
-//	}
-
 };

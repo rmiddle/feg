@@ -1,31 +1,26 @@
 <?php
 
-// Custom Field Sources
-class FegCustomFieldSource_CustomerAccount extends Extension_CustomFieldSource {
-	const ID = 'feg.fields.source.customer_account';
-};
-
-class Model_CustomerAccount {
+class Model_ImportSource {
 	public $id;
+	public $name;
+	public $path;
+	public $type;
 	public $is_disabled;
-	public $account_number;
-	public $account_name;
-	public $import_source;
 };
 
-class DAO_CustomerAccount extends Feg_ORMHelper {
+class DAO_ImportSource extends Feg_ORMHelper {
 	const ID = 'id';
+	const NAME = 'name';
+	const PATH = 'path';
+	const TYPE = 'type';
 	const IS_DISABLED = 'is_disabled';
-	const ACCOUNT_NUMBER = 'account_number';
-	const ACCOUNT_NAME = 'account_name';
-	const IMPORT_SOURCE = 'import_source';
 
 	static function create($fields) {
 		$db = DevblocksPlatform::getDatabaseService();
 		
-		$id = $db->GenID('customer_account_seq');
+		$id = $db->GenID('generic_seq');
 		
-		$sql = sprintf("INSERT INTO customer_account (id) ".
+		$sql = sprintf("INSERT INTO import_source (id) ".
 			"VALUES (%d)",
 			$id
 		);
@@ -37,22 +32,22 @@ class DAO_CustomerAccount extends Feg_ORMHelper {
 	}
 	
 	static function update($ids, $fields) {
-		parent::_update($ids, 'customer_account', $fields);
+		parent::_update($ids, 'import_source', $fields);
 	}
 	
 	static function updateWhere($fields, $where) {
-		parent::_updateWhere('customer_account', $fields, $where);
+		parent::_updateWhere('import_source', $fields, $where);
 	}
 	
 	/**
 	 * @param string $where
-	 * @return Model_CustomerAccount[]
+	 * @return Model_ImportSource[]
 	 */
 	static function getWhere($where=null) {
 		$db = DevblocksPlatform::getDatabaseService();
 		
-		$sql = "SELECT id, is_disabled, account_number, account_name, import_source ".
-			"FROM customer_account ".
+		$sql = "SELECT id, name, path, type, is_disabled ".
+			"FROM import_source ".
 			(!empty($where) ? sprintf("WHERE %s ",$where) : "").
 			"ORDER BY id asc";
 		$rs = $db->Execute($sql);
@@ -62,7 +57,7 @@ class DAO_CustomerAccount extends Feg_ORMHelper {
 
 	/**
 	 * @param integer $id
-	 * @return Model_CustomerAccount	 */
+	 * @return Model_ImportSource	 */
 	static function get($id) {
 		$objects = self::getWhere(sprintf("%s = %d",
 			self::ID,
@@ -77,18 +72,18 @@ class DAO_CustomerAccount extends Feg_ORMHelper {
 	
 	/**
 	 * @param resource $rs
-	 * @return Model_CustomerAccount[]
+	 * @return Model_ImportSource[]
 	 */
 	static private function _getObjectsFromResult($rs) {
 		$objects = array();
 		
 		while($row = mysql_fetch_assoc($rs)) {
-			$object = new Model_CustomerAccount();
+			$object = new Model_ImportSource();
 			$object->id = $row['id'];
+			$object->name = $row['name'];
+			$object->path = $row['path'];
+			$object->type = $row['type'];
 			$object->is_disabled = $row['is_disabled'];
-			$object->account_number = $row['account_number'];
-			$object->account_name = $row['account_name'];
-			$object->import_source = $row['import_source'];
 			$objects[$object->id] = $object;
 		}
 		
@@ -106,7 +101,7 @@ class DAO_CustomerAccount extends Feg_ORMHelper {
 		
 		$ids_list = implode(',', $ids);
 		
-		$db->Execute(sprintf("DELETE FROM customer_account WHERE id IN (%s)", $ids_list));
+		$db->Execute(sprintf("DELETE FROM import_source WHERE id IN (%s)", $ids_list));
 		
 		return true;
 	}
@@ -125,7 +120,7 @@ class DAO_CustomerAccount extends Feg_ORMHelper {
      */
     static function search($columns, $params, $limit=10, $page=0, $sortBy=null, $sortAsc=null, $withCounts=true) {
 		$db = DevblocksPlatform::getDatabaseService();
-		$fields = SearchFields_CustomerAccount::getFields();
+		$fields = SearchFields_ImportSource::getFields();
 		
 		// Sanitize
 		if(!isset($fields[$sortBy]))
@@ -136,25 +131,25 @@ class DAO_CustomerAccount extends Feg_ORMHelper {
 		$total = -1;
 		
 		$select_sql = sprintf("SELECT ".
-			"ca.id as %s, ".
-			"ca.is_disabled as %s, ".
-			"ca.account_number as %s, ".
-			"ca.account_name as %s, ".
-			"ca.import_source as %s ",
-				SearchFields_CustomerAccount::ID,
-				SearchFields_CustomerAccount::IS_DISABLED,
-				SearchFields_CustomerAccount::ACCOUNT_NUMBER,
-				SearchFields_CustomerAccount::ACCOUNT_NAME,
-				SearchFields_CustomerAccount::IMPORT_SOURCE
+			"import_source.id as %s, ".
+			"import_source.name as %s, ".
+			"import_source.path as %s, ".
+			"import_source.type as %s, ".
+			"import_source.is_disabled as %s ",
+				SearchFields_ImportSource::ID,
+				SearchFields_ImportSource::NAME,
+				SearchFields_ImportSource::PATH,
+				SearchFields_ImportSource::TYPE,
+				SearchFields_ImportSource::IS_DISABLED
 			);
 			
-		$join_sql = "FROM customer_account ca ";
+		$join_sql = "FROM import_source ";
 		
-		 //Custom field joins
+		// Custom field joins
 		list($select_sql, $join_sql, $has_multiple_values) = self::_appendSelectJoinSqlForCustomFieldTables(
 			$tables,
 			$params,
-			'ca.id',
+			'import_source.id',
 			$select_sql,
 			$join_sql
 		);
@@ -168,12 +163,12 @@ class DAO_CustomerAccount extends Feg_ORMHelper {
 			$select_sql.
 			$join_sql.
 			$where_sql.
-			($has_multiple_values ? 'GROUP BY ca.id ' : '').
+			($has_multiple_values ? 'GROUP BY import_source.id ' : '').
 			$sort_sql;
 			
 		// [TODO] Could push the select logic down a level too
 		if($limit > 0) {
-    		$rs = $db->SelectLimit($sql,$limit,$start) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
+    		$rs = $db->SelectLimit($sql,$limit,$start) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); /* @var $rs */
 		} else {
 		    $rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); /* @var $rs */
             $total = mysql_num_rows($rs);
@@ -186,14 +181,14 @@ class DAO_CustomerAccount extends Feg_ORMHelper {
 			foreach($row as $f => $v) {
 				$result[$f] = $v;
 			}
-			$object_id = intval($row[SearchFields_CustomerAccount::ID]);
+			$object_id = intval($row[SearchFields_ImportSource::ID]);
 			$results[$object_id] = $result;
 		}
 
 		// [JAS]: Count all
 		if($withCounts) {
 			$count_sql = 
-				($has_multiple_values ? "SELECT COUNT(DISTINCT ca.id) " : "SELECT COUNT(ca.id) ").
+				($has_multiple_values ? "SELECT COUNT(DISTINCT import_source.id) " : "SELECT COUNT(import_source.id) ").
 				$join_sql.
 				$where_sql;
 			$total = $db->GetOne($count_sql);
@@ -207,12 +202,12 @@ class DAO_CustomerAccount extends Feg_ORMHelper {
 };
 
 
-class SearchFields_CustomerAccount implements IDevblocksSearchFields {
-	const ID = 'ca_id';
-	const IS_DISABLED = 'ca_is_disabled';
-	const ACCOUNT_NUMBER = 'ca_account_number';
-	const ACCOUNT_NAME = 'ca_account_name';
-	const IMPORT_SOURCE = 'ca_import_source';
+class SearchFields_ImportSource implements IDevblocksSearchFields {
+	const ID = 'i_id';
+	const NAME = 'i_name';
+	const PATH = 'i_path';
+	const TYPE = 'i_type';
+	const IS_DISABLED = 'i_is_disabled';
 	
 	/**
 	 * @return DevblocksSearchField[]
@@ -221,21 +216,12 @@ class SearchFields_CustomerAccount implements IDevblocksSearchFields {
 		$translate = DevblocksPlatform::getTranslationService();
 		
 		$columns = array(
-			self::ID => new DevblocksSearchField(self::ID, 'ca', 'id', $translate->_('feg.customer_account.id')),
-			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'ca', 'is_disabled', $translate->_('common.disabled')),
-			self::ACCOUNT_NUMBER => new DevblocksSearchField(self::ACCOUNT_NUMBER, 'ca', 'account_number', $translate->_('feg.customer_account.account_number')),
-			self::ACCOUNT_NAME => new DevblocksSearchField(self::ACCOUNT_NAME, 'ca', 'account_name', $translate->_('feg.customer_account.account_name')),
-			self::IMPORT_SOURCE => new DevblocksSearchField(self::IMPORT_SOURCE, 'ca', 'import_source', $translate->_('feg.customer_account.import_source')),
+			self::ID => new DevblocksSearchField(self::ID, 'import_source', 'id', $translate->_('feg.import_source.id')),
+			self::NAME => new DevblocksSearchField(self::NAME, 'import_source', 'name', $translate->_('feg.import_source.name')),
+			self::PATH => new DevblocksSearchField(self::PATH, 'import_source', 'path', $translate->_('feg.import_source.path')),
+			self::TYPE => new DevblocksSearchField(self::TYPE, 'import_source', 'type', $translate->_('feg.import_source.type')),
+			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'import_source', 'is_disabled', $translate->_('feg.import_source.is_disabled')),
 		);
-		
-		// Custom Fields
-		$fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerAccount::ID);
-
-		if(is_array($fields))
-		foreach($fields as $field_id => $field) {
-			$key = 'cf_'.$field_id;
-			$columns[$key] = new DevblocksSearchField($key,$key,'field_value',$field->name);
-		}
 		
 		// Sort by label (translation-conscious)
 		uasort($columns, create_function('$a, $b', "return strcasecmp(\$a->db_label,\$b->db_label);\n"));
@@ -245,30 +231,30 @@ class SearchFields_CustomerAccount implements IDevblocksSearchFields {
 };
 
 
-class View_CustomerAccount extends Feg_AbstractView {
-	const DEFAULT_ID = 'customer_account';
+class View_ImportSource extends FEG_AbstractView {
+	const DEFAULT_ID = 'import_source';
 	
 	function __construct() {
 		$translate = DevblocksPlatform::getTranslationService();
 	
 		$this->id = self::DEFAULT_ID;
-		$this->name = $translate->_('core.menu.account');
+		$this->name = $translate->_('feg.import_source.name');
 		$this->renderLimit = 25;
-		$this->renderSortBy = SearchFields_CustomerAccount::ACCOUNT_NUMBER;
+		$this->renderSortBy = SearchFields_ImportSource::NAME;
 		$this->renderSortAsc = true;
 
 		$this->view_columns = array(
-			SearchFields_CustomerAccount::ID,
-			SearchFields_CustomerAccount::IS_DISABLED,
-			SearchFields_CustomerAccount::ACCOUNT_NUMBER,
-			SearchFields_CustomerAccount::ACCOUNT_NAME,
-			SearchFields_CustomerAccount::IMPORT_SOURCE,
+			SearchFields_ImportSource::ID,
+			SearchFields_ImportSource::NAME,
+			SearchFields_ImportSource::PATH,
+			SearchFields_ImportSource::TYPE,
+			SearchFields_ImportSource::IS_DISABLED,
 		);
 		$this->doResetCriteria();
 	}
 
 	function getData() {
-		$objects = DAO_CustomerAccount::search(
+		$objects = DAO_ImportSource::search(
 			$this->view_columns,
 			$this->params,
 			$this->renderLimit,
@@ -286,11 +272,9 @@ class View_CustomerAccount extends Feg_AbstractView {
 		$tpl->assign('id', $this->id);
 		$tpl->assign('view', $this);
 
-		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerAccount::ID);
-		$tpl->assign('custom_fields', $custom_fields);
-		
 		$tpl->assign('view_fields', $this->getColumns());
-		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/customer_account/view.tpl');
+		// [TODO] Set your template path
+		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/import_source/view.tpl');
 	}
 
 	function renderCriteria($field) {
@@ -300,27 +284,23 @@ class View_CustomerAccount extends Feg_AbstractView {
 		$tpl_path = APP_PATH . '/features/feg.core/templates/';
 		
 		switch($field) {
-			case SearchFields_CustomerAccount::ACCOUNT_NUMBER:
-			case SearchFields_CustomerAccount::ACCOUNT_NAME:
-			case SearchFields_CustomerAccount::IMPORT_SOURCE:
+			case SearchFields_ImportSource::NAME:
+			case SearchFields_ImportSource::PATH:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__string.tpl');
 				break;
-			case SearchFields_CustomerAccount::ID:
+			case SearchFields_ImportSource::ID:
+			case SearchFields_ImportSource::TYPE:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__number.tpl');
 				break;
-			case SearchFields_CustomerAccount::IS_DISABLED:
-				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__is_disable.tpl');
+			case SearchFields_ImportSource::IS_DISABLED:
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__bool.tpl');
 				break;
 //			case 'placeholder_date':
 //				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__date.tpl');
 //				break;
 			default:
 				// Custom Fields
-				if('cf_' == substr($field,0,3)) {
-					$this->_renderCriteriaCustomField($tpl, substr($field,3));
-				} else {
-					echo ' ';
-				}
+				echo ' ';
 				break;
 		}
 	}
@@ -337,20 +317,20 @@ class View_CustomerAccount extends Feg_AbstractView {
 	}
 
 	static function getFields() {
-		return SearchFields_CustomerAccount::getFields();
+		return SearchFields_ImportSource::getFields();
 	}
 
 	static function getSearchFields() {
 		$fields = self::getFields();
 		// [TODO] Filter fields
-		// unset($fields[SearchFields_CustomerAccount::ID]);
+		// unset($fields[SearchFields_ImportSource::ID]);
 		return $fields;
 	}
 
 	static function getColumns() {
 		$fields = self::getFields();
 		// [TODO] Filter fields
-		//	unset($fields[SearchFields_CustomerAccount::ID]);
+		//	unset($fields[SearchFields_ImportSource::ID]);
 		return $fields;
 	}
 
@@ -358,7 +338,7 @@ class View_CustomerAccount extends Feg_AbstractView {
 		parent::doResetCriteria();
 		
 		$this->params = array(
-		//	SearchFields_CustomerAccount::IS_DISABLED => new DevblocksSearchCriteria(SearchFields_CustomerAccount::IS_DISABLED,'==',0),
+		//SearchFields_ImportSource::ID => new DevblocksSearchCriteria(SearchFields_ImportSource::ID,'!=',0),
 		);
 	}
 
@@ -366,8 +346,8 @@ class View_CustomerAccount extends Feg_AbstractView {
 		$criteria = null;
 
 		switch($field) {
-			case SearchFields_CustomerAccount::ACCOUNT_NUMBER:
-			case SearchFields_CustomerAccount::ACCOUNT_NAME:
+			case SearchFields_ImportSource::NAME:
+			case SearchFields_ImportSource::PATH:
 				// force wildcards if none used on a LIKE
 				if(($oper == DevblocksSearchCriteria::OPER_LIKE || $oper == DevblocksSearchCriteria::OPER_NOT_LIKE)
 				&& false === (strpos($value,'*'))) {
@@ -375,8 +355,8 @@ class View_CustomerAccount extends Feg_AbstractView {
 				}
 				$criteria = new DevblocksSearchCriteria($field, $oper, $value);
 				break;
-			case SearchFields_CustomerAccount::ID:
-			case SearchFields_CustomerAccount::IMPORT_SOURCE:
+			case SearchFields_ImportSource::ID:
+			case SearchFields_ImportSource::TYPE:
 				$criteria = new DevblocksSearchCriteria($field,$oper,$value);
 				break;
 				
@@ -390,15 +370,11 @@ class View_CustomerAccount extends Feg_AbstractView {
 //				$criteria = new DevblocksSearchCriteria($field,$oper,array($from,$to));
 //				break;
 				
-			case SearchFields_CustomerAccount::IS_DISABLED:
-				@$bool = DevblocksPlatform::importGPC($_REQUEST['bool'],'integer',0);
+			case SearchFields_ImportSource::IS_DISABLED:
+				@$bool = DevblocksPlatform::importGPC($_REQUEST['bool'],'integer',1);
 				$criteria = new DevblocksSearchCriteria($field,$oper,$bool);
 				break;
 			default:
-				// Custom Fields
-				if(substr($field,0,3)=='cf_') {
-					$criteria = $this->_doSetCriteriaCustomField($field, substr($field,3));
-				}
 				break;
 		}
 		if(!empty($criteria)) {
@@ -424,19 +400,18 @@ class View_CustomerAccount extends Feg_AbstractView {
 		if(is_array($do))
 		foreach($do as $k => $v) {
 			switch($k) {
-//			$change_fields[DAO_CustomerAccount::ID] = intval($v);
-//			$change_fields[DAO_CustomerAccount::ACCOUNT_NUMBER] = intval($v);
-//			$change_fields[DAO_CustomerAccount::ACCOUNT_NAME] = intval($v);
-//			$change_fields[DAO_CustomerAccount::IMPORT_SOURCE] = intval($v);
-				// [TODO] Implement actions FIXME after bulkupdate form created
-				case 'is_disabled':
-					$change_fields[DAO_CustomerAccount::IS_DISABLED] = intval($v);
+				// [TODO] Used for bulk update
+				//$change_fields[DAO_ImportSource::ID] = intval($v);
+				//$change_fields[DAO_ImportSource::NAME] = intval($v);
+				//$change_fields[DAO_ImportSource::PATH] = intval($v);
+				//$change_fields[DAO_ImportSource::TYPE] = intval($v);
+				//$change_fields[DAO_ImportSource::IS_DISABLED] = intval($v);
+				// [TODO] Implement actions
+				case 'example':
+					//$change_fields[DAO_ImportSource::EXAMPLE] = 'some value';
 					break;
 				default:
-					// Custom fields
-					if(substr($k,0,3)=="cf_") {
-						$custom_fields[substr($k,3)] = $v;
-					}
+					break;
 			}
 		}
 		
@@ -444,12 +419,11 @@ class View_CustomerAccount extends Feg_AbstractView {
 
 		if(empty($ids))
 		do {
-			list($objects,$null) = DAO_CustomerAccount::search(
-				array(),
+			list($objects,$null) = DAO_ImportSource::search(
 				$this->params,
 				100,
 				$pg++,
-				SearchFields_CustomerAccount::ID,
+				SearchFields_ImportSource::ID,
 				true,
 				false
 			);
@@ -461,10 +435,7 @@ class View_CustomerAccount extends Feg_AbstractView {
 		for($x=0;$x<=$batch_total;$x+=100) {
 			$batch_ids = array_slice($ids,$x,100);
 			
-			DAO_CustomerAccount::update($batch_ids, $change_fields);
-			
-			// Custom Fields
-			self::_doBulkSetCustomFields(FegCustomFieldSource_CustomerAccount::ID, $custom_fields, $batch_ids);
+			DAO_ImportSource::update($batch_ids, $change_fields);
 			
 			unset($batch_ids);
 		}

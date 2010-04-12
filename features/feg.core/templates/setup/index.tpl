@@ -20,9 +20,10 @@
 		<li><a href="{devblocks_url}ajax.php?c=setup&a=showTabWorkers&request={$request_path|escape:'url'}{/devblocks_url}">{$translate->_('setup.tab.workers')|escape:'quotes'}</a></li>
 		<li><a href="{devblocks_url}ajax.php?c=setup&a=showTabACL&request={$request_path|escape:'url'}{/devblocks_url}">{$translate->_('setup.tab.acl')|escape:'quotes'}</a></li>
 		<li><a href="{devblocks_url}ajax.php?c=setup&a=showTabFields&request={$request_path|escape:'url'}{/devblocks_url}">{$translate->_('setup.tab.fields')|escape:'quotes'}</a></li>
+		<li><a href="{devblocks_url}ajax.php?c=setup&a=showTabImport&request={$request_path|escape:'url'}{/devblocks_url}">{$translate->_('setup.tab.customer_recipient')|escape:'quotes'}</a></li>
 		<li><a href="{devblocks_url}ajax.php?c=setup&a=showTabRecipient&request={$request_path|escape:'url'}{/devblocks_url}">{$translate->_('setup.tab.customer_recipient')|escape:'quotes'}</a></li>
 
-		{$tabs = [settings,plugins,mail,scheduler,workers,acl,fields,recipient]}
+		{$tabs = [settings,plugins,mail,scheduler,workers,acl,fields,import,recipient]}
 
 		{foreach from=$tab_manifests item=tab_manifest}
 			{$tabs[] = $tab_manifest->params.uri}

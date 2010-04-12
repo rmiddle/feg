@@ -20,19 +20,6 @@
 	<!-- Extensions -->
 	
 	<extensions>
-		<!-- Translations -->
-		
-		<extension point="devblocks.i18n.strings">
-			<id>webapi.translations</id>
-			<name>Web API Strings</name>
-			<class>
-				<file>api/Plugin.php</file>
-				<name>FegWebApiTranslations</name>
-			</class>
-			<params>
-			</params>
-		</extension>
-
 		<!-- Controllers -->
 	
 		<extension point="devblocks.controller">
