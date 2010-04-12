@@ -30,12 +30,6 @@
 		<tu tuid='acl.core.access.export_filter.update'>
 			<tuv xml:lang="en_US"><seg>Update Export Filter</seg></tuv>
 		</tu>
-		<tu tuid='acl.core.access.import_filter.create'>
-			<tuv xml:lang="en_US"><seg>Create Import Filter</seg></tuv>
-		</tu>
-		<tu tuid='acl.core.access.import_filter.update'>
-			<tuv xml:lang="en_US"><seg>Update Import Filter</seg></tuv>
-		</tu>
 		<tu tuid='acl.core.access.customer.create'>
 			<tuv xml:lang="en_US"><seg>Create Customers</seg></tuv>
 		</tu>
@@ -507,13 +501,7 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.export_filter.title'>
 			<tuv xml:lang="en_US"><seg>Export Filters</seg></tuv>
 		</tu>
-		
-		<!-- Import Filter Translations -->
-		
-		<tu tuid='feg.import_filter.title'>
-			<tuv xml:lang="en_US"><seg>Import Filters</seg></tuv>
-		</tu>
-		
+				
 		<!-- Customer Translations -->
 		
 		<tu tuid='feg.customer_account.title'>
