@@ -434,15 +434,15 @@ class FegSetupPage extends FegPageExtension  {
 		$tpl->assign('core_tplpath', $core_tplpath);
 		
 		$defaults = new Feg_AbstractViewModel();
-		$defaults->name = 'Full Customer Recipient List';
-		$defaults->id = 'full_view_recipient';
-		$defaults->class_name = 'View_CustomerRecipient';
+		$defaults->name = 'Import Source List';
+		$defaults->id = 'import_source_list';
+		$defaults->class_name = 'View_ImportSource';
 		$defaults->renderLimit = 15;
 		
-		$defaults->renderSortBy = SearchFields_CustomerRecipient::ID;
+		$defaults->renderSortBy = SearchFields_ImportSource::ID;
 		$defaults->renderSortAsc = 0;
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
-		$view->name = 'Full Customer Recipient List';
+		$view->name = 'Import Source List';
 		$view->renderPage = 0;
 		Feg_AbstractViewLoader::setView($view->id,$view);
 		
@@ -450,30 +450,20 @@ class FegSetupPage extends FegPageExtension  {
 		$tpl->assign('view_fields', View_CustomerRecipient::getFields());
 		$tpl->assign('view_searchable_fields', View_CustomerRecipient::getSearchFields());
 				
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_recipient/index.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/import_source/index.tpl');		
 	}
 	
 	function showImportPeekAction() {
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
-		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
 		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
 		
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
 		
 		$tpl->assign('id', $id);
-		$tpl->assign('customer_id', $customer_id);
 		$tpl->assign('view_id', $view_id);
 		
-		// Custom Fields
-		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerRecipient::ID);
-		$tpl->assign('custom_fields', $custom_fields);
-		
-		$custom_field_values = DAO_CustomFieldValue::getValuesBySourceIds(FegCustomFieldSource_CustomerRecipient::ID, $id);
-		if(isset($custom_field_values[$id]))
-			$tpl->assign('custom_field_values', $custom_field_values[$id]);
-			
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_recipient/peek.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/import_source/peek.tpl');		
 	}
 	
 	function saveImportPeekAction() {
@@ -531,7 +521,7 @@ class FegSetupPage extends FegPageExtension  {
 		$custom_fields = DAO_CustomField::getBySource(SearchFields_CustomerRecipient::ID);
 		$tpl->assign('custom_fields', $custom_fields);
 		
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_recipient/bulk.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/import_source/bulk.tpl');		
 	}
 	
 	function doImportBulkUpdateAction() {
@@ -547,7 +537,7 @@ class FegSetupPage extends FegPageExtension  {
 		$view = Feg_AbstractViewLoader::getView($view_id);
 		
 		// Customer Recpiept Fields.
-		@$is_disabled = trim(DevblocksPlatform::importGPC($_POST['recipient_is_disabled'],'string',''));
+		@$is_disabled = trim(DevblocksPlatform::importGPC($_POST['import_is_disabled'],'string',''));
 
 		$do = array();
 		
