@@ -277,23 +277,5 @@ if(!isset($tables['export_filter'])) {
 
 	$db->Execute("INSERT INTO export_filter (id, filter_name, is_disabled, filter) VALUES (0,'Default',0,'');");
 }
-
-if(!isset($tables['import_filter'])) {
-	$sql = "
-		CREATE TABLE IF NOT EXISTS import_filter (
-			id INT UNSIGNED DEFAULT 0 NOT NULL,
-			filter_name varchar(255) NOT NULL DEFAULT '',
-			filter_folder varchar(255) NOT NULL DEFAULT '',
-			is_disabled TINYINT UNSIGNED DEFAULT 0 NOT NULL,
-			filter longtext,
-			PRIMARY KEY (id),
-			INDEX is_disabled (is_disabled)
-		) ENGINE=MyISAM;
-	";
-	$db->Execute($sql);	
-
-	$db->Execute("INSERT INTO import_filter (id, filter_name, is_disabled, filter) VALUES (0,'Default',0,'');");
-}
-
 	
 return TRUE;
