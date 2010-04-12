@@ -429,7 +429,7 @@ class FegSetupPage extends FegPageExtension  {
 			return;
 		}
 		
-		$tpl->assign('response_uri', 'setup/recipient');
+		$tpl->assign('response_uri', 'setup/import');
 		
 		$tpl->assign('core_tplpath', $core_tplpath);
 		
@@ -447,8 +447,8 @@ class FegSetupPage extends FegPageExtension  {
 		Feg_AbstractViewLoader::setView($view->id,$view);
 		
 		$tpl->assign('view', $view);
-		$tpl->assign('view_fields', View_CustomerRecipient::getFields());
-		$tpl->assign('view_searchable_fields', View_CustomerRecipient::getSearchFields());
+		$tpl->assign('view_fields', View_ImportSource::getFields());
+		$tpl->assign('view_searchable_fields', View_ImportSource::getSearchFields());
 				
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/import_source/index.tpl');		
 	}
