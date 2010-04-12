@@ -165,7 +165,7 @@ if(!isset($tables['customer_account'])) {
 			is_disabled TINYINT UNSIGNED DEFAULT 0 NOT NULL,
 			account_number varchar(255) NOT NULL DEFAULT '',
 			account_name varchar(255) NOT NULL DEFAULT '',
-			import_filter INT UNSIGNED DEFAULT 0 NOT NULL,
+			import_source INT UNSIGNED DEFAULT 0 NOT NULL,
 			PRIMARY KEY (id),
 			INDEX is_disabled (is_disabled),
 			INDEX account_number (account_number),
