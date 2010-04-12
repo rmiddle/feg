@@ -1,31 +1,31 @@
-<form action="{devblocks_url}{/devblocks_url}" method="POST" id="formRecipientPeek" name="formRecipientPeek" onsubmit="return false;">
+<form action="{devblocks_url}{/devblocks_url}" method="POST" id="formImportPeek" name="formImportPeek" onsubmit="return false;">
 <input type="hidden" name="c" value="setup">
-<input type="hidden" name="a" value="saveRecipientPeek">
+<input type="hidden" name="a" value="saveImportPeek">
 <input type="hidden" name="id" value="{$id}">
 <input type="hidden" name="view_id" value="{$view_id}">
 <input type="hidden" name="do_delete" value="0">
 
-{$rec = DAO_CustomerRecipient::get($id)}
+{$imports = DAO_ImportSource::get($id)}
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
 		<td nowrap="nowrap" align="right">ID: </td>
-		<td>{if $id}{$id}{else}{$translate->_('feg.customer_recipient.id.new')|capitalize}{/if}</td>
+		<td>{if $imports}{$imports}{else}{$translate->_('feg.import_source.new_source')|capitalize}{/if}</td>
 	</tr>
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('common.disabled')|capitalize}: </td>
 		<td width="100%">
-			<select name="recipient_is_disabled">
-				<option value="0" {if $rec->is_disabled == 0}selected{/if}>{$translate->_('common.enable')|capitalize}</option>
-				<option value="1" {if $rec->is_disabled == 1}selected{/if}>{$translate->_('common.disable')|capitalize}</option>
+			<select name="imports_is_disabled">
+				<option value="0" {if $imports->is_disabled == 0}selected{/if}>{$translate->_('common.enable')|capitalize}</option>
+				<option value="1" {if $imports->is_disabled == 1}selected{/if}>{$translate->_('common.disable')|capitalize}</option>
 			</select>
 		</td>
 	</tr>
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.type')|capitalize}: </td>
 			<select name="recipient_type">
-				<option value="0" {if $rec->type == '0'}selected{/if}>{$translate->_('recipient.type.email')|capitalize}</option>
-				<option value="1" {if $rec->type == '1'}selected{/if}>{$translate->_('recipient.type.fax')|capitalize}</option>
-				<option value="2" {if $rec->type == '2'}selected{/if}>{$translate->_('recipient.type.snpp')|capitalize}</option>
+				<option value="0" {if $imports->type == '0'}selected{/if}>{$translate->_('recipient.type.email')|capitalize}</option>
+				<option value="1" {if $imports->type == '1'}selected{/if}>{$translate->_('recipient.type.fax')|capitalize}</option>
+				<option value="2" {if $imports->type == '2'}selected{/if}>{$translate->_('recipient.type.snpp')|capitalize}</option>
 			</select>
 		</td>
 	</tr>
@@ -34,7 +34,7 @@
 		<td width="100%"><input type="text" name="recipient_address" value="{$rec->address|escape}" style="width:98%;"></td>
 	</tr>
 	{if $id}
-		{$account = DAO_CustomerAccount::get($rec->account_id)}
+		{$account = DAO_CustomerAccount::get($imports->account_id)}
 	{else}
 		{$account = DAO_CustomerAccount::get($customer_id)}
 	{/if}
