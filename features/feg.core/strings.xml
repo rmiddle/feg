@@ -567,6 +567,18 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.import_source.new_source'>
 			<tuv xml:lang="en_US"><seg>New Source</seg></tuv>
 		</tu>
+		<tu tuid='feg.import_source.peek.type'>
+			<tuv xml:lang="en_US"><seg>Select Type</seg></tuv>
+		</tu>
+		<tu tuid='feg.import_source.peek.type.ixo'>
+			<tuv xml:lang="en_US"><seg>Source IXO Main</seg></tuv>
+		</tu>
+		<tu tuid='feg.import_source.peek.type.common'>
+			<tuv xml:lang="en_US"><seg>Source Com Monitor</seg></tuv>
+		</tu>
+		<tu tuid='feg.import_source.peek.type.pi'>
+			<tuv xml:lang="en_US"><seg>Source PI</seg></tuv>
+		</tu>
 				
 	</body>
 </tmx>
