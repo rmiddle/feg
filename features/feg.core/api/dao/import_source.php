@@ -113,10 +113,6 @@ class DAO_ImportSource extends Feg_ORMHelper {
     	    $cache->save($import_sources, self::CACHE_ALL);
 	    }
 	    
-	    /*
-	     * If the caller doesn't want disabled workers then remove them from the results,
-	     * but don't bother caching two different versions (always cache all)
-	     */
 	    if(!$with_disabled) {
 	    	foreach($import_sources as $import_source_id => $import_source) { /* @var $worker CerberusWorker */
 	    		if($import_source->is_disabled)

@@ -30,7 +30,7 @@
 			<select name="import_type">
 				<option value="0" {if $imports->type == '0'}selected{/if}>{$translate->_('feg.import_source.peek.type.ixo')|capitalize}</option>
 				<option value="1" {if $imports->type == '1'}selected{/if}>{$translate->_('feg.import_source.peek.type.common')|capitalize}</option>
-				<option value="2" {if $imports->type == '255'}selected{/if}>{$translate->_('feg.import_source.peek.type.pi')|capitalize}</option>
+				<option value="2" {if $imports->type == '2'}selected{/if}>{$translate->_('feg.import_source.peek.type.pi')|capitalize}</option>
 			</select>
 		</td>
 	</tr>

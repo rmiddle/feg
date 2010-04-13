@@ -61,7 +61,7 @@
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showImportPeek&id={$result.i_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
 					{if $result.i_type == 0}{$translate->_('feg.import_source.peek.type.ixo')|capitalize}
 					{else if $result.i_type == 1}{$translate->_('feg.import_source.peek.type.common')|capitalize}
-					{else if $result.i_type == 255}{$translate->_('feg.import_source.peek.type.pi')|capitalize}
+					{else if $result.i_type == 2}{$translate->_('feg.import_source.peek.type.pi')|capitalize}
 					{/if}
 					</a>
 				</td>
