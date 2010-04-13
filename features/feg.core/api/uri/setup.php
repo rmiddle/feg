@@ -515,10 +515,6 @@ class FegSetupPage extends FegPageExtension  {
 	        $tpl->assign('ids', implode(',', $ids));
 	    }
 		
-		// Custom Fields
-		$custom_fields = DAO_CustomField::getBySource(SearchFields_CustomerRecipient::ID);
-		$tpl->assign('custom_fields', $custom_fields);
-		
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/import_source/bulk.tpl');		
 	}
 	
@@ -543,9 +539,6 @@ class FegSetupPage extends FegPageExtension  {
 		if(0 != strlen($is_disabled))
 			$do['is_disabled'] = $is_disabled;
 			
-		// Do: Custom fields
-		$do = DAO_CustomFieldValue::handleBulkPost($do);
-		
 		$view->doBulkUpdate($filter, $do, $ids);
 		
 		$view->render();
