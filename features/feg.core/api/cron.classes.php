@@ -104,8 +104,6 @@ class ImportCron extends FegCronExtension {
     	foreach($import_sources as $import_source_id => $import_source) { 
 			$logger->info('[Message Import] Now Processing ' . $import_source->name . ' Importer Number: ' . $import_source->id);
 			
-			print_r($import_source);
-			
 			switch($import_source->type) {
 				case 0:
 					self::importIXO($import_source);
