@@ -25,24 +25,24 @@
 		<td width="100%"><input type="text" name="import_name" value="{$imports->name|escape}" style="width:98%;"></td>
 	</tr>
 	<tr>
-		<td width="0%" nowrap="nowrap" align="right"><b>{$translate->_('feg.import_source.path')}</b>: </td>
-		<td width="100%"><input type="text" name="import_path" value="{$imports->path|escape}" style="width:98%;"></td>
-	</tr>
-	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.import_source.peek.type')|capitalize}: </td>
 		<td width="100%">
 			<select name="import_type">
 				<option value="0" {if $imports->type == '0'}selected{/if}>{$translate->_('feg.import_source.peek.type.ixo')|capitalize}</option>
 				<option value="1" {if $imports->type == '1'}selected{/if}>{$translate->_('feg.import_source.peek.type.common')|capitalize}</option>
-				<option value="2" {if $imports->type == '255'}selected{/if}>{$translate->_('eg.import_source.peek.type.pi')|capitalize}</option>
+				<option value="2" {if $imports->type == '255'}selected{/if}>{$translate->_('feg.import_source.peek.type.pi')|capitalize}</option>
 			</select>
 		</td>
 	</tr>
+	<tr>
+		<td width="0%" nowrap="nowrap" align="right"><b>{$translate->_('feg.import_source.path')}</b>: </td>
+		<td width="100%"><input type="text" name="import_path" value="{$imports->path|escape}" style="width:98%;"></td>
+	</tr>
 </table>
 <br>
-<button type="button" onclick="genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('common.save_changes')}</button>
+<button type="button" onclick="genericPanel.dialog('close');genericAjaxPost('formImportPeek', 'view{$view_id}', '');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('common.save_changes')}</button>
 {if $active_worker->is_superuser}
-	<button type="button" onclick="if(confirm('Are you sure you want to delete this Customers Recipient?')){literal}{{/literal}this.form.do_delete.value='1';genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');{literal}}{/literal}"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete2.gif{/devblocks_url}" align="top"> {$translate->_('common.delete')|capitalize}</button>
+	<button type="button" onclick="if(confirm('Are you sure you want to delete this Import Source?')){literal}{{/literal}this.form.do_delete.value='1';genericPanel.dialog('close');genericAjaxPost('formImportPeek', 'view{$view_id}', '');{literal}}{/literal}"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete2.gif{/devblocks_url}" align="top"> {$translate->_('common.delete')|capitalize}</button>
 {/if}
 <button type="button" onclick="genericPanel.dialog('close');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete.gif{/devblocks_url}" align="top"> {$translate->_('common.cancel')|capitalize}</button>
 <br>
@@ -50,6 +50,6 @@
 
 <script type="text/javascript" language="JavaScript1.2">
 	$(genericPanel).one('dialogopen',function(event,ui) {
-		genericPanel.dialog('option','title','Recipient'); 
+		genericPanel.dialog('option','title','Import'); 
 	} );
 </script>

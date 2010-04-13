@@ -473,26 +473,24 @@ class FegSetupPage extends FegPageExtension  {
 		@$view_id = DevblocksPlatform::importGPC($_POST['view_id'],'string');
 		@$delete = DevblocksPlatform::importGPC($_POST['do_delete'],'integer',0);
 
-		@$disabled = DevblocksPlatform::importGPC($_POST['recipient_is_disabled'],'integer',0);
-		@$recipient_type = DevblocksPlatform::importGPC($_POST['recipient_type'],'integer',0);
-		@$recipient_account_id = DevblocksPlatform::importGPC($_POST['recipient_account_id'],'integer',0);
-		@$recipient_address = DevblocksPlatform::importGPC($_POST['recipient_address'],'string',"");
-		@$recipient_export_filter = DevblocksPlatform::importGPC($_POST['recipient_export_filter'],'integer',0);
+		@$disabled = DevblocksPlatform::importGPC($_POST['imports_is_disabled'],'integer',0);
+		@$import_name = DevblocksPlatform::importGPC($_POST['import_name'],'integer',0);
+		@$import_type = DevblocksPlatform::importGPC($_POST['import_type'],'integer',0);
+		@$import_path = DevblocksPlatform::importGPC($_POST['import_path'],'string',"");
 		
 		$fields = array(
-			DAO_CustomerRecipient::ACCOUNT_ID => $recipient_account_id,
-			DAO_CustomerRecipient::EXPORT_FILTER => $recipient_export_filter,
-			DAO_CustomerRecipient::IS_DISABLED => $disabled,
-			DAO_CustomerRecipient::TYPE => $recipient_type,
-			DAO_CustomerRecipient::ADDRESS => $recipient_address,
+			DAO_ImportSource::NAME] => $import_name,
+			DAO_ImportSource::PATH] => $import_path,
+			DAO_ImportSource::TYPE] => $import_type,
+			DAO_ImportSource::IS_DISABLED] => $disabled,
 		);
 		
 		if($id == 0) {
-			// Create Customer Recipients 
-			$id = $status = DAO_CustomerRecipient::create($fields);
+			// Create New Import 
+			$id = $status = DAO_ImportSource::create($fields);
 		} else {
-			// Update Customer Recipients 
-			$status = DAO_CustomerRecipient::update($id, $fields);
+			// Update Existing Import 
+			$status = DAO_ImportSource::update($id, $fields);
 		}
 		
 		if(!empty($view_id)) {
