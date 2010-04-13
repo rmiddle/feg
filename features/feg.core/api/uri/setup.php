@@ -474,7 +474,7 @@ class FegSetupPage extends FegPageExtension  {
 		@$delete = DevblocksPlatform::importGPC($_POST['do_delete'],'integer',0);
 
 		@$disabled = DevblocksPlatform::importGPC($_POST['imports_is_disabled'],'integer',0);
-		@$import_name = DevblocksPlatform::importGPC($_POST['import_name'],'integer',0);
+		@$import_name = DevblocksPlatform::importGPC($_POST['import_name'],'string',"");
 		@$import_type = DevblocksPlatform::importGPC($_POST['import_type'],'integer',0);
 		@$import_path = DevblocksPlatform::importGPC($_POST['import_path'],'string',"");
 		
