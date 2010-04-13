@@ -100,14 +100,11 @@ class ImportCron extends FegCronExtension {
                 array()
             )
 	    );
-		//$import_filters = DAO_ImportFilter::getAll();
-    	//foreach($import_filters as $import_filter_id => $import_filter) { 
-		//	$logger->info('[Message Import] Now Processing ' . $import_filter->filter_name . ' Importer Number: ' . $import_filter->id);
-		//	$import_filter->filter_folder;
-		//	$import_filter->is_disabled;
-		//	$import_filter->filter;
+		$import_sources = DAO_ImportSource::getAll(();
+    	foreach($import_sources as $import_source_id => $import_source) { 
+			$logger->info('[Message Import] Now Processing ' . $import_source->name . ' Importer Number: ' . $import_source->id);
 
-	    //}
+	    }
 
 		$logger->info('[Message Import] finished.');
 	}

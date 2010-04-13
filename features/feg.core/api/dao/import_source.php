@@ -106,6 +106,27 @@ class DAO_ImportSource extends Feg_ORMHelper {
 		return true;
 	}
 	
+	static function getAll($nocache=false, $with_disabled=false) {
+	    $cache = DevblocksPlatform::getCacheService();
+	    if($nocache || null === ($import_sources = $cache->load(self::CACHE_ALL))) {
+    	    $import_sources = self::getWhere();
+    	    $cache->save($import_sources, self::CACHE_ALL);
+	    }
+	    
+	    /*
+	     * If the caller doesn't want disabled workers then remove them from the results,
+	     * but don't bother caching two different versions (always cache all)
+	     */
+	    if(!$with_disabled) {
+	    	foreach($import_sources as $import_source_id => $import_source) { /* @var $worker CerberusWorker */
+	    		if($import_source->is_disabled)
+	    			unset($import_sources[$import_source_id]);
+	    	}
+	    }
+	    
+	    return $import_sources;
+	}	
+	
     /**
      * Enter description here...
      *
