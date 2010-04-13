@@ -100,7 +100,7 @@ class ImportCron extends FegCronExtension {
                 array()
             )
 	    );
-		$import_sources = DAO_ImportSource::getAll(();
+		$import_sources = DAO_ImportSource::getAll();
     	foreach($import_sources as $import_source_id => $import_source) { 
 			$logger->info('[Message Import] Now Processing ' . $import_source->name . ' Importer Number: ' . $import_source->id);
 
