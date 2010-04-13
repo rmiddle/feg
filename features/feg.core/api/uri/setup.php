@@ -479,10 +479,10 @@ class FegSetupPage extends FegPageExtension  {
 		@$import_path = DevblocksPlatform::importGPC($_POST['import_path'],'string',"");
 		
 		$fields = array(
-			DAO_ImportSource::NAME] => $import_name,
-			DAO_ImportSource::PATH] => $import_path,
-			DAO_ImportSource::TYPE] => $import_type,
-			DAO_ImportSource::IS_DISABLED] => $disabled,
+			DAO_ImportSource::NAME => $import_name,
+			DAO_ImportSource::PATH => $import_path,
+			DAO_ImportSource::TYPE => $import_type,
+			DAO_ImportSource::IS_DISABLED => $disabled,
 		);
 		
 		if($id == 0) {
