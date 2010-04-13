@@ -108,13 +108,13 @@ class ImportCron extends FegCronExtension {
 			
 			switch($import_source->type) {
 				case 0:
-					self::importIXO();
+					self::importIXO($import_source);
 					break;
 				case 1:
-					self::importComMon();
+					self::importComMon($import_source);
 					break;
 				case 2:
-					self::importPI();
+					self::importPI($import_source);
 					break;
 				default:
 					break;
@@ -139,28 +139,28 @@ class ImportCron extends FegCronExtension {
 //		$this->setParam('import_folder_path', $import_folder_path);
 	}
 	
-	function importIXO($import_source) {
+	function importIXO(Model_ImportSource $import_source) {
 		$logger = DevblocksPlatform::getConsoleLog();
 		$logger->info("[IXO Importer] Importer started");
 
-		return self::importCombinedComMonIXO();
+		return self::importCombinedComMonIXO($import_source);
 	}
 	
-	function importComMon() {
+	function importComMon(Model_ImportSource $import_source) {
 		$logger = DevblocksPlatform::getConsoleLog();
 		$logger->info("[ComMon Importer] Importer started");
 
-		return self::importCombinedComMonIXO();
+		return self::importCombinedComMonIXO($import_source);
 	}
 
-	function importCombinedComMonIXO() {
+	function importCombinedComMonIXO(Model_ImportSource $import_source) {
 		$logger = DevblocksPlatform::getConsoleLog();
 		$logger->info("[ComMon / IXO Importer] Importer started");
 
 		return NULL;		
 	}
 
-	function importPI() {
+	function importPI(Model_ImportSource $import_source) {
 		$logger = DevblocksPlatform::getConsoleLog();
 		$logger->info("[PI Importer] Importer started");
 
