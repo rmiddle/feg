@@ -53,7 +53,7 @@
 		<tr class="{$tableRowBg}" id="{$rowIdPrefix}" onmouseover="$(this).addClass('hover');" onmouseout="$(this).removeClass('hover');" onclick="if(getEventTarget(event)=='TD') checkAll('{$rowIdPrefix}');">
 			<td align="center"><input type="checkbox" name="row_id[]" value="{$result.i_id}"></td>
 		{foreach from=$view->view_columns item=column name=columns}
-			{elseif $column=="i_id" || $column=="i_name" || $column=="i_path"}
+			{if $column=="i_id" || $column=="i_name" || $column=="i_path"}
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showImportPeek&id={$result.i_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
 			{elseif $column=="i_is_disabled"}
 				<td>{if $result.i_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</td>
