@@ -103,7 +103,22 @@ class ImportCron extends FegCronExtension {
 		$import_sources = DAO_ImportSource::getAll();
     	foreach($import_sources as $import_source_id => $import_source) { 
 			$logger->info('[Message Import] Now Processing ' . $import_source->name . ' Importer Number: ' . $import_source->id);
-
+			
+			print_r($import_source);
+			
+			switch($import_source->type) {
+				case 0:
+					self::importIXO();
+					break;
+				case 1:
+					self::importComMon();
+					break;
+				case 2:
+					self::importPI();
+					break;
+				default:
+					break;
+			}
 	    }
 
 		$logger->info('[Message Import] finished.');
@@ -123,5 +138,34 @@ class ImportCron extends FegCronExtension {
 //		@$import_folder_path = DevblocksPlatform::importGPC($_POST['import_folder_path'],'string');
 //		$this->setParam('import_folder_path', $import_folder_path);
 	}
+	
+	function importIXO($import_source) {
+		$logger = DevblocksPlatform::getConsoleLog();
+		$logger->info("[IXO Importer] Importer started");
+
+		return self::importCombinedComMonIXO();
+	}
+	
+	function importComMon() {
+		$logger = DevblocksPlatform::getConsoleLog();
+		$logger->info("[ComMon Importer] Importer started");
+
+		return self::importCombinedComMonIXO();
+	}
+
+	function importCombinedComMonIXO() {
+		$logger = DevblocksPlatform::getConsoleLog();
+		$logger->info("[ComMon / IXO Importer] Importer started");
+
+		return NULL;		
+	}
+
+	function importPI() {
+		$logger = DevblocksPlatform::getConsoleLog();
+		$logger->info("[PI Importer] Importer started");
+
+		return NULL;		
+	}
+	
 };
 
