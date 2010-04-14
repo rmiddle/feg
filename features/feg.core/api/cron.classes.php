@@ -178,6 +178,7 @@ class ImportCron extends FegCronExtension {
 		$files = glob($dir . '*.txt');
 		if ($files === false) $files = array();
 			 
+		$logger->info("[Importer] Reading '$dir'");
 		foreach($files as $file) {
 			// If we can't nuke the file, there's no sense in trying to import it
 			if(!is_writeable($file))
