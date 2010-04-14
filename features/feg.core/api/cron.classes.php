@@ -185,7 +185,6 @@ class ImportCron extends FegCronExtension {
 				$logger->info("[Importer] Can't write to '$file'");
 				continue;
 			}
-			$logger->info("[Importer] Processing '$file'...");
 
 			$this->_parseFile($file);
 			
