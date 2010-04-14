@@ -9,19 +9,16 @@
 	
 	<!-- Plugin Dependencies -->
 	
-	<!-- 
-	<requires>
-		<plugin id="plugin.core.id" version=">= 1.0" />
-	</requires>
-	 -->
+	<dependencies>
+		<require plugin_id="devblocks.core" version="2.0.0" />
+	</dependencies>
 
-	<!-- Declared Extension Points -->
+	<!-- Patches -->
+	
+	<patches>
+		<patch version="1.0.0-beta" revision="21" file="patches/1.0.0_beta.php" />
+	</patches>
 
-	<!-- 
-	<extension_points>
-		<point id=""></point>
-	</extension_points>
-	-->
 
 	<!-- Controller Routing -->
 
