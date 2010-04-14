@@ -172,6 +172,9 @@ class FegSetupPage extends FegPageExtension  {
 		// Auto synchronize when viewing Config->Extensions
         DevblocksPlatform::readPlugins();
 		
+		if(DEVELOPMENT_MODE)		
+			DAO_Platform::cleanupPluginTables();
+			
 		$plugins = DevblocksPlatform::getPluginRegistry();
 		unset($plugins['devblocks.core']);
 		unset($plugins['feg.core']);
@@ -195,7 +198,7 @@ class FegSetupPage extends FegPageExtension  {
 		$pluginStack = DevblocksPlatform::getPluginRegistry();
 		@$plugins_enabled = DevblocksPlatform::importGPC($_REQUEST['plugins_enabled']);
 
-		if(null !== $plugins_enabled && is_array($pluginStack))
+		if(is_array($pluginStack))
 		foreach($pluginStack as $plugin) { /* @var $plugin DevblocksPluginManifest */
 			switch($plugin->id) {
 				case 'devblocks.core':
@@ -204,7 +207,7 @@ class FegSetupPage extends FegPageExtension  {
 					break;
 					
 				default:
-					if(false !== array_search($plugin->id, $plugins_enabled)) {
+					if(null !== $plugins_enabled && false !== array_search($plugin->id, $plugins_enabled)) {
 						$plugin->setEnabled(true);
 					} else {
 						$plugin->setEnabled(false);
@@ -468,7 +471,7 @@ class FegSetupPage extends FegPageExtension  {
 		@$disabled = DevblocksPlatform::importGPC($_POST['imports_is_disabled'],'integer',0);
 		@$import_name = DevblocksPlatform::importGPC($_POST['import_name'],'string',"");
 		@$import_type = DevblocksPlatform::importGPC($_POST['import_type'],'integer',0);
-		@$import_path = DevblocksPlatform::importGPC($_POST['import_path'],'string',"");
+		@$import_path = DevblocksPlatform::importGPC($_POST['import_path'],'string', "");
 		
 		$fields = array(
 			DAO_ImportSource::NAME => $import_name,

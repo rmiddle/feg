@@ -154,7 +154,36 @@ class ImportCron extends FegCronExtension {
 	function importCombinedComMonIXO(Model_ImportSource $import_source) {
 		$logger = DevblocksPlatform::getConsoleLog();
 		$logger->info("[ComMon / IXO Importer] Importer started");
+		
+		$memory_limit = ini_get('memory_limit');
+		if(substr($memory_limit, 0, -1)  < 128) {
+			@ini_set('memory_limit','128M');
+		}
+		
+		@set_time_limit(0); // Unlimited (if possible)
+		 
+		$logger->info("[Importer] Overloaded memory_limit to: " . ini_get('memory_limit'));
+		$logger->info("[Importer] Overloaded max_execution_time to: " . ini_get('max_execution_time'));
+		
+		$timeout = ini_get('max_execution_time');
+		$runtime = microtime(true);
+		
+		if(!is_writable($import_source->path)) {
+			$logger->error("[Importer] Unable to write in '$importNewDir'.  Please check permissions.");
+			return;
+		}
 
+		$files = $this->scanDirMessages($subdir);
+			 
+		foreach($files as $file) {
+			// If we can't nuke the file, there's no sense in trying to import it
+			if(!is_writeable($file))
+				continue;
+
+			$this->_parseFile($file);
+			
+		//	unset($files);
+		}
 		return NULL;		
 	}
 
@@ -164,6 +193,17 @@ class ImportCron extends FegCronExtension {
 
 		return NULL;		
 	}
-	
+
+	function _parseFile($full_filename) {
+		$logger = DevblocksPlatform::getConsoleLog();
+		
+		$fileparts = pathinfo($full_filename);
+		$logger->info("[Parser] Reading ".$fileparts['basename']."...");
+		
+		
+
+		@unlink($full_filename);
+	}
+
 };
 
