@@ -206,8 +206,12 @@ class ImportCron extends FegCronExtension {
 		$fileparts = pathinfo($full_filename);
 		$logger->info("[Parser] Reading ".$fileparts['basename']."...");
 		
-		
+		$fp = fopen($full_filename, "r");
+		$data = fread($fp, filesize($fp));
+		fclose($fp); 
 
+		$logger->info("[Parser] Date ".$data);
+	
 		//@unlink($full_filename);
 	}
 
