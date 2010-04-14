@@ -181,8 +181,11 @@ class ImportCron extends FegCronExtension {
 		$logger->info("[Importer] Reading '$dir'");
 		foreach($files as $file) {
 			// If we can't nuke the file, there's no sense in trying to import it
-			if(!is_writeable($file))
+			if(!is_writeable($file)) {
+				$logger->info("[Importer] Can't write to '$file'");
 				continue;
+			}
+			$logger->info("[Importer] Processing '$file'...");
 
 			$this->_parseFile($file);
 			
