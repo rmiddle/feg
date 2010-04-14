@@ -195,39 +195,34 @@ class FegSetupPage extends FegPageExtension  {
 			return;
 		}
 		
-		@$plugins_enabled = DevblocksPlatform::importGPC($_REQUEST['plugins_enabled'],'array');
 		$pluginStack = DevblocksPlatform::getPluginRegistry();
+		@$plugins_enabled = DevblocksPlatform::importGPC($_REQUEST['plugins_enabled']);
 
-		if(is_array($plugins_enabled))
-		foreach($plugins_enabled as $plugin_id) {
-			$plugin = $pluginStack[$plugin_id];
-			$plugin->setEnabled(true);
-			unset($pluginStack[$plugin_id]);
+		if(null !== $plugins_enabled && is_array($pluginStack))
+		foreach($pluginStack as $plugin) { /* @var $plugin DevblocksPluginManifest */
+			switch($plugin->id) {
+				case 'devblocks.core':
+				case 'feg.core':
+					$plugin->setEnabled(true);
+					break;
+					
+				default:
+					if(false !== array_search($plugin->id, $plugins_enabled)) {
+						$plugin->setEnabled(true);
+					} else {
+						$plugin->setEnabled(false);
+					}
+					break;
+			}
 		}
-
-		// [JAS]: Clear unchecked plugins
-		foreach($pluginStack as $plugin) {
-			// [JAS]: We can't force disable core here [TODO] Improve
-			if($plugin->id=='feg.core') continue;
-			$plugin->setEnabled(false);
+		
+		try {
+			CerberusApplication::update();	
+		} catch (Exception $e) {
+			// [TODO] ...
 		}
 
 		DevblocksPlatform::clearCache();
-		
-		// Run any enabled plugin patches
-		// [TODO] Should the platform do this automatically on enable in order?
-		$patchMgr = DevblocksPlatform::getPatchService();
-		$patches = DevblocksPlatform::getExtensions("devblocks.patch.container",false,true);
-		
-		if(is_array($patches))
-		foreach($patches as $patch_manifest) { /* @var $patch_manifest DevblocksExtensionManifest */ 
-			 $container = $patch_manifest->createInstance(); /* @var $container DevblocksPatchContainerExtension */
-			 $patchMgr->registerPatchContainer($container);
-		}
-		
-		if(!$patchMgr->run()) { // fail
-			die("Failed updating plugins."); // [TODO] Make this more graceful
-		}
 		
         // Reload plugin translations
 		DAO_Translation::reloadPluginStrings();
