@@ -168,12 +168,15 @@ class ImportCron extends FegCronExtension {
 		$timeout = ini_get('max_execution_time');
 		$runtime = microtime(true);
 		
-		if(!is_writable($import_source->path)) {
-			$logger->error("[Importer] Unable to write in '$importNewDir'.  Please check permissions.");
+		$dir = $import_source->path;
+		if(!is_writable($dir)) {
+			$logger->error("[Importer] Unable to write in '$dir'.  Please check permissions.");
 			return;
 		}
 
-		$files = $this->scanDirMessages($subdir);
+		if(substr($dir,-1,1) != DIRECTORY_SEPARATOR) $dir .= DIRECTORY_SEPARATOR;
+		$files = glob($dir . '*.txt');
+		if ($files === false) $files = array();
 			 
 		foreach($files as $file) {
 			// If we can't nuke the file, there's no sense in trying to import it
@@ -202,7 +205,7 @@ class ImportCron extends FegCronExtension {
 		
 		
 
-		@unlink($full_filename);
+		//@unlink($full_filename);
 	}
 
 };
