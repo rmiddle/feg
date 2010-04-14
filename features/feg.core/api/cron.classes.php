@@ -210,7 +210,7 @@ class ImportCron extends FegCronExtension {
 		$data = fread($fp, filesize($full_filename));
 		fclose($fp); 
 
-		$logger->info("[Parser] Data ".$data);
+		$logger->info("[Parser] Data ". explode("\r\n", $data));
 	
 		//@unlink($full_filename);
 	}
