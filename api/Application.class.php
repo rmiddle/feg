@@ -10,7 +10,7 @@
 | ______________________________________________________________________
 |	http://www.feg.com	  http://www.webgroupmedia.com/
 ***********************************************************************/
-define("APP_BUILD", 2010041303);
+define("APP_BUILD", 2010041304);
 
 require_once(APP_PATH . "/api/DAO.class.php");
 require_once(APP_PATH . "/api/Model.class.php");
@@ -305,6 +305,71 @@ class FegApplication extends DevblocksApplication {
 		return $str;
 	}
 	    
+	static function update() {
+		// Update the platform
+		if(!DevblocksPlatform::update())
+			throw new Exception("Couldn't update Devblocks.");
+			
+		// Read in plugin information from the filesystem to the database
+		DevblocksPlatform::readPlugins();
+		
+		// Clean up missing plugins
+		DAO_Platform::cleanupPluginTables();
+		
+		// Registry
+		$plugins = DevblocksPlatform::getPluginRegistry();
+		
+		// Update the application core (version by version)
+		if(!isset($plugins['feg.core']))
+			throw new Exception("Couldn't read application manifest.");
+	
+		$plugin_patches = array();
+
+		// Load patches
+		foreach($plugins as $p) { /* @var $p DevblocksPluginManifest */
+			if('devblocks.core'==$p->id)
+				continue;
+			
+			// Don't patch disabled plugins
+			if($p->enabled)
+				$plugin_patches[$p->id] = $p->getPatches();
+		}
+		
+		$core_patches = $plugin_patches['feg.core'];
+		unset($plugin_patches['feg.core']);
+		
+		/*
+		 * For each core release, patch plugins in dependency order
+		 */
+		foreach($core_patches as $patch) { /* @var $patch DevblocksPatch */
+			if(!file_exists($patch->getFilename()))
+				throw new Exception("Missing application patch: ".$path);
+			
+			$version = $patch->getVersion();
+			
+			if(!$patch->run())
+				throw new Exception("Application patch failed to apply: ".$path);
+			
+			// Patch this version and then patch plugins up to this version
+			foreach($plugin_patches as $plugin_id => $patches) {
+				$pass = true;
+				foreach($patches as $k => $plugin_patch) {
+					// Recursive patch up to _version_
+					if($pass && version_compare($plugin_patch->getVersion(), $version, "<=")) {
+						if($plugin_patch->run()) {
+							unset($plugin_patches[$plugin_id][$k]);
+						} else {
+							$plugins[$plugin_id]->setEnabled(false);
+							$pass = false;
+						}
+					}
+				}
+			}
+		}
+		
+		return TRUE;
+	}	
+	
 };
 
 class FegLicense {
