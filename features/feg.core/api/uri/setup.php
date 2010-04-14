@@ -195,8 +195,7 @@ class FegSetupPage extends FegPageExtension  {
 		$pluginStack = DevblocksPlatform::getPluginRegistry();
 		@$plugins_enabled = DevblocksPlatform::importGPC($_REQUEST['plugins_enabled']);
 
-//		if(null !== $plugins_enabled && is_array($pluginStack))
-		if(is_array($pluginStack))
+		if(null !== $plugins_enabled && is_array($pluginStack))
 		foreach($pluginStack as $plugin) { /* @var $plugin DevblocksPluginManifest */
 			switch($plugin->id) {
 				case 'devblocks.core':
