@@ -217,7 +217,7 @@ class FegSetupPage extends FegPageExtension  {
 		}
 		
 		try {
-			CerberusApplication::update();	
+			FegApplication::update();	
 		} catch (Exception $e) {
 			// [TODO] ...
 		}
