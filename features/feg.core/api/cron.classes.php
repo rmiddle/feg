@@ -202,6 +202,7 @@ class ImportCron extends FegCronExtension {
 
 	function _parseFile($full_filename) {
 		$logger = DevblocksPlatform::getConsoleLog();
+		$db = DevblocksPlatform::getDatabaseService();
 		
 		$fileparts = pathinfo($full_filename);
 		$logger->info("[Parser] Reading ".$fileparts['basename']."...");
@@ -209,9 +210,18 @@ class ImportCron extends FegCronExtension {
 		$fp = fopen($full_filename, "r");
 		$data = fread($fp, filesize($full_filename));
 		fclose($fp); 
-print_r(explode("\r\n", $data));
 	
-		//@unlink($full_filename);
+		$fields = array(
+			DAO_Message::ACCOUNT_ID => 1,
+			DAO_Message::IS_CLOSED => 0,
+			DAO_Message::SUBJECT => "Do later",
+			DAO_Message::CREATED_DATE => time(),
+			DAO_Message::UPDATED_DATE => time(),
+			DAO_Message::MESSAGE => $db->qstr($data),
+		);
+		DAO_Message::create($fields);
+
+		@unlink($full_filename);
 	}
 
 };

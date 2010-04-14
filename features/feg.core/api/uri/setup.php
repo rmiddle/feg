@@ -266,9 +266,6 @@ class FegSetupPage extends FegPageExtension  {
 		$worker = DAO_Worker::get($id);
 		$tpl->assign('worker', $worker);
 		
-//		$teams = DAO_Group::getAll();
-//		$tpl->assign('teams', $teams);
-		
 		// Custom Fields
 		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Worker::ID);
 		$tpl->assign('custom_fields', $custom_fields);
