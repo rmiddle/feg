@@ -1,4 +1,2 @@
-<div id="recentMessages">
-	Recent Messages TBD
-</div>
+<div id="view{$view->id}">{$view->render()}</div>
 <br>

@@ -229,7 +229,33 @@ class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->cache_lifetime = "0";
+		
+//  FIXME setup ACL check.
+//		$worker = FegApplication::getActiveWorker();
+//		if(!$worker || !$worker->is_superuser) {
+//			echo $translate->_('common.access_denied');
+//			return;
+//		}
+		
+		$tpl->assign('customer_id', $customer_id);
+		
+		$defaults = new Feg_AbstractViewModel();
+		$defaults->name = 'Recipient List';
+		$defaults->id = '_customer_view_messages';
+		$defaults->class_name = 'View_MessageRecipient';
+		$defaults->renderLimit = 15;
+		
+		$defaults->renderSortBy = SearchFields_MessageRecipient::ID;
+		$defaults->renderSortAsc = 0;
 
+		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
+		$view->params = array(
+			SearchFields_MessageRecipient::RECIPIENT_ID => new DevblocksSearchCriteria(SearchFields_MessageRecipient::RECIPIENT_ID,'=',$customer_id),
+		);
+		$view->renderPage = 0;
+		Feg_AbstractViewLoader::setView($view->id,$view);
+		
+		$tpl->assign('view', $view);
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recent/messages.tpl');
 	}
 
