@@ -10,7 +10,7 @@
 | ______________________________________________________________________
 |	http://www.feg.com	  http://www.webgroupmedia.com/
 ***********************************************************************/
-define("APP_BUILD", 2010041305);
+define("APP_BUILD", 2010041501);
 
 require_once(APP_PATH . "/api/DAO.class.php");
 require_once(APP_PATH . "/api/Model.class.php");
@@ -132,9 +132,9 @@ class FegApplication extends DevblocksApplication {
 		if ($memory_limit == '') { // empty string means failure or not defined, assume no compiled memory limits
 		} else {
 			$ini_memory_limit = intval($memory_limit);
-			if($ini_memory_limit >= 32) {
+			if($ini_memory_limit >= 64) {
 			} else {
-				$errors[] = 'memory_limit must be 32M or larger (64M recommended) in your php.ini file.  Please increase it.';
+				$errors[] = 'memory_limit must be 64M or larger (128M recommended) in your php.ini file.  Please increase it.';
 			}
 		}
 		

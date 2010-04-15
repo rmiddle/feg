@@ -540,6 +540,30 @@ For example: *receipt*</seg></tuv>
 		
 		<!-- Source Imports Translations -->
 		
+		<tu tuid='feg.message_recipient.title'>
+			<tuv xml:lang="en_US"><seg>Message Recipent</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.id'>
+			<tuv xml:lang="en_US"><seg>Message Recipent ID</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.recipient_id'>
+			<tuv xml:lang="en_US"><seg>Recipient ID</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.message_id'>
+			<tuv xml:lang="en_US"><seg>Message ID</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.send_status'>
+			<tuv xml:lang="en_US"><seg>Send Status</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.updated_date'>
+			<tuv xml:lang="en_US"><seg>Updated Date</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.closed_date'>
+			<tuv xml:lang="en_US"><seg>Closed Date</seg></tuv>
+		</tu>
+		
+		<!-- Source Imports Translations -->
+		
 		<tu tuid='feg.import_source.title'>
 			<tuv xml:lang="en_US"><seg>Import Sources</seg></tuv>
 		</tu>
