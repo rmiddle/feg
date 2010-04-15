@@ -538,9 +538,14 @@ For example: *receipt*</seg></tuv>
 			<tuv xml:lang="en_US"><seg>Customer ID</seg></tuv>
 		</tu>
 		
-		<!-- Source Imports Translations -->
+		<!-- Source Message Translations  -->
+		
+		<!-- Source Message Recipients Translations  -->
 		
 		<tu tuid='feg.message_recipient.title'>
+			<tuv xml:lang="en_US"><seg>Message Recipent</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.name'>
 			<tuv xml:lang="en_US"><seg>Message Recipent</seg></tuv>
 		</tu>
 		<tu tuid='feg.message_recipient.id'>
