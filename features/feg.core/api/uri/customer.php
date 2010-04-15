@@ -240,7 +240,7 @@ class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 		$tpl->assign('customer_id', $customer_id);
 		
 		$defaults = new Feg_AbstractViewModel();
-		$defaults->name = 'Recipient List';
+		$defaults->name = 'Message Status List';
 		$defaults->id = '_customer_view_messages';
 		$defaults->class_name = 'View_MessageRecipient';
 		$defaults->renderLimit = 15;
@@ -249,6 +249,7 @@ class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 		$defaults->renderSortAsc = 0;
 
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
+		$view->name = 'Message Status List';
 		$view->params = array(
 			SearchFields_MessageRecipient::RECIPIENT_ID => new DevblocksSearchCriteria(SearchFields_MessageRecipient::RECIPIENT_ID,'=',$customer_id),
 		);
