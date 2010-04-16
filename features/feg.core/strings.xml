@@ -557,6 +557,9 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.message_recipient.message_id'>
 			<tuv xml:lang="en_US"><seg>Message ID</seg></tuv>
 		</tu>
+		<tu tuid='feg.message_recipient.account_id'>
+			<tuv xml:lang="en_US"><seg>Customer ID</seg></tuv>
+		</tu>
 		<tu tuid='feg.message_recipient.send_status'>
 			<tuv xml:lang="en_US"><seg>Send Status</seg></tuv>
 		</tu>
