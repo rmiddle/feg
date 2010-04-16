@@ -210,18 +210,24 @@ class ImportCron extends FegCronExtension {
 		$fp = fopen($full_filename, "r");
 		$data = fread($fp, filesize($full_filename));
 		fclose($fp); 
-	
-		$fields = array(
-			DAO_Message::ACCOUNT_ID => 1,
-			DAO_Message::IS_CLOSED => 0,
-			DAO_Message::SUBJECT => "Do later",
-			DAO_Message::CREATED_DATE => time(),
-			DAO_Message::UPDATED_DATE => time(),
-			DAO_Message::MESSAGE => $db->qstr($data),
-		);
-		DAO_Message::create($fields);
 
-		@unlink($full_filename);
+		if(preg_match('/=====[0-9]+=====/i', $data, $acc_id)) {
+			$logger->info("[Parser] acc_id = ".substr($acc_id[0],5,-5)."...");
+		} else {
+			$logger->info("[Parser] Not in the correct format");
+		}
+		
+//		$fields = array(
+//			DAO_Message::ACCOUNT_ID => 1,
+//			DAO_Message::IS_CLOSED => 0,
+//			DAO_Message::SUBJECT => "Do later",
+//			DAO_Message::CREATED_DATE => time(),
+//			DAO_Message::UPDATED_DATE => time(),
+//			DAO_Message::MESSAGE => $db->qstr($data),
+//		);
+//		DAO_Message::create($fields);
+
+//		@unlink($full_filename);
 	}
 
 };

@@ -4,6 +4,7 @@ class Model_MessageRecipient {
 	public $id;
 	public $recipient_id;
 	public $message_id;
+	public $account_id;
 	public $send_status;
 	public $updated_date;
 	public $closed_date;
@@ -13,6 +14,7 @@ class DAO_MessageRecipient extends Feg_ORMHelper {
 	const ID = 'id';
 	const RECIPIENT_ID = 'recipient_id';
 	const MESSAGE_ID = 'message_id';
+	const ACCOUNT_ID = 'account_id';
 	const SEND_STATUS = 'send_status';
 	const UPDATED_DATE = 'updated_date';
 	const CLOSED_DATE = 'closed_date';
@@ -48,7 +50,7 @@ class DAO_MessageRecipient extends Feg_ORMHelper {
 	static function getWhere($where=null) {
 		$db = DevblocksPlatform::getDatabaseService();
 		
-		$sql = "SELECT id, recipient_id, message_id, send_status, updated_date, closed_date ".
+		$sql = "SELECT id, recipient_id, message_id, account_id, send_status, updated_date, closed_date ".
 			"FROM message_recipient ".
 			(!empty($where) ? sprintf("WHERE %s ",$where) : "").
 			"ORDER BY id asc";
@@ -84,6 +86,7 @@ class DAO_MessageRecipient extends Feg_ORMHelper {
 			$object->id = $row['id'];
 			$object->recipient_id = $row['recipient_id'];
 			$object->message_id = $row['message_id'];
+			$object->account_id = $row['account_id'];
 			$object->send_status = $row['send_status'];
 			$object->updated_date = $row['updated_date'];
 			$object->closed_date = $row['closed_date'];
@@ -137,12 +140,14 @@ class DAO_MessageRecipient extends Feg_ORMHelper {
 			"mr.id as %s, ".
 			"mr.recipient_id as %s, ".
 			"mr.message_id as %s, ".
+			"mr.account_id as %s, ".
 			"mr.send_status as %s, ".
 			"mr.updated_date as %s, ".
 			"mr.closed_date as %s ",
 				SearchFields_MessageRecipient::ID,
 				SearchFields_MessageRecipient::RECIPIENT_ID,
 				SearchFields_MessageRecipient::MESSAGE_ID,
+				SearchFields_MessageRecipient::ACCOUNT_ID,
 				SearchFields_MessageRecipient::SEND_STATUS,
 				SearchFields_MessageRecipient::UPDATED_DATE,
 				SearchFields_MessageRecipient::CLOSED_DATE
@@ -211,6 +216,7 @@ class SearchFields_MessageRecipient implements IDevblocksSearchFields {
 	const ID = 'mr_id';
 	const RECIPIENT_ID = 'mr_recipient_id';
 	const MESSAGE_ID = 'mr_message_id';
+	const ACCOUNT_ID = 'mr_account_id';
 	const SEND_STATUS = 'mr_send_status';
 	const UPDATED_DATE = 'mr_updated_date';
 	const CLOSED_DATE = 'mr_closed_date';
@@ -225,6 +231,7 @@ class SearchFields_MessageRecipient implements IDevblocksSearchFields {
 			self::ID => new DevblocksSearchField(self::ID, 'mr', 'id', $translate->_('feg.message_recipient.id')),
 			self::RECIPIENT_ID => new DevblocksSearchField(self::RECIPIENT_ID, 'mr', 'recipient_id', $translate->_('feg.message_recipient.recipient_id')),
 			self::MESSAGE_ID => new DevblocksSearchField(self::MESSAGE_ID, 'mr', 'message_id', $translate->_('feg.message_recipient.message_id')),
+			self::ACCOUNT_ID => new DevblocksSearchField(self::ACCOUNT_ID, 'mr', 'account_id', $translate->_('feg.message_recipient.account_id')),
 			self::SEND_STATUS => new DevblocksSearchField(self::SEND_STATUS, 'mr', 'send_status', $translate->_('feg.message_recipient.send_status')),
 			self::UPDATED_DATE => new DevblocksSearchField(self::UPDATED_DATE, 'mr', 'updated_date', $translate->_('feg.message_recipient.updated_date')),
 			self::CLOSED_DATE => new DevblocksSearchField(self::CLOSED_DATE, 'mr', 'closed_date', $translate->_('feg.message_recipient.closed_date')),
@@ -255,6 +262,7 @@ class View_MessageRecipient extends FEG_AbstractView {
 			SearchFields_MessageRecipient::ID,
 			SearchFields_MessageRecipient::RECIPIENT_ID,
 			SearchFields_MessageRecipient::MESSAGE_ID,
+			SearchFields_MessageRecipient::ACCOUNT_ID,
 			SearchFields_MessageRecipient::SEND_STATUS,
 			SearchFields_MessageRecipient::UPDATED_DATE,
 			SearchFields_MessageRecipient::CLOSED_DATE,
@@ -304,7 +312,7 @@ class View_MessageRecipient extends FEG_AbstractView {
 			case SearchFields_MessageRecipient::ID:
 			case SearchFields_MessageRecipient::RECIPIENT_ID:
 			case SearchFields_MessageRecipient::MESSAGE_ID:
-			case 'placeholder_number':
+			case SearchFields_MessageRecipient::ACCOUNT_ID:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__number.tpl');
 				break;
 //			case 'placeholder_bool':
@@ -312,7 +320,6 @@ class View_MessageRecipient extends FEG_AbstractView {
 //				break;
 			case SearchFields_MessageRecipient::UPDATED_DATE:
 			case SearchFields_MessageRecipient::CLOSED_DATE:
-			case 'placeholder_date':
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__date.tpl');
 				break;
 			default:
@@ -374,6 +381,7 @@ class View_MessageRecipient extends FEG_AbstractView {
 			case SearchFields_MessageRecipient::ID:
 			case SearchFields_MessageRecipient::RECIPIENT_ID:
 			case SearchFields_MessageRecipient::MESSAGE_ID:
+			case SearchFields_MessageRecipient::ACCOUNT_ID:
 			case SearchFields_MessageRecipient::SEND_STATUS:
 				$criteria = new DevblocksSearchCriteria($field,$oper,$value);
 				break;
@@ -423,6 +431,7 @@ class View_MessageRecipient extends FEG_AbstractView {
 //			$change_fields[DAO_MessageRecipient::ID] = intval($v);
 //			$change_fields[DAO_MessageRecipient::RECIPIENT_ID] = intval($v);
 //			$change_fields[DAO_MessageRecipient::MESSAGE_ID] = intval($v);
+//			$change_fields[DAO_MessageRecipient::ACCOUNT_ID] = intval($v);
 //			$change_fields[DAO_MessageRecipient::SEND_STATUS] = intval($v);
 //			$change_fields[DAO_MessageRecipient::UPDATED_DATE] = intval($v);
 //			$change_fields[DAO_MessageRecipient::CLOSED_DATE] = intval($v);
