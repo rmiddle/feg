@@ -21,7 +21,7 @@ class FegUpdateController extends DevblocksControllerExtension {
 	    	case 'locked':
 	    		if(!DevblocksPlatform::versionConsistencyCheck()) {
 	    			$url = DevblocksPlatform::getUrlService();
-	    			echo "<h1>Feg</h1>";
+	    			echo "<h1>Feg - Fax Email Gateway 1.x</h1>";
 	    			echo "The application is currently waiting for an administrator to finish upgrading. ".
 	    				"Please wait a few minutes and then ". 
 		    			sprintf("<a href='%s'>try again</a>.<br><br>",
@@ -37,7 +37,7 @@ class FegUpdateController extends DevblocksControllerExtension {
 	    		
 	    	default:
 			    $path = APP_TEMP_PATH . DIRECTORY_SEPARATOR;
-				$file = $path . 'fegupdate_lock';	    		
+				$file = $path . 'feg_update_lock';	    		
 				
 				$settings = DevblocksPlatform::getPluginSettingsService();
 				
@@ -72,37 +72,49 @@ class FegUpdateController extends DevblocksControllerExtension {
 			    	exit;
 			    }
 			    
-			    // If authorized, lock and attempt update
-				if(!file_exists($file) || @filectime($file)+600 < time()) { // 10 min lock
-					touch($file);
+			    try {
+				    // If authorized, lock and attempt update
+					if(!file_exists($file) || @filectime($file)+600 < time()) { // 10 min lock
+						// Log everybody out since we're touching the database
+						$session = DevblocksPlatform::getSessionService();
+						$session->clearAll();
 
-				    //echo "Running plugin patches...<br>";
-				    if(DevblocksPlatform::runPluginPatches('core.patches')) {
+						// Lock file
+						touch($file);
+						
+						// Recursive patch
+						CerberusApplication::update();
+						
+						// Clean up
 						@unlink($file);
 
-						// [JAS]: Clear all caches
+						$cache = DevblocksPlatform::getCacheService();
+						$cache->save(APP_BUILD, "devblocks_app_build");
+
+						// Clear all caches
 						$cache->clean();
 						DevblocksPlatform::getClassLoaderService()->destroy();
-
+						
 						// Clear compiled templates
 						$tpl = DevblocksPlatform::getTemplateService();
 						$tpl->clear_compiled_tpl();
-						
+
 						// Reload plugin translations
 						DAO_Translation::reloadPluginStrings();
-						
+
+						// Redirect
 				    	DevblocksPlatform::redirect(new DevblocksHttpResponse(array('login')));
-				    } else {
-						@unlink($file);
-				    	echo "Failure!"; // [TODO] Needs elaboration
-				    } 
-				    break;
-				}
-				else {
-					echo $translate->_('update.locked_another');
-				}
+	
+					} else {
+						echo $translate->_('update.locked_another');
+					}
+					
+	    	} catch(Exception $e) {
+	    		unlink($file);
+	    		die($e->getMessage());
+	    	}
 	    }
-	    
+		
 		exit;
 	}
 }
