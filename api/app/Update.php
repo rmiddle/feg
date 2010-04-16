@@ -83,7 +83,7 @@ class FegUpdateController extends DevblocksControllerExtension {
 						touch($file);
 						
 						// Recursive patch
-						CerberusApplication::update();
+						FegApplication::update();
 						
 						// Clean up
 						@unlink($file);
