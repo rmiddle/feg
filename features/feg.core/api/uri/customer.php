@@ -251,7 +251,7 @@ class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 		$view->name = 'Message Status List';
 		$view->params = array(
-			SearchFields_MessageRecipient::RECIPIENT_ID => new DevblocksSearchCriteria(SearchFields_MessageRecipient::RECIPIENT_ID,'=',$customer_id),
+			SearchFields_MessageRecipient::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_MessageRecipient::ACCOUNT_ID,'=',$customer_id),
 		);
 		$view->renderPage = 0;
 		Feg_AbstractViewLoader::setView($view->id,$view);
