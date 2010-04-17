@@ -36,6 +36,7 @@ class FegFailurePage extends FegPageExtension {
 //		}
 		
 		$tpl = DevblocksPlatform::getTemplateService();
+		$translate = DevblocksPlatform::getTranslationService();
 		$tpl->cache_lifetime = "0";
 		$tpl->assign('path', $this->_TPL_PATH);
 
