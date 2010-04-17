@@ -8,7 +8,7 @@
 <input type="hidden" name="a" value="">
 <table cellpadding="1" cellspacing="0" border="0" width="100%" class="worklistBody">
 
-	<tr nowrap="nowrap"><td><span class="title">{$view->name}</span></td></tr>
+	<tr nowrap="nowrap" style="background-color:rgb(232,242,254);border-color:rgb(121,183,231);"><td><span class="title">{$view->name}</span></td></tr>
 
 	{* Column Headers *}
 	<tr>
