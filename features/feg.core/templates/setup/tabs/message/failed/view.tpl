@@ -51,7 +51,7 @@
 		{/foreach}
 		</tr>
 		<tr>
-			<td colspan="3">{$result.m_message}&nbsp;</td>
+			<td colspan="3">{nl2br($result.m_message)}&nbsp;</td>
 		</tr>
 	{/foreach}
 	
