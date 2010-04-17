@@ -51,7 +51,8 @@ class FegStatsPage extends FegPageExtension {
 		$view->renderPage = 0;
 		Feg_AbstractViewLoader::setView($view->id,$view);
 		
-		$views['failed_account'] = $view;
+		if(!empty($view))
+			$views[] = $view;
 
 		// ====== Who's Online
 		$whos_online = DAO_Worker::getAllOnline();
@@ -60,6 +61,7 @@ class FegStatsPage extends FegPageExtension {
 			$tpl->assign('whos_online_count', count($whos_online));
 		}
 		
+		$tpl->assign('views', $views);
 		$tpl->display('file:' . $this->_TPL_PATH . 'stats/index.tpl');
 	}
 	
