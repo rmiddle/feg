@@ -3,6 +3,7 @@
 </div> 
 
 <br>
+<br>
 
 {include file="file:$core_tpl/whos_online.tpl"}
 
