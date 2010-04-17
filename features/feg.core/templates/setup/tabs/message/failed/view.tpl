@@ -2,39 +2,28 @@
 {assign var=total value=$results[1]}
 {assign var=data value=$results[0]}
 
-<table cellpadding="0" cellspacing="0" border="0" class="worklist" width="100%">
-	<tr>
-		<td nowrap="nowrap"><span class="title">{$view->name}</span></td>
-	</tr>
-</table>
-
-<div id="{$view->id}_tips" class="block" style="display:none;margin:10px;padding:5px;">Loading...</div>
-<form id="customize{$view->id}" name="customize{$view->id}" action="#" onsubmit="return false;" style="display:none;"></form>
-<form id="viewForm{$view->id}" name="viewForm{$view->id}" action="#">
+<form id="viewForm{$view->id}" name="viewForm{$view->id}" action="{devblocks_url}{/devblocks_url}" method="post" onsubmit="return false;">
 <input type="hidden" name="view_id" value="{$view->id}">
-<input type="hidden" name="c" value="setup">
+<input type="hidden" name="c" value="tickets">
 <input type="hidden" name="a" value="">
 <table cellpadding="1" cellspacing="0" border="0" width="100%" class="worklistBody">
 
 	{* Column Headers *}
 	<tr>
-		<th style="text-align:center"><input type="checkbox" onclick="checkAll('view{$view->id}',this.checked);"></th>
 		{foreach from=$view->view_columns item=header name=headers}
-			{if $header !== 'm_message'}
 			{* start table header, insert column title and link *}
-			<th nowrap="nowrap">
-			<a href="javascript:;" onclick="genericAjaxGet('view{$view->id}','c=internal&a=viewSortBy&id={$view->id}&sortBy={$header}');">{$view_fields.$header->db_label|capitalize}</a>
+			<th nowrap="nowrap" style="background-color:rgb(232,242,254);border-color:rgb(121,183,231);">
+			<a href="javascript:;" style="color:rgb(74,110,158);" onclick="genericAjaxGet('view{$view->id}','c=internal&a=viewSortBy&id={$view->id}&sortBy={$header}');">{$view_fields.$header->db_label|capitalize}</a>
 			
 			{* add arrow if sorting by this column, finish table header tag *}
 			{if $header==$view->renderSortBy}
 				{if $view->renderSortAsc}
-					<img src="{devblocks_url}c=resource&p=feg.core&f=images/sort_ascending.png{/devblocks_url}" align="absmiddle">
+					<span class="cerb-sprite sprite-sort_ascending"></span>
 				{else}
-					<img src="{devblocks_url}c=resource&p=feg.core&f=images/sort_descending.png{/devblocks_url}" align="absmiddle">
+					<span class="feg-sprite sprite-sort_descending"></span>
 				{/if}
 			{/if}
 			</th>
-			{/if}
 		{/foreach}
 	</tr>
 
@@ -48,25 +37,14 @@
 		{assign var=tableRowBg value="odd"}
 	{/if}
 	
-		<tr class="{$tableRowBg}" id="{$rowIdPrefix}" onmouseover="$(this).addClass('hover');" onmouseout="$(this).removeClass('hover');" onclick="if(getEventTarget(event)=='TD') checkAll('{$rowIdPrefix}');">
-			<td align="center"><input type="checkbox" name="row_id[]" value="{$result.m_id}"></td>
+		<tr class="{$tableRowClass}" id="{$rowIdPrefix}_s" onmouseover="$(this).addClass('hover');" onmouseout="$(this).removeClass('hover');" onclick="if(getEventTarget(event)=='TD') checkAll('{$rowIdPrefix}');">
 		{foreach from=$view->view_columns item=column name=columns}
 			{if substr($column,0,3)=="cf_"}
 				{include file="file:$core_tpl/internal/custom_fields/view/cell_renderer.tpl"}
 			{elseif $column=="m_id"}
-				<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showRecipientPeek&id={$result.cr_id}&customer_id={$result.cr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
-			{elseif $column=="m_message"}
-			{elseif $column=="m_account_id"}
-				<td>
-					{if $result.m_account_id == 0}
-						<a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showRecipientPeek&id={$result.m_id}&customer_id={$result.m_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$translate->_('customer.display.invalid_customer')|capitalize}&nbsp;</a>
-					{else}
-						{$account = DAO_CustomerAccount::get($result.m_account_id)}
-						<a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showRecipientPeek&id={$result.m_id}&customer_id={$result.m_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$account->account_number}&nbsp;</a>
-					{/if}
-				</td>
-			{else}
-			<td>{$result.$column}&nbsp;</td>
+				<td><a href="javascript:;" onclick="genericAjaxPanel('c=failure&a=showFailurePeek&id={$result.m_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
+			{elseif $column=="m_created_date"  || $column=="m_updated_date"}
+				<td><a href="javascript:;" onclick="genericAjaxPanel('c=failure&a=showFailurePeek&id={$result.m_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column|devblocks_date}&nbsp;</a></td>
 			{/if}
 		{/foreach}
 		</tr>
@@ -77,15 +55,6 @@
 	
 </table>
 <table cellpadding="2" cellspacing="0" border="0" width="100%" id="{$view->id}_actions">
-	{if $total}
-	<tr>
-		<td colspan="2">
-			{if $active_worker && $active_worker->is_superuser}
-				<button type="button" onclick="genericAjaxPanel('c=setup&a=showRecipientBulkPanel&view_id={$view->id}&ids=' + Devblocks.getFormEnabledCheckboxValues('viewForm{$view->id}','row_id[]'),null,false,'500');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/folder_gear.gif{/devblocks_url}" align="top"> bulk update</button>
-			{/if}
-		</td>
-	</tr>
-	{/if}
 	<tr>
 		<td align="right" valign="top" nowrap="nowrap">
 			{math assign=fromRow equation="(x*y)+1" x=$view->renderPage y=$view->renderLimit}
