@@ -48,7 +48,7 @@
 			{elseif $column=="m_created_date"  || $column=="m_updated_date"}
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=failure&a=showFailurePeek&id={$result.m_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column|devblocks_date}&nbsp;</a></td>
 			{elseif $column=="m_message"}
-				<td><a href="javascript:;" onclick="genericAjaxPanel('c=failure&a=showFailureMessagePeek&id={$result.m_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}</a></td>
+				<td><a href="javascript:;" onclick="genericAjaxPanel('c=failure&a=showFailureMessagePeek&id={$result.m_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column|print_r}</a></td>
 			{/if}
 		{/foreach}
 		</tr>
