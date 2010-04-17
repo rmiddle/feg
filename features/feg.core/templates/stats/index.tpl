@@ -20,7 +20,7 @@
 			Hardware Statics:<br>
 			<div id="hardware_stats"></div><br>
 		</td>
-		<td valign="top" width="100%" align="right">
+		<td valign="top" width="60%" align="right">
 			{if !empty($views)}
 				{foreach from=$views item=view name=views}
 					<div id="view{$view->id}">
