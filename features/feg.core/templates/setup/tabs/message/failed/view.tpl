@@ -6,8 +6,7 @@
 	<tr>
 		<td nowrap="nowrap"><span class="title">{$view->name}</span></td>
 		<td nowrap="nowrap" align="right">
-			<a href="javascript:;" onclick="genericAjaxGet('customize{$view->id}','c=internal&a=viewCustomize&id={$view->id}');toggleDiv('customize{$view->id}','block');">{$translate->_('common.customize')|lower}</a>
-			 | <a href="javascript:;" onclick="genericAjaxGet('view{$view->id}','c=internal&a=viewRefresh&id={$view->id}');">{$translate->_('common.refresh')|lower}</a>
+			<a href="javascript:;" onclick="genericAjaxGet('view{$view->id}','c=internal&a=viewRefresh&id={$view->id}');">{$translate->_('common.refresh')|lower}</a>
 		</td>
 	</tr>
 </table>
@@ -43,7 +42,7 @@
 	{* Column Data *}
 	{foreach from=$data item=result key=idx name=results}
 
-	{assign var=rowIdPrefix value="row_"|cat:$view->id|cat:"_"|cat:$result.cr_id}
+	{assign var=rowIdPrefix value="row_"|cat:$view->id|cat:"_"|cat:$result.m_id}
 	{if $smarty.foreach.results.iteration % 2}
 		{assign var=tableRowBg value="even"}
 	{else}
@@ -51,28 +50,18 @@
 	{/if}
 	
 		<tr class="{$tableRowBg}" id="{$rowIdPrefix}" onmouseover="$(this).addClass('hover');" onmouseout="$(this).removeClass('hover');" onclick="if(getEventTarget(event)=='TD') checkAll('{$rowIdPrefix}');">
-			<td align="center"><input type="checkbox" name="row_id[]" value="{$result.cr_id}"></td>
+			<td align="center"><input type="checkbox" name="row_id[]" value="{$result.m_id}"></td>
 		{foreach from=$view->view_columns item=column name=columns}
 			{if substr($column,0,3)=="cf_"}
 				{include file="file:$core_tpl/internal/custom_fields/view/cell_renderer.tpl"}
-			{elseif $column=="cr_address" || $column=="cr_id"}
+			{elseif $column=="m_id"}
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showRecipientPeek&id={$result.cr_id}&customer_id={$result.cr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
-			{elseif $column=="cr_is_disabled"}
-				<td>{if $result.cr_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</td>
-			{elseif $column=="cr_type"}
-				<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showRecipientPeek&id={$result.cr_id}&customer_id={$result.cr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
-					{if $result.cr_type == 0}{$translate->_('recipient.type.email')|capitalize}
-					{else if $result.cr_type == 1}{$translate->_('recipient.type.fax')|capitalize}
-					{else if $result.cr_type == 2}{$translate->_('recipient.type.snpp')|capitalize}
-					{/if}
-					</a>
-				</td>
-			{elseif $column=="cr_account_id"}
+			{elseif $column=="m_account_id"}
 				<td>
-					{if $result.cr_account_id == 0}
+					{if $result.m_account_id == 0}
 						{$translate->_('customer.display.invalid_customer')|capitalize}
 					{else}
-						{$account = DAO_CustomerAccount::get($result.cr_account_id)}
+						{$account = DAO_CustomerAccount::get($result.m_account_id)}
 						{$account->account_number}
 					{/if}
 				</td>

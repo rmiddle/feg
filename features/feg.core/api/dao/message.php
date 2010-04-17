@@ -8,7 +8,6 @@ class FegCustomFieldSource_Message extends Extension_CustomFieldSource {
 class Model_Message {
 	public $id;
 	public $account_id;
-	public $is_closed;
 	public $created_date;
 	public $updated_date;
 	public $message;
@@ -17,7 +16,6 @@ class Model_Message {
 class DAO_Message extends Feg_ORMHelper {
 	const ID = 'id';
 	const ACCOUNT_ID = 'account_id';
-	const IS_CLOSED = 'is_closed';
 	const CREATED_DATE = 'created_date';
 	const UPDATED_DATE = 'updated_date';
 	const MESSAGE = 'message';
@@ -53,7 +51,7 @@ class DAO_Message extends Feg_ORMHelper {
 	static function getWhere($where=null) {
 		$db = DevblocksPlatform::getDatabaseService();
 		
-		$sql = "SELECT id, account_id, is_closed, created_date, updated_date, message ".
+		$sql = "SELECT id, account_id, created_date, updated_date, message ".
 			"FROM message ".
 			(!empty($where) ? sprintf("WHERE %s ",$where) : "").
 			"ORDER BY id asc";
@@ -88,7 +86,6 @@ class DAO_Message extends Feg_ORMHelper {
 			$object = new Model_Message();
 			$object->id = $row['id'];
 			$object->account_id = $row['account_id'];
-			$object->is_closed = $row['is_closed'];
 			$object->created_date = $row['created_date'];
 			$object->updated_date = $row['updated_date'];
 			$object->message = $row['message'];
@@ -141,13 +138,11 @@ class DAO_Message extends Feg_ORMHelper {
 		$select_sql = sprintf("SELECT ".
 			"m.id as %s, ".
 			"m.account_id as %s, ".
-			"m.is_closed as %s, ".
 			"m.created_date as %s, ".
 			"m.updated_date as %s, ".
 			"m.message as %s ",
 				SearchFields_Message::ID,
 				SearchFields_Message::ACCOUNT_ID,
-				SearchFields_Message::IS_CLOSED,
 				SearchFields_Message::CREATED_DATE,
 				SearchFields_Message::UPDATED_DATE,
 				SearchFields_Message::MESSAGE
@@ -215,7 +210,6 @@ class DAO_Message extends Feg_ORMHelper {
 class SearchFields_Message implements IDevblocksSearchFields {
 	const ID = 'm_id';
 	const ACCOUNT_ID = 'm_account_id';
-	const IS_CLOSED = 'm_is_closed';
 	const CREATED_DATE = 'm_created_date';
 	const UPDATED_DATE = 'm_updated_date';
 	const MESSAGE = 'm_message';
@@ -229,7 +223,6 @@ class SearchFields_Message implements IDevblocksSearchFields {
 		$columns = array(
 			self::ID => new DevblocksSearchField(self::ID, 'm', 'id', $translate->_('feg.message.id')),
 			self::ACCOUNT_ID => new DevblocksSearchField(self::ACCOUNT_ID, 'm', 'account_id', $translate->_('feg.message.account_id')),
-			self::IS_CLOSED => new DevblocksSearchField(self::IS_CLOSED, 'm', 'is_closed', $translate->_('feg.message.is_closed')),
 			self::CREATED_DATE => new DevblocksSearchField(self::CREATED_DATE, 'm', 'created_date', $translate->_('feg.message.created_date')),
 			self::UPDATED_DATE => new DevblocksSearchField(self::UPDATED_DATE, 'm', 'updated_date', $translate->_('feg.message.updated_date')),
 			self::MESSAGE => new DevblocksSearchField(self::MESSAGE, 'm', 'message', $translate->_('feg.message.message')),
@@ -267,7 +260,6 @@ class View_Message extends FEG_AbstractView {
 		$this->view_columns = array(
 			SearchFields_Message::ID,
 			SearchFields_Message::ACCOUNT_ID,
-			SearchFields_Message::IS_CLOSED,
 			SearchFields_Message::CREATED_DATE,
 			SearchFields_Message::UPDATED_DATE,
 			SearchFields_Message::MESSAGE,
@@ -323,9 +315,9 @@ class View_Message extends FEG_AbstractView {
 			case SearchFields_Message::ACCOUNT_ID:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__number.tpl');
 				break;
-			case SearchFields_Message::IS_CLOSED:
-				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__bool.tpl');
-				break;
+//			case SearchFields_Message::IS_CLOSED:
+//				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__bool.tpl');
+//				break;
 			case SearchFields_Message::CREATED_DATE:
 			case SearchFields_Message::UPDATED_DATE:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__date.tpl');
@@ -407,10 +399,10 @@ class View_Message extends FEG_AbstractView {
 				$criteria = new DevblocksSearchCriteria($field,$oper,array($from,$to));
 				break;
 				
-			case SearchFields_Message::IS_CLOSED:
-				@$bool = DevblocksPlatform::importGPC($_REQUEST['bool'],'integer',1);
-				$criteria = new DevblocksSearchCriteria($field,$oper,$bool);
-				break;
+//			case SearchFields_Message::IS_CLOSED:
+//				@$bool = DevblocksPlatform::importGPC($_REQUEST['bool'],'integer',1);
+//				$criteria = new DevblocksSearchCriteria($field,$oper,$bool);
+//				break;
 			default:
 				// Custom Fields
 				if(substr($field,0,3)=='cf_') {
@@ -443,7 +435,6 @@ class View_Message extends FEG_AbstractView {
 			switch($k) {
 //			$change_fields[DAO_Message::ID] = intval($v);
 //			$change_fields[DAO_Message::ACCOUNT_ID] = intval($v);
-//			$change_fields[DAO_Message::IS_CLOSED] = intval($v);
 //			$change_fields[DAO_Message::CREATED_DATE] = intval($v);
 //			$change_fields[DAO_Message::UPDATED_DATE] = intval($v);
 //			$change_fields[DAO_Message::MESSAGE] = intval($v);
