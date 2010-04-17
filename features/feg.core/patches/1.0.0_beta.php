@@ -199,7 +199,6 @@ if(!isset($tables['message'])) {
 			id BIGINT UNSIGNED DEFAULT 0 NOT NULL,
 			account_id INT UNSIGNED DEFAULT 0 NOT NULL,
 			is_closed TINYINT(1) UNSIGNED DEFAULT 0 NOT NULL,
-			subject VARCHAR(255)  DEFAULT '' NOT NULL,
 			created_date INT UNSIGNED DEFAULT 0 NOT NULL,
 			updated_date INT UNSIGNED DEFAULT 0 NOT NULL,
 			message longtext,
