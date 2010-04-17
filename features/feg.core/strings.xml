@@ -567,9 +567,6 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.message.message'>
 			<tuv xml:lang="en_US"><seg>Message</seg></tuv>
 		</tu>
-		<tu tuid='feg.message.view.show_message'>
-			<tuv xml:lang="en_US"><seg>Peek at Message</seg></tuv>
-		</tu>
 		
 		<!-- Source Message Recipients Translations  -->
 		
