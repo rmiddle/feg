@@ -23,6 +23,7 @@
 	<tr>
 		<th style="text-align:center"><input type="checkbox" onclick="checkAll('view{$view->id}',this.checked);"></th>
 		{foreach from=$view->view_columns item=header name=headers}
+			{if $header !== 'message'}
 			{* start table header, insert column title and link *}
 			<th nowrap="nowrap">
 			<a href="javascript:;" onclick="genericAjaxGet('view{$view->id}','c=internal&a=viewSortBy&id={$view->id}&sortBy={$header}');">{$view_fields.$header->db_label|capitalize}</a>
@@ -36,6 +37,7 @@
 				{/if}
 			{/if}
 			</th>
+			{/if}
 		{/foreach}
 	</tr>
 
