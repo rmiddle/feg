@@ -59,16 +59,20 @@ class FegFailurePage extends FegPageExtension {
 		$defaults->renderSortBy = SearchFields_Message::ID;
 		$defaults->renderSortAsc = 0;
 
-		$viewMes = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
-		$viewMes->name = 'Failed Messages List';
-		$viewMes->renderTemplate = 'failed';
-		$viewMes->params = array(
+		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
+		$view->name = 'Failed Messages List';
+		$view->renderTemplate = 'failed';
+		$view->params = array(
 			SearchFields_Message::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_Message::ACCOUNT_ID,'=',0),
 		);
-		$viewMes->renderPage = 0;
+		$view->renderPage = 0;
 		Feg_AbstractViewLoader::setView($viewMes->id,$viewMes);
 		
-		$tpl->assign('viewMes', $viewMes);
+		if(!empty($view))
+			$views[] = $view;
+
+		
+		$tpl->assign('views', $views);
 		$tpl->display('file:' . $this->_TPL_PATH . 'failure/index.tpl');
 	}
 		 

@@ -2,9 +2,13 @@
 	<div style="padding-bottom:5px;"></div>
 </div> 
 
-<div id="view{$viewMes->id}">{$viewMes->render()}</div>
-
-
+{if !empty($views)}
+	{foreach from=$views item=view name=views}
+		<div id="view{$view->id}">
+			{$view->render()}
+		</div>
+	{/foreach}
+{/if}
 <br>
 <br>
 
