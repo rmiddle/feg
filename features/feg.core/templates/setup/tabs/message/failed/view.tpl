@@ -7,9 +7,10 @@
 <input type="hidden" name="c" value="tickets">
 <input type="hidden" name="a" value="">
 <table cellpadding="1" cellspacing="0" border="0" width="100%" class="worklistBody">
+<tr nowrap="nowrap" style="background-color:rgb(232,242,254);border-color:rgb(121,183,231);"><td><span class="title">{$view->name}</span></td></tr>
+</table>
 
-	<tr nowrap="nowrap" style="background-color:rgb(232,242,254);border-color:rgb(121,183,231);"><td><span class="title">{$view->name}</span></td></tr>
-
+<table cellpadding="1" cellspacing="0" border="0" width="100%" class="worklistBody">
 	{* Column Headers *}
 	<tr>
 		{foreach from=$view->view_columns item=header name=headers}
@@ -49,8 +50,6 @@
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=failure&a=showFailurePeek&id={$result.m_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
 			{elseif $column=="m_created_date"  || $column=="m_updated_date"}
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=failure&a=showFailurePeek&id={$result.m_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column|devblocks_date}&nbsp;</a></td>
-			{elseif $column=="m_message"}
-				<td><a href="javascript:;" onclick="genericAjaxPanel('c=failure&a=showFailureMessagePeek&id={$result.m_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column|escape:'quotes'}</a></td>
 			{/if}
 		{/foreach}
 		</tr>
