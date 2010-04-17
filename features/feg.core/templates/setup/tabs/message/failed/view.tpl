@@ -47,11 +47,10 @@
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=failure&a=showFailurePeek&id={$result.m_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
 			{elseif $column=="m_created_date"  || $column=="m_updated_date"}
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=failure&a=showFailurePeek&id={$result.m_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column|devblocks_date}&nbsp;</a></td>
+			{elseif $column=="m_message"}
+				<td><a href="javascript:;" onclick="genericAjaxPanel('c=failure&a=showFailureMessagePeek&id={$result.m_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$translate->_('feg.message.view.show_message')|capitalize}</a></td>
 			{/if}
 		{/foreach}
-		</tr>
-		<tr>
-			<td colspan="3">{nl2br($result.m_message)}&nbsp;</td>
 		</tr>
 	{/foreach}
 	
