@@ -11,7 +11,7 @@
 	{* Column Headers *}
 	<tr>
 		{foreach from=$view->view_columns item=header name=headers}
-		{if $header=='m_id' || $header=='m_created_date' || $header=='m_updated_date'}
+		{if $header=='m_id' || $header=='m_created_date' || $header=='m_updated_date' || $header=='m_message'}
 			{* start table header, insert column title and link *}
 			<th nowrap="nowrap" style="background-color:rgb(232,242,254);border-color:rgb(121,183,231);">
 			<a href="javascript:;" style="color:rgb(74,110,158);" onclick="genericAjaxGet('view{$view->id}','c=internal&a=viewSortBy&id={$view->id}&sortBy={$header}');">{$view_fields.$header->db_label|capitalize}</a>
