@@ -56,6 +56,7 @@
 				{include file="file:$core_tpl/internal/custom_fields/view/cell_renderer.tpl"}
 			{elseif $column=="m_id"}
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showRecipientPeek&id={$result.cr_id}&customer_id={$result.cr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
+			{elseif $column=="m_message"}
 			{elseif $column=="m_account_id"}
 				<td>
 					{if $result.m_account_id == 0}
@@ -71,7 +72,7 @@
 		{/foreach}
 		</tr>
 		<tr>
-			<td colspan="4">{$result.m_message}&nbsp;</td>
+			<td colspan="5">{$result.m_message}&nbsp;</td>
 		</tr>
 	{/foreach}
 	
