@@ -11,6 +11,7 @@
 	{* Column Headers *}
 	<tr>
 		{foreach from=$view->view_columns item=header name=headers}
+		{if $headers=='m_id' || $headers=='m_created_date' || $headers=='m_updated_date'}
 			{* start table header, insert column title and link *}
 			<th nowrap="nowrap" style="background-color:rgb(232,242,254);border-color:rgb(121,183,231);">
 			<a href="javascript:;" style="color:rgb(74,110,158);" onclick="genericAjaxGet('view{$view->id}','c=internal&a=viewSortBy&id={$view->id}&sortBy={$header}');">{$view_fields.$header->db_label|capitalize}</a>
@@ -18,12 +19,13 @@
 			{* add arrow if sorting by this column, finish table header tag *}
 			{if $header==$view->renderSortBy}
 				{if $view->renderSortAsc}
-					<span class="cerb-sprite sprite-sort_ascending"></span>
+					<span class="feg-sprite sprite-sort_ascending"></span>
 				{else}
 					<span class="feg-sprite sprite-sort_descending"></span>
 				{/if}
 			{/if}
 			</th>
+		{/if}
 		{/foreach}
 	</tr>
 
@@ -49,7 +51,7 @@
 		{/foreach}
 		</tr>
 		<tr>
-			<td colspan="5">{$result.m_message}&nbsp;</td>
+			<td colspan="3">{$result.m_message}&nbsp;</td>
 		</tr>
 	{/foreach}
 	
