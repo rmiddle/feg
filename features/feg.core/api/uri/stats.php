@@ -34,6 +34,25 @@ class FegStatsPage extends FegPageExtension {
 		$response = DevblocksPlatform::getHttpResponse();
 		$tpl->assign('request_path', implode('/',$response->path));
 		
+		$defaults = new Feg_AbstractViewModel();
+		$defaults->id = '_failed_messages';
+		$defaults->class_name = 'View_Message';
+		$defaults->renderLimit = 15;
+		
+		$defaults->renderSortBy = SearchFields_Message::ID;
+		$defaults->renderSortAsc = 0;
+
+		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
+		$view->name = 'Failed Account Messages List';
+		$view->renderTemplate = 'failed';
+		$view->params = array(
+			SearchFields_Message::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_Message::ACCOUNT_ID,'=',0),
+		);
+		$view->renderPage = 0;
+		Feg_AbstractViewLoader::setView($view->id,$view);
+		
+		$views['failed_account'] = $view;
+
 		// ====== Who's Online
 		$whos_online = DAO_Worker::getAllOnline();
 		if(!empty($whos_online)) {
