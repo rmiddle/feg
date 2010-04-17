@@ -2,6 +2,9 @@
 	<div style="padding-bottom:5px;"></div>
 </div> 
 
+<div id="view{$viewmr->id}">{$viewmr->render()}</div>
+
+
 <br>
 <br>
 
