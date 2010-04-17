@@ -549,7 +549,7 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.message.title'>
 			<tuv xml:lang="en_US"><seg>Message</seg></tuv>
 		</tu>
-		<tu tuid='feg.message.name'>
+		<tu tuid='feg.message.default_name'>
 			<tuv xml:lang="en_US"><seg>Message List</seg></tuv>
 		</tu>
 		<tu tuid='feg.message.id'>

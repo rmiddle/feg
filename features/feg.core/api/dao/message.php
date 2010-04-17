@@ -259,7 +259,7 @@ class View_Message extends FEG_AbstractView {
 		$translate = DevblocksPlatform::getTranslationService();
 	
 		$this->id = self::DEFAULT_ID;
-		$this->name = $translate->_('feg.message.name');
+		$this->name = $translate->_('feg.message.default_name');
 		$this->renderLimit = 25;
 		$this->renderSortBy = SearchFields_Message::ID;
 		$this->renderSortAsc = true;
