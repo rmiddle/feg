@@ -36,6 +36,7 @@ class FegFailurePage extends FegPageExtension {
 //		}
 		
 		$tpl = DevblocksPlatform::getTemplateService();
+		$translate = DevblocksPlatform::getTranslationService();
 		$tpl->cache_lifetime = "0";
 		$tpl->assign('path', $this->_TPL_PATH);
 
@@ -66,12 +67,27 @@ class FegFailurePage extends FegPageExtension {
 			SearchFields_Message::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_Message::ACCOUNT_ID,'=',0),
 		);
 		$view->renderPage = 0;
-		Feg_AbstractViewLoader::setView($viewMes->id,$viewMes);
+		Feg_AbstractViewLoader::setView($view->id,$view);
 		
 		if(!empty($view))
 			$views[] = $view;
 
+		$title = $translate->_('account.tab.account.title');
 		
+		$defaults = new Feg_AbstractViewModel();
+		$defaults->id = "customer_view_account";
+		$defaults->class_name = 'View_CustomerAccount';
+		
+		$defaults->renderSortBy = SearchFields_CustomerAccount::ID;
+		$defaults->renderSortAsc = 0;
+		
+		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
+		$view->name = $title;
+		Feg_AbstractViewLoader::setView($view->id,$view);
+
+		if(!empty($view))
+			$views[] = $view;
+
 		$tpl->assign('views', $views);
 		$tpl->display('file:' . $this->_TPL_PATH . 'failure/index.tpl');
 	}
