@@ -3,7 +3,7 @@
 {assign var=data value=$results[0]}
 
 <table cellpadding="1" cellspacing="0" border="0" width="100%" class="worklistBody">
-<tr nowrap="nowrap"><td><span class="title">{$view->name}</span></td></tr>
+<tr nowrap="nowrap" style="background-color:rgb(232,242,254);border-color:rgb(121,183,231);"><td><span class="title"><h2>{$view->name}</h2></span></td></tr>
 </table>
 
 <form id="viewForm{$view->id}" name="viewForm{$view->id}" action="{devblocks_url}{/devblocks_url}" method="post" onsubmit="return false;">
