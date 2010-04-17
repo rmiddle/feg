@@ -52,7 +52,6 @@ class FegFailurePage extends FegPageExtension {
 		$tpl->assign('customer_id', $customer_id);
 		
 		$defaults = new Feg_AbstractViewModel();
-		$defaults->name = 'Failed Messages List';
 		$defaults->id = '_failed_messages';
 		$defaults->class_name = 'View_Message';
 		$defaults->renderLimit = 15;
@@ -61,6 +60,7 @@ class FegFailurePage extends FegPageExtension {
 		$defaults->renderSortAsc = 0;
 
 		$viewMes = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
+		$viewMes->name = 'Failed Messages List';
 		$viewMes->renderTemplate = 'failed';
 		$viewMes->params = array(
 			SearchFields_Message::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_Message::ACCOUNT_ID,'=',0),
