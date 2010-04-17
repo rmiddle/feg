@@ -71,7 +71,7 @@
 		{/foreach}
 		</tr>
 		<tr>
-			<td>{$result.m_message}&nbsp;</td>
+			<td colspan="4">{$result.m_message}&nbsp;</td>
 		</tr>
 	{/foreach}
 	
