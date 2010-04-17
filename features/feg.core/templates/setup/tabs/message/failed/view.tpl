@@ -8,6 +8,8 @@
 <input type="hidden" name="a" value="">
 <table cellpadding="1" cellspacing="0" border="0" width="100%" class="worklistBody">
 
+	<tr nowrap="nowrap"><td><span class="title">{$view->name}</span></td></tr>
+
 	{* Column Headers *}
 	<tr>
 		{foreach from=$view->view_columns item=header name=headers}
