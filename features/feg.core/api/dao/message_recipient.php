@@ -290,8 +290,15 @@ class View_MessageRecipient extends FEG_AbstractView {
 		$tpl->assign('view', $this);
 
 		$tpl->assign('view_fields', $this->getColumns());
-		// [TODO] Set your template path
-		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/message_recipient/view.tpl');
+		
+		switch($this->renderTemplate) {
+			case 'limited':
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/message_recipient/limited.tpl');
+				break;
+			default:
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/message_recipient/view.tpl');
+				break;
+		}
 	}
 
 	function renderCriteria($field) {

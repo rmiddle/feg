@@ -28,7 +28,15 @@ class FegFailurePage extends FegPageExtension {
 		$active_worker = FegApplication::getActiveWorker();
 		$visit = FegApplication::getVisit();
 		
+//  FIXME setup ACL check.
+//		$worker = FegApplication::getActiveWorker();
+//		if(!$worker || !$worker->is_superuser) {
+//			echo $translate->_('common.access_denied');
+//			return;
+//		}
+		
 		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->cache_lifetime = "0";
 		$tpl->assign('path', $this->_TPL_PATH);
 
 		$response = DevblocksPlatform::getHttpResponse();
@@ -41,6 +49,26 @@ class FegFailurePage extends FegPageExtension {
 			$tpl->assign('whos_online_count', count($whos_online));
 		}
 		
+		$tpl->assign('customer_id', $customer_id);
+		
+		$defaults = new Feg_AbstractViewModel();
+		$defaults->name = 'Failed Messages List';
+		$defaults->id = '_failed_messages';
+		$defaults->class_name = 'View_Message';
+		$defaults->renderLimit = 15;
+		
+		$defaults->renderSortBy = SearchFields_Message::ID;
+		$defaults->renderSortAsc = 0;
+
+		$viewMes = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
+		$viewMes->renderTemplate = 'failed';
+		$viewMes->params = array(
+			SearchFields_Message::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_Message::ACCOUNT_ID,'=',0),
+		);
+		$viewMes->renderPage = 0;
+		Feg_AbstractViewLoader::setView($viewMes->id,$viewMes);
+		
+		$tpl->assign('viewMes', $viewMes);
 		$tpl->display('file:' . $this->_TPL_PATH . 'failure/index.tpl');
 	}
 		 

@@ -2,7 +2,7 @@
 	<div style="padding-bottom:5px;"></div>
 </div> 
 
-<div id="view{$viewmr->id}">{$viewmr->render()}</div>
+<div id="view{$viewMes->id}">{$viewMes->render()}</div>
 
 
 <br>

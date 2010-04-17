@@ -306,8 +306,14 @@ class View_Message extends FEG_AbstractView {
 		$tpl->assign('custom_fields', $custom_fields);
 		
 		$tpl->assign('view_fields', $this->getColumns());
-		// [TODO] Set your template path
-		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/message/view.tpl');
+		switch($this->renderTemplate) {
+			case 'failed':
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/message/failed/view.tpl');
+				break;
+			default:
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/message/view.tpl');
+				break;
+		}
 	}
 
 	function renderCriteria($field) {
