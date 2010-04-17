@@ -59,16 +59,19 @@
 			{elseif $column=="m_account_id"}
 				<td>
 					{if $result.m_account_id == 0}
-						{$translate->_('customer.display.invalid_customer')|capitalize}
+						<a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showRecipientPeek&id={$result.m_id}&customer_id={$result.m_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$translate->_('customer.display.invalid_customer')|capitalize}&nbsp;</a>
 					{else}
 						{$account = DAO_CustomerAccount::get($result.m_account_id)}
-						{$account->account_number}
+						<a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showRecipientPeek&id={$result.m_id}&customer_id={$result.m_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$account->account_number}&nbsp;</a>
 					{/if}
 				</td>
 			{else}
 			<td>{$result.$column}&nbsp;</td>
 			{/if}
 		{/foreach}
+		</tr>
+		<tr>
+			<td>{$result.m_message}&nbsp;</td>
 		</tr>
 	{/foreach}
 	
