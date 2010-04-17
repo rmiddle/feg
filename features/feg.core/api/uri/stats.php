@@ -37,7 +37,7 @@ class FegStatsPage extends FegPageExtension {
 		$defaults = new Feg_AbstractViewModel();
 		$defaults->id = '_failed_messages';
 		$defaults->class_name = 'View_Message';
-		$defaults->renderLimit = 15;
+		$defaults->renderLimit = 2;
 		
 		$defaults->renderSortBy = SearchFields_Message::ID;
 		$defaults->renderSortAsc = 0;
