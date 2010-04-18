@@ -23,9 +23,17 @@
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" width="33%" align="right">
+					<td valign="top" width="33%">
 						Hardware Statics:<br>
 						<div id="hardware_stats"></div><br>
+					</td>
+					<td valign="top" width="33%">
+						TBD:<br>
+						<div id="tbd1_stats"></div><br>
+					</td>
+					<td valign="top" width="33%">
+						TBD:<br>
+						<div id="tbd2_stats"></div><br>
 					</td>
 				</tr>
 			</table>
