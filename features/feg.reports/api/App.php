@@ -50,7 +50,7 @@ class FegReportsPage extends FegPageExtension {
 	}
 	
 	function render() {
-		$active_worker = CerberusApplication::getActiveWorker();
+		$active_worker = FegApplication::getActiveWorker();
 		
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->tpl_path);
