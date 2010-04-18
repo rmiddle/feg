@@ -495,12 +495,12 @@ class Feg_AbstractViewLoader {
 			}
 			
 			// If no worker prefsd, check if we're passed defaults
-			if((empty($prefs) || !$prefs instanceof Feg_AbstractViewModel) && !empty($defaults))
+			if(!$prefs instanceof Feg_AbstractViewModel && !empty($defaults))
 				$prefs = $defaults;
 			
 			// Create a default view if it doesn't exist
-			if(!empty($prefs) && $prefs instanceof Feg_AbstractViewModel) {
-				if(!empty($prefs->class_name) || class_exists($prefs->class_name)) {
+			if($prefs instanceof Feg_AbstractViewModel) {
+				if(!empty($prefs->class_name) && class_exists($prefs->class_name)) {
 					$view = new $prefs->class_name;
 					$view->id = $view_label;
 					if(!empty($prefs->view_columns))
@@ -552,6 +552,8 @@ class Feg_AbstractViewLoader {
 
 		$model = new Feg_AbstractViewModel();
 			
+		$model->class_name = get_class($view);
+
 		$model->id = $view->id;
 		$model->name = $view->name;
 		$model->view_columns = $view->view_columns;
