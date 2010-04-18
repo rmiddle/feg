@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tmx SYSTEM "tmx14.dtd">
+<tmx version="1.4">
+	<header datatype="winres" segtype="sentence" adminlang="en-us"
+		srclang="en-us" o-tmf="abc" />
+	<body>
+
+		<!-- Manifest -->
+
+		<tu tuid='reports.menu.reports'>
+			<tuv xml:lang="en_US"><seg>reports</seg></tuv>
+		</tu>
+		
+		<!-- ACL -->
+
+		<tu tuid='reports.group.acl.fax.label'>
+			<tuv xml:lang="en_US"><seg>[Report Group] Can view the 'Fax Reports' group</seg></tuv>
+		</tu>
+		
+		<!-- Reports Common -->
+		
+		<tu tuid='reports.average_per_day'>
+			<tuv xml:lang="en_US"><seg>(avg: %s/day)</seg></tuv>
+		</tu>
+		<tu tuid='reports.created_from'>
+			<tuv xml:lang="en_US"><seg>Created From:</seg></tuv>
+		</tu>
+		<tu tuid='reports.date_from'>
+			<tuv xml:lang="en_US"><seg>From:</seg></tuv>
+		</tu>
+		<tu tuid='reports.date_past'>
+			<tuv xml:lang="en_US"><seg>Past:</seg></tuv>
+		</tu>
+		<tu tuid='reports.date_to'>
+			<tuv xml:lang="en_US"><seg>To:</seg></tuv>
+		</tu>
+		<tu tuid='reports.filters.1_day'>
+			<tuv xml:lang="en_US"><seg>1 day</seg></tuv>
+		</tu>
+		<tu tuid='reports.filters.1_month'>
+			<tuv xml:lang="en_US"><seg>1 month</seg></tuv>
+		</tu>
+		<tu tuid='reports.filters.1_week'>
+			<tuv xml:lang="en_US"><seg>1 week</seg></tuv>
+		</tu>
+		<tu tuid='reports.filters.1_year'>
+			<tuv xml:lang="en_US"><seg>1 year</seg></tuv>
+		</tu>
+		<tu tuid='reports.filters.n_months'>
+			<tuv xml:lang="en_US"><seg>%s months</seg></tuv>
+		</tu>
+		<tu tuid='reports.invalid_date'>
+			<tuv xml:lang="en_US"><seg>Invalid Date specified.  Please try again.</seg></tuv>
+		</tu>		
+		<tu tuid='reports.worker'>
+			<tuv xml:lang="en_US"><seg>Worker:</seg></tuv>
+		</tu>
+
+		<tu tuid='reports.activity'>
+			<tuv xml:lang="en_US"><seg>%s is running reports</seg></tuv>
+		</tu>
+
+		<!-- Fax Reports -->
+
+	</body>
+</tmx>
+<!-- 
+	
+-->

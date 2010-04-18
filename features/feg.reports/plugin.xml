@@ -1,0 +1,79 @@
+<!DOCTYPE plugin SYSTEM "../../libs/devblocks/plugin.dtd">
+<plugin>
+	<id>feg.reports</id>
+	<name>[FEG] Reports</name>
+	<description>Pluggable reporting area with default reports on various metrics.  This adds a Reports menu and several plugin hooks for creating new reports.</description>
+	<author>Robert Middleswarth and WebGroup Media, LLC.</author>
+	<revision>0</revision>
+	<link>http://feg.answernet.com/Interactive_Reports</link>
+
+	<!-- Plugin Dependencies -->
+	
+	<dependencies>
+		<require plugin_id="feg.core" version="5.0.0-beta" />
+	</dependencies>
+
+	<!-- Exported Classes -->
+	
+	<class_loader>
+		<file path="api/App.php">
+			<class name="Extension_Report" />
+			<class name="Extension_ReportGroup" />
+		</file>
+	</class_loader>
+
+	<acl>
+		<!-- Report Groups -->
+		<priv id="reports.group.acl.fax" label="reports.group.acl.fax.label" />
+	</acl>
+		
+	<extensions>
+
+	<!-- Page Extensions -->
+	
+	<extension point="feg.page">
+		<id>reports.page</id>
+		<name>Reports Page</name>
+		<class>
+			<file>api/App.php</file>
+			<name>FegReportsPage</name>
+		</class>
+		<params>
+			<param key="uri" value="reports" />
+			<param key="menutitle" value="reports.menu.reports" />
+		</params>
+	</extension>
+	
+	<!-- Report Groups -->
+	
+	<extension point="feg.report.group">
+		<id>report.group.fax</id>
+		<name>FEG Fax Reports</name>
+		<class>
+			<file>api/App.php</file>
+			<name>FegReportGroupFax</name>
+		</class>
+		<params>
+			<param key="group_name" value="reports.group.fax.name" />
+			<param key="acl" value="reports.group.acl.fax" />
+		</params>
+	</extension>
+	
+	<!-- Reports -->
+
+	<extension point="feg.report">
+		<id>report.fax.daily</id>
+		<name>Daily Fax Report</name>
+		<class>
+			<file>api/App.php</file>
+			<name>FegReportFaxDailyUsage</name>
+		</class>
+		<params>
+			<param key="report_name" value="reports.fax.daily.usage" />
+			<param key="report_group" value="report.group.fax" />
+		</params>
+	</extension>
+		
+	</extensions>
+	
+</plugin>
