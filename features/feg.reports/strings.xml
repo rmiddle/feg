@@ -60,7 +60,14 @@
 			<tuv xml:lang="en_US"><seg>%s is running reports</seg></tuv>
 		</tu>
 
-		<!-- Fax Reports -->
+		<!-- Group Fax Reports -->
+		<tu tuid='reports.group.acl.fax.label'>
+			<tuv xml:lang="en_US"><seg>Fax Reports</seg></tuv>
+		</tu>
+
+		<tu tuid='reports.group.acl.fax.label'>
+			<tuv xml:lang="en_US"><seg>Fax Daily Ussage Report</seg></tuv>
+		</tu>
 
 	</body>
 </tmx>

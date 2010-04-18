@@ -1,7 +1,7 @@
 <!DOCTYPE plugin SYSTEM "../../libs/devblocks/plugin.dtd">
 <plugin>
 	<id>feg.reports</id>
-	<name>[FEG] Reports</name>
+	<name>[Feg] Reports</name>
 	<description>Pluggable reporting area with default reports on various metrics.  This adds a Reports menu and several plugin hooks for creating new reports.</description>
 	<author>Robert Middleswarth and WebGroup Media, LLC.</author>
 	<revision>0</revision>
@@ -62,14 +62,14 @@
 	<!-- Reports -->
 
 	<extension point="feg.report">
-		<id>report.fax.daily</id>
+		<id>report.fax.daily.usage</id>
 		<name>Daily Fax Report</name>
 		<class>
 			<file>api/App.php</file>
 			<name>FegReportFaxDailyUsage</name>
 		</class>
 		<params>
-			<param key="report_name" value="reports.fax.daily.usage" />
+			<param key="report_name" value="reports.fax.daily.usage.name" />
 			<param key="report_group" value="report.group.fax" />
 		</params>
 	</extension>
