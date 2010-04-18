@@ -64,7 +64,7 @@
 		</tu>
 
 		<!-- Group Fax Reports -->
-		<tu tuid='reports.group.acl.fax.label'>
+		<tu tuid='reports.group.fax.name'>
 			<tuv xml:lang="en_US"><seg>Fax Reports</seg></tuv>
 		</tu>
 

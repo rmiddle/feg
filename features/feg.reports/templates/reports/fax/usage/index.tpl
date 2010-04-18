@@ -2,7 +2,7 @@
 	<div style="padding-bottom:5px;"></div>
 </div>
 
-<h2>{$translate->_('reports.fax.daily.usage')}</h2>
+<h2>{$translate->_('reports.fax.daily.usage.name')}</h2>
 
 <form action="{devblocks_url}c=reports&report=report.fax.daily.usage{/devblocks_url}" method="POST" id="frmRange" name="frmRange" style="margin-bottom:10px;">
 <input type="hidden" name="c" value="reports">
