@@ -4,7 +4,7 @@
 
 <table cellpadding="0" cellspacing="0" border="0">
 	<tr>
-		<td valign="top" width="50%">
+		<td valign="top" width="60%">
 			<table cellpadding="0" cellspacing="0" border="0">
 				<tr>
 					<td valign="top" width="33%">
@@ -38,7 +38,7 @@
 				</tr>
 			</table>
 		</td>
-		<td valign="top" width="50%" align="right">
+		<td valign="top" width="40%" align="right">
 			{if !empty($views)}
 				{foreach from=$views item=view name=views}
 					<div id="view{$view->id}">
