@@ -44,7 +44,7 @@ class FegStatsPage extends FegPageExtension {
 
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 		$view->name = 'Failed Account Messages List';
-		$view->renderLimit = 2;
+		$view->renderLimit = 15;
 		$view->renderTemplate = 'failed';
 		$view->params = array(
 			SearchFields_Message::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_Message::ACCOUNT_ID,'=',0),

@@ -7,21 +7,23 @@
 		<td valign="top" width="50%">
 			<table cellpadding="0" cellspacing="0" border="0">
 				<tr>
-					<td valign="top" width="25%">
+					<td valign="top" width="33%">
 						Mail Statics:<br>
 						<div id="postfix_mailq_stats"></div>
 						<div id="postfix_sent_stats"></div><br>
 					</td>
-					<td valign="top" width="25%">
+					<td valign="top" width="33%">
 						Fax Statics:<br>
 						<div id="showfaxquestats"></div>
 						<div id="showfaxstats"></div>
 					</td>
-					<td valign="top" width="25%">
+				</tr>
+					<td valign="top" width="33%">
 						SNPP (Paging) Statics:<br>
 						<div id="snpp_stats"></div><br>
 					</td>
-					<td valign="top" width="25%" align="right">
+				<tr>
+					<td valign="top" width="33%" align="right">
 						Hardware Statics:<br>
 						<div id="hardware_stats"></div><br>
 					</td>
