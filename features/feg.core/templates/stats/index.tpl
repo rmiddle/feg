@@ -17,11 +17,11 @@
 						<div id="showfaxquestats"></div>
 						<div id="showfaxstats"></div>
 					</td>
-				</tr>
 					<td valign="top" width="33%">
 						SNPP (Paging) Statics:<br>
 						<div id="snpp_stats"></div><br>
 					</td>
+				</tr>
 				<tr>
 					<td valign="top" width="33%" align="right">
 						Hardware Statics:<br>
