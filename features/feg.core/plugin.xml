@@ -271,19 +271,6 @@
 		</extension>
 		
 		<extension point="feg.page">
-			<id>core.page.failure</id>
-			<name>Failure Page</name>
-			<class>
-				<file>api/uri/failure.php</file>
-				<name>FegFailurePage</name>
-			</class>
-			<params>
-				<param key="uri" value="failure" />
-				<param key="menutitle" value="core.menu.failure" />
-			</params>
-		</extension>
-
-		<extension point="feg.page">
 			<id>core.page.stats</id>
 			<name>Home Page</name>
 			<class>
