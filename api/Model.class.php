@@ -101,9 +101,12 @@ abstract class Feg_AbstractView {
 
 	public $renderPage = 0;
 	public $renderLimit = 10;
+	public $renderTotal = true;
 	public $renderSortBy = '';
 	public $renderSortAsc = 1;
 
+	public $renderTemplate = null;
+	
 	function getData() {
 	}
 
@@ -433,8 +436,11 @@ class Feg_AbstractViewModel {
 
 	public $renderPage = 0;
 	public $renderLimit = 10;
+	public $renderTotal = true;
 	public $renderSortBy = '';
 	public $renderSortAsc = 1;
+	
+	public $renderTemplate = null;
 };
 
 /**
@@ -546,8 +552,6 @@ class Feg_AbstractViewLoader {
 
 		$model = new Feg_AbstractViewModel();
 			
-		$model->class_name = get_class($view);
-
 		$model->id = $view->id;
 		$model->name = $view->name;
 		$model->view_columns = $view->view_columns;
@@ -555,9 +559,12 @@ class Feg_AbstractViewLoader {
 
 		$model->renderPage = $view->renderPage;
 		$model->renderLimit = $view->renderLimit;
+		$model->renderTotal = $view->renderTotal;
 		$model->renderSortBy = $view->renderSortBy;
 		$model->renderSortAsc = $view->renderSortAsc;
 
+		$model->renderTemplate = $view->renderTemplate;
+		
 		return $model;
 	}
 
@@ -577,9 +584,12 @@ class Feg_AbstractViewLoader {
 
 		$inst->renderPage = $model->renderPage;
 		$inst->renderLimit = $model->renderLimit;
+		$inst->renderTotal = $model->renderTotal;
 		$inst->renderSortBy = $model->renderSortBy;
 		$inst->renderSortAsc = $model->renderSortAsc;
 
+		$inst->renderTemplate = $model->renderTemplate;
+		
 		return $inst;
 	}
 };
