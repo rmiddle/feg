@@ -41,7 +41,7 @@ class FegAccountPage extends FegPageExtension {
 		$defaults->class_name = 'View_CustomerAccount';
 		
 		$defaults->renderSortBy = SearchFields_CustomerAccount::ID;
-		$defaults->renderSortAsc = 0;
+		$defaults->renderSortAsc = 1;
 		$defaults->name = $title;
 		
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
