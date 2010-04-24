@@ -227,18 +227,36 @@ class ImportCron extends FegCronExtension {
 			$logger->info("[Parser] Not in the correct format");
 			$account_id = 0;
 		}
+		if($this->_createMessage($account_id, $data) {
+			@unlink($full_filename);
+		}
+	}
+
+	function _createMessage($account_id, $message_text) {
 		$current_time = time();
+		$status = TRUE; // Return OK status unless something sets it to false
 		$fields = array(
 			DAO_Message::ACCOUNT_ID => $account_id,
 			DAO_Message::IS_CLOSED => 0,
 			DAO_Message::CREATED_DATE => $current_time,
 			DAO_Message::UPDATED_DATE => $current_time,
-			DAO_Message::MESSAGE => $db->qstr($data),
+			DAO_Message::MESSAGE => $db->qstr($message_text),
 		);
 		$message_id = DAO_Message::create($fields);
 		
 		// Now we grab the Customer Recipient and create Message Recipients
-		if($account_id) {
+		if($account_id && $status) {
+			$status = $this->_createMessage($account_id, $message_id, $data)
+		}
+		// return $status;
+		return FALSE; // ##### Fixme before we go live should be TRUE on success
+	}
+	function _createMessageRecipient($account_id, $message_id, $message_text) {
+		$current_time = time();
+		$status = TRUE; // Return TRUE status unless something sets it to false
+		
+		// Now we grab the Customer Recipient and create Message Recipients
+		if($account_id) { // This isn't really needed but you can never be two safe
 			$ids_cr = DAO_CustomerRecipient::getWhere(sprintf("%s = %d",
 				DAO_CustomerRecipient::ACCOUNT_ID,
 				$account_id
@@ -256,9 +274,7 @@ class ImportCron extends FegCronExtension {
 				DAO_MessageRecipient::create($fields);
 			}
 		}
-
-		// @unlink($full_filename);
+		return $status; 
 	}
-
 };
 
