@@ -55,6 +55,27 @@ class FegStatsPage extends FegPageExtension {
 		if(!empty($view))
 			$views[] = $view;
 
+		$defaults = new Feg_AbstractViewModel();
+		$defaults->id = '_failed_recipient';
+		$defaults->class_name = 'View_MessageRecipient';
+		$defaults->renderLimit = 15;
+		
+		$defaults->renderSortBy = SearchFields_MessageRecipient::ID;
+		$defaults->renderSortAsc = 0;
+
+		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
+		$view->name = 'Failed Messages Recipient List';
+		$view->renderLimit = 15;
+		$view->renderTemplate = 'failed';
+		$view->params = array(
+			SearchFields_MessageRecipient::SEND_STATUS => new DevblocksSearchCriteria(SearchFields_MessageRecipient::SEND_STATUS,'=',1),
+		);
+		$view->renderPage = 0;
+		Feg_AbstractViewLoader::setView($view->id,$view);
+		
+		if(!empty($view))
+			$views[] = $view;
+
 		// ====== Who's Online
 		$whos_online = DAO_Worker::getAllOnline();
 		if(!empty($whos_online)) {
