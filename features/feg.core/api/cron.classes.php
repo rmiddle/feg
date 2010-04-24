@@ -246,7 +246,7 @@ class ImportCron extends FegCronExtension {
 		
 		// Now we grab the Customer Recipient and create Message Recipients
 		if($account_id && $status) {
-			$status = $this->_createMessageRecipient($account_id, $message_id, $data)
+			$status = $this->_createMessageRecipient($account_id, $message_id, $message_text)
 		}
 		// return $status;
 		return FALSE; // ##### Fixme before we go live should be TRUE on success
