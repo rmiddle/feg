@@ -211,23 +211,53 @@ class ImportCron extends FegCronExtension {
 		$data = fread($fp, filesize($full_filename));
 		fclose($fp); 
 
-		if(preg_match('/=====[0-9]+=====/i', $data, $acc_id)) {
+		if(preg_match('/=====\w+=====/i', $data, $acc_id)) {
 			$logger->info("[Parser] acc_id = ".substr($acc_id[0],5,-5)."...");
+			$account_name = $acc_id[0],5,-5);
+			// Now Confirm the account exists.
+			$account = array_shif(DAO_CustomerAccount::getWhere(sprintf("%s = %d",
+				DAO_CustomerAccount::ACCOUNT_NUMBER,
+				$account_name
+			)));
+			 if (isset($account->id)
+				$account_id = $account->id;
+			else
+				$account_id = 0;				
 		} else {
 			$logger->info("[Parser] Not in the correct format");
+			$account_id = 0;
 		}
+		$current_time = time();
+		$fields = array(
+			DAO_Message::ACCOUNT_ID => $account_id,
+			DAO_Message::IS_CLOSED => 0,
+			DAO_Message::CREATED_DATE => $current_time,
+			DAO_Message::UPDATED_DATE => $current_time,
+			DAO_Message::MESSAGE => $db->qstr($data),
+		);
+		$message_id = DAO_Message::create($fields);
 		
-//		$fields = array(
-//			DAO_Message::ACCOUNT_ID => 1,
-//			DAO_Message::IS_CLOSED => 0,
-//			DAO_Message::SUBJECT => "Do later",
-//			DAO_Message::CREATED_DATE => time(),
-//			DAO_Message::UPDATED_DATE => time(),
-//			DAO_Message::MESSAGE => $db->qstr($data),
-//		);
-//		DAO_Message::create($fields);
+		// Now we grab the Customer Recipient and create Message Recipients
+		if($account_id) {
+			$ids_cr = DAO_CustomerRecipient::getWhere(sprintf("%s = %d",
+				DAO_CustomerRecipient::ACCOUNT_ID,
+				$account_id
+			));
+			// foreach($request->query as $key=>$val) {
+			foreach($ids_cr as $cr_id=>$cr ) {
+				$fields = array(
+					DAO_MessageRecipient::RECIPIENT_ID => $cr_id,
+					DAO_MessageRecipient::MESSAGE_ID => $message_id,
+					DAO_MessageRecipient::ACCOUNT_ID => $account_id,
+					DAO_MessageRecipient::SEND_STATUS => 0, // 0 = New
+					DAO_MessageRecipient::UPDATED_DATE => $current_time,
+					DAO_MessageRecipient::CLOSED_DATE => 0, // 0 = Not Closed
+				);
+				DAO_MessageRecipient::create($fields);
+			}
+		}
 
-//		@unlink($full_filename);
+		// @unlink($full_filename);
 	}
 
 };
