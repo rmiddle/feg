@@ -295,6 +295,9 @@ class View_MessageRecipient extends FEG_AbstractView {
 			case 'limited':
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/message_recipient/limited.tpl');
 				break;
+			case 'failed':
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/message_recipient/failed.tpl');
+				break;
 			default:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/message_recipient/view.tpl');
 				break;
