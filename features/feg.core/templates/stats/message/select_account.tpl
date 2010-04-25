@@ -21,18 +21,8 @@
 		<td width="100%"><input type="text" name="recipient_account_id" value="{$account->id}" style="width:98%;"></td>
 	</tr>
 {/if}
-	<tr>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_number')|capitalize}: </td>
-		<td width="100%">{$account->account_number}</td>
-	</tr>
-	<tr>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_name')|capitalize}: </td>
-		<td width="100%">{$account->account_name}</td>
-	</tr>
 </table>
-<input type="hidden" name="recipient_export_filter" value="{$rec->export_filter}">
 
-{include file="file:$core_tpl/internal/custom_fields/bulk/form.tpl" bulk=false}
 <br>
 <button type="button" onclick="genericPanel.dialog('close');genericAjaxPost('formAccountFailurePeek', 'view{$view_id}', '');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('feg.message.select_account')}</button>
 <button type="button" onclick="genericPanel.dialog('close');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete.gif{/devblocks_url}" align="top"> {$translate->_('common.cancel')|capitalize}</button>
