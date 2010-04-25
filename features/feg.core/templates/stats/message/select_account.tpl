@@ -21,7 +21,7 @@
 {/if}
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.message.message')|capitalize}: </td>
-		<td width="100%">{$msq->message}</td>
+		<td width="100%">{$msg->message}</td>
 	</tr>
 </table>
 
