@@ -227,7 +227,7 @@ class ImportCron extends FegCronExtension {
 			$logger->info("[Parser] Not in the correct format");
 			$account_id = 0;
 		}
-		if($this->_createMessage($account_id, $data) {
+		if($this->_createMessage($account_id, $data)) {
 			@unlink($full_filename);
 		}
 	}
