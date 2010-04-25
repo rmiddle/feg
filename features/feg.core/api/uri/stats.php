@@ -88,10 +88,8 @@ class FegStatsPage extends FegPageExtension {
 	}
 	
 	function showAccountFailurePeekAction() {
-		echo "Postfix Queue: <b>";
-		system("bash_mailq.sh");
-		echo "</b>";
-		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
+		
+		$tpl->display('file:' . $this->_TPL_PATH . 'stats/message/select_account.tpl');
 	}
 	
 	function showPostfixMailqStatsAction() {
