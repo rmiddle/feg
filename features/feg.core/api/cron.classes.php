@@ -219,7 +219,7 @@ class ImportCron extends FegCronExtension {
 				DAO_CustomerAccount::ACCOUNT_NUMBER,
 				$account_name
 			)));
-			 if (isset($account->id)
+			 if (isset($account))
 				$account_id = $account->id;
 			else
 				$account_id = 0;				
