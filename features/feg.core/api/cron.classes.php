@@ -227,7 +227,7 @@ class ImportCron extends FegCronExtension {
 			$logger->info("[Parser] Not in the correct format");
 			$account_id = 0;
 		}
-		if($this->_createMessage($account_id, $data)) {
+		if($this->_createMessage($account_id, $db->qstr($data))) {
 			@unlink($full_filename);
 		}
 	}
@@ -239,7 +239,7 @@ class ImportCron extends FegCronExtension {
 			DAO_Message::ACCOUNT_ID => $account_id,
 			DAO_Message::CREATED_DATE => $current_time,
 			DAO_Message::UPDATED_DATE => $current_time,
-			DAO_Message::MESSAGE => $db->qstr($message_text),
+			DAO_Message::MESSAGE => $message_text,
 		);
 		$message_id = DAO_Message::create($fields);
 		
