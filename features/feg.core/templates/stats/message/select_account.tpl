@@ -18,9 +18,11 @@
 {if $active_worker->is_superuser}
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.id')|capitalize}: </td>
-		<td width="100%"><input type="text" name="recipient_account_id" value="{$account->id}" style="width:98%;"></td>
-	</tr>
 {/if}
+	<tr>
+		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.message.message')|capitalize}: </td>
+		<td width="100%">{$msq->message}</td>
+	</tr>
 </table>
 
 <br>
