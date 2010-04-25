@@ -1,9 +1,8 @@
 <form action="{devblocks_url}{/devblocks_url}" method="POST" id="formAccountFailurePeek" name="formAccountFailurePeek" onsubmit="return false;">
-<input type="hidden" name="c" value="setup">
+<input type="hidden" name="c" value="stats">
 <input type="hidden" name="a" value="saveAccountFailurePeek">
 <input type="hidden" name="id" value="{$id}">
 <input type="hidden" name="view_id" value="{$view_id}">
-<input type="hidden" name="do_delete" value="0">
 
 {$rec = DAO_CustomerRecipient::get($id)}
 <table cellpadding="0" cellspacing="2" border="0" width="98%">

@@ -186,7 +186,7 @@ class ImportCron extends FegCronExtension {
 				continue;
 			}
 
-			$this->_parseFile($file);
+			$this->_parseFile($file, $import_source);
 			
 		//	unset($files);
 		}
@@ -200,7 +200,7 @@ class ImportCron extends FegCronExtension {
 		return NULL;		
 	}
 
-	function _parseFile($full_filename) {
+	function _parseFile($full_filename, Model_ImportSource $import_source) {
 		$logger = DevblocksPlatform::getConsoleLog();
 		$db = DevblocksPlatform::getDatabaseService();
 		
@@ -214,6 +214,12 @@ class ImportCron extends FegCronExtension {
 		if(preg_match('/=====\w+=====/i', $data, $acc_id)) {
 			$logger->info("[Parser] acc_id = ".substr($acc_id[0],5,-5)."...");
 			$account_name = substr($acc_id[0],5,-5);
+			// Store the filename and Interperted account Name and source into a Json array incase account doesn't match
+			$json = json_encode(array(
+				'import_source' => $import_source->id,
+				'account_name' => $account_name,
+				'file_name' => $fileparts['basename'],
+			));
 			// Now Confirm the account exists.
 			$account = array_shift(DAO_CustomerAccount::getWhere(sprintf("%s = %d",
 				DAO_CustomerAccount::ACCOUNT_NUMBER,
@@ -227,18 +233,21 @@ class ImportCron extends FegCronExtension {
 			$logger->info("[Parser] Not in the correct format");
 			$account_id = 0;
 		}
-		if($this->_createMessage($account_id, $db->qstr($data))) {
+		if($this->_createMessage($account_id, $db->qstr($data), $json)) {
 			@unlink($full_filename);
+		} else {
+			// Move to failed
 		}
 	}
 
-	function _createMessage($account_id, $message_text) {
+	function _createMessage($account_id, $message_text, $json) {
 		$current_time = time();
 		$status = TRUE; // Return OK status unless something sets it to false
 		$fields = array(
 			DAO_Message::ACCOUNT_ID => $account_id,
 			DAO_Message::CREATED_DATE => $current_time,
 			DAO_Message::UPDATED_DATE => $current_time,
+			DAO_Message::PARAMS_JSON => $json,
 			DAO_Message::MESSAGE => $message_text,
 		);
 		$message_id = DAO_Message::create($fields);

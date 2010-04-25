@@ -200,6 +200,7 @@ if(!isset($tables['message'])) {
 			account_id INT UNSIGNED DEFAULT 0 NOT NULL,
 			created_date INT UNSIGNED DEFAULT 0 NOT NULL,
 			updated_date INT UNSIGNED DEFAULT 0 NOT NULL,
+			params_json longtext,
 			message longtext,
 			PRIMARY KEY (id),
 			INDEX account_id (account_id),

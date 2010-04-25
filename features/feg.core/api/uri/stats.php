@@ -88,8 +88,46 @@ class FegStatsPage extends FegPageExtension {
 	}
 	
 	function showAccountFailurePeekAction() {
+		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
+		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
+		
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('path', $this->_TPL_PATH);
+		
+		$tpl->assign('id', $id);
+		$tpl->assign('view_id', $view_id);
+		
+		// Custom Fields
+		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Message::ID);
+		$tpl->assign('custom_fields', $custom_fields);
+		
+		$custom_field_values = DAO_CustomFieldValue::getValuesBySourceIds(FegCustomFieldSource_Message::ID, $id);
+		if(isset($custom_field_values[$id]))
+			$tpl->assign('custom_field_values', $custom_field_values[$id]);
 		
 		$tpl->display('file:' . $this->_TPL_PATH . 'stats/message/select_account.tpl');
+	}
+	
+	function saveAccountFailurePeekAction() {
+		$translate = DevblocksPlatform::getTranslationService();
+		
+		@$id = DevblocksPlatform::importGPC($_POST['id'],'integer');
+		@$view_id = DevblocksPlatform::importGPC($_POST['view_id'],'string');
+
+		@$message_account_id = DevblocksPlatform::importGPC($_POST['message_account_id'],'integer',0);
+		
+		$fields = array(
+			DAO_Message::ACCOUNT_ID => $message_account_id,
+		);
+		
+		$status = DAO_CustomerRecipient::update($id, $fields);
+		
+		if(!empty($view_id)) {
+			$view = Feg_AbstractViewLoader::getView($view_id);
+			$view->render();
+		}
+		
+		//DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','workers')));		
 	}
 	
 	function showPostfixMailqStatsAction() {
