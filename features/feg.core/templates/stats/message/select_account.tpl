@@ -21,7 +21,7 @@
 {/if}
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.message.message')|capitalize}: </td>
-		<td width="100%">{$msg->message|escape|nl2br}</td>
+		<td width="100%">{preg_replace('/(\r\n|\r|\n)/', "<br>", $msg->message)}</td>
 	</tr>
 </table>
 
