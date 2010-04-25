@@ -150,7 +150,7 @@ class DAO_Message extends Feg_ORMHelper {
 			"message.account_id as %s, ".
 			"message.created_date as %s, ".
 			"message.updated_date as %s, ".
-			"message.params_json as %s ".
+			"message.params_json as %s, ".
 			"message.message as %s ",
 				SearchFields_Message::ID,
 				SearchFields_Message::ACCOUNT_ID,
