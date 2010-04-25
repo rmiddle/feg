@@ -53,7 +53,7 @@ class DAO_Message extends Feg_ORMHelper {
 	static function getWhere($where=null) {
 		$db = DevblocksPlatform::getDatabaseService();
 		
-		$sql = "SELECT id, account_id, created_date, updated_date, message ".
+		$sql = "SELECT id, account_id, created_date, updated_date, params_json, message ".
 			"FROM message ".
 			(!empty($where) ? sprintf("WHERE %s ",$where) : "").
 			"ORDER BY id asc";
@@ -146,12 +146,12 @@ class DAO_Message extends Feg_ORMHelper {
 		$total = -1;
 		
 		$select_sql = sprintf("SELECT ".
-			"m.id as %s, ".
-			"m.account_id as %s, ".
-			"m.created_date as %s, ".
-			"m.updated_date as %s, ".
-			"m.params_json as %s ".
-			"m.message as %s ",
+			"message.id as %s, ".
+			"message.account_id as %s, ".
+			"message.created_date as %s, ".
+			"message.updated_date as %s, ".
+			"message.params_json as %s ".
+			"message.message as %s ",
 				SearchFields_Message::ID,
 				SearchFields_Message::ACCOUNT_ID,
 				SearchFields_Message::CREATED_DATE,
@@ -160,13 +160,13 @@ class DAO_Message extends Feg_ORMHelper {
 				SearchFields_Message::MESSAGE
 			);
 			
-		$join_sql = "FROM message m ";
+		$join_sql = "FROM message ";
 		
 		// Custom field joins
 		list($select_sql, $join_sql, $has_multiple_values) = self::_appendSelectJoinSqlForCustomFieldTables(
 			$tables,
 			$params,
-			'm.id',
+			'message.id',
 			$select_sql,
 			$join_sql
 		);
@@ -180,7 +180,7 @@ class DAO_Message extends Feg_ORMHelper {
 			$select_sql.
 			$join_sql.
 			$where_sql.
-			($has_multiple_values ? 'GROUP BY m.id ' : '').
+			($has_multiple_values ? 'GROUP BY message.id ' : '').
 			$sort_sql;
 			
 		// [TODO] Could push the select logic down a level too
@@ -205,7 +205,7 @@ class DAO_Message extends Feg_ORMHelper {
 		// [JAS]: Count all
 		if($withCounts) {
 			$count_sql = 
-				($has_multiple_values ? "SELECT COUNT(DISTINCT m.id) " : "SELECT COUNT(m.id) ").
+				($has_multiple_values ? "SELECT COUNT(DISTINCT message.id) " : "SELECT COUNT(message.id) ").
 				$join_sql.
 				$where_sql;
 			$total = $db->GetOne($count_sql);
