@@ -237,7 +237,6 @@ class ImportCron extends FegCronExtension {
 		$status = TRUE; // Return OK status unless something sets it to false
 		$fields = array(
 			DAO_Message::ACCOUNT_ID => $account_id,
-			DAO_Message::IS_CLOSED => 0,
 			DAO_Message::CREATED_DATE => $current_time,
 			DAO_Message::UPDATED_DATE => $current_time,
 			DAO_Message::MESSAGE => $db->qstr($message_text),
