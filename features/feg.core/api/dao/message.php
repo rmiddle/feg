@@ -234,12 +234,12 @@ class SearchFields_Message implements IDevblocksSearchFields {
 		$translate = DevblocksPlatform::getTranslationService();
 		
 		$columns = array(
-			self::ID => new DevblocksSearchField(self::ID, 'm', 'id', $translate->_('feg.message.id')),
-			self::ACCOUNT_ID => new DevblocksSearchField(self::ACCOUNT_ID, 'm', 'account_id', $translate->_('feg.message.account_id')),
-			self::CREATED_DATE => new DevblocksSearchField(self::CREATED_DATE, 'm', 'created_date', $translate->_('feg.message.created_date')),
-			self::UPDATED_DATE => new DevblocksSearchField(self::UPDATED_DATE, 'm', 'updated_date', $translate->_('feg.message.updated_date')),
-			self::PARAMS_JSON => new DevblocksSearchField(self::PARAMS_JSON, 'm', 'params_json', $translate->_('feg.message.params_json')),
-			self::MESSAGE => new DevblocksSearchField(self::MESSAGE, 'm', 'message', $translate->_('feg.message.message')),
+			self::ID => new DevblocksSearchField(self::ID, 'message', 'id', $translate->_('feg.message.id')),
+			self::ACCOUNT_ID => new DevblocksSearchField(self::ACCOUNT_ID, 'message', 'account_id', $translate->_('feg.message.account_id')),
+			self::CREATED_DATE => new DevblocksSearchField(self::CREATED_DATE, 'message', 'created_date', $translate->_('feg.message.created_date')),
+			self::UPDATED_DATE => new DevblocksSearchField(self::UPDATED_DATE, 'message', 'updated_date', $translate->_('feg.message.updated_date')),
+			self::PARAMS_JSON => new DevblocksSearchField(self::PARAMS_JSON, 'message', 'params_json', $translate->_('feg.message.params_json')),
+			self::MESSAGE => new DevblocksSearchField(self::MESSAGE, 'message', 'message', $translate->_('feg.message.message')),
 		);
 		
 		// Custom Fields
