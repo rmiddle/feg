@@ -213,7 +213,7 @@ class ImportCron extends FegCronExtension {
 
 		if(preg_match('/=====\w+=====/i', $data, $acc_id)) {
 			$logger->info("[Parser] acc_id = ".substr($acc_id[0],5,-5)."...");
-			$account_name = $acc_id[0],5,-5);
+			$account_name = substr($acc_id[0],5,-5);
 			// Now Confirm the account exists.
 			$account = array_shift(DAO_CustomerAccount::getWhere(sprintf("%s = %d",
 				DAO_CustomerAccount::ACCOUNT_NUMBER,
