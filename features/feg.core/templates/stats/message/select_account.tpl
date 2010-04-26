@@ -4,7 +4,6 @@
 <input type="hidden" name="id" value="{$id}">
 <input type="hidden" name="view_id" value="{$view_id}">
 
-{$msg = DAO_Message::get($id)}
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
 		<td nowrap="nowrap" align="right">{$translate->_('feg.message.id')|capitalize} </td>
@@ -21,7 +20,7 @@
 {/if}
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.message.message')|capitalize}: </td>
-		<td width="100%">{preg_replace('/(\r\n|\r|\n)/', "<br>", $msg->message)}</td>
+		<td width="100%">{}</td>
 	</tr>
 </table>
 

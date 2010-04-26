@@ -97,6 +97,12 @@ class FegStatsPage extends FegPageExtension {
 		$tpl->assign('id', $id);
 		$tpl->assign('view_id', $view_id);
 		
+		$message = DAO_Message::get($id);
+		echo "<pre>";
+		print_f(preg_replace('/(\r\n|\r|\n)/', "<br>", $message->message));
+		echo "</pre>";
+		$tpl->assign('message', $message);
+
 		// Custom Fields
 		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Message::ID);
 		$tpl->assign('custom_fields', $custom_fields);
