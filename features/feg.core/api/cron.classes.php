@@ -106,13 +106,16 @@ class ImportCron extends FegCronExtension {
 			
 			switch($import_source->type) {
 				case 0:
-					self::importIXO($import_source);
+					$logger->info("[IXO Importer] Importer started");
+					self::importCombined($import_source);
 					break;
 				case 1:
-					self::importComMon($import_source);
+					$logger->info("[ComMon Importer] Importer started");
+					self::importCombined($import_source);
 					break;
 				case 2:
-					self::importPI($import_source);
+					$logger->info("[PI Importer] Importer started");
+					self::importCombined($import_source);
 					break;
 				default:
 					break;
@@ -137,21 +140,7 @@ class ImportCron extends FegCronExtension {
 //		$this->setParam('import_folder_path', $import_folder_path);
 	}
 	
-	function importIXO(Model_ImportSource $import_source) {
-		$logger = DevblocksPlatform::getConsoleLog();
-		$logger->info("[IXO Importer] Importer started");
-
-		return self::importCombinedComMonIXO($import_source);
-	}
-	
-	function importComMon(Model_ImportSource $import_source) {
-		$logger = DevblocksPlatform::getConsoleLog();
-		$logger->info("[ComMon Importer] Importer started");
-
-		return self::importCombinedComMonIXO($import_source);
-	}
-
-	function importCombinedComMonIXO(Model_ImportSource $import_source) {
+	function importCombined(Model_ImportSource $import_source) {
 		$logger = DevblocksPlatform::getConsoleLog();
 		$logger->info("[ComMon / IXO Importer] Importer started");
 		
@@ -193,13 +182,6 @@ class ImportCron extends FegCronExtension {
 		return NULL;		
 	}
 
-	function importPI(Model_ImportSource $import_source) {
-		$logger = DevblocksPlatform::getConsoleLog();
-		$logger->info("[PI Importer] Importer started");
-
-		return NULL;		
-	}
-
 	function _parseFile($full_filename, Model_ImportSource $import_source) {
 		$logger = DevblocksPlatform::getConsoleLog();
 		$db = DevblocksPlatform::getDatabaseService();
@@ -211,28 +193,43 @@ class ImportCron extends FegCronExtension {
 		$data = fread($fp, filesize($full_filename));
 		fclose($fp); 
 
-		if(preg_match('/=====\w+=====/i', $data, $acc_id)) {
-			$logger->info("[Parser] acc_id = ".substr($acc_id[0],5,-5)."...");
-			$account_name = substr($acc_id[0],5,-5);
-			// Store the filename and Interperted account Name and source into a Json array incase account doesn't match
-			$json = json_encode(array(
-				'import_source' => $import_source->id,
-				'account_name' => $account_name,
-				'file_name' => $fileparts['basename'],
-			));
-			// Now Confirm the account exists.
-			$account = array_shift(DAO_CustomerAccount::getWhere(sprintf("%s = %d",
-				DAO_CustomerAccount::ACCOUNT_NUMBER,
-				$account_name
-			)));
-			 if (isset($account))
-				$account_id = $account->id;
-			else
-				$account_id = 0;				
-		} else {
-			$logger->info("[Parser] Not in the correct format");
-			$account_id = 0;
+		switch($import_source->type) {
+			case 0:
+			case 1:
+				if(preg_match('/=====\w+=====/i', $data, $acc_id)) {
+					$account_name = substr($acc_id[0],5,-5);
+					$logger->info("[Parser] acc_id = ".$account_name."...");
+				} else {
+					$account_id = 0;
+					$logger->info("[Parser] Not in the correct format");
+				}
+				break;
+			case 2:
+				$account_name = substr($fileparts['basename'],0,-4);
+				$logger->info("[Parser] account_name = ".$account_name."...");
+				break;
+			default:
+				break;
 		}
+		
+		// Store the filename and Interperted account Name and source into a Json array incase account doesn't match
+		$json = json_encode(array(
+			'import_source' => $import_source->id,
+			'account_name' => $account_name,
+			'file_name' => $fileparts['basename'],
+		));
+		// Now Confirm the account exists.
+		$account = array_shift(DAO_CustomerAccount::getWhere(sprintf("%s = %d AND %s = %d",
+			DAO_CustomerAccount::ACCOUNT_NUMBER,
+			$account_name,
+			DAO_CustomerAccount::IMPORT_SOURCE,
+			$import_source->id
+		)));
+		if (isset($account))
+			$account_id = $account->id;
+		else
+			$account_id = 0;				
+			
 		if($this->_createMessage($account_id, $db->qstr($data), $json)) {
 			@unlink($full_filename);
 		} else {

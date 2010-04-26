@@ -13,10 +13,10 @@
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address')|capitalize}: </td>
 		<td width="100%"><input type="text" name="recipient_address" value="{$rec->address|escape}" style="width:98%;"></td>
 	</tr>
-		{*$account = DAO_CustomerAccount::get($msg->account_id)*}
 {if $active_worker->is_superuser}
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.id')|capitalize}: </td>
+	</tr>
 {/if}
 	<tr>
 		<td width="0%" nowrap="nowrap" valign="top" align="right">{$translate->_('feg.message.message')|capitalize}: </td>
