@@ -20,7 +20,11 @@
 {/if}
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.message.message')|capitalize}: </td>
-		<td width="100%">{}</td>
+		<td width="100%">
+			{foreach from=$message_lines item=line name=line_id}
+				{$line}<br>
+			{/foreach}
+		</td>
 	</tr>
 </table>
 
