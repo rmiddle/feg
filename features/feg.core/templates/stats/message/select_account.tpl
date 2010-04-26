@@ -19,7 +19,7 @@
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.id')|capitalize}: </td>
 {/if}
 	<tr>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.message.message')|capitalize}: </td>
+		<td width="0%" nowrap="nowrap" valign="top" align="right">{$translate->_('feg.message.message')|capitalize}: </td>
 		<td width="100%">
 			{foreach from=$message_lines item=line name=line_id}
 				{$line}<br>
