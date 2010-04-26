@@ -100,7 +100,7 @@ class FegStatsPage extends FegPageExtension {
 		$message = DAO_Message::get($id);
 		echo "<pre>";
 		echo "message = ";
-		echo $message->message;
+		echo substr($message->message,1,-1);
 		echo "</pre>";
 		$tpl->assign('message', $message);
 
