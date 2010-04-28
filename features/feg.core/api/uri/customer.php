@@ -161,7 +161,7 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 		}
 		
 		$fields = array(
-			DAO_CustomerAccount::IMPORT_FILTER => $import_filter,
+			DAO_CustomerAccount::IMPORT_SOURCE => $import_source,
 			DAO_CustomerAccount::ACCOUNT_NAME => $account_name,
 			DAO_CustomerAccount::ACCOUNT_NUMBER => $account_number,
 			DAO_CustomerAccount::IS_DISABLED => $disabled,
