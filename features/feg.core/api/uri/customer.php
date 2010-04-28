@@ -138,6 +138,9 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 		}
 		$tpl->assign('customer', $customer);
 		
+		@$import_source = DAO_ImportSource::getAll();
+		$tpl->assign('import_source', $import_source);
+		
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/property/index.tpl');
 	}
 
@@ -148,7 +151,7 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 		
 		@$id = DevblocksPlatform::importGPC($_POST['id'],'integer');
 		@$disabled = DevblocksPlatform::importGPC($_POST['account_is_disabled'],'integer',0);
-		@$import_filter = DevblocksPlatform::importGPC($_POST['customer_account_import_filter'],'integer',0);
+		@$import_source = DevblocksPlatform::importGPC($_POST['customer_account_import_source'],'integer',0);
 		
 		@$account_number = DevblocksPlatform::importGPC($_REQUEST['customer_account_number'],'string','');
 		@$account_name = DevblocksPlatform::importGPC($_REQUEST['customer_account_name'],'string','');

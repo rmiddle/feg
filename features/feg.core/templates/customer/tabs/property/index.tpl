@@ -27,10 +27,12 @@
 		<td width="100%"><input type="text" name="customer_account_name" value="{$customer->account_name|escape}" style="width:98%;"></td>
 	</tr>
 	<tr>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer.customer.import_filter')|capitalize}: </td>
+		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.import_source')|capitalize}: </td>
 		<td width="100%">
-			<select name="customer_account_import_filter">
-				<option value="0" {if $customer->import_filter == 0}selected{/if}>{$translate->_('common.default')|capitalize}</option>
+			<select name="customer_account_import_source">
+				{foreach from=$import_source item=import}
+					<option value="{$import->id}" {if $customer->import_source == $import->id}selected="selected"{/if}>{$import->name}</option>
+				{/foreach}
 			</select>
 		</td>
 	</tr>
