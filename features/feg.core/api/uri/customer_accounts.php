@@ -56,7 +56,7 @@ class FegAccountPage extends FegPageExtension {
 		$active_worker = FegApplication::getActiveWorker();
 
 		$fields = array(
-			DAO_CustomerAccount::IMPORT_FILTER => 0,
+			DAO_CustomerAccount::IMPORT_SOURCE => 0,
 			DAO_CustomerAccount::ACCOUNT_NAME => "",
 			DAO_CustomerAccount::ACCOUNT_NUMBER => "",
 			DAO_CustomerAccount::IS_DISABLED => 1,
