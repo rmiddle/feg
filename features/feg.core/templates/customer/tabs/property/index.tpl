@@ -5,7 +5,7 @@
 <input type="hidden" name="tab" value="feg.customer.tab.property">
 <input type="hidden" name="action" value="saveCustomerAccount">
 <input type="hidden" name="customer_id" value="{$customer_id}">
-<input type="hidden" name="do_delete" value="0">
+<input type="hidden" name="account_is_disabled" value="{$customer->is_disabled}">
 <input type="hidden" name="and_close" value="0">
 
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
@@ -40,7 +40,7 @@
 <button type="submit"><span class="feg-sprite sprite-check"></span> {$translate->_('common.save_changes')|capitalize}</button>
 <button type="button" onclick="this.form.and_close.value='1';this.form.submit();"><span class="feg-sprite sprite-check"></span>{$translate->_('common.save_changes')|capitalize} and close</button>
 {if $customer->is_disabled == 0}
-<button type="button" onclick="this.form.account_is_disabled.value='1';this.form.submit();"><span class="feg-sprite sprite-delete"></span>{$translate->_('common.disable')|capitalize}</button>
+<button type="button" onclick="this.form.account_is_disabled.value='1';this.form.submit();"><span class="feg-sprite sprite-delete"></span> {$translate->_('common.disable')|capitalize}</button>
 {else}
 <button type="button" onclick="this.form.account_is_disabled.value='0';this.form.submit();"><span class="feg-sprite sprite-check"></span>{$translate->_('common.enable')|capitalize}</button>
 {/if}
