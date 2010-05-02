@@ -10,15 +10,6 @@
 
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.disabled')|capitalize}: </td>
-		<td width="100%">
-			<select name="account_is_disabled">
-				<option value="0" {if $rec->is_disabled == 0}selected{/if}>{$translate->_('common.enable')|capitalize}</option>
-				<option value="1" {if $rec->is_disabled == 1}selected{/if}>{$translate->_('common.disable')|capitalize}</option>
-			</select>
-		</td>
-	</tr>
-	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer.customer.account_number')|capitalize}: </td>
 		<td width="100%"><input type="text" name="customer_account_number" value="{$customer->account_number|escape}" style="width:98%;"></td>
 	</tr>
@@ -36,7 +27,12 @@
 			</select>
 		</td>
 	</tr>
-	
+	<tr>
+		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.disabled')|capitalize}: </td>
+		<td width="100%">
+			{if $rec->is_disabled == 0}{$translate->_('common.enable')|capitalize}{else}{$translate->_('common.disable')|capitalize}{/if}
+		</td>
+	</tr>
 </table>
 
 {include file="file:$core_tpl/internal/custom_fields/bulk/form.tpl" bulk=false}
