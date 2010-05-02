@@ -457,7 +457,43 @@ For example: *receipt*</seg></tuv>
 			<tuv xml:lang="en_US"><seg>Worker</seg></tuv>
 		</tu>
 	
-		<!-- Customer Recipient Type -->
+		<!-- Customer Translations -->
+		
+		<tu tuid='feg.customer_account.title'>
+			<tuv xml:lang="en_US"><seg>Customer List</seg></tuv>
+		</tu>
+		<tu tuid='feg.customer_account.disabled'>
+			<tuv xml:lang="en_US"><seg>Status</seg></tuv>
+		</tu>
+		<tu tuid='customer.display.title'>
+			<tuv xml:lang="en_US"><seg>Customer Editor</seg></tuv>
+		</tu>
+		<tu tuid='customer.display.invalid_customer'>
+			<tuv xml:lang="en_US"><seg>Invalid Customer</seg></tuv>
+		</tu>
+		<tu tuid='feg.customer.tab.property.title'>
+			<tuv xml:lang="en_US"><seg>Property</seg></tuv>
+		</tu>
+		<tu tuid='feg.customer_account.account_number'>
+			<tuv xml:lang="en_US"><seg>Account Number</seg></tuv>
+		</tu>
+		<tu tuid='feg.customer_account.account_name'>
+			<tuv xml:lang="en_US"><seg>Account Name</seg></tuv>
+		</tu>
+		<tu tuid='feg.customer_account.import_source'>
+			<tuv xml:lang="en_US"><seg>Import Source</seg></tuv>
+		</tu>
+		<tu tuid='feg.customer.tab.recipient.title'>
+			<tuv xml:lang="en_US"><seg>Recipient</seg></tuv>
+		</tu>
+		<tu tuid='feg.customer.tab.recent.messages.title'>
+			<tuv xml:lang="en_US"><seg>Recent Messages</seg></tuv>
+		</tu>
+		<tu tuid='feg.customer_account.id'>
+			<tuv xml:lang="en_US"><seg>Customer ID</seg></tuv>
+		</tu>
+		
+		<!-- Customer Recipient -->
 		
 		<tu tuid='feg.customer_recipient.title'>
 			<tuv xml:lang="en_US"><seg>Customer Recipients</seg></tuv>
@@ -508,39 +544,6 @@ For example: *receipt*</seg></tuv>
 			<tuv xml:lang="en_US"><seg>Export Filters</seg></tuv>
 		</tu>
 				
-		<!-- Customer Translations -->
-		
-		<tu tuid='feg.customer_account.title'>
-			<tuv xml:lang="en_US"><seg>Customer List</seg></tuv>
-		</tu>
-		<tu tuid='customer.display.title'>
-			<tuv xml:lang="en_US"><seg>Customer Editor</seg></tuv>
-		</tu>
-		<tu tuid='customer.display.invalid_customer'>
-			<tuv xml:lang="en_US"><seg>Invalid Customer</seg></tuv>
-		</tu>
-		<tu tuid='feg.customer.tab.property.title'>
-			<tuv xml:lang="en_US"><seg>Property</seg></tuv>
-		</tu>
-		<tu tuid='feg.customer_account.account_number'>
-			<tuv xml:lang="en_US"><seg>Account Number</seg></tuv>
-		</tu>
-		<tu tuid='feg.customer_account.account_name'>
-			<tuv xml:lang="en_US"><seg>Account Name</seg></tuv>
-		</tu>
-		<tu tuid='feg.customer_account.import_source'>
-			<tuv xml:lang="en_US"><seg>Import Source</seg></tuv>
-		</tu>
-		<tu tuid='feg.customer.tab.recipient.title'>
-			<tuv xml:lang="en_US"><seg>Recipient</seg></tuv>
-		</tu>
-		<tu tuid='feg.customer.tab.recent.messages.title'>
-			<tuv xml:lang="en_US"><seg>Recent Messages</seg></tuv>
-		</tu>
-		<tu tuid='feg.customer_account.id'>
-			<tuv xml:lang="en_US"><seg>Customer ID</seg></tuv>
-		</tu>
-		
 		<!-- Source Message Translations  -->
 		
 		<tu tuid='feg.message.title'>
