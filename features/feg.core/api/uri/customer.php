@@ -146,7 +146,6 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 
 	function saveCustomerAccountAction() {
 		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
-		@$delete = DevblocksPlatform::importGPC($_POST['do_delete'],'integer',0);
 		@$and_close = DevblocksPlatform::importGPC($_POST['and_close'],'integer',0);
 		
 		@$id = DevblocksPlatform::importGPC($_POST['id'],'integer');
@@ -155,10 +154,6 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 		
 		@$account_number = DevblocksPlatform::importGPC($_REQUEST['customer_account_number'],'string','');
 		@$account_name = DevblocksPlatform::importGPC($_REQUEST['customer_account_name'],'string','');
-		
-		if($delete) {
-			return;
-		}
 		
 		$fields = array(
 			DAO_CustomerAccount::IMPORT_SOURCE => $import_source,
