@@ -40,7 +40,7 @@
 <button type="submit"><span class="feg-sprite sprite-check"></span> {$translate->_('common.save_changes')|capitalize}</button>
 <button type="button" onclick="this.form.and_close.value='1';this.form.submit();"><span class="feg-sprite sprite-check"></span>{$translate->_('common.save_changes')|capitalize} and close</button>
 {if $customer->is_disabled == 0}
-<button type="button" onclick="this.form.account_is_disabled.value='1';this.form.submit();"><span class="feg-sprite sprite-delete"></span>{$translate->_('common.common.disable')|capitalize} and close</button>
+<button type="button" onclick="this.form.account_is_disabled.value='1';this.form.submit();"><span class="feg-sprite sprite-delete"></span>{$translate->_('common.disable')|capitalize}</button>
 {else}
 <button type="button" onclick="this.form.account_is_disabled.value='0';this.form.submit();"><span class="feg-sprite sprite-check"></span>{$translate->_('common.enable')|capitalize}</button>
 {/if}
