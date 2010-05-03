@@ -6,6 +6,12 @@
 <input type="hidden" name="id" value="{$id}">
 <input type="hidden" name="view_id" value="{$view_id}">
 <input type="hidden" name="do_delete" value="0">
+{if $id}
+	{$account = DAO_CustomerAccount::get($customer_recipient->account_id)}
+{else}
+	{$account = DAO_CustomerAccount::get($customer_id)}
+{/if}
+<input type="hidden" name="recipient_account_id" value="{$account->id}">
 
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
@@ -34,11 +40,6 @@
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address')|capitalize}: </td>
 		<td width="100%"><input type="text" name="recipient_address" value="{$customer_recipient->address|escape}" style="width:98%;"></td>
 	</tr>
-	{if $id}
-		{$account = DAO_CustomerAccount::get($customer_recipient->account_id)}
-	{else}
-		{$account = DAO_CustomerAccount::get($customer_id)}
-	{/if}
 {if $active_worker->is_superuser}
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.id')|capitalize}: </td>
