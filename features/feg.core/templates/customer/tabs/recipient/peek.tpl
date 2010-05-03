@@ -14,10 +14,12 @@
 <input type="hidden" name="recipient_account_id" value="{$account->id}">
 
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
+{if $active_worker->is_superuser}
 	<tr>
 		<td nowrap="nowrap" align="right">ID: </td>
 		<td>{if $id}{$id}{else}{$translate->_('feg.customer_recipient.id.new')|capitalize}{/if}</td>
 	</tr>
+{/if}
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('common.disabled')|capitalize}: </td>
 		<td width="100%">
