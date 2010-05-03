@@ -358,7 +358,7 @@ class View_CustomerAccount extends Feg_AbstractView {
 		parent::doResetCriteria();
 		
 		$this->params = array(
-			SearchFields_CustomerAccount::IS_DISABLED => new DevblocksSearchCriteria(SearchFields_CustomerAccount::IS_DISABLED,'==',0),
+			SearchFields_CustomerAccount::IS_DISABLED => new DevblocksSearchCriteria(SearchFields_CustomerAccount::IS_DISABLED,'=',0),
 		);
 	}
 
