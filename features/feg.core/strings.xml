@@ -475,10 +475,10 @@ For example: *receipt*</seg></tuv>
 			<tuv xml:lang="en_US"><seg>Property</seg></tuv>
 		</tu>
 		<tu tuid='feg.customer_account.account_number'>
-			<tuv xml:lang="en_US"><seg>Account Number</seg></tuv>
+			<tuv xml:lang="en_US"><seg>Account identification</seg></tuv>
 		</tu>
 		<tu tuid='feg.customer_account.account_name'>
-			<tuv xml:lang="en_US"><seg>Account Name</seg></tuv>
+			<tuv xml:lang="en_US"><seg>Account Description</seg></tuv>
 		</tu>
 		<tu tuid='feg.customer_account.import_source'>
 			<tuv xml:lang="en_US"><seg>Import Source</seg></tuv>
