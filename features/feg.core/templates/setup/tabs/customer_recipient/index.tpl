@@ -1,5 +1,5 @@
 <form>
-	<button type="button" onclick="genericAjaxPanel('c=setup&a=showRecipientPeek&id=0&view_id={$view->id|escape:'url'}',null,false,'500');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/businessman_add.gif{/devblocks_url}" align="top"> Add Recipient</button>
+	<button type="button" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id=0&view_id={$view->id|escape:'url'}',null,false,'500');"><span class="feg-sprite sprite-add"></span> {$translate->_('feg.customer_recipient.id.add')|capitalize}</button>
 </form>
 <table cellpadding="0" cellspacing="0" border="0">
 	<tr>

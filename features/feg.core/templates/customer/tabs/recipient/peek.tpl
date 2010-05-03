@@ -1,10 +1,11 @@
 <form action="{devblocks_url}{/devblocks_url}" method="POST" id="formRecipientPeek" name="formRecipientPeek" onsubmit="return false;">
-<input type="hidden" name="c" value="setup">
-<input type="hidden" name="a" value="saveRecipientPeek">
+<input type="hidden" name="c" value="customer">
+<input type="hidden" name="a" value="handleTabAction">
+<input type="hidden" name="tab" value="feg.customer.tab.recipient">
+<input type="hidden" name="action" value="saveCustomerAccount">
 <input type="hidden" name="id" value="{$id}">
 <input type="hidden" name="view_id" value="{$view_id}">
 <input type="hidden" name="do_delete" value="0">
-
 
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
