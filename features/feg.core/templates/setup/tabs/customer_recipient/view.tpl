@@ -16,7 +16,7 @@
 <form id="customize{$view->id}" name="customize{$view->id}" action="#" onsubmit="return false;" style="display:none;"></form>
 <form id="viewForm{$view->id}" name="viewForm{$view->id}" action="#">
 <input type="hidden" name="view_id" value="{$view->id}">
-<input type="hidden" name="c" value="setup">
+<input type="hidden" name="c" value="recipient">
 <input type="hidden" name="a" value="">
 <table cellpadding="1" cellspacing="0" border="0" width="100%" class="worklistBody">
 
@@ -56,11 +56,11 @@
 			{if substr($column,0,3)=="cf_"}
 				{include file="file:$core_tpl/internal/custom_fields/view/cell_renderer.tpl"}
 			{elseif $column=="cr_address" || $column=="cr_id"}
-				<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showRecipientPeek&id={$result.cr_id}&customer_id={$result.cr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
+				<td><a href="javascript:;" onclick="genericAjaxPanel('c=recipient&a=showRecipientPeek&id={$result.cr_id}&customer_id={$result.cr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
 			{elseif $column=="cr_is_disabled"}
 				<td>{if $result.cr_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</td>
 			{elseif $column=="cr_type"}
-				<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showRecipientPeek&id={$result.cr_id}&customer_id={$result.cr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
+				<td><a href="javascript:;" onclick="genericAjaxPanel('c=recipient&a=showRecipientPeek&id={$result.cr_id}&customer_id={$result.cr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
 					{if $result.cr_type == 0}{$translate->_('recipient.type.email')|capitalize}
 					{else if $result.cr_type == 1}{$translate->_('recipient.type.fax')|capitalize}
 					{else if $result.cr_type == 2}{$translate->_('recipient.type.snpp')|capitalize}
