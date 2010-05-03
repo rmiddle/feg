@@ -461,7 +461,7 @@
 				<name>FegCustomerTabRecipient</name>
 			</class>
 			<params>
-				<param key="uri" value="recipient" />
+				<param key="uri" value="customer_recipient" />
 				<param key="title" value="feg.customer.tab.recipient.title" />
 			</params>
 		</extension>

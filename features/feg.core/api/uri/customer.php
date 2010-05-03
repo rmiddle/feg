@@ -277,6 +277,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		//DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','workers')));		
 	}
 };
+
 class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 	private $_TPL_PATH = '';
 
