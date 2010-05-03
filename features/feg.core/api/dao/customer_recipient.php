@@ -253,7 +253,7 @@ class SearchFields_CustomerRecipient implements IDevblocksSearchFields {
 
 
 class View_CustomerRecipient extends Feg_AbstractView {
-	const DEFAULT_ID = 'customerrecipient';
+	const DEFAULT_ID = 'customer_recipient';
 	
 	function __construct() {
 		$translate = DevblocksPlatform::getTranslationService();
@@ -354,14 +354,14 @@ class View_CustomerRecipient extends Feg_AbstractView {
 	static function getSearchFields() {
 		$fields = self::getFields();
 		// [TODO] Filter fields
-		//unset($fields[SearchFields_CustomerRecipient::ID]);
+		unset($fields[SearchFields_CustomerRecipient::ID]);
 		return $fields;
 	}
 
 	static function getColumns() {
 		$fields = self::getFields();
 		// [TODO] Filter fields
-		//	unset($fields[SearchFields_CustomerRecipient::ID]);
+		unset($fields[SearchFields_CustomerRecipient::ID]);
 		return $fields;
 	}
 
@@ -369,7 +369,7 @@ class View_CustomerRecipient extends Feg_AbstractView {
 		parent::doResetCriteria();
 		
 		$this->params = array(
-//			SearchFields_CustomerRecipient::IS_DISABLED => new DevblocksSearchCriteria(SearchFields_CustomerRecipient::IS_DISABLED,'==',0),
+			SearchFields_CustomerRecipient::IS_DISABLED => new DevblocksSearchCriteria(SearchFields_CustomerRecipient::IS_DISABLED,'=',0),
 		);
 	}
 
