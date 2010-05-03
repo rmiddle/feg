@@ -582,6 +582,9 @@ class FegSetupPage extends FegPageExtension  {
 		$tpl->assign('id', $id);
 		$tpl->assign('customer_id', $customer_id);
 		$tpl->assign('view_id', $view_id);
+
+		$customer_recipient = DAO_CustomerRecipient::get($id);
+		$tpl->assign('customer_recipient', $customer_recipient);
 		
 		// Custom Fields
 		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerRecipient::ID);
