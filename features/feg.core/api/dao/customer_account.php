@@ -343,14 +343,14 @@ class View_CustomerAccount extends Feg_AbstractView {
 	static function getSearchFields() {
 		$fields = self::getFields();
 		// [TODO] Filter fields
-		// unset($fields[SearchFields_CustomerAccount::ID]);
+		unset($fields[SearchFields_CustomerAccount::ID]);
 		return $fields;
 	}
 
 	static function getColumns() {
 		$fields = self::getFields();
 		// [TODO] Filter fields
-		//	unset($fields[SearchFields_CustomerAccount::ID]);
+		unset($fields[SearchFields_CustomerAccount::ID]);
 		return $fields;
 	}
 
@@ -358,7 +358,7 @@ class View_CustomerAccount extends Feg_AbstractView {
 		parent::doResetCriteria();
 		
 		$this->params = array(
-		//	SearchFields_CustomerAccount::IS_DISABLED => new DevblocksSearchCriteria(SearchFields_CustomerAccount::IS_DISABLED,'==',0),
+			SearchFields_CustomerAccount::IS_DISABLED => new DevblocksSearchCriteria(SearchFields_CustomerAccount::IS_DISABLED,'==',0),
 		);
 	}
 
