@@ -58,7 +58,7 @@
 			{elseif $column=="cr_address" || $column=="cr_id"}
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.cr_id}&customer_id={$result.cr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
 			{elseif $column=="cr_is_disabled"}
-				<td>{if $result.cr_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</td>
+				<td><a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.cr_id}&customer_id={$result.cr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{if $result.cr_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</a></td>
 			{elseif $column=="cr_type"}
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.cr_id}&customer_id={$result.cr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
 					{if $result.cr_type == 0}{$translate->_('recipient.type.email')|capitalize}
