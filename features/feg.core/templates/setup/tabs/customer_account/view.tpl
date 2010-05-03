@@ -57,7 +57,7 @@
 			{elseif $column=="ca_id" || $column=="ca_account_number" ||  $column=="ca_account_name"}
 				<td><a href="{devblocks_url}{/devblocks_url}customer/{$result.ca_id}/property">{$result.$column}&nbsp;</a></td>
 			{elseif $column=="ca_is_disabled"}
-				<td>{if $result.ca_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</td>
+				<td><a href="{devblocks_url}{/devblocks_url}customer/{$result.ca_id}/property">{if $result.ca_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</a></td>
 			{else}
 			<td>{$result.$column}&nbsp;</td>
 			{/if}
