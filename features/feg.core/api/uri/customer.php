@@ -237,7 +237,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		if(isset($custom_field_values[$id]))
 			$tpl->assign('custom_field_values', $custom_field_values[$id]);
 			
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_recipient/peek.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recipient/peek.tpl');		
 	}
 	
 	function saveRecipientPeekAction() {
