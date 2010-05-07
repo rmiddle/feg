@@ -5,7 +5,7 @@
 <input type="hidden" name="tab" value="feg.customer.tab.property">
 <input type="hidden" name="action" value="saveCustomerAccount">
 <input type="hidden" name="customer_id" value="{$customer_id}">
-<input type="hidden" name="account_is_disabled" value="{if $customer->import_source == 0}{$customer->is_disabled}{else}1{/if}">
+<input type="hidden" name="account_is_disabled" value="{if $customer->import_source == 0}1{else}{$customer->is_disabled}{/if}">
 <input type="hidden" name="and_close" value="0">
 
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
