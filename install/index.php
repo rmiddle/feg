@@ -1,22 +1,8 @@
 <?php
-/***********************************************************************
-| UFeg(tm) developed by WebGroup Media, LLC.
-|-----------------------------------------------------------------------
-| All source code & content (c) Copyright 2010, WebGroup Media LLC
-|   unless specifically noted otherwise.
-|
-| By using this software, you acknowledge having read the license
-| and agree to be bound thereby.
-| ______________________________________________________________________
-|	http://feg.answernet.com	  http://www.webgroupmedia.com/
-***********************************************************************/
-
 define('INSTALL_APP_NAME', 'Feg');
 
-// -----------
-
 if(version_compare(PHP_VERSION, "5.2", "<"))
-	die("Feg requires PHP 5.2 or later.");
+	die("FEG requires PHP 5.2 or later.");
 
 @set_time_limit(3600);
 require('../framework.config.php');
@@ -96,10 +82,10 @@ if(!is_writeable(APP_STORAGE_PATH)) {
 //if(!is_writeable(APP_STORAGE_PATH . "/import/new/")) {
 //	die(APP_STORAGE_PATH . "/import/new/ is not writeable by the webserver.  Please adjust permissions and reload this page.");
 //}
-//
-//if(!is_writeable(APP_STORAGE_PATH . "/attachments/")) {
-//	die(APP_STORAGE_PATH . "/attachments/ is not writeable by the webserver.  Please adjust permissions and reload this page.");
-//}
+
+if(!is_writeable(APP_STORAGE_PATH . "/attachments/")) {
+	die(APP_STORAGE_PATH . "/attachments/ is not writeable by the webserver.  Please adjust permissions and reload this page.");
+}
 
 // [TODO] Move this to the framework init (installer blocks this at the moment)
 DevblocksPlatform::setLocale('en_US');
@@ -150,7 +136,7 @@ switch($step) {
 			$results['memory_limit'] = true;
 		} else {
 			$ini_memory_limit = intval($memory_limit);
-			if($ini_memory_limit >= 16) {
+			if($ini_memory_limit >= 64) {
 				$results['memory_limit'] = true;
 			} else {
 				$results['memory_limit'] = false;
@@ -266,13 +252,11 @@ switch($step) {
 	    break;
 
 	// Configure and test the database connection
-	// [TODO] This should also patch in app_id + revision order
 	// [TODO] This should remind the user to make a backup (and refer to a wiki article how)
 	case STEP_DATABASE:
 		// Import scope (if post)
 		@$db_driver = DevblocksPlatform::importGPC($_POST['db_driver'],'string');
-    @$db_encoding = DevblocksPlatform::importGPC($_POST['db_encoding'],'string');
-		@$db_server = DevblocksPlatform::importGPC($_POST['db_server'],'string');
+ 		@$db_server = DevblocksPlatform::importGPC($_POST['db_server'],'string');
 		@$db_name = DevblocksPlatform::importGPC($_POST['db_name'],'string');
 		@$db_user = DevblocksPlatform::importGPC($_POST['db_user'],'string');
 		@$db_pass = DevblocksPlatform::importGPC($_POST['db_pass'],'string');
@@ -383,80 +367,65 @@ switch($step) {
 		// [TODO] Add current user to patcher/upgrade authorized IPs
 
 		if(DevblocksPlatform::isDatabaseEmpty()) { // install
-			$patchMgr = DevblocksPlatform::getPatchService();
-
-			// [JAS]: Run our overloaded container for the platform
-			$patchMgr->registerPatchContainer(new PlatformPatchContainer());
-
-			// Clean script
-			if(!$patchMgr->run()) {
+			try {
+				DevblocksPlatform::update();
+			} catch(Exception $e) {
+				$tpl->assign('error', $e->getMessage());
 				$tpl->assign('template', 'steps/step_init_db.tpl');
-
-			} else { // success
-				// Read in plugin information from the filesystem to the database
-				DevblocksPlatform::readPlugins();
-
-				/*
-				 * [TODO] This possibly needs to only start with core, because as soon
-				 * as we add back another feature with licensing we'll have installer
-				 * errors trying to license plugins before core runs its DB install.
-				 */
-				$plugins = DevblocksPlatform::getPluginRegistry();
-
-				// Tailor which plugins are enabled by default
-				if(is_array($plugins))
-				foreach($plugins as $plugin_manifest) { /* @var $plugin_manifest DevblocksPluginManifest */
-					switch ($plugin_manifest->id) {
-						case "devblocks.core":
-						case "feg.core":
-							$plugin_manifest->setEnabled(true);
-							break;
-
-						default:
-							$plugin_manifest->setEnabled(false);
-							break;
-					}
-				}
-
-				DevblocksPlatform::clearCache();
-
-				// Run enabled plugin patches
-				$patches = DevblocksPlatform::getExtensions("devblocks.patch.container",false,true);
-
-				if(is_array($patches))
-				foreach($patches as $patch_manifest) { /* @var $patch_manifest DevblocksExtensionManifest */
-					 $container = $patch_manifest->createInstance(); /* @var $container DevblocksPatchContainerExtension */
-					 $patchMgr->registerPatchContainer($container);
-				}
-
-				if(!$patchMgr->run()) { // fail
-					$tpl->assign('template', 'steps/step_init_db.tpl');
-
-				} else {
-					// Reload plugin translations
-					DAO_Translation::reloadPluginStrings();
-
-					// success
-					$tpl->assign('step', STEP_CONTACT);
-					$tpl->display('steps/redirect.tpl');
-					exit;
-				}
-
-				// [TODO] Verify the database
 			}
+			
+			// Read in plugin information from the filesystem to the database
+			DevblocksPlatform::readPlugins();
+			
+			$plugins = DevblocksPlatform::getPluginRegistry();
+			
+			// Tailor which plugins are enabled by default
+			if(is_array($plugins))
+			foreach($plugins as $plugin) { /* @var $plugin DevblocksPluginManifest */
+				switch ($plugin->id) {
+					case 'devblocks.core':
+					case 'feg.core':
+						$plugin->setEnabled(true);
+						break;
+					
+					default:
+						$plugin->setEnabled(false);
+						break;
+				}
+			}
+			
 
-
+			// Platform + App
+			try {
+				FegApplication::update();
+				
+				// Reload plugin translations
+				DAO_Translation::reloadPluginStrings();
+				
+				// Success
+				$tpl->assign('step', STEP_CONTACT);
+				$tpl->display('steps/redirect.tpl');
+				exit;
+				
+				// [TODO] Verify the database
+				
+			} catch(Exception $e) {
+				$tpl->assign('error', $e->getMessage());
+				$tpl->assign('template', 'steps/step_init_db.tpl');
+				exit;
+			}
+			
 		} else { // upgrade / patch
 			/*
-			 * [TODO] We should probably only forward to upgrade when we know
-			 * the proper tables were installed.  We may be repeating an install
+			 * [TODO] We should probably only forward to upgrade when we know 
+			 * the proper tables were installed.  We may be repeating an install 
 			 * request where the clean DB failed.
 			 */
 			$tpl->assign('step', STEP_UPGRADE);
 			$tpl->display('steps/redirect.tpl');
 			exit;
 		}
-
+			
 		break;
 
 
@@ -579,7 +548,6 @@ switch($step) {
 		@$worker_pass2 = DevblocksPlatform::importGPC($_POST['worker_pass2'],'string');
 
 		$settings = DevblocksPlatform::getPluginSettingsService();
-		$db = DevblocksPlatform::getDatabaseService();
 
 		if(!empty($form_submit)) {
 			// Persist form scope
@@ -589,47 +557,6 @@ switch($step) {
 
 			// Sanity/Error checking
 			if(!empty($worker_email) && !empty($worker_pass) && $worker_pass == $worker_pass2) {
-				// If we have no groups, make a Dispatch group
-//				$groups = DAO_Group::getAll(true);
-//				if(empty($groups)) {
-//					// Dispatch Group
-//					$dispatch_gid = DAO_Group::createTeam(array(
-//						DAO_Group::TEAM_NAME => 'Dispatch',
-//					));
-//
-//					// Dispatch Spam Bucket
-//					$dispatch_spam_bid = DAO_Bucket::create('Spam', $dispatch_gid);
-//					DAO_GroupSettings::set($dispatch_gid,DAO_GroupSettings::SETTING_SPAM_ACTION,'2');
-//					DAO_GroupSettings::set($dispatch_gid,DAO_GroupSettings::SETTING_SPAM_ACTION_PARAM,$dispatch_spam_bid);
-//					DAO_GroupSettings::set($dispatch_gid,DAO_GroupSettings::SETTING_SPAM_THRESHOLD,'85');
-//
-//					// Support Group
-//					$support_gid = DAO_Group::createTeam(array(
-//						DAO_Group::TEAM_NAME => 'Support',
-//					));
-//
-//					// Support Spam Bucket
-//					$support_spam_bid = DAO_Bucket::create('Spam', $support_gid);
-//					DAO_GroupSettings::set($support_gid,DAO_GroupSettings::SETTING_SPAM_ACTION,'2');
-//					DAO_GroupSettings::set($support_gid,DAO_GroupSettings::SETTING_SPAM_ACTION_PARAM,$support_spam_bid);
-//					DAO_GroupSettings::set($support_gid,DAO_GroupSettings::SETTING_SPAM_THRESHOLD,'85');
-//
-//					// Sales Group
-//					$sales_gid = DAO_Group::createTeam(array(
-//						DAO_Group::TEAM_NAME => 'Sales',
-//					));
-//
-//					// Sales Spam Bucket
-//					$sales_spam_bid = DAO_Bucket::create('Spam', $sales_gid);
-//					DAO_GroupSettings::set($sales_gid,DAO_GroupSettings::SETTING_SPAM_ACTION,'2');
-//					DAO_GroupSettings::set($sales_gid,DAO_GroupSettings::SETTING_SPAM_ACTION_PARAM,$sales_spam_bid);
-//					DAO_GroupSettings::set($sales_gid,DAO_GroupSettings::SETTING_SPAM_THRESHOLD,'85');
-//
-//					// Default catchall
-//					DAO_Group::updateTeam($dispatch_gid, array(
-//						DAO_Group::IS_DEFAULT => 1
-//					));
-//				}
 
 				// If this worker doesn't exist, create them
 				$results = DAO_Worker::getWhere(sprintf("%s = %s",
@@ -649,29 +576,17 @@ switch($step) {
 
 					$worker_id = DAO_Worker::create($fields);
 
-//					// Default group memberships
-//					if(!empty($dispatch_gid))
-//						DAO_Group::setTeamMember($dispatch_gid,$worker_id,true);
-//					if(!empty($support_gid))
-//						DAO_Group::setTeamMember($support_gid,$worker_id,true);
-//					if(!empty($sales_gid))
-//						DAO_Group::setTeamMember($sales_gid,$worker_id,true);
 				}
 
 				$tpl->assign('step', STEP_REGISTER);
 				$tpl->display('steps/redirect.tpl');
 				exit;
-
 			} else {
 				$tpl->assign('failed', true);
-
 			}
-
 		} else {
 			// Defaults
-
 		}
-
 		$tpl->assign('template', 'steps/step_defaults.tpl');
 
 		break;
