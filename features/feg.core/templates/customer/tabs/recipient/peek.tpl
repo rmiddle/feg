@@ -62,9 +62,9 @@
 <br>
 <button type="button" onclick="genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><span class="feg-sprite sprite-check"></span> {$translate->_('common.save_changes')}</button>
 {if $customer_recipient->is_disabled == 0}
-<button type="button" onclick="this.form.account_is_disabled.value='1';this.form.submit();"><span class="feg-sprite sprite-delete"></span> {$translate->_('common.disable')|capitalize}</button>
+<button type="button" onclick="this.form.recipient_is_disabled.value='1';genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><span class="feg-sprite sprite-delete"></span> {$translate->_('common.disable')|capitalize}</button>
 {else}
-<button type="button" onclick="this.form.account_is_disabled.value='0';this.form.submit();"><span class="feg-sprite sprite-check"></span>{$translate->_('common.enable')|capitalize}</button>
+<button type="button" onclick="this.form.recipient_is_disabled.value='0';genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><span class="feg-sprite sprite-check"></span>{$translate->_('common.enable')|capitalize}</button>
 {/if}
 <button type="button" onclick="genericPanel.dialog('close');"><span class="feg-sprite sprite-delete"></span>  {$translate->_('common.cancel')|capitalize}</button>
 {if $active_worker->is_superuser}
