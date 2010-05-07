@@ -203,8 +203,7 @@ if(!isset($tables['message'])) {
 			params_json longtext,
 			message longtext,
 			PRIMARY KEY (id),
-			INDEX account_id (account_id),
-			INDEX is_closed (is_closed)
+			INDEX account_id (account_id)
 		) ENGINE=MyISAM;
 	";
 	$db->Execute($sql);	
