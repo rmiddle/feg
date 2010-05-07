@@ -6,6 +6,8 @@
 <input type="hidden" name="id" value="{$id}">
 <input type="hidden" name="view_id" value="{$view_id}">
 <input type="hidden" name="do_delete" value="0">
+<input type="hidden" name="recipient_is_disabled" value="{$customer_recipient->is_disabled}">
+
 {if $id}
 	{$account = DAO_CustomerAccount::get($customer_recipient->account_id)}
 {else}
@@ -20,15 +22,6 @@
 		<td>{if $id}{$id}{else}{$translate->_('feg.customer_recipient.id.new')|capitalize}{/if}</td>
 	</tr>
 {/if}
-	<tr>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('common.disabled')|capitalize}: </td>
-		<td width="100%">
-			<select name="recipient_is_disabled">
-				<option value="0" {if $customer_recipient->is_disabled == 0}selected{/if}>{$translate->_('common.enable')|capitalize}</option>
-				<option value="1" {if $customer_recipient->is_disabled == 1}selected{/if}>{$translate->_('common.disable')|capitalize}</option>
-			</select>
-		</td>
-	</tr>
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.type')|capitalize}: </td>
 			<select name="recipient_type">
@@ -56,16 +49,27 @@
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_name')|capitalize}: </td>
 		<td width="100%">{$account->account_name}</td>
 	</tr>
+	<tr>
+		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.disabled')|capitalize}: </td>
+		<td width="100%">
+			{if $customer_recipient->is_disabled == 0}<span class="feg-sprite sprite-check"></span>{$translate->_('common.enable')|capitalize}{else}<span class="feg-sprite sprite-delete"></span>{$translate->_('common.disable')|capitalize}{/if}
+		</td>
+	</tr>
 </table>
 <input type="hidden" name="recipient_export_filter" value="{$customer_recipient->export_filter}">
 
 {include file="file:$core_tpl/internal/custom_fields/bulk/form.tpl" bulk=false}
 <br>
 <button type="button" onclick="genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><span class="feg-sprite sprite-check"></span> {$translate->_('common.save_changes')}</button>
+{if $customer_recipient->is_disabled == 0}
+<button type="button" onclick="this.form.account_is_disabled.value='1';this.form.submit();"><span class="feg-sprite sprite-delete"></span> {$translate->_('common.disable')|capitalize}</button>
+{else}
+<button type="button" onclick="this.form.account_is_disabled.value='0';this.form.submit();"><span class="feg-sprite sprite-check"></span>{$translate->_('common.enable')|capitalize}</button>
+{/if}
+<button type="button" onclick="genericPanel.dialog('close');"><span class="feg-sprite sprite-delete"></span>  {$translate->_('common.cancel')|capitalize}</button>
 {if $active_worker->is_superuser}
 	<button type="button" onclick="if(confirm('Are you sure you want to delete this Customers Recipient?')){literal}{{/literal}this.form.do_delete.value='1';genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');{literal}}{/literal}"><span class="feg-sprite sprite-delete2"></span> {$translate->_('common.delete')|capitalize}</button>
 {/if}
-<button type="button" onclick="genericPanel.dialog('close');"><span class="feg-sprite sprite-delete"></span>  {$translate->_('common.cancel')|capitalize}</button>
 <br>
 </form>
 
