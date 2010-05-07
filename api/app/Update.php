@@ -97,8 +97,9 @@ class FegUpdateController extends DevblocksControllerExtension {
 						
 						// Clear compiled templates
 						$tpl = DevblocksPlatform::getTemplateService();
-						$tpl->clear_compiled_tpl();
-
+						$tpl->utility->clearCompiledTemplate();
+						$tpl->cache->clearAll();
+			
 						// Reload plugin translations
 						DAO_Translation::reloadPluginStrings();
 
