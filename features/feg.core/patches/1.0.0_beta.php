@@ -223,7 +223,7 @@ if(!isset($tables['message_recipient'])) {
 			PRIMARY KEY (id),
 			INDEX message_id (message_id),
 			INDEX recipient_id (recipient_id),
-			INDEX recipient_id (account_id),
+			INDEX account_id (account_id),
 			INDEX send_status (send_status)
 		) ENGINE=MyISAM;
 	";
