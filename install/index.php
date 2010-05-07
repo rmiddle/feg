@@ -547,6 +547,7 @@ switch($step) {
 		@$worker_pass = DevblocksPlatform::importGPC($_POST['worker_pass'],'string');
 		@$worker_pass2 = DevblocksPlatform::importGPC($_POST['worker_pass2'],'string');
 
+		$db = DevblocksPlatform::getDatabaseService();
 		$settings = DevblocksPlatform::getPluginSettingsService();
 
 		if(!empty($form_submit)) {
