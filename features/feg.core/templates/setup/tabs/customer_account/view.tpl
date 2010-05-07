@@ -60,8 +60,8 @@
 				<td><a href="{devblocks_url}{/devblocks_url}customer/{$result.ca_id}/property">{if $result.ca_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</a></td>
 			{elseif $column=="ca_import_source"}
 				<td><a href="{devblocks_url}{/devblocks_url}customer/{$result.ca_id}/property">
-					{$import_source = DAO_ImportSource::get($result.ca_import_source)}
-					{$import_source.name}
+					{$import_source_ca = DAO_ImportSource::get($result.ca_import_source)}
+					{$import_source_ca->name}
 				</a></td>
 			{else}
 			<td>{$result.$column}&nbsp;</td>
