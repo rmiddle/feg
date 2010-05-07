@@ -182,7 +182,7 @@ if(!isset($tables['customer_recipient'])) {
 			account_id INT UNSIGNED DEFAULT 0 NOT NULL,
 			export_filter INT UNSIGNED DEFAULT 0 NOT NULL,
 			is_disabled TINYINT UNSIGNED DEFAULT 0 NOT NULL,
-			type TINYINT(1) UNSIGNED DEFAULT 0 NOT NULL,
+			type TINYINT UNSIGNED DEFAULT 0 NOT NULL,
 			address varchar(255) NOT NULL DEFAULT '',
 			PRIMARY KEY (id),
 			INDEX is_disabled (is_disabled),
@@ -283,6 +283,7 @@ if(!isset($tables['export_filter'])) {
 		CREATE TABLE IF NOT EXISTS export_filter (
 			id INT UNSIGNED DEFAULT 0 NOT NULL,
 			filter_name varchar(255) NOT NULL DEFAULT '',
+			recipient_type TINYINT UNSIGNED DEFAULT 0 NOT NULL,
 			is_disabled TINYINT UNSIGNED DEFAULT 0 NOT NULL,
 			filter longtext,
 			PRIMARY KEY (id),
