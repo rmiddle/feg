@@ -5,7 +5,7 @@
 <input type="hidden" name="tab" value="feg.customer.tab.property">
 <input type="hidden" name="action" value="saveCustomerAccount">
 <input type="hidden" name="customer_id" value="{$customer_id}">
-<input type="hidden" name="account_is_disabled" value="{$customer->is_disabled}">
+<input type="hidden" name="account_is_disabled" value="{if $customer->import_source == 0}{$customer->is_disabled}{else}1{/if}">
 <input type="hidden" name="and_close" value="0">
 
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
@@ -30,7 +30,7 @@
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.disabled')|capitalize}: </td>
 		<td width="100%">
-			{if $customer->is_disabled == 0}<span class="feg-sprite sprite-check"></span>{$translate->_('common.enable')|capitalize}{else}<span class="feg-sprite sprite-delete"></span>{$translate->_('common.disable')|capitalize}{/if}
+			{if $customer->is_disabled == 0 || $customer->import_source == 0}<span class="feg-sprite sprite-check"></span>{$translate->_('common.enable')|capitalize}{else}<span class="feg-sprite sprite-delete"></span>{$translate->_('common.disable')|capitalize}{/if}
 		</td>
 	</tr>
 </table>
@@ -39,7 +39,7 @@
 <br>
 <button type="submit"><span class="feg-sprite sprite-check"></span> {$translate->_('common.save_changes')|capitalize}</button>
 <button type="button" onclick="this.form.and_close.value='1';this.form.submit();"><span class="feg-sprite sprite-check"></span>{$translate->_('common.save_changes')|capitalize} and close</button>
-{if $customer->is_disabled == 0}
+{if $customer->is_disabled == 0 || $customer->import_source == 0}
 <button type="button" onclick="this.form.account_is_disabled.value='1';this.form.submit();"><span class="feg-sprite sprite-delete"></span> {$translate->_('common.disable')|capitalize}</button>
 {else}
 <button type="button" onclick="this.form.account_is_disabled.value='0';this.form.submit();"><span class="feg-sprite sprite-check"></span>{$translate->_('common.enable')|capitalize}</button>
