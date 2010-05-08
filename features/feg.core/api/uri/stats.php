@@ -138,7 +138,7 @@ class FegStatsPage extends FegPageExtension {
 	
 	function showPostfixMailqStatsAction() {
 		echo "Postfix Queue: <b>";
-		system("bash_mailq.sh");
+		//system("bash_mailq.sh");
 		echo "</b>";
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}

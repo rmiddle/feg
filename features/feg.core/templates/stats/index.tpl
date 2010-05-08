@@ -63,7 +63,7 @@ $(document).ready(function() {
 		$("#postfix_mailq_stats").load("{devblocks_url}ajax.php?c=stats&a=showPostfixMailqStats{/devblocks_url}");
 	}, 5000);
 });
-$(document).ready(function() {
+{*$(document).ready(function() {
 	$("#postfix_sent_stats").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
 	var refreshId = setInterval(function() {
 		$("#postfix_sent_stats").load("{devblocks_url}ajax.php?c=stats&a=showPostfixStats{/devblocks_url}");
@@ -82,5 +82,5 @@ $(document).ready(function() {
 		$("#showfaxstats").load("{devblocks_url}ajax.php?c=stats&a=showFaxStats{/devblocks_url}");
 	}, 60000);
 });
-
+*}
 </script>
