@@ -4,6 +4,7 @@ class Model_ExportFilter {
 	public $id;
 	public $filter_name;
 	public $is_disabled;
+	public $recipient_type;
 	public $filter;
 };
 
@@ -11,6 +12,7 @@ class DAO_ExportFilter extends DevblocksORMHelper {
 	const ID = 'id';
 	const FILTER_NAME = 'filter_name';
 	const IS_DISABLED = 'is_disabled';
+	const RECIPIENT_TYPE = 'recipient_type';
 	const FILTER = 'filter';
 
 	static function create($fields) {
@@ -80,6 +82,7 @@ class DAO_ExportFilter extends DevblocksORMHelper {
 			$object->id = $row['id'];
 			$object->filter_name = $row['filter_name'];
 			$object->is_disabled = $row['is_disabled'];
+			$object->recipient_type = $row['recipient_type'];
 			$object->filter = $row['filter'];
 			$objects[$object->id] = $object;
 		}
@@ -131,10 +134,12 @@ class DAO_ExportFilter extends DevblocksORMHelper {
 			"export_filter.id as %s, ".
 			"export_filter.filter_name as %s, ".
 			"export_filter.is_disabled as %s, ".
+			"export_filter.recipient_type as %s, ".
 			"export_filter.filter as %s ",
 				SearchFields_ExportFilter::ID,
 				SearchFields_ExportFilter::FILTER_NAME,
 				SearchFields_ExportFilter::IS_DISABLED,
+				SearchFields_ExportFilter::RECIPIENT_TYPE,
 				SearchFields_ExportFilter::FILTER
 			);
 			
@@ -189,10 +194,11 @@ class DAO_ExportFilter extends DevblocksORMHelper {
 
 
 class SearchFields_ExportFilter implements IDevblocksSearchFields {
-	const ID = 'e_id';
-	const FILTER_NAME = 'e_filter_name';
-	const IS_DISABLED = 'e_is_disabled';
-	const FILTER = 'e_filter';
+	const ID = 'export_filter_id';
+	const FILTER_NAME = 'export_filter_filter_name';
+	const IS_DISABLED = 'export_filter_is_disabled';
+	const RECIPIENT_TYPE = 'export_filter_recipient_type';
+	const FILTER = 'export_filter_filter';
 	
 	/**
 	 * @return DevblocksSearchField[]
@@ -201,10 +207,11 @@ class SearchFields_ExportFilter implements IDevblocksSearchFields {
 		$translate = DevblocksPlatform::getTranslationService();
 		
 		$columns = array(
-			self::ID => new DevblocksSearchField(self::ID, 'export_filter', 'id', $translate->_('id')),
-			self::FILTER_NAME => new DevblocksSearchField(self::FILTER_NAME, 'export_filter', 'filter_name', $translate->_('filter_name')),
-			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'export_filter', 'is_disabled', $translate->_('is_disabled')),
-			self::FILTER => new DevblocksSearchField(self::FILTER, 'export_filter', 'filter', $translate->_('filter')),
+			self::ID => new DevblocksSearchField(self::ID, 'export_filter', 'id', $translate->_('feg.export_filter.id')),
+			self::FILTER_NAME => new DevblocksSearchField(self::FILTER_NAME, 'export_filter', 'filter_name', $translate->_('feg.export_filter.filter_name')),
+			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'export_filter', 'is_disabled', $translate->_('feg.export_filter.is_disabled')),
+			self::RECIPIENT_TYPE => new DevblocksSearchField(self::RECIPIENT_TYPE, 'export_filter', 'recipient_type', $translate->_('feg.export_filter.recipient_type')),
+			self::FILTER => new DevblocksSearchField(self::FILTER, 'export_filter', 'filter', $translate->_('feg.export_filter.filter')),
 		);
 		
 		// Sort by label (translation-conscious)
@@ -216,7 +223,7 @@ class SearchFields_ExportFilter implements IDevblocksSearchFields {
 
 
 class View_ExportFilter extends Feg_AbstractView {
-	const DEFAULT_ID = 'exportfilter';
+	const DEFAULT_ID = 'export_filter';
 	
 	function __construct() {
 		$translate = DevblocksPlatform::getTranslationService();
@@ -232,6 +239,7 @@ class View_ExportFilter extends Feg_AbstractView {
 			SearchFields_ExportFilter::ID,
 			SearchFields_ExportFilter::FILTER_NAME,
 			SearchFields_ExportFilter::IS_DISABLED,
+			SearchFields_ExportFilter::RECIPIENT_TYPE,
 			SearchFields_ExportFilter::FILTER,
 		);
 		$this->doResetCriteria();
@@ -239,6 +247,7 @@ class View_ExportFilter extends Feg_AbstractView {
 
 	function getData() {
 		$objects = DAO_ExportFilter::search(
+			$this->view_columns,
 			$this->params,
 			$this->renderLimit,
 			$this->renderPage,
@@ -275,6 +284,9 @@ class View_ExportFilter extends Feg_AbstractView {
 			case SearchFields_ExportFilter::ID:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__number.tpl');
 				break;
+			case SearchFields_ExportFilter::RECIPIENT_TYPE:
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/feg/customer_recipient_type.tpl');
+				break;
 			case SearchFields_ExportFilter::IS_DISABLED:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__bool.tpl');
 				break;
@@ -306,13 +318,15 @@ class View_ExportFilter extends Feg_AbstractView {
 		$fields = self::getFields();
 		// [TODO] Filter fields
 		unset($fields[SearchFields_ExportFilter::ID]);
+		unset($fields[SearchFields_ExportFilter::FILTER]);
 		return $fields;
 	}
 
 	static function getColumns() {
 		$fields = self::getFields();
 		// [TODO] Filter fields
-		//	unset($fields[SearchFields_ExportFilter::ID]);
+		unset($fields[SearchFields_ExportFilter::ID]);
+		unset($fields[SearchFields_ExportFilter::FILTER]);
 		return $fields;
 	}
 
@@ -339,9 +353,9 @@ class View_ExportFilter extends Feg_AbstractView {
 				$criteria = new DevblocksSearchCriteria($field, $oper, $value);
 				break;
 			case SearchFields_ExportFilter::ID:
+			case SearchFields_ExportFilter::RECIPIENT_TYPE:
 				$criteria = new DevblocksSearchCriteria($field,$oper,$value);
 				break;
-				
 //			case 'placeholder_date':
 //				@$from = DevblocksPlatform::importGPC($_REQUEST['from'],'string','');
 //				@$to = DevblocksPlatform::importGPC($_REQUEST['to'],'string','');
@@ -385,6 +399,7 @@ class View_ExportFilter extends Feg_AbstractView {
 //			$change_fields[DAO_ExportFilter::ID] = intval($v);
 //			$change_fields[DAO_ExportFilter::FILTER_NAME] = intval($v);
 //			$change_fields[DAO_ExportFilter::IS_DISABLED] = intval($v);
+//			$change_fields[DAO_ExportFilter::RECIPIENT_TYPE] = intval($v);
 //			$change_fields[DAO_ExportFilter::FILTER] = intval($v);
 				// [TODO] Implement actions
 				case 'example':

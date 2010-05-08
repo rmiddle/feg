@@ -287,6 +287,7 @@ if(!isset($tables['export_filter'])) {
 			is_disabled TINYINT UNSIGNED DEFAULT 0 NOT NULL,
 			filter longtext,
 			PRIMARY KEY (id),
+			INDEX recipient_type (recipient_type),
 			INDEX is_disabled (is_disabled)
 		) ENGINE=MyISAM;
 	";
