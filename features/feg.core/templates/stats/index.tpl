@@ -9,8 +9,8 @@
 			<table cellpadding="0" cellspacing="0" border="0">
 				<tr>
 					<td valign="top">
-						Fax Statics:<br>
 						<div id="showfaxque"></div>
+						Fax Statics:<br>
 						<div id="showfaxstats"></div>
 					</td>
 				</tr>
