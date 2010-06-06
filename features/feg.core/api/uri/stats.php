@@ -138,7 +138,7 @@ class FegStatsPage extends FegPageExtension {
 	
 	function showMailQueueStatsAction() {
 		echo "Email Queue: <b>";
-		
+		echo date();
 		echo "</b>";
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}

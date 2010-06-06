@@ -10,8 +10,8 @@
 				<tr>
 					<td valign="top">
 						Mail Statics:<br>
-						<div id="postfix_mailq_stats"></div>
-						<div id="postfix_sent_stats"></div><br>
+						<div id="mail_queue_stats"></div>
+						<div id="mail_stats"></div><br>
 					</td>
 					<td valign="top">
 						Fax Statics:<br>
@@ -64,9 +64,9 @@ $(document).ready(function() {
 	}, 5000);
 });
 {*$(document).ready(function() {
-	$("#postfix_sent_stats").load("{devblocks_url}ajax.php?c=stats&a=showMailStats{/devblocks_url}");
+	$("#mail_stats").load("{devblocks_url}ajax.php?c=stats&a=showMailStats{/devblocks_url}");
 	var refreshId = setInterval(function() {
-		$("#postfix_sent_stats").load("{devblocks_url}ajax.php?c=stats&a=showMailStats{/devblocks_url}");
+		$("#mail_stats").load("{devblocks_url}ajax.php?c=stats&a=showMailStats{/devblocks_url}");
 	}, 60000);
 });
 
