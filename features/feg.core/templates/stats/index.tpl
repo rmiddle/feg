@@ -15,7 +15,7 @@
 					</td>
 					<td valign="top">
 						Fax Statics:<br>
-						<div id="showfaxquestats"></div>
+						<div id="showfaxque"></div>
 						<div id="showfaxstats"></div>
 					</td>
 					<td valign="top">
@@ -69,14 +69,14 @@ $(document).ready(function() {
 		$("#mail_stats").load("{devblocks_url}ajax.php?c=stats&a=showMailStats{/devblocks_url}");
 	}, 60000);
 });
-
+*}
 $(document).ready(function() {
-	$("#showfaxquestats").load("{devblocks_url}ajax.php?c=stats&a=showFaxQueStats{/devblocks_url}");
+	$("#showfaxque").load("{devblocks_url}ajax.php?c=stats&a=showFaxQue{/devblocks_url}");
 	var refreshId = setInterval(function() {
-		$("#showfaxquestats").load("{devblocks_url}ajax.php?c=stats&a=showFaxQueStats{/devblocks_url}");
+		$("#showfaxque").load("{devblocks_url}ajax.php?c=stats&a=showFaxQue{/devblocks_url}");
 	}, 5000);
 });
-$(document).ready(function() {
+{*$(document).ready(function() {
 	$("#showfaxstats").load("{devblocks_url}ajax.php?c=stats&a=showFaxStats{/devblocks_url}");
 	var refreshId = setInterval(function() {
 		$("#showfaxstats").load("{devblocks_url}ajax.php?c=stats&a=showFaxStats{/devblocks_url}");

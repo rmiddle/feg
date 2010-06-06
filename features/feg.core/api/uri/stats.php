@@ -162,7 +162,7 @@ class FegStatsPage extends FegPageExtension {
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
 
-	function showFaxQueStatsAction() {
+	function showFaxQueAction() {
 		echo "FaxQue: <br><b>";
 		//echo "FIXME";
 		system("/usr/bin/faxstat -s");
