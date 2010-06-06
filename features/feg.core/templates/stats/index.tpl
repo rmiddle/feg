@@ -9,32 +9,24 @@
 			<table cellpadding="0" cellspacing="0" border="0">
 				<tr>
 					<td valign="top">
+						Fax Statics:<br>
+						<div id="showfaxque"></div>
+						<div id="showfaxstats"></div>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top">
 						Mail Statics:<br>
 						<div id="mail_queue_stats"></div>
 						<div id="mail_stats"></div><br>
 					</td>
 					<td valign="top">
-						Fax Statics:<br>
-						<div id="showfaxque"></div>
-						<div id="showfaxstats"></div>
-					</td>
-					<td valign="top">
 						SNPP (Paging) Statics:<br>
 						<div id="snpp_stats"></div><br>
 					</td>
-				</tr>
-				<tr>
 					<td valign="top">
 						Hardware Statics:<br>
 						<div id="hardware_stats"></div><br>
-					</td>
-					<td valign="top">
-						TBD:<br>
-						<div id="tbd1_stats"></div><br>
-					</td>
-					<td valign="top">
-						TBD:<br>
-						<div id="tbd2_stats"></div><br>
 					</td>
 				</tr>
 			</table>
