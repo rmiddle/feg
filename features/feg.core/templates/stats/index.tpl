@@ -21,11 +21,11 @@
 						<div id="mail_stats"></div><br>
 					</td>
 					<td valign="top">
-						SNPP (Paging) Statics:<br>
+						SNPP (Paging) Statics: <br>
 						<div id="snpp_stats"></div><br>
 					</td>
 					<td valign="top">
-						Hardware Statics:<br>
+						Hardware Statics: <br>
 						<div id="hardware_stats"></div><br>
 					</td>
 				</tr>
