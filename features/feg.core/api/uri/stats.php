@@ -136,14 +136,14 @@ class FegStatsPage extends FegPageExtension {
 		//DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','workers')));		
 	}
 	
-	function showPostfixMailqStatsAction() {
+	function showMailQueueStatsAction() {
 		echo "Email Queue: <b>";
 		
 		echo "</b>";
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
 
-	function showPostfixStatsAction() {
+	function showMailStatsAction() {
 		echo "Email Sent Last Hour: <b>";
 		echo "FIXME";
 		echo "</b><br>";
