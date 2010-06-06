@@ -8,7 +8,7 @@
 		<td valign="top">
 			<table cellpadding="0" cellspacing="0" border="0">
 				<tr>
-					<td valign="top">
+					<td valign="top" span="3">
 						<div id="showfaxque"></div>
 						Fax Statics:<br>
 						<div id="showfaxstats"></div>
