@@ -163,10 +163,10 @@ class FegStatsPage extends FegPageExtension {
 	}
 
 	function showFaxQueAction() {
-		echo "FaxQue: <br><b>";
+		echo "FaxQue: ";
 		//echo "FIXME";
 		system("/usr/bin/faxstat -s");
-		echo "</b><br>";
+		echo "<br>";
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
 
