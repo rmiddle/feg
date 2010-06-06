@@ -137,8 +137,8 @@ class FegStatsPage extends FegPageExtension {
 	}
 	
 	function showPostfixMailqStatsAction() {
-		echo "Postfix Queue: <b>";
-		//system("bash_mailq.sh");
+		echo "Email Queue: <b>";
+		
 		echo "</b>";
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
@@ -165,6 +165,7 @@ class FegStatsPage extends FegPageExtension {
 	function showFaxQueStatsAction() {
 		echo "FaxQue: <b>";
 		echo "FIXME";
+		//system("bash_mailq.sh");
 		echo "</b><br>";
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}

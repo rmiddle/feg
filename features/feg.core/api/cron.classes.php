@@ -195,9 +195,17 @@ class ImportCron extends FegCronExtension {
 
 		switch($import_source->type) {
 			case 0:
-			case 1:
 				if(preg_match('/=====\w+=====/i', $data, $acc_id)) {
 					$account_name = substr($acc_id[0],5,-5);
+					$logger->info("[Parser] acc_id = ".$account_name."...");
+				} else {
+					$account_id = 0;
+					$logger->info("[Parser] Not in the correct format");
+				}
+				break;
+			case 1:
+				if(preg_match('/FMDS\w+/i', $data, $acc_id)) {
+					$account_name = substr($acc_id[0],4);
 					$logger->info("[Parser] acc_id = ".$account_name."...");
 				} else {
 					$account_id = 0;
@@ -218,12 +226,13 @@ class ImportCron extends FegCronExtension {
 			'account_name' => $account_name,
 			'file_name' => $fileparts['basename'],
 		));
-		// Now Confirm the account exists.
-		$account = array_shift(DAO_CustomerAccount::getWhere(sprintf("%s = %d AND %s = %d",
+		// Now Confirm the account exists and is active
+		$account = array_shift(DAO_CustomerAccount::getWhere(sprintf("%s = %d AND %s = %d AND %s = '0'",
 			DAO_CustomerAccount::ACCOUNT_NUMBER,
 			$account_name,
 			DAO_CustomerAccount::IMPORT_SOURCE,
-			$import_source->id
+			$import_source->id,
+			DAO_CustomerAccount::IS_DISABLED
 		)));
 		if (isset($account))
 			$account_id = $account->id;
