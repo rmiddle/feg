@@ -140,6 +140,7 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 		
 		@$import_source = DAO_ImportSource::getAll();
 		$tpl->assign('import_source', $import_source);
+echo "ABCDEFG<br>";
 print_r($import_source);		
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/property/index.tpl');
 	}
