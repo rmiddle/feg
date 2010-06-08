@@ -51,30 +51,32 @@
 	{/if}
 	
 		<tr class="{$tableRowBg}" id="{$rowIdPrefix}" onmouseover="$(this).addClass('hover');" onmouseout="$(this).removeClass('hover');" onclick="if(getEventTarget(event)=='TD') checkAll('{$rowIdPrefix}');">
-			<td align="center"><input type="checkbox" name="row_id[]" value="{$result.cr_id}"></td>
+			<td align="center"><input type="checkbox" name="row_id[]" value="{$result.mr_id}"></td>
 		{foreach from=$view->view_columns item=column name=columns}
 			{if substr($column,0,3)=="cf_"}
 				{include file="file:$core_tpl/internal/custom_fields/view/cell_renderer.tpl"}
-			{elseif $column=="cr_address" || $column=="cr_id"}
-				<td><a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.cr_id}&customer_id={$result.cr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
-			{elseif $column=="cr_is_disabled"}
+			{elseif $column=="mr_is_disabled"}
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.cr_id}&customer_id={$result.cr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{if $result.cr_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</a></td>
-			{elseif $column=="cr_type"}
+			{elseif $column=="mr_type"}
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.cr_id}&customer_id={$result.cr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
-					{if $result.cr_type == 0}{$translate->_('recipient.type.email')|capitalize}
-					{else if $result.cr_type == 1}{$translate->_('recipient.type.fax')|capitalize}
-					{else if $result.cr_type == 2}{$translate->_('recipient.type.snpp')|capitalize}
+					{if $result.mr_type == 0}{$translate->_('recipient.type.email')|capitalize}
+					{else if $result.mr_type == 1}{$translate->_('recipient.type.fax')|capitalize}
+					{else if $result.mr_type == 2}{$translate->_('recipient.type.snpp')|capitalize}
 					{/if}
 					</a>
 				</td>
-			{elseif $column=="cr_account_id"}
+			{elseif $column=="mr_account_id"}
 				<td>
-					{if $result.cr_account_id == 0}
+					{if $result.mr_account_id == 0}
 						{$translate->_('customer.display.invalid_customer')|capitalize}
 					{else}
-						{$account = DAO_CustomerAccount::get($result.cr_account_id)}
+						{$account = DAO_CustomerAccount::get($result.mr_account_id)}
 						{$account->account_number}
 					{/if}
+				</td>
+			{elseif $column=="mr_updated_date" || $column=="mr_closed_date" }
+				<td>
+					{$result.$column|date}
 				</td>
 			{else}
 			<td>{$result.$column}&nbsp;</td>
