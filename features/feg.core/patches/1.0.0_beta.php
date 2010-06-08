@@ -277,6 +277,19 @@ if(!isset($tables['import_source'])) {
 	$db->Execute($sql);	
 }
 
+if(!isset($tables['export_type'])) {
+	$sql = "
+		CREATE TABLE IF NOT EXISTS export_type (
+			id INT UNSIGNED DEFAULT 0 NOT NULL,
+			name varchar(255) NOT NULL DEFAULT '',
+			params_json longtext,
+			is_disabled TINYINT UNSIGNED DEFAULT 0 NOT NULL,
+			PRIMARY KEY (id),
+			INDEX is_disabled (is_disabled)
+		) ENGINE=MyISAM;
+	";
+	$db->Execute($sql);	
+}
 
 if(!isset($tables['export_filter'])) {
 	$sql = "

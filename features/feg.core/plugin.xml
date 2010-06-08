@@ -94,6 +94,12 @@
 			<class name="SearchFields_ImportSource" />
 			<class name="View_ImportSource" />
 		</file>
+		<file path="api/dao/export_type.php">
+			<class name="DAO_ExportType" />
+			<class name="Model_ExportType" />
+			<class name="SearchFields_ExportType" />
+			<class name="View_ExportType" />
+		</file>
 		<file path="api/dao/export_filter.php">
 			<class name="FegCustomFieldSource_ExportFilter" />
 			<class name="DAO_ExportFilter" />
