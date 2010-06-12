@@ -280,7 +280,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 	function actionRetryMessageReciptientAction() {
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
 		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
-		
+		echo "updated: " . $id;
 	}	
 };
 
