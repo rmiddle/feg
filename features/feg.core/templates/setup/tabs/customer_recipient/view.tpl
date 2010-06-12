@@ -56,26 +56,20 @@
 			{if substr($column,0,3)=="cf_"}
 				{include file="file:$core_tpl/internal/custom_fields/view/cell_renderer.tpl"}
 			{elseif $column=="cr_address" || $column=="cr_id"}
-				<td><a href="javascript:;" onclick="c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.cr_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
+				<td>
+					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.cr_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
+					{$result.$column}&nbsp;</a></td>
 			{elseif $column=="cr_is_disabled"}
 				<td>{if $result.cr_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</td>
 			{elseif $column=="cr_type"}
-				<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showRecipientPeek&id={$result.cr_id}&customer_id={$result.cr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
-					{if $result.cr_type == 0}{$translate->_('recipient.type.email')|capitalize}
-					{else if $result.cr_type == 1}{$translate->_('recipient.type.fax')|capitalize}
-					{else if $result.cr_type == 2}{$translate->_('recipient.type.snpp')|capitalize}
-					{/if}
+				<td>
+					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.cr_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
+					{include file="file:$core_tpl/internal/feg/display_recipient_type.tpl"}</a>
+					&nbsp;
 					</a>
 				</td>
 			{elseif $column=="cr_account_id"}
-				<td>
-					{if $result.cr_account_id == 0}
-						{$translate->_('customer.display.invalid_customer')|capitalize}
-					{else}
-						{$account = DAO_CustomerAccount::get($result.cr_account_id)}
-						{$account->account_number}
-					{/if}
-				</td>
+				<td>{include file="file:$core_tpl/internal/feg/display_customer_id.tpl"}&nbsp;</td>
 			{else}
 			<td>{$result.$column}&nbsp;</td>
 			{/if}
