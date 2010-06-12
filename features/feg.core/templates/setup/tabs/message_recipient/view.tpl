@@ -57,19 +57,12 @@
 				{include file="file:$core_tpl/internal/custom_fields/view/cell_renderer.tpl"}
 			{elseif $column=="mr_is_disabled"}
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.mr_id}&customer_id={$result.mr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{if $result.mr_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</a></td>
-			{elseif $column=="mr_type"}
-				<td><a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.mr_id}&customer_id={$result.mr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
-					{if $result.mr_type == 0}{$translate->_('recipient.type.email')|capitalize}
-					{else if $result.mr_type == 1}{$translate->_('recipient.type.fax')|capitalize}
-					{else if $result.mr_type == 2}{$translate->_('recipient.type.snpp')|capitalize}
-					{/if}
-					</a>
-				</td>
 			{elseif $column=="mr_account_id"}
 				<td>{include file="file:$core_tpl/internal/feg/display_customer_id.tpl"}&nbsp;</td>
 			{elseif $column=="mr_recipient_id"}
 				<td>
 					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.mr_recipient_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
+					{include file="file:$core_tpl/internal/feg/display_recipient_type.tpl"}:
 					{include file="file:$core_tpl/internal/feg/display_recipient_id.tpl"}</a>
 					&nbsp;
 				</td>
