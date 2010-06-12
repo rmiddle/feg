@@ -276,6 +276,12 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		
 		//DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','workers')));		
 	}
+	
+	function actionRetryMessageReciptientAction() {
+		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
+		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
+		
+	}	
 };
 
 class FegCustomerTabRecentMessages extends Extension_CustomerTab {
