@@ -76,7 +76,7 @@
 				</td>
 			{elseif $column=="mr_updated_date" || $column=="mr_closed_date" }
 				<td>
-					{$result.$column|date}
+					{$result.$column|devblocks_date}
 				</td>
 			{else}
 			<td>{$result.$column}&nbsp;</td>
