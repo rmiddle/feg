@@ -646,6 +646,17 @@ For example: *receipt*</seg></tuv>
 			<tuv xml:lang="en_US"><seg>Source PI</seg></tuv>
 		</tu>
 				
+		<!-- Send Status Translations -->
+		<tu tuid='feg.core.send_status.new'>
+			<tuv xml:lang="en_US"><seg>New</seg></tuv>
+		</tu>
+		<tu tuid='feg.core.send_status.fail'>
+			<tuv xml:lang="en_US"><seg>Failed</seg></tuv>
+		</tu>
+		<tu tuid='feg.core.send_status.successful'>
+			<tuv xml:lang="en_US"><seg>Successful</seg></tuv>
+		</tu>
+
 	</body>
 </tmx>
 <!-- 
