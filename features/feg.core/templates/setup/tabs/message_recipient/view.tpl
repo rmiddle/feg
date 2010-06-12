@@ -68,7 +68,7 @@
 			{elseif $column=="mr_account_id"}
 				<td>{include file="file:$core_tpl/internal/feg/display_customer_id.tpl"}&nbsp;</td>
 			{elseif $column=="mr_recipient_id"}
-				<td>{include file="file:$core_tpl/internal/feg/display_customer_id.tpl"}&nbsp;</td>
+				<td>{include file="file:$core_tpl/internal/feg/display_recipient_id.tpl"}&nbsp;</td>
 			{elseif $column=="mr_send_status"}
 				<td>{include file="file:$core_tpl/internal/feg/display_send_status.tpl"}&nbsp;</td>
 			{elseif $column=="mr_updated_date" || $column=="mr_closed_date"}
