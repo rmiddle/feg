@@ -70,7 +70,11 @@
 			{elseif $column=="mr_recipient_id"}
 				<td>{include file="file:$core_tpl/internal/feg/display_recipient_id.tpl"}&nbsp;</td>
 			{elseif $column=="mr_message_id"}
-				<td>{include file="file:$core_tpl/internal/feg/display_message_id.tpl"}&nbsp;</td>
+				<td>
+					<a href="javascript:;" onclick="genericAjaxPanel('c=stats&a=showAccountFailurePeek&id={$result.m_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
+					{include file="file:$core_tpl/internal/feg/display_message_id.tpl"}</a>
+					&nbsp;
+				</td>
 			{elseif $column=="mr_send_status"}
 				<td>{include file="file:$core_tpl/internal/feg/display_send_status.tpl"}&nbsp;</td>
 			{elseif $column=="mr_updated_date" || $column=="mr_closed_date"}
