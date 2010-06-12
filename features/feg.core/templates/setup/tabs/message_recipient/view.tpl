@@ -74,12 +74,10 @@
 						{$account->account_number}
 					{/if}
 				</td>
-			{elseif $column=="mr_updated_date" || $column=="mr_closed_date" }
-				<td>
-					{$result.$column|devblocks_date}
-				</td>
+			{elseif $column=="mr_updated_date" || $column=="mr_closed_date"}
+				<td>{$result.$column|devblocks_date}&nbsp;</td>
 			{else}
-			<td>{$result.$column}&nbsp;</td>
+				<td>{$result.$column}&nbsp;</td>
 			{/if}
 		{/foreach}
 		</tr>
