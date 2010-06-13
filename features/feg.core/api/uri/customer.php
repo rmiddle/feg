@@ -277,10 +277,11 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		//DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','workers')));		
 	}
 	
-	function actionRetryMessageReciptientAction() {
+	function setMessageRecipientStatusAction() {
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
+		@$status = DevblocksPlatform::importGPC($_REQUEST['status'],'integer',0);
 		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
-		echo "updated: " . $id;
+		echo "id: " . $id . " status: " . $status ;
 	}	
 };
 
