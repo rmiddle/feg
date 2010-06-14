@@ -1,4 +1,4 @@
-<div id="message_reciptient_{$message_recipient_id}_status">
+<div id="message_reciptient_{$message_recipient_id}_status" class="{$tableRowBg}">
 {if $result.$column == 0}
 	{$translate->_('feg.core.send_status.new')|capitalize}
 {else if $result.$column == 1}
