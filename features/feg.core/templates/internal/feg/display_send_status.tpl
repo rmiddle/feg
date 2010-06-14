@@ -1,4 +1,4 @@
-{*<div id="message_reciptient_{$message_recipient_id}_status">*}
+<td id="message_reciptient_{$message_recipient_id}_status">
 {if $result.$column == 0}
 	{$translate->_('feg.core.send_status.new')|capitalize}
 {else if $result.$column == 1}
@@ -14,4 +14,4 @@
 {else if $result.$column == 4}
 	{$translate->_('feg.core.send_status.resend')|capitalize}
 {/if}
-{*</div>*}
+</td>

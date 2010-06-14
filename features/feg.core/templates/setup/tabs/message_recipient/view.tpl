@@ -72,7 +72,8 @@
 					&nbsp;
 				</td>
 			{elseif $column=="mr_send_status"}
-				<td>{include file="file:$core_tpl/internal/feg/display_send_status.tpl" message_recipient_id=$result.mr_id}&nbsp;</td>
+				{* table info defined in include *}
+				{include file="file:$core_tpl/internal/feg/display_send_status.tpl" message_recipient_id=$result.mr_id}
 			{elseif $column=="mr_updated_date" || $column=="mr_closed_date"}
 				<td>{$result.$column|devblocks_date}&nbsp;</td>
 			{else}
