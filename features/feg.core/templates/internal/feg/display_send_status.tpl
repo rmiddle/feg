@@ -13,5 +13,7 @@
 	{$translate->_('feg.core.send_status.retry')|capitalize}
 {else if $result.$column == 4}
 	{$translate->_('feg.core.send_status.resend')|capitalize}
+{else}
+	{$translate->_('feg.core.send_status.unknown')|capitalize}
 {/if}
 </td>
