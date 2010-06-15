@@ -281,6 +281,11 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
 		@$status = DevblocksPlatform::importGPC($_REQUEST['status'],'integer',0);
 		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
+		
+		$fields = DAO_MessageRecipient::get($id);
+		
+		$fields[DAO_MessageRecipient::SEND_STATUS] = $status;
+		$status = DAO_MessageRecipient::update($id, $fields);
 		echo "id: " . $id . " status: " . $status ;
 	}	
 };
