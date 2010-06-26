@@ -144,7 +144,7 @@ class FegStatsPage extends FegPageExtension {
 				"inner join customer_recipient cr on mr.recipient_id = cr.id ".
 				"WHERE mr.send_status in (0,3,4,5) ".
 				"AND cr.is_disabled = 0 ".
-				"AND cr.type = 0 ".
+				"AND cr.type = 0 "
 				);
 		$rs = $db->Execute($sql);
 		$row = mysql_fetch_assoc($rs);
