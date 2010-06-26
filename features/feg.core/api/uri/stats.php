@@ -147,9 +147,8 @@ class FegStatsPage extends FegPageExtension {
 				"AND cr.type = 0 ".
 				);
 		$rs = $db->Execute($sql);
-		while($row = mysql_fetch_assoc($rs)) {
-			echo intval($row['total']);
-		}
+		$row = mysql_fetch_assoc($rs);
+		echo $row['total'];
 		mysql_free_result($rs);
 		
 		echo "</b><br>";
