@@ -138,8 +138,11 @@ class FegStatsPage extends FegPageExtension {
 	
 	function showMailQueueStatsAction() {
 		echo "Email Queue: <b>";
+		echo "1";
+		echo "</b><br>";
+		echo "Last updated: ";
 		echo date("n:i:s A");
-		echo "</b>";
+		echo "<br>";
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
 

@@ -665,6 +665,9 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.core.send_status.resend'>
 			<tuv xml:lang="en_US"><seg>resend</seg></tuv>
 		</tu>
+		<tu tuid='feg.core.send_status.in_queue'>
+			<tuv xml:lang="en_US"><seg>in queue</seg></tuv>
+		</tu>
 
 	</body>
 </tmx>
