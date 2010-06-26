@@ -230,38 +230,6 @@ if(!isset($tables['message_recipient'])) {
 	$db->Execute($sql);	
 }
 
-if(!isset($tables['fax_xferlog'])) {
-	$sql = "
-		CREATE TABLE IF NOT EXISTS fax_xferlog (
-			id BIGINT UNSIGNED AUTO_INCREMENT,
-			message_recipient_id BIGINT UNSIGNED DEFAULT 0 NOT NULL,
-			timestamp DATETIME NOT NULL, 
-			entrytype varchar(20) NULL,
-			commid varchar(20) NULL,
-			modem varchar(20) NULL,
-			jobid varchar(20) NULL,
-			jobtag varchar(100) NULL,
-			user varchar(100) NULL,
-			localnumber varchar(50) NULL,
-			tsi varchar(25) NULL,
-			params varchar(20) NULL,
-			npages INT UNSIGNED DEFAULT 0 NOT NULL,
-			jobtime time  NOT NULL,
-			conntime time  NOT NULL, 
-			reason varchar(200) NULL,
-			CIDName varchar(100) NULL,
-			CIDNumber varchar(100) NULL,
-			callid varchar(200) NULL,
-			owner varchar(50) NULL,
-			dcs varchar(100) NULL,
-			jobinfo varchar(200) NULL,
-			PRIMARY KEY (id),
-			INDEX message_recipient_id (message_recipient_id)
-		) ENGINE=MyISAM;
-	";
-	$db->Execute($sql);	
-}
-
 if(!isset($tables['import_source'])) {
 	$sql = "
 		CREATE TABLE IF NOT EXISTS import_source (
