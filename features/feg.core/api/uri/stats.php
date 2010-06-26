@@ -138,7 +138,7 @@ class FegStatsPage extends FegPageExtension {
 	
 	function showMailQueueStatsAction() {
 		$db = DevblocksPlatform::getDatabaseService();
-		echo "Email Queue: <b>";
+		echo "Email(s) In Queue: <b>";
 		$sql = sprintf("SELECT count(*) as total ".
 				"FROM message_recipient mr ".
 				"inner join customer_recipient cr on mr.recipient_id = cr.id ".
