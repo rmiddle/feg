@@ -8,7 +8,7 @@
 		<td valign="top">
 			<table cellpadding="0" cellspacing="0" border="0">
 				<tr>
-					<td valign="top" colspan="3">
+					<td valign="top" colspan="2">
 						<div id="showfaxque"></div>
 						Fax Statics:<br>
 						<div id="showfaxstats"></div>
@@ -24,10 +24,6 @@
 						SNPP (Paging) Statics: <br>
 						<div id="snpp_queue_stats"></div>
 						<div id="snpp_stats"></div><br>
-					</td>
-					<td valign="top">
-						Hardware Statics: <br>
-						<div id="hardware_stats"></div><br>
 					</td>
 				</tr>
 			</table>
