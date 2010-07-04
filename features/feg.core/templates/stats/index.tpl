@@ -22,6 +22,7 @@
 					</td>
 					<td valign="top">
 						SNPP (Paging) Statics: <br>
+						<div id="snpp_queue_stats"></div>
 						<div id="snpp_stats"></div><br>
 					</td>
 					<td valign="top">
@@ -59,6 +60,19 @@ $(document).ready(function() {
 	$("#mail_stats").load("{devblocks_url}ajax.php?c=stats&a=showMailStats{/devblocks_url}");
 	var refreshId = setInterval(function() {
 		$("#mail_stats").load("{devblocks_url}ajax.php?c=stats&a=showMailStats{/devblocks_url}");
+	}, 60000);
+});
+*}
+$(document).ready(function() {
+	$("#snpp_queue_stats").load("{devblocks_url}ajax.php?c=stats&a=showSNPPQueueStats{/devblocks_url}");
+	var refreshId = setInterval(function() {
+		$("#snpp_queue_stats").load("{devblocks_url}ajax.php?c=stats&a=showSNPPQueueStats{/devblocks_url}");
+	}, 5000);
+});
+{*$(document).ready(function() {
+	$("#snpp_stats").load("{devblocks_url}ajax.php?c=stats&a=showSNPPStats{/devblocks_url}");
+	var refreshId = setInterval(function() {
+		$("#snpp_stats").load("{devblocks_url}ajax.php?c=stats&a=showSNPPStats{/devblocks_url}");
 	}, 60000);
 });
 *}

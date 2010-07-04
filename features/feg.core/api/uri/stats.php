@@ -177,6 +177,28 @@ class FegStatsPage extends FegPageExtension {
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
 
+	function showSNPPQueueStatsAction() {
+		$db = DevblocksPlatform::getDatabaseService();
+		echo "Email(s) In Queue: <b>";
+		$sql = sprintf("SELECT count(*) as total ".
+				"FROM message_recipient mr ".
+				"inner join customer_recipient cr on mr.recipient_id = cr.id ".
+				"WHERE mr.send_status in (0,3,4,5) ".
+				"AND cr.is_disabled = 0 ".
+				"AND cr.type = 2 "
+				);
+		$rs = $db->Execute($sql);
+		$row = mysql_fetch_assoc($rs);
+		echo $row['total'];
+		mysql_free_result($rs);
+		
+		echo "</b><br>";
+		echo "Last updated: ";
+		echo date("n:i:s A");
+		echo "<br>";
+		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
+	}
+	
 	function showFaxQueAction() {
 		echo "FaxQue: ";
 		//echo "FIXME";
