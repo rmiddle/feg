@@ -190,12 +190,24 @@ class FegStatsPage extends FegPageExtension {
 	}
 	
 	function showFaxQueAction() {
+		$db = DevblocksPlatform::getDatabaseService();
 		echo "FaxQue: ";
-		//echo "FIXME";
 		exec("/usr/bin/faxstat", $results); 
 		echo implode("<br>", $results);
 		echo "<br>";
-		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
+		echo "Fax(s) Waiting to send: <b>";
+		$sql = sprintf("SELECT count(*) as total ".
+				"FROM message_recipient mr ".
+				"inner join customer_recipient cr on mr.recipient_id = cr.id ".
+				"WHERE mr.send_status in (0,3,4,5) ".
+				"AND cr.is_disabled = 1 ".
+				"AND cr.type = 2 "
+				);
+		$rs = $db->Execute($sql);
+		$row = mysql_fetch_assoc($rs);
+		echo $row['total'];
+		echo "</b><br>";
+		mysql_free_result($rs);
 	}
 
 	function showFaxStatsAction() {
