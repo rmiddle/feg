@@ -149,13 +149,8 @@ class FegStatsPage extends FegPageExtension {
 		$rs = $db->Execute($sql);
 		$row = mysql_fetch_assoc($rs);
 		echo $row['total'];
-		mysql_free_result($rs);
-		
 		echo "</b><br>";
-		echo "Last updated: ";
-		echo date("n:i:s A");
-		echo "<br>";
-		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
+		mysql_free_result($rs);
 	}
 
 	function showMailStatsAction() {
@@ -190,13 +185,8 @@ class FegStatsPage extends FegPageExtension {
 		$rs = $db->Execute($sql);
 		$row = mysql_fetch_assoc($rs);
 		echo $row['total'];
-		mysql_free_result($rs);
-		
 		echo "</b><br>";
-		echo "Last updated: ";
-		echo date("n:i:s A");
-		echo "<br>";
-		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
+		mysql_free_result($rs);
 	}
 	
 	function showFaxQueAction() {
