@@ -179,7 +179,7 @@ class FegStatsPage extends FegPageExtension {
 	function showFaxQueAction() {
 		$db = DevblocksPlatform::getDatabaseService();
 		echo "FaxQue: ";
-		exec(HYLAFAX_FAXSTATS, $output);
+		exec(HYLAFAX_FAXSTATD, $output);
 		array_shift($output); 		// HylaFAX scheduler on ...
 		foreach ($output as $line) {
 			if (preg_match("/^Modem /", $line)) {	// match "/^Modem/
@@ -192,8 +192,7 @@ class FegStatsPage extends FegPageExtension {
 		
 		array_shift($output);		// blank line
 		array_shift($output);		// Title line: JID  Owner Number Dials
-		print_r($output);
-		//echo implode("<br>", $output);
+		echo implode("<br>", $output);
 		echo "<br>";
 		echo "Fax(s) Waiting to send: <b>";
 		$sql = sprintf("SELECT count(*) as total ".
