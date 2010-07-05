@@ -183,6 +183,7 @@ class FegStatsPage extends FegPageExtension {
 		array_shift($output); 		// HylaFAX scheduler on ...
 		foreach ($output as $line) {
 			if (preg_match("/^Modem /", $line)) {	// match "/^Modem/
+				echo $line;
 				array_shift($output);				// remove entry from array
 			} else {
 				break;
