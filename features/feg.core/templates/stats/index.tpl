@@ -14,7 +14,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td valign="top">
+					<td valign="top" width="50%">
 						Mail Statics:<br>
 						<div id="mail_queue_stats"></div>
 						<div id="mail_stats"></div><br>
