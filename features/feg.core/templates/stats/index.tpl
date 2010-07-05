@@ -19,7 +19,7 @@
 						<div id="mail_queue_stats"></div>
 						<div id="mail_stats"></div><br>
 					</td>
-					<td valign="top">
+					<td valign="top" width="50%">
 						SNPP (Paging) Statics: <br>
 						<div id="snpp_queue_stats"></div>
 						<div id="snpp_stats"></div><br>
