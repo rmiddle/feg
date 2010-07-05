@@ -184,8 +184,13 @@ class FegStatsPage extends FegPageExtension {
 		foreach ($output_current as $line) {
 			if (preg_match("/^Modem /", $line)) {	// match "/^Modem/
 				$arr = split(" ", $line);
-				echo $arr[2]."<br>";
-				echo implode("<br>", $arr[4]);
+				echo $arr[1]."<br>";
+				i=3
+				while ($arr[i]) {
+					echo $arr[i] . " ";
+				}
+				echo "<br>";
+				//echo implode("<br>", 	$arr[3]);
 				array_shift($output_current);				// remove entry from array
 			} else {
 				break;
