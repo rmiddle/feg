@@ -181,6 +181,7 @@ class FegStatsPage extends FegPageExtension {
 		echo "FaxQue: ";
 		exec($FAXSENDQ, $output);
 		array_shift($output); 		// HylaFAX scheduler on ...
+		print_r($output);
 		foreach ($output as $line) {
 			if (preg_match("/^Modem /", $line)) {	// match "/^Modem/
 				array_shift($output);				// remove entry from array
