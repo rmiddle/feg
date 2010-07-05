@@ -199,10 +199,6 @@ class FegStatsPage extends FegPageExtension {
 				break;
 			}
 		}
-		array_shift($output_done);		// blank line
-		array_shift($output_done);		// Title line: JID  Owner Number Dials
-		echo implode("<br>", $output_done);
-		echo "<br>";
 		echo "Fax(s) Waiting to send: <b>";
 		$sql = sprintf("SELECT count(*) as total ".
 				"FROM message_recipient mr ".
@@ -233,6 +229,9 @@ class FegStatsPage extends FegPageExtension {
 				break;
 			}
 		}
+		array_shift($output_done);		// blank line
+		array_shift($output_done);		// Title line: JID  Owner Number Dials
+		echo implode("<br>", $output_done);
 		
 		echo "Fax Sent Last Hour: <b>";
 		echo "FIXME";
