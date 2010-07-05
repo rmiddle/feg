@@ -172,11 +172,27 @@ class FegStatsPage extends FegPageExtension {
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
 
+
+/*
+ *		JobFmt: "%-3j %3i %1a %15o %40M %-12.12e %5P %5D %7z %.25s"
+ */
 	function showFaxQueAction() {
 		$db = DevblocksPlatform::getDatabaseService();
 		echo "FaxQue: ";
-		exec("/usr/bin/faxstat", $results); 
-		echo implode("<br>", $results);
+		exec($FAXSENDQ, $output);
+		array_shift($output); 		// HylaFAX scheduler on ...
+		foreach ($output as $line) {
+			if (preg_match("/^Modem /", $line)) {	// match "/^Modem/
+				array_shift($output);				// remove entry from array
+			} else {
+				break;
+			}
+		}
+		
+		array_shift($output);		// blank line
+		array_shift($output);		// Title line: JID  Owner Number Dials
+		
+		echo implode("<br>", $output);
 		echo "<br>";
 		echo "Fax(s) Waiting to send: <b>";
 		$sql = sprintf("SELECT count(*) as total ".
