@@ -2,11 +2,11 @@
 	<div style="padding-bottom:5px;"></div>
 </div> 
 
-<table cellpadding="0" cellspacing="0" border="5">
+<table cellpadding="0" cellspacing="0" border="0">
 	<tr>
 		{*<td valign="top" width="60%">*}
 		<td valign="top">
-			<table cellpadding="0" cellspacing="0" border="0">
+			<table cellpadding="0" cellspacing="10" border="0">
 				<tr>
 					<td valign="top" colspan="2">
 						<div id="showfaxque"></div>
