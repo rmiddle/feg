@@ -178,18 +178,20 @@ class FegStatsPage extends FegPageExtension {
  */
 	function showFaxQueAction() {
 		$db = DevblocksPlatform::getDatabaseService();
-		echo "FaxQue: ";
+		echo "FaxQue: <br>";
 		exec(HYLAFAX_FAXSTATS, $output_current);
 		array_shift($output_current); 		// HylaFAX scheduler on ...
 		foreach ($output_current as $line) {
 			if (preg_match("/^Modem /", $line)) {	// match "/^Modem/
 				$arr = split(" ", $line);
-				echo $arr[1]."<br>";
-				//i=3
-				//while ($arr[i]) {
-				//	echo $arr[i++] . " ";					
-				//}
-				echo "<br>";
+				array_shift($arr);
+				echo $arr[0]."<br>";
+				array_shift($arr);
+				array_shift($arr);
+				while($arr) {
+					echo $arr[0]. " ";
+					array_shift($arr);
+				}
 				//echo implode("<br>", 	$arr[3]);
 				array_shift($output_current);				// remove entry from array
 			} else {
