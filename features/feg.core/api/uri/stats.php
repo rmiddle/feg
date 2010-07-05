@@ -191,8 +191,8 @@ class FegStatsPage extends FegPageExtension {
 		
 		array_shift($output);		// blank line
 		array_shift($output);		// Title line: JID  Owner Number Dials
-		
-		echo implode("<br>", $output);
+		print_r($output);
+		//echo implode("<br>", $output);
 		echo "<br>";
 		echo "Fax(s) Waiting to send: <b>";
 		$sql = sprintf("SELECT count(*) as total ".
