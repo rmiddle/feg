@@ -199,21 +199,6 @@ class FegStatsPage extends FegPageExtension {
 				break;
 			}
 		}
-		array_shift($output_current);		// blank line
-		array_shift($output_current);		// JID  Owner Number Dials
-		echo implode("<br>", $output_current);
-		
-		exec(HYLAFAX_FAXSTATD, $output_done);
-		array_shift($output_done); 		// HylaFAX scheduler on ...
-		
-		foreach ($output_done as $line) {
-			if (preg_match("/^Modem /", $line)) {	// match "/^Modem/
-				array_shift($output_done);				// remove entry from array
-			} else {
-				break;
-			}
-		}
-		
 		array_shift($output_done);		// blank line
 		array_shift($output_done);		// Title line: JID  Owner Number Dials
 		echo implode("<br>", $output_done);
@@ -234,6 +219,21 @@ class FegStatsPage extends FegPageExtension {
 	}
 
 	function showFaxStatsAction() {
+		array_shift($output_current);		// blank line
+		array_shift($output_current);		// JID  Owner Number Dials
+		echo implode("<br>", $output_current);
+		
+		exec(HYLAFAX_FAXSTATD, $output_done);
+		array_shift($output_done); 		// HylaFAX scheduler on ...
+		
+		foreach ($output_done as $line) {
+			if (preg_match("/^Modem /", $line)) {	// match "/^Modem/
+				array_shift($output_done);				// remove entry from array
+			} else {
+				break;
+			}
+		}
+		
 		echo "Fax Sent Last Hour: <b>";
 		echo "FIXME";
 		echo "</b><br>";
