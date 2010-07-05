@@ -187,7 +187,7 @@ class FegStatsPage extends FegPageExtension {
 				echo $arr[1]."<br>";
 				i=3
 				while ($arr[i]) {
-					echo $arr[i] . " ";
+					echo $arr[i++] . " ";					
 				}
 				echo "<br>";
 				//echo implode("<br>", 	$arr[3]);
