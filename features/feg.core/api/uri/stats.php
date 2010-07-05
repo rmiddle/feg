@@ -179,7 +179,7 @@ class FegStatsPage extends FegPageExtension {
 	function showFaxQueAction() {
 		$db = DevblocksPlatform::getDatabaseService();
 		echo "FaxQue: ";
-		exec($FAXSENDQ, $output);
+		exec($HYLAFAX_FAXSTATS, $output);
 		array_shift($output); 		// HylaFAX scheduler on ...
 		print_r($output);
 		foreach ($output as $line) {
