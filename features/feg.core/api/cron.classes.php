@@ -314,9 +314,9 @@ class ExportCron extends FegCronExtension {
 //                array()
 //            )
 //	    );
-		$export_types = DAO_ExportType::getAll();
-    	foreach($export_types as $export_type_id => $export_type) { 
-			$logger->info('[Message Export] Now Processing ' . $export_type->name . ' Export Number: ' . $export_type->id);
+//		$export_types = DAO_ExportType::getAll();
+ //   	foreach($export_types as $export_type_id => $export_type) { 
+//			$logger->info('[Message Export] Now Processing ' . $export_type->name . ' Export Number: ' . $export_type->id);
 			
 /*			switch($export_type->type) {
 				case 0:
@@ -335,7 +335,7 @@ class ExportCron extends FegCronExtension {
 					break;
 			}
 */
-	    }
+//	    }
 		$logger->info('[Message Export] finished.');
 	}
 
