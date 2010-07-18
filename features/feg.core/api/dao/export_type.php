@@ -433,7 +433,7 @@ class View_ExportType extends FEG_AbstractView {
 				// [TODO] Implement actions
 //				case 'example':
 					//$change_fields[DAO_ExportType::EXAMPLE] = 'some value';
-					break;
+//					break;
 				default:
 					break;
 			}
