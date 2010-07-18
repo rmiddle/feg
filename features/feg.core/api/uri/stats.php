@@ -277,7 +277,7 @@ class FegStatsPage extends FegPageExtension {
 		echo "SNPP Sent Today: <b>";
 		echo "FIXME";
 		echo "</b><br>";
-		echo date("n:i:s A");
+		//echo date("n:i:s A");
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
 	
