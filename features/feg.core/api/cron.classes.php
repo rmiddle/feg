@@ -370,7 +370,6 @@ class ExportCron extends FegCronExtension {
 		$timeout = ini_get('max_execution_time');
 		$runtime = microtime(true);
 		
-		}
 		return NULL;		
 	}
 	
@@ -390,7 +389,6 @@ class ExportCron extends FegCronExtension {
 		$timeout = ini_get('max_execution_time');
 		$runtime = microtime(true);
 		
-		}
 		return NULL;		
 	}
 	
@@ -410,7 +408,6 @@ class ExportCron extends FegCronExtension {
 		$timeout = ini_get('max_execution_time');
 		$runtime = microtime(true);
 		
-		}
 		return NULL;		
 	}
 };
