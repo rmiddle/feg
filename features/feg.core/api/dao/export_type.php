@@ -107,6 +107,23 @@ class DAO_ExportType extends Feg_ORMHelper {
 		return true;
 	}
 	
+	static function getAll($nocache=false, $with_disabled=false) {
+	    $cache = DevblocksPlatform::getCacheService();
+	    if($nocache || null === ($export_types = $cache->load(self::CACHE_ALL))) {
+    	    $export_types = self::getWhere();
+    	    $cache->save($export_types, self::CACHE_ALL);
+	    }
+	    
+	    if(!$with_disabled) {
+	    	foreach($export_types as $export_type_id => $export_type) { /* @var $worker CerberusWorker */
+	    		if($export_type->is_disabled)
+	    			unset($export_types[$export_type_id]);
+	    	}
+	    }
+	    
+	    return $export_types;
+	}	
+	
     /**
      * Enter description here...
      *

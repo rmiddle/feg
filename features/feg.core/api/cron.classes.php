@@ -314,29 +314,29 @@ class ExportCron extends FegCronExtension {
                 array()
             )
 	    );
-		$export_sources = DAO_ExportSource::getAll();
-    	foreach($export_sources as $export_source_id => $export_source) { 
-			$logger->info('[Message Export] Now Processing ' . $export_source->name . ' Export Number: ' . $export_source->id);
+		$export_types = DAO_ExportType::getAll();
+    	foreach($export_types as $export_type_id => $export_type) { 
+			$logger->info('[Message Export] Now Processing ' . $export_type->name . ' Export Number: ' . $export_type->id);
 			
-			switch($export_source->type) {
+			switch($export_type->type) {
 				case 0:
 					$logger->info("[Email Exporter] Export started");
-					self::ExportEmail($export_source);
+					self::ExportEmail($export_type);
 					break;
 				case 1:
 					$logger->info("[Fax Exporter] Export started");
-					self::ExportFax($export_source);
+					self::ExportFax($export_type);
 					break;
 				case 2:
 					$logger->info("[SNPP Exporter] Export started");
-					self::ExportSnpp($export_source);
+					self::ExportSnpp($export_type);
 					break;
 				default:
 					break;
 			}
 	    }
 
-		$logger->info('[Message Import] finished.');
+		$logger->info('[Message Export] finished.');
 	}
 
 	function configure($instance) {
@@ -354,7 +354,7 @@ class ExportCron extends FegCronExtension {
 //		$this->setParam('import_folder_path', $import_folder_path);
 	}
 	
-	function ExportEmail(Model_ExportFilter $export_source) {
+	function ExportEmail(Model_ExportType $export_type) {
 		$logger = DevblocksPlatform::getConsoleLog();
 	
 		$memory_limit = ini_get('memory_limit');
@@ -374,7 +374,7 @@ class ExportCron extends FegCronExtension {
 		return NULL;		
 	}
 	
-	function ExportFax(Model_ExportFilter $export_source) {
+	function ExportFax(Model_ExportType $export_type) {
 		$logger = DevblocksPlatform::getConsoleLog();
 	
 		$memory_limit = ini_get('memory_limit');
@@ -394,7 +394,7 @@ class ExportCron extends FegCronExtension {
 		return NULL;		
 	}
 	
-	function ExportSnpp(Model_ExportFilter $export_source) {
+	function ExportSnpp(Model_ExportType $export_type) {
 		$logger = DevblocksPlatform::getConsoleLog();
 	
 		$memory_limit = ini_get('memory_limit');

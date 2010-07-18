@@ -82,12 +82,6 @@
 			<class name="SearchFields_MessageRecipient" />
 			<class name="View_MessageRecipient" />
 		</file>
-		<file path="api/dao/fax_xferlog.php">
-			<class name="DAO_FaxXferlog" />
-			<class name="Model_FaxXferlog" />
-			<class name="SearchFields_FaxXferlog" />
-			<class name="View_FaxXferlog" />
-		</file>
 		<file path="api/dao/import_source.php">
 			<class name="DAO_ImportSource" />
 			<class name="Model_ImportSource" />
@@ -120,6 +114,9 @@
 		</event>
 		<event id="cron.import">
 			<name>Import Messages</name>
+		</event>
+		<event id="cron.export">
+			<name>Export Messages</name>
 		</event>
 	</event_points>
 
