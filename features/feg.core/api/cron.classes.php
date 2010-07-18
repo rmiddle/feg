@@ -318,7 +318,7 @@ class ExportCron extends FegCronExtension {
     	foreach($export_types as $export_type_id => $export_type) { 
 			$logger->info('[Message Export] Now Processing ' . $export_type->name . ' Export Number: ' . $export_type->id);
 			
-			switch($export_type->type) {
+/*			switch($export_type->type) {
 				case 0:
 					$logger->info("[Email Exporter] Export started");
 					self::ExportEmail($export_type);
@@ -334,8 +334,8 @@ class ExportCron extends FegCronExtension {
 				default:
 					break;
 			}
+*/
 	    }
-
 		$logger->info('[Message Export] finished.');
 	}
 
