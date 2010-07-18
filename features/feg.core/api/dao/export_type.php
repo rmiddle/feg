@@ -8,6 +8,8 @@ class Model_ExportType {
 };
 
 class DAO_ExportType extends Feg_ORMHelper {
+	const CACHE_ALL = 'feg_export_type';
+
 	const ID = 'id';
 	const NAME = 'name';
 	const PARAMS_JSON = 'params_json';
@@ -115,7 +117,7 @@ class DAO_ExportType extends Feg_ORMHelper {
 	    }
 	    
 	    if(!$with_disabled) {
-	    	foreach($export_types as $export_type_id => $export_type) { /* @var $worker CerberusWorker */
+	    	foreach($export_types as $export_type_id => $export_type) { 
 	    		if($export_type->is_disabled)
 	    			unset($export_types[$export_type_id]);
 	    	}
