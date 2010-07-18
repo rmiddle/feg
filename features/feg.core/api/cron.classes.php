@@ -78,6 +78,54 @@ class HeartbeatCron extends FegCronExtension {
 	}
 };
 
+class StatsCron extends FegCronExtension {
+	function run() {
+		$logger = DevblocksPlatform::getConsoleLog();
+		$logger->info("[FEG] Starting Stats Task");
+		
+		$memory_limit = ini_get('memory_limit');
+		if(substr($memory_limit, 0, -1)  < 128) {
+			@ini_set('memory_limit','128M');
+		}
+		
+		@set_time_limit(0); // Unlimited (if possible)
+		 
+		$logger->info("[Stats] memory_limit is: " . ini_get('memory_limit'));
+		$logger->info("[Stats] max_execution_time is: " . ini_get('max_execution_time'));
+		
+//		$timeout = ini_get('max_execution_time');
+//		$runtime = microtime(true);
+		
+		$db = DevblocksPlatform::getDatabaseService();
+
+		// Give plugins a chance to run maintenance (nuke NULL rows, etc.)
+	    $eventMgr = DevblocksPlatform::getEventService();
+	    $eventMgr->trigger(
+	        new Model_DevblocksEvent(
+	            'cron.stats',
+                array()
+            )
+	    );
+	  
+//		$logger->info('[Maint] Cleaned up import directories.');
+	}
+
+	function configure($instance) {
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
+		$tpl->assign('path', $tpl_path);
+
+//		$tpl->assign('purge_waitdays', $this->getParam('purge_waitdays', 7));
+
+		$tpl->display($tpl_path . 'cron/stats/config.tpl');
+	}
+
+	function saveConfigurationAction() {
+//		@$purge_waitdays = DevblocksPlatform::importGPC($_POST['purge_waitdays'],'integer');
+//		$this->setParam('purge_waitdays', $purge_waitdays);
+	}
+};
+
 /**
  * Plugins can implement an event listener on the import action being done 
  * every 1 minutes.

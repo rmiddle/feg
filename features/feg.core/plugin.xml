@@ -112,6 +112,9 @@
 		<event id="cron.maint">
 			<name>Maintenance</name>
 		</event>
+		<event id="cron.stats">
+			<name>Export Messages</name>
+		</event>
 		<event id="cron.import">
 			<name>Import Messages</name>
 		</event>
@@ -357,6 +360,17 @@
 			<class>
 				<file>api/cron.classes.php</file>
 				<name>HeartbeatCron</name>
+			</class>
+			<params>
+			</params>
+		</extension>
+		
+		<extension point="feg.cron">
+			<id>cron.stats</id>
+			<name>Update Stats</name>
+			<class>
+				<file>api/cron.classes.php</file>
+				<name>StatsCron</name>
 			</class>
 			<params>
 			</params>
