@@ -292,3 +292,126 @@ class ImportCron extends FegCronExtension {
 	}
 };
 
+**
+ * Plugins can implement an event listener on the import action being done 
+ * every 1 minutes.
+ */
+class ExportCron extends FegCronExtension {
+	function run() {
+		$logger = DevblocksPlatform::getConsoleLog();
+		$logger->info("[Message Exporting] Starting Export Task");
+		
+		//	System wide default should be fine will revisit if needed	
+		//	@ini_set('memory_limit','128M');
+
+		$db = DevblocksPlatform::getDatabaseService();
+
+		// Give plugins a chance to run import
+	    $eventMgr = DevblocksPlatform::getEventService();
+	    $eventMgr->trigger(
+	        new Model_DevblocksEvent(
+	            'cron.export',
+                array()
+            )
+	    );
+		$export_sources = DAO_ExportSource::getAll();
+    	foreach($export_sources as $export_source_id => $export_source) { 
+			$logger->info('[Message Export] Now Processing ' . $export_source->name . ' Export Number: ' . $export_source->id);
+			
+			switch($export_source->type) {
+				case 0:
+					$logger->info("[Email Exporter] Export started");
+					self::ExportEmail($export_source);
+					break;
+				case 1:
+					$logger->info("[Fax Exporter] Export started");
+					self::ExportFax($export_source);
+					break;
+				case 2:
+					$logger->info("[SNPP Exporter] Export started");
+					self::ExportSnpp($export_source);
+					break;
+				default:
+					break;
+			}
+	    }
+
+		$logger->info('[Message Import] finished.');
+	}
+
+	function configure($instance) {
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
+		$tpl->assign('path', $tpl_path);
+
+//		$tpl->assign('import_folder_path', $this->getParam('import_folder_path', APP_STORAGE_PATH . '/import/new'));
+
+		$tpl->display($tpl_path . 'cron/export/config.tpl');
+	}
+
+	function saveConfigurationAction() {
+//		@$import_folder_path = DevblocksPlatform::importGPC($_POST['import_folder_path'],'string');
+//		$this->setParam('import_folder_path', $import_folder_path);
+	}
+	
+	function ExportEmail(Model_ExportFilter $export_source) {
+		$logger = DevblocksPlatform::getConsoleLog();
+	
+		$memory_limit = ini_get('memory_limit');
+		if(substr($memory_limit, 0, -1)  < 128) {
+			@ini_set('memory_limit','128M');
+		}
+		
+		@set_time_limit(0); // Unlimited (if possible)
+		 
+		$logger->info("[Exporter] Overloaded memory_limit to: " . ini_get('memory_limit'));
+		$logger->info("[Exporter] Overloaded max_execution_time to: " . ini_get('max_execution_time'));
+		
+		$timeout = ini_get('max_execution_time');
+		$runtime = microtime(true);
+		
+		}
+		return NULL;		
+	}
+	
+	function ExportFax(Model_ExportFilter $export_source) {
+		$logger = DevblocksPlatform::getConsoleLog();
+	
+		$memory_limit = ini_get('memory_limit');
+		if(substr($memory_limit, 0, -1)  < 128) {
+			@ini_set('memory_limit','128M');
+		}
+		
+		@set_time_limit(0); // Unlimited (if possible)
+		 
+		$logger->info("[Exporter] Overloaded memory_limit to: " . ini_get('memory_limit'));
+		$logger->info("[Exporter] Overloaded max_execution_time to: " . ini_get('max_execution_time'));
+		
+		$timeout = ini_get('max_execution_time');
+		$runtime = microtime(true);
+		
+		}
+		return NULL;		
+	}
+	
+	function ExportSnpp(Model_ExportFilter $export_source) {
+		$logger = DevblocksPlatform::getConsoleLog();
+	
+		$memory_limit = ini_get('memory_limit');
+		if(substr($memory_limit, 0, -1)  < 128) {
+			@ini_set('memory_limit','128M');
+		}
+		
+		@set_time_limit(0); // Unlimited (if possible)
+		 
+		$logger->info("[Exporter] Overloaded memory_limit to: " . ini_get('memory_limit'));
+		$logger->info("[Exporter] Overloaded max_execution_time to: " . ini_get('max_execution_time'));
+		
+		$timeout = ini_get('max_execution_time');
+		$runtime = microtime(true);
+		
+		}
+		return NULL;		
+	}
+};
+
