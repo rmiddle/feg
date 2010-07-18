@@ -229,6 +229,7 @@ class FegStatsPage extends FegPageExtension {
 		array_shift($output_done);		// blank line
 		array_shift($output_done);		// Title line: JID  Owner Number Dials
 		echo implode("<br>", $output_done);
+		echo "<br>";
 		
 		echo "Fax Sent Last Hour: <b>";
 		echo "FIXME";
