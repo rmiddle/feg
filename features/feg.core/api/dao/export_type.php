@@ -3,6 +3,7 @@
 class Model_ExportType {
 	public $id;
 	public $name;
+	public $type;
 	public $params_json;
 	public $is_disabled;
 };

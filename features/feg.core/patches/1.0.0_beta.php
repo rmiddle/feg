@@ -250,6 +250,7 @@ if(!isset($tables['export_type'])) {
 		CREATE TABLE IF NOT EXISTS export_type (
 			id INT UNSIGNED DEFAULT 0 NOT NULL,
 			name varchar(255) NOT NULL DEFAULT '',
+			type INT UNSIGNED DEFAULT 0 NOT NULL,
 			params_json longtext,
 			is_disabled TINYINT UNSIGNED DEFAULT 0 NOT NULL,
 			PRIMARY KEY (id),
@@ -266,7 +267,7 @@ if(!isset($tables['export_filter'])) {
 			filter_name varchar(255) NOT NULL DEFAULT '',
 			recipient_type TINYINT UNSIGNED DEFAULT 0 NOT NULL,
 			is_disabled TINYINT UNSIGNED DEFAULT 0 NOT NULL,
-			filter longtext,
+			filter INT UNSIGNED DEFAULT 0 NOT NULL,
 			PRIMARY KEY (id),
 			INDEX recipient_type (recipient_type),
 			INDEX is_disabled (is_disabled)
