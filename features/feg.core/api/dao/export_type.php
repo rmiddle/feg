@@ -3,11 +3,14 @@
 class Model_ExportType {
 	public $id;
 	public $name;
+	public $type;
 	public $params_json;
 	public $is_disabled;
 };
 
 class DAO_ExportType extends Feg_ORMHelper {
+	const CACHE_ALL = 'feg_export_type';
+
 	const ID = 'id';
 	const NAME = 'name';
 	const PARAMS_JSON = 'params_json';
@@ -106,6 +109,23 @@ class DAO_ExportType extends Feg_ORMHelper {
 		
 		return true;
 	}
+	
+	static function getAll($nocache=false, $with_disabled=false) {
+	    $cache = DevblocksPlatform::getCacheService();
+	    if($nocache || null === ($export_types = $cache->load(self::CACHE_ALL))) {
+    	    $export_types = self::getWhere();
+    	    $cache->save($export_types, self::CACHE_ALL);
+	    }
+	    
+	    if(!$with_disabled) {
+	    	foreach($export_types as $export_type_id => $export_type) { 
+	    		if($export_type->is_disabled)
+	    			unset($export_types[$export_type_id]);
+	    	}
+	    }
+	    
+	    return $export_types;
+	}	
 	
     /**
      * Enter description here...
@@ -414,7 +434,7 @@ class View_ExportType extends FEG_AbstractView {
 				// [TODO] Implement actions
 //				case 'example':
 					//$change_fields[DAO_ExportType::EXAMPLE] = 'some value';
-					break;
+//					break;
 				default:
 					break;
 			}
