@@ -157,16 +157,13 @@ class FegStatsPage extends FegPageExtension {
 		echo "Email Sent Last Hour: <b>";
 		echo "FIXME";
 		echo "</b><br>";
-		echo "Email Sent Last Day: <b>";
+		echo "Email Sent This Hour: <b>";
 		echo "FIXME";
 		echo "</b><br>";
-		echo "Email Sent Last Week: <b>";
+		echo "Email Sent Yesterday: <b>";
 		echo "FIXME";
 		echo "</b><br>";
-		echo "Email Sent Last Month: <b>";
-		echo "FIXME";
-		echo "</b><br>";
-		echo "Email Sent Last Year: <b>";
+		echo "Email Sent Today: <b>";
 		echo "FIXME";
 		echo "</b><br>";
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
@@ -232,23 +229,21 @@ class FegStatsPage extends FegPageExtension {
 		array_shift($output_done);		// blank line
 		array_shift($output_done);		// Title line: JID  Owner Number Dials
 		echo implode("<br>", $output_done);
+		echo "<br>";
 		
 		echo "Fax Sent Last Hour: <b>";
 		echo "FIXME";
 		echo "</b><br>";
-		echo "Fax Sent Last Day: <b>";
+		echo "Fax Sent This Hour: <b>";
 		echo "FIXME";
 		echo "</b><br>";
-		echo "Fax Sent Last Week: <b>";
+		echo "Fax Sent Yesterday: <b>";
 		echo "FIXME";
 		echo "</b><br>";
-		echo "Fax Sent Last Month: <b>";
+		echo "Fax Sent Today: <b>";
 		echo "FIXME";
 		echo "</b><br>";
-		echo "Fax Sent Last Year: <b>";
-		echo "FIXME";
-		echo "</b><br>";
-		echo date("n:i:s A");
+		//echo date("n:i:s A");
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
 	
@@ -273,19 +268,16 @@ class FegStatsPage extends FegPageExtension {
 		echo "SNPP Sent Last Hour: <b>";
 		echo "FIXME";
 		echo "</b><br>";
-		echo "SNPP Sent Last Day: <b>";
+		echo "SNPP Sent This Hour: <b>";
 		echo "FIXME";
 		echo "</b><br>";
-		echo "SNPP Sent Last Week: <b>";
+		echo "SNPP Sent Yesterday: <b>";
 		echo "FIXME";
 		echo "</b><br>";
-		echo "SNPP Sent Last Month: <b>";
+		echo "SNPP Sent Today: <b>";
 		echo "FIXME";
 		echo "</b><br>";
-		echo "SNPP Sent Last Year: <b>";
-		echo "FIXME";
-		echo "</b><br>";
-		echo date("n:i:s A");
+		//echo date("n:i:s A");
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
 	}
 	
