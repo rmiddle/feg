@@ -173,9 +173,8 @@ class FegStatsPage extends FegPageExtension {
 /*
  *		JobFmt: "%-3j %3i %1a %15o %40M %-12.12e %5P %5D %7z %.25s"
  */
-	function showFaxQueAction() {
+	function showHylfaxQueAction() {
 		$db = DevblocksPlatform::getDatabaseService();
-		echo "FaxQue: <br>";
 		exec(HYLAFAX_FAXSTATS, $output_current);
 		array_shift($output_current); 		// HylaFAX scheduler on ...
 		foreach ($output_current as $line) {
@@ -196,6 +195,13 @@ class FegStatsPage extends FegPageExtension {
 				break;
 			}
 		}
+		echo "<br>";
+		mysql_free_result($rs);
+	}
+
+	function showFaxQueAction() {
+		$db = DevblocksPlatform::getDatabaseService();
+		
 		echo "Fax(s) Waiting to send: <b>";
 		$sql = sprintf("SELECT count(*) as total ".
 				"FROM message_recipient mr ".
@@ -212,6 +218,7 @@ class FegStatsPage extends FegPageExtension {
 	}
 
 	function showFaxStatsAction() {
+		/*
 		array_shift($output_current);		// blank line
 		array_shift($output_current);		// JID  Owner Number Dials
 		echo implode("<br>", $output_current);
@@ -230,7 +237,7 @@ class FegStatsPage extends FegPageExtension {
 		array_shift($output_done);		// Title line: JID  Owner Number Dials
 		echo implode("<br>", $output_done);
 		echo "<br>";
-		
+		*/
 		echo "Fax Sent Last Hour: <b>";
 		echo "FIXME";
 		echo "</b><br>";

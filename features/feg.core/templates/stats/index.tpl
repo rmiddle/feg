@@ -8,8 +8,10 @@
 			<table cellpadding="0" cellspacing="10" border="0">
 				<tr>
 					<td valign="top" colspan="2">
-						<div id="showfaxque"></div>
+						FaxQue:<br>
+						<div id="show_hylfax_que"></div>
 						Fax Statics:<br>
+						<div id="show_fax_queue"></div>
 						<div id="showfaxstats"></div>
 					</td>
 				</tr>
@@ -46,9 +48,15 @@
 
 <script>
 $(document).ready(function() {
+	$("#showque").load("{devblocks_url}ajax.php?c=stats&a=showFaxQue{/devblocks_url}");
+	var refreshId = setInterval(function() {
+		$("#show_hylfax_que").load("{devblocks_url}ajax.php?c=stats&a=showHylfaxQue{/devblocks_url}");
+	}, 5000);
+});
+$(document).ready(function() {
 	$("#showfaxque").load("{devblocks_url}ajax.php?c=stats&a=showFaxQue{/devblocks_url}");
 	var refreshId = setInterval(function() {
-		$("#showfaxque").load("{devblocks_url}ajax.php?c=stats&a=showFaxQue{/devblocks_url}");
+		$("#show_fax_queue").load("{devblocks_url}ajax.php?c=stats&a=showFaxQue{/devblocks_url}");
 	}, 5000);
 });
 $(document).ready(function() {
