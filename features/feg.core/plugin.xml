@@ -55,6 +55,14 @@
 			<class name="SearchFields_WorkerEvent" />
 			<class name="View_WorkerEvent" />
 		</file>
+		
+		<file path="api/dao/stats.php">
+			<class name="DAO_Stats" />
+			<class name="Model_Stats" />
+			<class name="SearchFields_Stats" />
+			<class name="View_Stats" />
+		</file>
+		
 		<file path="api/dao/customer_account.php">
 			<class name="FegCustomFieldSource_CustomerAccount" />
 			<class name="DAO_CustomerAccount" />

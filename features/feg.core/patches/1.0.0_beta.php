@@ -158,6 +158,18 @@ if(!isset($tables['worker_event'])) {
 	$db->Execute($sql);	
 }
 
+if(!isset($tables['stats'])) {
+	$sql = "
+		CREATE TABLE IF NOT EXISTS stats (
+			id INT UNSIGNED DEFAULT 0 NOT NULL,
+			name varchar(255) NOT NULL DEFAULT '',
+			value VARCHAR(255) DEFAULT '' NOT NULL,
+			PRIMARY KEY (id)
+		) ENGINE=MyISAM;
+	";
+	$db->Execute($sql);	
+}
+
 if(!isset($tables['customer_account'])) {
 	$sql = "
 		CREATE TABLE IF NOT EXISTS customer_account (

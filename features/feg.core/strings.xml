@@ -493,6 +493,21 @@ For example: *receipt*</seg></tuv>
 			<tuv xml:lang="en_US"><seg>Customer ID</seg></tuv>
 		</tu>
 		
+		<!-- Stat Translations -->
+		
+		<tu tuid='feg.stats.id'>
+			<tuv xml:lang="en_US"><seg>ID</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.name'>
+			<tuv xml:lang="en_US"><seg>Name</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.value'>
+			<tuv xml:lang="en_US"><seg>Value</seg></tuv>
+		</tu>		
+		<tu tuid='feg.stats.default_name'>
+			<tuv xml:lang="en_US"><seg>Stats</seg></tuv>
+		</tu>		
+		
 		<!-- Customer Recipient -->
 		
 		<tu tuid='feg.customer_recipient.title'>
