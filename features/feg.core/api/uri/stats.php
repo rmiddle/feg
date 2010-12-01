@@ -155,7 +155,7 @@ class FegStatsPage extends FegPageExtension {
 
 	function showMailStatsAction() {
 		$db = DevblocksPlatform::getDatabaseService();
-		$sql = sprintf("SELECT email_current_hour, email_last_hour, email_sent_today, email_sent_yesterday as total ".
+		$sql = sprintf("SELECT email_current_hour, email_last_hour, email_sent_today, email_sent_yesterday ".
 				"FROM stats ".
 				"WHERE stats.id = 0 "
 				);
@@ -225,7 +225,7 @@ class FegStatsPage extends FegPageExtension {
 
 	function showFaxStatsAction() {
 		$db = DevblocksPlatform::getDatabaseService();
-		$sql = sprintf("SELECT fax_current_hour, fax_last_hour, fax_sent_today, fax_sent_yesterday as total ".
+		$sql = sprintf("SELECT fax_current_hour, fax_last_hour, fax_sent_today, fax_sent_yesterday ".
 				"FROM stats ".
 				"WHERE stats.id = 0 "
 				);
@@ -266,7 +266,7 @@ class FegStatsPage extends FegPageExtension {
 	
 	function showSNPPStatsAction() {
 		$db = DevblocksPlatform::getDatabaseService();
-		$sql = sprintf("SELECT snpp_current_hour, snpp_last_hour, snpp_sent_today, snpp_sent_yesterday as total ".
+		$sql = sprintf("SELECT snpp_current_hour, snpp_last_hour, snpp_sent_today, snpp_sent_yesterday ".
 				"FROM stats ".
 				"WHERE stats.id = 0 "
 				);
