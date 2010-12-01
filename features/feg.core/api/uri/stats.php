@@ -181,6 +181,9 @@ class FegStatsPage extends FegPageExtension {
  */
 	function showHylfaxQueAction() {
 		$db = DevblocksPlatform::getDatabaseService();
+		echo "Last update: ";
+		echo date("n:i:s A");
+		echo "<br>";
 		exec(HYLAFAX_FAXSTATS, $output_current);
 		array_shift($output_current); 		// HylaFAX scheduler on ...
 		foreach ($output_current as $line) {
