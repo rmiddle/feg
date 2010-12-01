@@ -498,12 +498,42 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.stats.id'>
 			<tuv xml:lang="en_US"><seg>ID</seg></tuv>
 		</tu>
-		<tu tuid='feg.stats.name'>
-			<tuv xml:lang="en_US"><seg>Name</seg></tuv>
+		<tu tuid='feg.stats.fax_current_hour'>
+			<tuv xml:lang="en_US"><seg>Fax Current Hour</seg></tuv>
 		</tu>
-		<tu tuid='feg.stats.value'>
-			<tuv xml:lang="en_US"><seg>Value</seg></tuv>
-		</tu>		
+		<tu tuid='feg.stats.fax_last_hour'>
+			<tuv xml:lang="en_US"><seg>Fax Last Hour</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.fax_sent_today'>
+			<tuv xml:lang="en_US"><seg>Fax Sent Today</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.fax_sent_yesterday'>
+			<tuv xml:lang="en_US"><seg>Fax Sent Yesterday</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.email_current_hour'>
+			<tuv xml:lang="en_US"><seg>Email Current Hour</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.email_last_hour'>
+			<tuv xml:lang="en_US"><seg>Email Last Hour</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.email_sent_today'>
+			<tuv xml:lang="en_US"><seg>Email Sent Today</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.email_sent_yesterday'>
+			<tuv xml:lang="en_US"><seg>Email Sent Yesterday</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.snpp_current_hour'>
+			<tuv xml:lang="en_US"><seg>SNPP Current Hour</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.snpp_last_hour'>
+			<tuv xml:lang="en_US"><seg>SNPP Last Hour</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.snpp_sent_today'>
+			<tuv xml:lang="en_US"><seg>SNPP Sent Today</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.snpp_sent_yesterday'>
+			<tuv xml:lang="en_US"><seg>SNPP Sent Yesterday</seg></tuv>
+		</tu>
 		<tu tuid='feg.stats.default_name'>
 			<tuv xml:lang="en_US"><seg>Stats</seg></tuv>
 		</tu>		

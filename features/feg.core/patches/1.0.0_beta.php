@@ -162,12 +162,25 @@ if(!isset($tables['stats'])) {
 	$sql = "
 		CREATE TABLE IF NOT EXISTS stats (
 			id INT UNSIGNED DEFAULT 0 NOT NULL,
-			name varchar(255) NOT NULL DEFAULT '',
-			value VARCHAR(255) DEFAULT '' NOT NULL,
+			fax_current_hour INT UNSIGNED DEFAULT 0 NOT NULL,
+			fax_last_hour INT UNSIGNED DEFAULT 0 NOT NULL,
+			fax_sent_today INT UNSIGNED DEFAULT 0 NOT NULL,
+			fax_sent_yesterday INT UNSIGNED DEFAULT 0 NOT NULL,
+			email_current_hour INT UNSIGNED DEFAULT 0 NOT NULL,
+			email_last_hour INT UNSIGNED DEFAULT 0 NOT NULL,
+			email_sent_today INT UNSIGNED DEFAULT 0 NOT NULL,
+			email_sent_yesterday INT UNSIGNED DEFAULT 0 NOT NULL,
+			snpp_current_hour INT UNSIGNED DEFAULT 0 NOT NULL,
+			snpp_last_hour INT UNSIGNED DEFAULT 0 NOT NULL,
+			snpp_sent_today INT UNSIGNED DEFAULT 0 NOT NULL,
+			snpp_sent_yesterday INT UNSIGNED DEFAULT 0 NOT NULL,
 			PRIMARY KEY (id)
 		) ENGINE=MyISAM;
 	";
-	$db->Execute($sql);	
+	$db->Execute($sql);
+	
+	$sql = "INSERT INTO stats (id) VALUES(0)";
+	$db->Execute($sql);
 }
 
 if(!isset($tables['customer_account'])) {
