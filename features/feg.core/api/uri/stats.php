@@ -154,19 +154,25 @@ class FegStatsPage extends FegPageExtension {
 	}
 
 	function showMailStatsAction() {
-		echo "Email Sent Last Hour: <b>";
-		echo "FIXME";
-		echo "</b><br>";
+		$db = DevblocksPlatform::getDatabaseService();
+		$sql = sprintf("SELECT email_current_hour, email_last_hour, email_sent_today, email_sent_yesterday as total ".
+				"FROM stats ".
+				"WHERE stats.id = 0 "
+				);
+		$rs = $db->Execute($sql);
+		$row = mysql_fetch_assoc($rs);
 		echo "Email Sent This Hour: <b>";
-		echo "FIXME";
+		echo $row['email_current_hour'];
 		echo "</b><br>";
-		echo "Email Sent Yesterday: <b>";
-		echo "FIXME";
+		echo "Email Sent Last Hour: <b>";
+		echo $row['email_last_hour'];
 		echo "</b><br>";
 		echo "Email Sent Today: <b>";
-		echo "FIXME";
+		echo $row['email_sent_today'];
 		echo "</b><br>";
-		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
+		echo "Email Sent Yesterday: <b>";
+		echo $row['email_sent_yesterday'];
+		echo "</b><br>";
 	}
 
 
@@ -218,37 +224,24 @@ class FegStatsPage extends FegPageExtension {
 	}
 
 	function showFaxStatsAction() {
-		/*
-		array_shift($output_current);		// blank line
-		array_shift($output_current);		// JID  Owner Number Dials
-		echo implode("<br>", $output_current);
-		
-		exec(HYLAFAX_FAXSTATD, $output_done);
-		array_shift($output_done); 		// HylaFAX scheduler on ...
-		
-		foreach ($output_done as $line) {
-			if (preg_match("/^Modem /", $line)) {	// match "/^Modem/
-				array_shift($output_done);				// remove entry from array
-			} else {
-				break;
-			}
-		}
-		array_shift($output_done);		// blank line
-		array_shift($output_done);		// Title line: JID  Owner Number Dials
-		echo implode("<br>", $output_done);
-		echo "<br>";
-		*/
-		echo "Fax Sent Last Hour: <b>";
-		echo "FIXME";
-		echo "</b><br>";
+		$db = DevblocksPlatform::getDatabaseService();
+		$sql = sprintf("SELECT fax_current_hour, fax_last_hour, fax_sent_today, fax_sent_yesterday as total ".
+				"FROM stats ".
+				"WHERE stats.id = 0 "
+				);
+		$rs = $db->Execute($sql);
+		$row = mysql_fetch_assoc($rs);
 		echo "Fax Sent This Hour: <b>";
-		echo "FIXME";
+		echo $row['fax_current_hour'];
 		echo "</b><br>";
-		echo "Fax Sent Yesterday: <b>";
-		echo "FIXME";
+		echo "Fax Sent Last Hour: <b>";
+		echo $row['fax_last_hour'];
 		echo "</b><br>";
 		echo "Fax Sent Today: <b>";
-		echo "FIXME";
+		echo $row['fax_sent_today'];
+		echo "</b><br>";
+		echo "Fax Sent Yesterday: <b>";
+		echo $row['fax_sent_yesterday'];
 		echo "</b><br>";
 		//echo date("n:i:s A");
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
@@ -272,17 +265,24 @@ class FegStatsPage extends FegPageExtension {
 	}
 	
 	function showSNPPStatsAction() {
-		echo "SNPP Sent Last Hour: <b>";
-		echo "FIXME";
-		echo "</b><br>";
+		$db = DevblocksPlatform::getDatabaseService();
+		$sql = sprintf("SELECT snpp_current_hour, snpp_last_hour, snpp_sent_today, snpp_sent_yesterday as total ".
+				"FROM stats ".
+				"WHERE stats.id = 0 "
+				);
+		$rs = $db->Execute($sql);
+		$row = mysql_fetch_assoc($rs);
 		echo "SNPP Sent This Hour: <b>";
-		echo "FIXME";
+		echo $row['snpp_current_hour'];
 		echo "</b><br>";
-		echo "SNPP Sent Yesterday: <b>";
-		echo "FIXME";
+		echo "SNPP Sent Last Hour: <b>";
+		echo $row['snpp_last_hour'];
 		echo "</b><br>";
 		echo "SNPP Sent Today: <b>";
-		echo "FIXME";
+		echo $row['snpp_sent_today'];
+		echo "</b><br>";
+		echo "SNPP Sent Yesterday: <b>";
+		echo $row['snpp_sent_yesterday'];
 		echo "</b><br>";
 		//echo date("n:i:s A");
 		//$tpl->display('file:' . $this->_TPL_PATH . 'stats/postfix.tpl');
