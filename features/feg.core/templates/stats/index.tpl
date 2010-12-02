@@ -10,7 +10,7 @@
 					<td valign="top" colspan="2">
 						FaxQue:<br>
 						<div id="show_hylfax_que"></div>
-						<table cellpadding="0" cellspacing="10" border="0">
+						<table cellpadding="0" cellspacing="0" border="0">
 							<td valign="top" width="50%">
 								Fax Statics:<br>
 								<div id="show_fax_queue"></div>
