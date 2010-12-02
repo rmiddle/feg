@@ -146,8 +146,8 @@ class FegStatsPage extends FegPageExtension {
 				);
 		$rs = $db->Execute($sql);
 		$row = mysql_fetch_assoc($rs);
-		echo $row['counter'];
 		$row['counter']++;
+		echo $row['counter'];
 //		if ($row['counter'] > 9) 
 //			$row['counter']=0;
 		$sql = sprintf("UPDATE stats_counters ".
