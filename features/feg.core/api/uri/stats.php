@@ -141,7 +141,7 @@ class FegStatsPage extends FegPageExtension {
 		$db = DevblocksPlatform::getDatabaseService();
 		echo "FaxQue - Running: ";
 		$sql = sprintf("SELECT counter ".
-				"FROM  stats_counters sc".
+				"FROM  stats_counters sc ".
 				"WHERE sc.id = 0 "
 				);
 		$rs = $db->Execute($sql);
