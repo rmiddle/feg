@@ -138,23 +138,12 @@ class FegStatsPage extends FegPageExtension {
 	
 
 	function showRunningCounterAction() {
-		$db = DevblocksPlatform::getDatabaseService();
+		static $_stats_running_counter = 0;
 		echo "FaxQue - Running: ";
-/*
-		$sql = sprintf("SELECT count(*) as total ".
-				"FROM message_recipient mr ".
-				"inner join customer_recipient cr on mr.recipient_id = cr.id ".
-				"WHERE mr.send_status in (0,3,4,5) ".
-				"AND cr.is_disabled = 0 ".
-				"AND cr.type = 0 "
-				);
-		$rs = $db->Execute($sql);
-		$row = mysql_fetch_assoc($rs);
-		echo $row['total'];
-*/
-		echo rand(0, 9);
+		echo $_stats_running_counter++;
+		if ($_stats_running_counter > 9)
+			$_stats_running_counter = 0;
 		echo "<br>";
-		mysql_free_result($rs);
 	}
 	
 	function showMailQueueStatsAction() {
