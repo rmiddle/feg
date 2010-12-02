@@ -152,7 +152,7 @@ class FegStatsPage extends FegPageExtension {
 		$row = mysql_fetch_assoc($rs);
 		echo $row['total'];
 */
-		echo "1";
+		echo rand(0, 9);
 		echo "<br>";
 		mysql_free_result($rs);
 	}
