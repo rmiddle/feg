@@ -8,7 +8,6 @@
 			<table cellpadding="0" cellspacing="10" border="0">
 				<tr>
 					<td valign="top" colspan="2">
-						<div id="show_running_counter"></div>
 						<div id="show_hylfax_que"></div>
 						Fax Statics:<br>
 						<div id="show_fax_queue"></div>
@@ -47,12 +46,6 @@
 {include file="file:$core_tpl/whos_online.tpl"}
 
 <script>
-$(document).ready(function() {
-	$("#show_running_counter").load("{devblocks_url}ajax.php?c=stats&a=showRunningCounter{/devblocks_url}");
-	var refreshId = setInterval(function() {
-		$("#show_running_counter").load("{devblocks_url}ajax.php?c=stats&a=showRunningCounter{/devblocks_url}");
-	}, 1000);
-});
 $(document).ready(function() {
 	$("#showque").load("{devblocks_url}ajax.php?c=stats&a=showFaxQue{/devblocks_url}");
 	var refreshId = setInterval(function() {

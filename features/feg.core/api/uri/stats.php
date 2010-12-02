@@ -135,31 +135,7 @@ class FegStatsPage extends FegPageExtension {
 		
 		//DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','workers')));		
 	}
-	
-
-	function showRunningCounterAction() {
-		$db = DevblocksPlatform::getDatabaseService();
-		echo "FaxQue - Running: ";
-		$sql = sprintf("SELECT sc.counter ".
-				"FROM  stats_counters sc ".
-				"WHERE sc.id = 0 "
-				);
-		$rs = $db->Execute($sql);
-		$row = mysql_fetch_assoc($rs);
-		$counter = $row['counter'];
-		echo $counter;
-		$counter++;
-		if ($counter > 9) 
-			$counter=0;
-		$sql = sprintf("UPDATE stats_counters ".
-				"SET counter = %u ".
-				"WHERE id = 0 ",
-				$counter
-				);
-		$db->Execute($sql);
-		echo "<br>";
-	}
-	
+		
 	function showMailQueueStatsAction() {
 		$db = DevblocksPlatform::getDatabaseService();
 		echo "Email(s) In Queue: <b>";
@@ -205,6 +181,25 @@ class FegStatsPage extends FegPageExtension {
  */
 	function showHylfaxQueAction() {
 		$db = DevblocksPlatform::getDatabaseService();
+		echo "FaxQue - Running: ";
+		$sql = sprintf("SELECT sc.counter ".
+				"FROM  stats_counters sc ".
+				"WHERE sc.id = 0 "
+				);
+		$rs = $db->Execute($sql);
+		$row = mysql_fetch_assoc($rs);
+		$counter = $row['counter'];
+		echo $counter;
+		$counter++;
+		if ($counter > 9) 
+			$counter=0;
+		$sql = sprintf("UPDATE stats_counters ".
+				"SET counter = %u ".
+				"WHERE id = 0 ",
+				$counter
+				);
+		$db->Execute($sql);
+		echo "<br>";
 		exec(HYLAFAX_FAXSTATS, $output_current);
 		array_shift($output_current); 		// HylaFAX scheduler on ...
 		foreach ($output_current as $line) {
