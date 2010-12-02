@@ -8,7 +8,7 @@
 			<table cellpadding="0" cellspacing="10" border="0">
 				<tr>
 					<td valign="top" colspan="2">
-						FaxQue: <div id="show_running_counter"></div><br>
+						<div id="show_running_counter"></div>
 						<div id="show_hylfax_que"></div>
 						Fax Statics:<br>
 						<div id="show_fax_queue"></div>

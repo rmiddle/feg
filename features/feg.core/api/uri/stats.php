@@ -139,7 +139,7 @@ class FegStatsPage extends FegPageExtension {
 
 	function showRunningCounterAction() {
 		$db = DevblocksPlatform::getDatabaseService();
-		echo "Running: ";
+		echo "FaxQue - Running: ";
 /*
 		$sql = sprintf("SELECT count(*) as total ".
 				"FROM message_recipient mr ".
@@ -152,7 +152,7 @@ class FegStatsPage extends FegPageExtension {
 		$row = mysql_fetch_assoc($rs);
 		echo $row['total'];
 */
-		echo "0";
+		echo "1";
 		echo "<br>";
 		mysql_free_result($rs);
 	}
