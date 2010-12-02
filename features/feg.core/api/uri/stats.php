@@ -182,8 +182,10 @@ class FegStatsPage extends FegPageExtension {
 	function showHylfaxQueAction() {
 		$db = DevblocksPlatform::getDatabaseService();
 		echo "System Time: ";
-		echo date("n:i:s A");
-		echo " UTC<br>";
+//		echo date("n:i:s A");
+		echo date("i:s A");
+//		echo " UTC<br>";
+		echo "<br>";
 		exec(HYLAFAX_FAXSTATS, $output_current);
 		array_shift($output_current); 		// HylaFAX scheduler on ...
 		foreach ($output_current as $line) {
