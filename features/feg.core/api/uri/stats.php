@@ -140,9 +140,11 @@ class FegStatsPage extends FegPageExtension {
 	function showRunningCounterAction() {
 		static $_stats_running_counter = 0;
 		echo "FaxQue - Running: ";
-		echo $_stats_running_counter++;
-		if ($_stats_running_counter > 9)
+		echo $_stats_running_counter;
+		$_stats_running_counter++;
+		if ($_stats_running_counter > 9) {
 			$_stats_running_counter = 0;
+		}
 		echo "<br>";
 	}
 	
