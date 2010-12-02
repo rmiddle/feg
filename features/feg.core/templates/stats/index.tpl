@@ -50,7 +50,7 @@
 $(document).ready(function() {
 	$("#show_running_counter").load("{devblocks_url}ajax.php?c=stats&a=showRunningCounter{/devblocks_url}");
 	var refreshId = setInterval(function() {
-		$("#show_hylfax_que").load("{devblocks_url}ajax.php?c=stats&a=showHylfaxQue{/devblocks_url}");
+		$("#show_running_counter").load("{devblocks_url}ajax.php?c=stats&a=showRunningCounter{/devblocks_url}");
 	}, 1000);
 });
 $(document).ready(function() {
