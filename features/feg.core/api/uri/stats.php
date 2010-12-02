@@ -186,9 +186,9 @@ class FegStatsPage extends FegPageExtension {
 //		echo date("n:i:s A");
 		echo "Running: ";
 		echo $this->_counter;
-		if  ($this->_counter > 10)
-			$this->_counter = 0
-		else
+//		if  ($this->_counter > 10)
+//			$this->_counter = 0
+//		else
 			$this->_counter++;
 //		echo " UTC<br>";
 		echo "<br>";
