@@ -8,18 +8,11 @@
 			<table cellpadding="0" cellspacing="10" border="0">
 				<tr>
 					<td valign="top" colspan="2">
-						FaxQue:<br>
+						FaxQue: <div id="show_running_counter"></div><br>
 						<div id="show_hylfax_que"></div>
-						<table cellpadding="0" cellspacing="0" border="0">
-							<td valign="top" width="50%">
-								Fax Statics:<br>
-								<div id="show_fax_queue"></div>
-								<div id="showfaxstats"></div>
-							</td>
-							<td valign="top" width="50%" cellpadding="0" cellspacing="10">
-								<div id="show_running_counter"></div>
-							</td>
-						</table>
+						Fax Statics:<br>
+						<div id="show_fax_queue"></div>
+						<div id="showfaxstats"></div>
 					</td>
 				</tr>
 				<tr>
