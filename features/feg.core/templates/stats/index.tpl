@@ -19,6 +19,7 @@
 							<td valign="top" width="50%">
 								<div id="show_running_counter"></div>
 							</td>
+						</table>
 					</td>
 				</tr>
 				<tr>
