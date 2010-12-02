@@ -140,7 +140,7 @@ class FegStatsPage extends FegPageExtension {
 	function showRunningCounterAction() {
 		$db = DevblocksPlatform::getDatabaseService();
 		echo "FaxQue - Running: ";
-		$sql = sprintf("SELECT counter ".
+		$sql = sprintf("SELECT sc.counter ".
 				"FROM  stats_counters sc ".
 				"WHERE sc.id = 0 "
 				);
@@ -148,6 +148,7 @@ class FegStatsPage extends FegPageExtension {
 		$row = mysql_fetch_assoc($rs);
 		$counter = $row['counter'];
 		echo $counter;
+		$counter++;
 //		if ($row['counter'] > 9) 
 //			$row['counter']=0;
 		$sql = sprintf("UPDATE stats_counters ".
