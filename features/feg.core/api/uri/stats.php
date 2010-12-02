@@ -151,8 +151,8 @@ class FegStatsPage extends FegPageExtension {
 		if ($row['counter'] > 9) 
 			$row['counter']=0;
 		$sql = sprintf("UPDATE stats_counters ".
-				"SET counter = %s ".
-				"IN (0) ",
+				"SET counter = %d ".
+				"IN (id = 0) ",
 				$row['counter']
 				);
 		$db->Execute($sql);
