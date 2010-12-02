@@ -138,13 +138,24 @@ class FegStatsPage extends FegPageExtension {
 	
 
 	function showRunningCounterAction() {
-		static $_stats_running_counter = 0;
+		$db = DevblocksPlatform::getDatabaseService();
 		echo "FaxQue - Running: ";
-		echo $_stats_running_counter;
-		$_stats_running_counter++;
-		if ($_stats_running_counter > 9) {
-			$_stats_running_counter = 0;
-		}
+		$sql = sprintf("SELECT counter ".
+				"FROM  stats_counters sc".
+				"WHERE sc.id = 0 "
+				);
+		$rs = $db->Execute($sql);
+		$row = mysql_fetch_assoc($rs);
+		echo $row['counter'];
+		$row['counter']++;
+		if ($row['counter'] > 9) 
+			$row['counter']=0;
+		$sql = sprintf("UPDATE stats_counters ".
+				"SET counter = %s ".
+				"IN (0) ",
+				$row['counter']
+				);
+		$db->Execute($sql);
 		echo "<br>";
 	}
 	

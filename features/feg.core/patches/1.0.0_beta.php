@@ -182,6 +182,19 @@ if(!isset($tables['stats'])) {
 	$sql = "INSERT INTO stats (id) VALUES(0)";
 	$db->Execute($sql);
 }
+if(!isset($tables['stats_counters'])) {
+	$sql = "
+		CREATE TABLE IF NOT EXISTS stats_counters (
+			id INT UNSIGNED DEFAULT 0 NOT NULL,
+			counter INT UNSIGNED DEFAULT 0 NOT NULL,
+			PRIMARY KEY (id)
+		) ENGINE=MyISAM;
+	";
+	$db->Execute($sql);
+	
+	$sql = "INSERT INTO stats_counters (id) VALUES(0)";
+	$db->Execute($sql);
+}
 
 if(!isset($tables['customer_account'])) {
 	$sql = "
