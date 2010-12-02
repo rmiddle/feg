@@ -16,7 +16,7 @@
 								<div id="show_fax_queue"></div>
 								<div id="showfaxstats"></div>
 							</td>
-							<td valign="top" width="50%">
+							<td valign="top" width="50%" cellpadding="0" cellspacing="10">
 								<div id="show_running_counter"></div>
 							</td>
 						</table>
