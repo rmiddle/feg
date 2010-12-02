@@ -153,7 +153,7 @@ class FegStatsPage extends FegPageExtension {
 //			$row['counter']=0;
 		$sql = sprintf("UPDATE stats_counters ".
 				"SET counter = '%u' ".
-				"IN (id = 0) ",
+				"WHERE id = 0 ",
 				$counter
 				);
 		echo $sql;
