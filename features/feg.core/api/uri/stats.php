@@ -155,6 +155,7 @@ class FegStatsPage extends FegPageExtension {
 				"IN (id = 0) ",
 				$counter
 				);
+		echo $sql;
 		$db->Execute($sql);
 		echo "<br>";
 	}
