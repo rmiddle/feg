@@ -1,6 +1,7 @@
 <?php
 class FegStatsPage extends FegPageExtension {
 	private $_TPL_PATH = '';
+	private $_counter = 0;
 
 	const VIEW_STATICS_PAGE = 'statics_page';
 	
@@ -184,7 +185,11 @@ class FegStatsPage extends FegPageExtension {
 //		echo "System Time: ";
 //		echo date("n:i:s A");
 		echo "Running: ";
-		echo date("s");
+		echo $this->_counter;
+		if  ($this->_counter > 10)
+			$this->_counter = 0
+		else
+			$this->_counter++;
 //		echo " UTC<br>";
 		echo "<br>";
 		exec(HYLAFAX_FAXSTATS, $output_current);
