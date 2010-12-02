@@ -10,9 +10,15 @@
 					<td valign="top" colspan="2">
 						FaxQue:<br>
 						<div id="show_hylfax_que"></div>
-						Fax Statics:<br>
-						<div id="show_fax_queue"></div>
-						<div id="showfaxstats"></div>
+						<table cellpadding="0" cellspacing="10" border="0">
+							<td valign="top" width="50%">
+								Fax Statics:<br>
+								<div id="show_fax_queue"></div>
+								<div id="showfaxstats"></div>
+							</td>
+							<td valign="top" width="50%">
+								<div id="show_running_counter"></div>
+							</td>
 					</td>
 				</tr>
 				<tr>
@@ -47,6 +53,12 @@
 {include file="file:$core_tpl/whos_online.tpl"}
 
 <script>
+$(document).ready(function() {
+	$("#show_running_counter").load("{devblocks_url}ajax.php?c=stats&a=showRunningCounter{/devblocks_url}");
+	var refreshId = setInterval(function() {
+		$("#show_hylfax_que").load("{devblocks_url}ajax.php?c=stats&a=showHylfaxQue{/devblocks_url}");
+	}, 1000);
+});
 $(document).ready(function() {
 	$("#showque").load("{devblocks_url}ajax.php?c=stats&a=showFaxQue{/devblocks_url}");
 	var refreshId = setInterval(function() {

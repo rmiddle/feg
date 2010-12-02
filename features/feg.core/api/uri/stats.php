@@ -1,7 +1,6 @@
 <?php
 class FegStatsPage extends FegPageExtension {
 	private $_TPL_PATH = '';
-	private $_counter = 0;
 
 	const VIEW_STATICS_PAGE = 'statics_page';
 	
@@ -137,6 +136,27 @@ class FegStatsPage extends FegPageExtension {
 		//DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','workers')));		
 	}
 	
+
+	function showRunningCounterAction() {
+		$db = DevblocksPlatform::getDatabaseService();
+		echo "Running: ";
+/*
+		$sql = sprintf("SELECT count(*) as total ".
+				"FROM message_recipient mr ".
+				"inner join customer_recipient cr on mr.recipient_id = cr.id ".
+				"WHERE mr.send_status in (0,3,4,5) ".
+				"AND cr.is_disabled = 0 ".
+				"AND cr.type = 0 "
+				);
+		$rs = $db->Execute($sql);
+		$row = mysql_fetch_assoc($rs);
+		echo $row['total'];
+*/
+		echo "0";
+		echo "<br>";
+		mysql_free_result($rs);
+	}
+	
 	function showMailQueueStatsAction() {
 		$db = DevblocksPlatform::getDatabaseService();
 		echo "Email(s) In Queue: <b>";
@@ -182,16 +202,6 @@ class FegStatsPage extends FegPageExtension {
  */
 	function showHylfaxQueAction() {
 		$db = DevblocksPlatform::getDatabaseService();
-//		echo "System Time: ";
-//		echo date("n:i:s A");
-		echo "Running: ";
-		echo $this->_counter;
-//		if  ($this->_counter > 10)
-//			$this->_counter = 0
-//		else
-			$this->_counter++;
-//		echo " UTC<br>";
-		echo "<br>";
 		exec(HYLAFAX_FAXSTATS, $output_current);
 		array_shift($output_current); 		// HylaFAX scheduler on ...
 		foreach ($output_current as $line) {
