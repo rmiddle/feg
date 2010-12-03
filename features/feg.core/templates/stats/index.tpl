@@ -56,7 +56,7 @@ $(document).ready(function() {
 	$("#showfaxque").load("{devblocks_url}ajax.php?c=stats&a=showFaxQue{/devblocks_url}");
 	var refreshId = setInterval(function() {
 		$("#show_fax_queue").load("{devblocks_url}ajax.php?c=stats&a=showFaxQue{/devblocks_url}");
-	}, 5000);
+	}, 4000);
 });
 $(document).ready(function() {
 	$("#showfaxstats").load("{devblocks_url}ajax.php?c=stats&a=showFaxStats{/devblocks_url}");
@@ -68,7 +68,7 @@ $(document).ready(function() {
 	$("#mail_queue_stats").load("{devblocks_url}ajax.php?c=stats&a=showMailQueueStats{/devblocks_url}");
 	var refreshId = setInterval(function() {
 		$("#mail_queue_stats").load("{devblocks_url}ajax.php?c=stats&a=showMailQueueStats{/devblocks_url}");
-	}, 5000);
+	}, 4000);
 });
 $(document).ready(function() {
 	$("#mail_stats").load("{devblocks_url}ajax.php?c=stats&a=showMailStats{/devblocks_url}");
@@ -80,7 +80,7 @@ $(document).ready(function() {
 	$("#snpp_queue_stats").load("{devblocks_url}ajax.php?c=stats&a=showSNPPQueueStats{/devblocks_url}");
 	var refreshId = setInterval(function() {
 		$("#snpp_queue_stats").load("{devblocks_url}ajax.php?c=stats&a=showSNPPQueueStats{/devblocks_url}");
-	}, 5000);
+	}, 4000);
 });
 $(document).ready(function() {
 	$("#snpp_stats").load("{devblocks_url}ajax.php?c=stats&a=showSNPPStats{/devblocks_url}");
