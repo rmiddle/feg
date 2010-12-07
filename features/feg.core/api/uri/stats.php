@@ -146,11 +146,14 @@ class FegStatsPage extends FegPageExtension {
 		$tpl->assign('id', $id);
 		$tpl->assign('view_id', $view_id);
 		
+		$message = DAO_MessageRecipient::get($id);
+		$tpl->assign('message', $message);
+
 		// Custom Fields
-		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Message::ID);
+		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_MessageRecipient::ID);
 		$tpl->assign('custom_fields', $custom_fields);
 		
-		$custom_field_values = DAO_CustomFieldValue::getValuesBySourceIds(FegCustomFieldSource_Message::ID, $id);
+		$custom_field_values = DAO_CustomFieldValue::getValuesBySourceIds(FegCustomFieldSource_MessageRecipient::ID, $id);
 		if(isset($custom_field_values[$id]))
 			$tpl->assign('custom_field_values', $custom_field_values[$id]);
 		
