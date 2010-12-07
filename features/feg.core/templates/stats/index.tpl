@@ -29,13 +29,8 @@
 			</table>
 		</td>
 		<td valign="top">
-			{if !empty($views)}
-				{foreach from=$views item=view name=views}
-					<div id="view{$view->id}">
-						{$view->render()}
-					</div>
-				{/foreach}
-			{/if}
+			<div id="div_view_failed_messages"></div>
+			<div id="div_view_failed_recipient"></div>
 		</td>
 	</tr>
 </table>
@@ -47,7 +42,7 @@
 
 <script>
 $(document).ready(function() {
-	$("#showque").load("{devblocks_url}ajax.php?c=stats&a=showFaxQue{/devblocks_url}");
+	$("#showque").load("{devblocks_url}ajax.php?c=stats&a=showHylfaxQue{/devblocks_url}");
 	var refreshId = setInterval(function() {
 		$("#show_hylfax_que").load("{devblocks_url}ajax.php?c=stats&a=showHylfaxQue{/devblocks_url}");
 	}, 4000);
@@ -86,6 +81,18 @@ $(document).ready(function() {
 	$("#snpp_stats").load("{devblocks_url}ajax.php?c=stats&a=showSNPPStats{/devblocks_url}");
 	var refreshId = setInterval(function() {
 		$("#snpp_stats").load("{devblocks_url}ajax.php?c=stats&a=showSNPPStats{/devblocks_url}");
+	}, 60000);
+});
+$(document).ready(function() {
+	$("#div_view_failed_messages").load("{devblocks_url}ajax.php?c=stats&a=sshowFailedMessage{/devblocks_url}");
+	var refreshId = setInterval(function() {
+		$("#div_view_failed_messages").load("{devblocks_url}ajax.php?c=stats&a=showFailedMessage{/devblocks_url}");
+	}, 60000);
+});
+$(document).ready(function() {
+	$("#div_view_failed_recipient").load("{devblocks_url}ajax.php?c=stats&a=showFailedRecipient{/devblocks_url}");
+	var refreshId = setInterval(function() {
+		$("#div_view_failed_recipient").load("{devblocks_url}ajax.php?c=stats&a=showFailedRecipient{/devblocks_url}");
 	}, 60000);
 });
 

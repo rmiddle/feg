@@ -34,6 +34,20 @@ class FegStatsPage extends FegPageExtension {
 		$response = DevblocksPlatform::getHttpResponse();
 		$tpl->assign('request_path', implode('/',$response->path));
 		
+		// ====== Who's Online
+		$whos_online = DAO_Worker::getAllOnline();
+		if(!empty($whos_online)) {
+			$tpl->assign('whos_online', $whos_online);
+			$tpl->assign('whos_online_count', count($whos_online));
+		}
+		
+		$tpl->display('file:' . $this->_TPL_PATH . 'stats/index.tpl');
+	}
+	
+	function showFailedMessageAction() {
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('path', $this->_TPL_PATH);
+
 		$defaults = new Feg_AbstractViewModel();
 		$defaults->id = '_failed_messages';
 		$defaults->class_name = 'View_Message';
@@ -52,8 +66,13 @@ class FegStatsPage extends FegPageExtension {
 		$view->renderPage = 0;
 		Feg_AbstractViewLoader::setView($view->id,$view);
 		
-		if(!empty($view))
-			$views[] = $view;
+		$tpl->assign('views', $views);
+		$tpl->display('file:' . $this->_TPL_PATH . 'stats/view_failed_messages.tpl');
+	}
+	
+	function showFailedRecipientAction() {
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('path', $this->_TPL_PATH);
 
 		$defaults = new Feg_AbstractViewModel();
 		$defaults->id = '_failed_recipient';
@@ -73,18 +92,8 @@ class FegStatsPage extends FegPageExtension {
 		$view->renderPage = 0;
 		Feg_AbstractViewLoader::setView($view->id,$view);
 		
-		if(!empty($view))
-			$views[] = $view;
-
-		// ====== Who's Online
-		$whos_online = DAO_Worker::getAllOnline();
-		if(!empty($whos_online)) {
-			$tpl->assign('whos_online', $whos_online);
-			$tpl->assign('whos_online_count', count($whos_online));
-		}
-		
 		$tpl->assign('views', $views);
-		$tpl->display('file:' . $this->_TPL_PATH . 'stats/index.tpl');
+		$tpl->display('file:' . $this->_TPL_PATH . 'stats/view_failed_recipient.tpl');
 	}
 	
 	function showAccountFailurePeekAction() {
