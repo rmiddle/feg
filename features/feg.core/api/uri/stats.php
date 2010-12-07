@@ -154,7 +154,7 @@ class FegStatsPage extends FegPageExtension {
 		if(isset($custom_field_values[$id]))
 			$tpl->assign('custom_field_values', $custom_field_values[$id]);
 		
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/stats/message_recipient/failed_peek.tpl');
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/message_recipient/failed_peek.tpl');
 	}
 	
 	function showMailQueueStatsAction() {
