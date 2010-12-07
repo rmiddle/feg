@@ -28,7 +28,7 @@
 				</tr>
 			</table>
 		</td>
-		<td valign="top">
+		<td valign="top" width="40%">
 			<div id="div_view_failed_messages"></div>
 			<div id="div_view_failed_recipient"></div>
 		</td>
