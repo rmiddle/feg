@@ -143,7 +143,6 @@ class FegStatsPage extends FegPageExtension {
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
 		
-echo "test";		
 		$tpl->assign('id', $id);
 		$tpl->assign('view_id', $view_id);
 		
@@ -158,6 +157,7 @@ echo "test";
 		if(isset($custom_field_values[$id]))
 			$tpl->assign('custom_field_values', $custom_field_values[$id]);
 			
+echo "test";		
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/message_recipient/failed_peek.tpl');
 	}
 	
