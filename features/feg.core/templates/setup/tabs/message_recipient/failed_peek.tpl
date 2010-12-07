@@ -16,9 +16,8 @@
 			{if $rec->type == '0'}{$translate->_('recipient.type.email')|capitalize}{/if}
 			{if $rec->type == '1'}{$translate->_('recipient.type.fax')|capitalize}{/if}
 			{if $rec->type == '2'}{$translate->_('recipient.type.snpp')|capitalize}{/if}
-			- address:
 		</td>
-		<td width="100%">{$rec->address|escape}</td>
+		<td width="100%" nowrap="nowrap" align="right"> - {$rec->address|escape}</td>
 	</tr>
 	{if $id}
 		{$account = DAO_CustomerAccount::get($rec->account_id)}
