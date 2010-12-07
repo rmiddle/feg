@@ -153,10 +153,32 @@ class FegStatsPage extends FegPageExtension {
 		$custom_field_values = DAO_CustomFieldValue::getValuesBySourceIds(FegCustomFieldSource_Message::ID, $id);
 		if(isset($custom_field_values[$id]))
 			$tpl->assign('custom_field_values', $custom_field_values[$id]);
-		
+		echo "test<br>";
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/message_recipient/failed_peek.tpl');
 	}
 	
+	function saveMessageRecipientFailurePeekAction() {
+		$translate = DevblocksPlatform::getTranslationService();
+		
+		@$id = DevblocksPlatform::importGPC($_POST['id'],'integer');
+		@$view_id = DevblocksPlatform::importGPC($_POST['view_id'],'string');
+
+		@$message_account_id = DevblocksPlatform::importGPC($_POST['message_account_id'],'integer',0);
+		
+		$fields = array(
+			DAO_Message::ACCOUNT_ID => $message_account_id,
+		);
+		
+		$status = DAO_CustomerRecipient::update($id, $fields);
+		
+		if(!empty($view_id)) {
+			$view = Feg_AbstractViewLoader::getView($view_id);
+			$view->render();
+		}
+		
+		//DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','workers')));		
+	}
+		
 	function showMailQueueStatsAction() {
 		$db = DevblocksPlatform::getDatabaseService();
 		echo "Email(s) In Queue: <b>";
