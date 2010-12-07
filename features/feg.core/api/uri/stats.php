@@ -66,7 +66,7 @@ class FegStatsPage extends FegPageExtension {
 		$view->renderPage = 0;
 		Feg_AbstractViewLoader::setView($view->id,$view);
 
-		$tpl->assign('views', $views);
+		$tpl->assign('view', $view);
 		$tpl->display('file:' . $this->_TPL_PATH . 'stats/view_failed_messages.tpl');
 	}
 	
@@ -92,7 +92,7 @@ class FegStatsPage extends FegPageExtension {
 		$view->renderPage = 0;
 		Feg_AbstractViewLoader::setView($view->id,$view);
 		
-		$tpl->assign('views', $views);
+		$tpl->assign('view', $view);
 		$tpl->display('file:' . $this->_TPL_PATH . 'stats/view_failed_recipient.tpl');
 	}
 	
