@@ -15,6 +15,8 @@
 	{$translate->_('feg.core.send_status.resend')|capitalize}
 {else if $result.$column == 5}
 	{$translate->_('feg.core.send_status.in_queue')|capitalize}
+{else if $result.$column == 6}
+	{$translate->_('feg.core.send_status.perm_fail')|capitalize}
 {else}
 	{$translate->_('feg.core.send_status.unknown')|capitalize}
 {/if}

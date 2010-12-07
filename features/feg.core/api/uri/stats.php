@@ -158,13 +158,13 @@ class FegStatsPage extends FegPageExtension {
 		@$id = DevblocksPlatform::importGPC($_POST['id'],'integer');
 		@$view_id = DevblocksPlatform::importGPC($_POST['view_id'],'string');
 
-		@$message_account_id = DevblocksPlatform::importGPC($_POST['message_account_id'],'integer',0);
+		@$resubmit = DevblocksPlatform::importGPC($_POST['resubmit'],'integer',0);
 		
 		$fields = array(
-			DAO_Message::ACCOUNT_ID => $message_account_id,
+			DAO_MessageRecipient::SEND_STATUS => $resubmit,
 		);
 		
-		$status = DAO_CustomerRecipient::update($id, $fields);
+		$status = DAO_MessageRecipient::update($id, $fields);
 		
 		if(!empty($view_id)) {
 			$view = Feg_AbstractViewLoader::getView($view_id);
