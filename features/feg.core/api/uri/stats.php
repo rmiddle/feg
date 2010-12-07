@@ -136,6 +136,12 @@ class FegStatsPage extends FegPageExtension {
 		//DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','workers')));		
 	}
 		
+	function showMessageRecipientFailurePeekAction() {
+		$db = DevblocksPlatform::getDatabaseService();
+
+		echo "Test<br>";
+	}
+	
 	function showMailQueueStatsAction() {
 		$db = DevblocksPlatform::getDatabaseService();
 		echo "Email(s) In Queue: <b>";
