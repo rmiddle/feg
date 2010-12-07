@@ -148,7 +148,9 @@ class FegStatsPage extends FegPageExtension {
 		
 		$message = DAO_MessageRecipient::get($id);
 		$tpl->assign('message', $message);
-			
+echo "<pre>";
+print_r($message);			
+echo "</pre>";
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/message_recipient/failed_peek.tpl');
 	}
 	
