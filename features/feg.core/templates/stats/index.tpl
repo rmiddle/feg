@@ -84,7 +84,7 @@ $(document).ready(function() {
 	}, 60000);
 });
 $(document).ready(function() {
-	$("#div_view_failed_messages").load("{devblocks_url}ajax.php?c=stats&a=sshowFailedMessage{/devblocks_url}");
+	$("#div_view_failed_messages").load("{devblocks_url}ajax.php?c=stats&a=showFailedMessage{/devblocks_url}");
 	var refreshId = setInterval(function() {
 		$("#div_view_failed_messages").load("{devblocks_url}ajax.php?c=stats&a=showFailedMessage{/devblocks_url}");
 	}, 60000);
