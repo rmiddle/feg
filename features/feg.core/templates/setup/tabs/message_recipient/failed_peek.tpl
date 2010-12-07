@@ -5,7 +5,7 @@
 <input type="hidden" name="view_id" value="{$view_id}">
 <input type="hidden" name="do_delete" value="0">
 
-{*{$rec = DAO_CustomerRecipient::get($message.recipient_id)}*}
+{$rec = DAO_CustomerRecipient::get($message.recipient_id)}
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
 		<td nowrap="nowrap" align="right">ID: </td>
