@@ -137,9 +137,24 @@ class FegStatsPage extends FegPageExtension {
 	}
 		
 	function showMessageRecipientFailurePeekAction() {
-		$db = DevblocksPlatform::getDatabaseService();
-
-		echo "Test<br>";
+		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
+		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
+		
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('path', $this->_TPL_PATH);
+		
+		$tpl->assign('id', $id);
+		$tpl->assign('view_id', $view_id);
+		
+		// Custom Fields
+		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Message::ID);
+		$tpl->assign('custom_fields', $custom_fields);
+		
+		$custom_field_values = DAO_CustomFieldValue::getValuesBySourceIds(FegCustomFieldSource_Message::ID, $id);
+		if(isset($custom_field_values[$id]))
+			$tpl->assign('custom_field_values', $custom_field_values[$id]);
+		
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/stats/message_recipient/failed_peek.tpl');
 	}
 	
 	function showMailQueueStatsAction() {
