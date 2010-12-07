@@ -26,12 +26,10 @@
 	{/if}
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">
-			{$translate->_('feg.customer_account.account_number')|capitalize}: 
 			{$account->account_number}
 		</td>
-		<td width="100%">
-			{$translate->_('feg.customer_account.account_name')|capitalize}: 
-			{$account->account_name}
+		<td width="100%" nowrap="nowrap" align="right">
+			- {$account->account_name}
 		</td>
 	</tr>
 </table>
