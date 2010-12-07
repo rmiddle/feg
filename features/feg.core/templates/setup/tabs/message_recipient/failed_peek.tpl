@@ -12,7 +12,7 @@
 		<td>{if $id}{$id}{else}{$translate->_('feg.customer_recipient.id.new')|capitalize}{/if}</td>
 	</tr>
 	<tr>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.type')|capitalize}: </td>
+		<td width="0%" nowrap="nowrap" align="right">
 			{if $rec->type == '0'}{$translate->_('recipient.type.email')|capitalize}{/if}
 			{if $rec->type == '1'}{$translate->_('recipient.type.fax')|capitalize}{/if}
 			{if $rec->type == '2'}{$translate->_('recipient.type.snpp')|capitalize}{/if}
