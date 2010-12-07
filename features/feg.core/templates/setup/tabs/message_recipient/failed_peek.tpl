@@ -13,11 +13,11 @@
 	</tr>
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.type')|capitalize}: </td>
-				{if $rec->type == '0'}{$translate->_('recipient.type.email')|capitalize{/if}}
-				{if $rec->type == '1'}{$translate->_('recipient.type.fax')|capitalize{/if}}
-				{if $rec->type == '2'}{$translate->_('recipient.type.snpp')|capitalize{/if}}
+			{if $rec->type == '0'}{$translate->_('recipient.type.email')|capitalize{/if}}
+			{if $rec->type == '1'}{$translate->_('recipient.type.fax')|capitalize{/if}}
+			{if $rec->type == '2'}{$translate->_('recipient.type.snpp')|capitalize{/if}}
+			- {$translate->_('recipient.address')|capitalize}:
 		</td>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address')|capitalize}: </td>
 		<td width="100%">{$rec->address|escape}</td>
 	</tr>
 	{if $id}
@@ -32,10 +32,14 @@
 	</tr>
 {/if}
 	<tr>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_number')|capitalize}: </td>
-		<td width="100%">{$account->account_number}</td>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_name')|capitalize}: </td>
-		<td width="100%">{$account->account_name}</td>
+		<td width="0%" nowrap="nowrap" align="right">
+			{$translate->_('feg.customer_account.account_number')|capitalize}: 
+			{$account->account_number}
+		</td>
+		<td width="100%">
+			{$translate->_('feg.customer_account.account_name')|capitalize}: 
+			{$account->account_name}
+		</td>
 	</tr>
 </table>
 <input type="hidden" name="recipient_export_filter" value="{$rec->export_filter}">
