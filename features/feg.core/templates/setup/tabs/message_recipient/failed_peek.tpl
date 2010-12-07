@@ -45,6 +45,6 @@
 
 <script type="text/javascript" language="JavaScript1.2">
 	$(genericPanel).one('dialogopen',function(event,ui) {
-		genericPanel.dialog('option','title','Failed Messages Recipient '); 
+		genericPanel.dialog('option','title','{$translate->_('feg.message_recipient.title.failed')|capitalize}'); 
 	} );
 </script>
