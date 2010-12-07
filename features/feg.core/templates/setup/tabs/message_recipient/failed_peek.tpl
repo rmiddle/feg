@@ -12,26 +12,13 @@
 		<td>{if $id}{$id}{else}{$translate->_('feg.customer_recipient.id.new')|capitalize}{/if}</td>
 	</tr>
 	<tr>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('common.disabled')|capitalize}: </td>
-		<td width="100%">
-			<select name="recipient_is_disabled">
-				<option value="0" {if $rec->is_disabled == 0}selected{/if}>{$translate->_('common.enable')|capitalize}</option>
-				<option value="1" {if $rec->is_disabled == 1}selected{/if}>{$translate->_('common.disable')|capitalize}</option>
-			</select>
-		</td>
-	</tr>
-	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.type')|capitalize}: </td>
-			<select name="recipient_type">
-				<option value="0" {if $rec->type == '0'}selected{/if}>{$translate->_('recipient.type.email')|capitalize}</option>
-				<option value="1" {if $rec->type == '1'}selected{/if}>{$translate->_('recipient.type.fax')|capitalize}</option>
-				<option value="2" {if $rec->type == '2'}selected{/if}>{$translate->_('recipient.type.snpp')|capitalize}</option>
-			</select>
+				{if $rec->type == '0'}{$translate->_('recipient.type.email')|capitalize{/if}}
+				{if $rec->type == '1'}{$translate->_('recipient.type.fax')|capitalize{/if}}
+				{if $rec->type == '2'}{$translate->_('recipient.type.snpp')|capitalize{/if}}
 		</td>
-	</tr>
-	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address')|capitalize}: </td>
-		<td width="100%"><input type="text" name="recipient_address" value="{$rec->address|escape}" style="width:98%;"></td>
+		<td width="100%">{$rec->address|escape}</td>
 	</tr>
 	{if $id}
 		{$account = DAO_CustomerAccount::get($rec->account_id)}
@@ -47,8 +34,6 @@
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_number')|capitalize}: </td>
 		<td width="100%">{$account->account_number}</td>
-	</tr>
-	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_name')|capitalize}: </td>
 		<td width="100%">{$account->account_name}</td>
 	</tr>
