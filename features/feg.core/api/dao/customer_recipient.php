@@ -158,8 +158,8 @@ class DAO_CustomerRecipient extends Feg_ORMHelper {
 				SearchFields_CustomerRecipient::EXPORT_FILTER,
 				SearchFields_CustomerRecipient::IS_DISABLED,
 				SearchFields_CustomerRecipient::TYPE,
-				SearchFields_CustomerRecipient::ADDRESS
-				SearchFields_CustomerRecipient::ADDRESS_TO
+				SearchFields_CustomerRecipient::ADDRESS,
+				SearchFields_CustomerRecipient::ADDRESS_TO,
 				SearchFields_CustomerRecipient::SUBJECT
 			);
 			

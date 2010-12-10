@@ -71,7 +71,7 @@
 			{elseif $column=="cr_account_id"}
 				<td>{include file="file:$core_tpl/internal/feg/display_customer_id.tpl"}&nbsp;</td>
 			{else}
-			<td>{$result.$column}&nbsp;</td>
+				<td>{$result.$column}&nbsp;</td>
 			{/if}
 		{/foreach}
 		</tr>
