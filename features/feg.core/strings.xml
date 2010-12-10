@@ -549,6 +549,9 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.customer_recipient.title'>
 			<tuv xml:lang="en_US"><seg>Customer Recipients</seg></tuv>
 		</tu>
+		<tu tuid='feg.customer_recipient.savechanges.warn'>
+			<tuv xml:lang="en_US"><seg>Changes will be lost if you don't Save Changes before switching tab's</seg></tuv>
+		</tu>
 		<tu tuid='feg.customer_recipient.id'>
 			<tuv xml:lang="en_US"><seg>Recipient ID</seg></tuv>
 		</tu>
