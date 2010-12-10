@@ -12,6 +12,8 @@ class Model_CustomerRecipient {
 	public $is_disabled;
 	public $type;
 	public $address;
+	public $address_to;
+	public $subject;
 };
 
 class DAO_CustomerRecipient extends Feg_ORMHelper {
@@ -21,6 +23,8 @@ class DAO_CustomerRecipient extends Feg_ORMHelper {
 	const IS_DISABLED = 'is_disabled';
 	const TYPE = 'type';
 	const ADDRESS = 'address';
+	const ADDRESS_TO = 'address_to';
+	const SUBJECT = 'subject';
 
 	static function create($fields) {
 		$db = DevblocksPlatform::getDatabaseService();
@@ -53,7 +57,7 @@ class DAO_CustomerRecipient extends Feg_ORMHelper {
 	static function getWhere($where=null) {
 		$db = DevblocksPlatform::getDatabaseService();
 		
-		$sql = "SELECT id, account_id, export_filter, is_disabled, type, address ".
+		$sql = "SELECT id, account_id, export_filter, is_disabled, type, address, address_to, subject ".
 			"FROM customer_recipient cr ".
 			(!empty($where) ? sprintf("WHERE %s ",$where) : "").
 			"ORDER BY id asc";
@@ -92,6 +96,8 @@ class DAO_CustomerRecipient extends Feg_ORMHelper {
 			$object->is_disabled = $row['is_disabled'];
 			$object->type = $row['type'];
 			$object->address = $row['address'];
+			$object->address_to = $row['address_to'];
+			$object->subject = $row['subject'];
 			$objects[$object->id] = $object;
 		}
 		
@@ -145,12 +151,16 @@ class DAO_CustomerRecipient extends Feg_ORMHelper {
 			"cr.is_disabled as %s, ".
 			"cr.type as %s, ".
 			"cr.address as %s ",
+			"cr.address_to as %s ",
+			"cr.subject as %s ",
 				SearchFields_CustomerRecipient::ID,
 				SearchFields_CustomerRecipient::ACCOUNT_ID,
 				SearchFields_CustomerRecipient::EXPORT_FILTER,
 				SearchFields_CustomerRecipient::IS_DISABLED,
 				SearchFields_CustomerRecipient::TYPE,
 				SearchFields_CustomerRecipient::ADDRESS
+				SearchFields_CustomerRecipient::ADDRESS_TO
+				SearchFields_CustomerRecipient::SUBJECT
 			);
 			
 		$join_sql = "FROM customer_recipient cr ";
@@ -219,6 +229,8 @@ class SearchFields_CustomerRecipient implements IDevblocksSearchFields {
 	const IS_DISABLED = 'cr_is_disabled';
 	const TYPE = 'cr_type';
 	const ADDRESS = 'cr_address';
+	const ADDRESS_TO = 'cr_address_to';
+	const SUBJECT = 'cr_subject';
 	
 	/**
 	 * @return DevblocksSearchField[]
@@ -233,6 +245,8 @@ class SearchFields_CustomerRecipient implements IDevblocksSearchFields {
 			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'cr', 'is_disabled', $translate->_('common.disabled')),
 			self::TYPE => new DevblocksSearchField(self::TYPE, 'cr', 'type', $translate->_('feg.customer_recipient.type')),
 			self::ADDRESS => new DevblocksSearchField(self::ADDRESS, 'cr', 'address', $translate->_('feg.customer_recipient.address')),
+			self::ADDRESS_TO => new DevblocksSearchField(self::ADDRESS_TO, 'cr', 'address_to', $translate->_('feg.customer_recipient.address_to')),
+			self::SUBJECT => new DevblocksSearchField(self::SUBJECT, 'cr', 'subject', $translate->_('feg.customer_recipient.subject')),
 		);
 		
 		// Custom Fields
@@ -271,6 +285,8 @@ class View_CustomerRecipient extends Feg_AbstractView {
 			SearchFields_CustomerRecipient::IS_DISABLED,
 			SearchFields_CustomerRecipient::TYPE,
 			SearchFields_CustomerRecipient::ADDRESS,
+			SearchFields_CustomerRecipient::ADDRESS_TO,
+			SearchFields_CustomerRecipient::SUBJECT,
 		);
 		$this->doResetCriteria();
 	}
@@ -310,6 +326,8 @@ class View_CustomerRecipient extends Feg_AbstractView {
 		switch($field) {
 			case SearchFields_CustomerRecipient::EXPORT_FILTER:
 			case SearchFields_CustomerRecipient::ADDRESS:
+			case SearchFields_CustomerRecipient::ADDRESS_TO:
+			case SearchFields_CustomerRecipient::SUBJECT:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__string.tpl');
 				break;
 			case SearchFields_CustomerRecipient::ID:
@@ -379,6 +397,8 @@ class View_CustomerRecipient extends Feg_AbstractView {
 		switch($field) {
 			case SearchFields_CustomerRecipient::EXPORT_FILTER:
 			case SearchFields_CustomerRecipient::ADDRESS:
+			case SearchFields_CustomerRecipient::ADDRESS_TO:
+			case SearchFields_CustomerRecipient::SUBJECT:
 				// force wildcards if none used on a LIKE
 				if(($oper == DevblocksSearchCriteria::OPER_LIKE || $oper == DevblocksSearchCriteria::OPER_NOT_LIKE)
 				&& false === (strpos($value,'*'))) {
@@ -441,6 +461,8 @@ class View_CustomerRecipient extends Feg_AbstractView {
 //			$change_fields[DAO_CustomerRecipient::EXPORT_FILTER] = intval($v);
 //			$change_fields[DAO_CustomerRecipient::TYPE] = intval($v);
 //			$change_fields[DAO_CustomerRecipient::ADDRESS] = intval($v);
+//			$change_fields[DAO_CustomerRecipient::ADDRESS_TO] = intval($v);
+//			$change_fields[DAO_CustomerRecipient::SUBJECT] = intval($v);
 				// [TODO] Implement actions
 				case 'is_disabled':
 					$change_fields[DAO_CustomerRecipient::IS_DISABLED] = intval($v);

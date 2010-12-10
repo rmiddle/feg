@@ -250,7 +250,9 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		@$disabled = DevblocksPlatform::importGPC($_POST['recipient_is_disabled'],'integer',0);
 		@$recipient_type = DevblocksPlatform::importGPC($_POST['recipient_type'],'integer',0);
 		@$recipient_account_id = DevblocksPlatform::importGPC($_POST['recipient_account_id'],'integer',0);
+		@$recipient_address_to = DevblocksPlatform::importGPC($_POST['recipient_address_to'],'string',"");
 		@$recipient_address = DevblocksPlatform::importGPC($_POST['recipient_address'],'string',"");
+		@$recipient_subject = DevblocksPlatform::importGPC($_POST['recipient_subject'],'string',"");
 		@$recipient_export_filter = DevblocksPlatform::importGPC($_POST['recipient_export_filter'],'integer',0);
 		
 		$fields = array(
@@ -258,7 +260,9 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 			DAO_CustomerRecipient::EXPORT_FILTER => $recipient_export_filter,
 			DAO_CustomerRecipient::IS_DISABLED => $disabled,
 			DAO_CustomerRecipient::TYPE => $recipient_type,
+			DAO_CustomerRecipient::ADDRESS_TO => $recipient_address_to,
 			DAO_CustomerRecipient::ADDRESS => $recipient_address,
+			DAO_CustomerRecipient::SUBJECT => $recipient_subject,
 		);
 		
 		if($id == 0) {

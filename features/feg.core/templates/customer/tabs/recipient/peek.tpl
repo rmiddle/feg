@@ -32,8 +32,16 @@
 		</td>
 	</tr>
 	<tr>
+		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address_to')|capitalize}: </td>
+		<td width="100%"><input type="text" name="recipient_address_to" value="{$customer_recipient->address_to|escape}" style="width:98%;"></td>
+	</tr>
+	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address')|capitalize}: </td>
 		<td width="100%"><input type="text" name="recipient_address" value="{$customer_recipient->address|escape}" style="width:98%;"></td>
+	</tr>
+	<tr>
+		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.subject')|capitalize}: </td>
+		<td width="100%"><input type="text" name="recipient_subject" value="{$customer_recipient->subject|escape}" style="width:98%;"></td>
 	</tr>
 {if $active_worker->is_superuser}
 	<tr>

@@ -570,6 +570,12 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.customer_recipient.address'>
 			<tuv xml:lang="en_US"><seg>Recipient Address</seg></tuv>
 		</tu>
+		<tu tuid='feg.customer_recipient.address_to'>
+			<tuv xml:lang="en_US"><seg>Recipient Name</seg></tuv>
+		</tu>
+		<tu tuid='feg.customer_recipient.subject'>
+			<tuv xml:lang="en_US"><seg>Subject</seg></tuv>
+		</tu>
 		<tu tuid='recipient.notes'>
 			<tuv xml:lang="en_US"><seg>Notes</seg></tuv>
 		</tu>
@@ -577,7 +583,13 @@ For example: *receipt*</seg></tuv>
 			<tuv xml:lang="en_US"><seg>Account Name</seg></tuv>
 		</tu>
 		<tu tuid='recipient.address'>
+			<tuv xml:lang="en_US"><seg>Name TO</seg></tuv>
+		</tu>
+		<tu tuid='recipient.address'>
 			<tuv xml:lang="en_US"><seg>Email/Fax Address</seg></tuv>
+		</tu>
+		<tu tuid='recipient.subject'>
+			<tuv xml:lang="en_US"><seg>Message Subject</seg></tuv>
 		</tu>
 		<tu tuid='recipient.type.email'>
 			<tuv xml:lang="en_US"><seg>Email</seg></tuv>

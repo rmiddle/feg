@@ -222,6 +222,8 @@ if(!isset($tables['customer_recipient'])) {
 			is_disabled TINYINT UNSIGNED DEFAULT 0 NOT NULL,
 			type TINYINT UNSIGNED DEFAULT 0 NOT NULL,
 			address varchar(255) NOT NULL DEFAULT '',
+			address_to varchar(255) NOT NULL DEFAULT '',
+			subject varchar(255) NOT NULL DEFAULT '',
 			PRIMARY KEY (id),
 			INDEX is_disabled (is_disabled),
 			INDEX account_id (account_id),
