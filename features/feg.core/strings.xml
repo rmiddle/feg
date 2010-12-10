@@ -582,7 +582,7 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='recipient.recipient_name'>
 			<tuv xml:lang="en_US"><seg>Account Name</seg></tuv>
 		</tu>
-		<tu tuid='recipient.address'>
+		<tu tuid='recipient.address_to'>
 			<tuv xml:lang="en_US"><seg>Name TO</seg></tuv>
 		</tu>
 		<tu tuid='recipient.address'>
