@@ -150,8 +150,8 @@ class DAO_CustomerRecipient extends Feg_ORMHelper {
 			"cr.export_filter as %s, ".
 			"cr.is_disabled as %s, ".
 			"cr.type as %s, ".
-			"cr.address as %s ",
-			"cr.address_to as %s ",
+			"cr.address as %s, ",
+			"cr.address_to as %s, ",
 			"cr.subject as %s ",
 				SearchFields_CustomerRecipient::ID,
 				SearchFields_CustomerRecipient::ACCOUNT_ID,
