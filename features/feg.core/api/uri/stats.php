@@ -120,7 +120,7 @@ class FegStatsPage extends FegPageExtension {
 		if(isset($custom_field_values[$id]))
 			$tpl->assign('custom_field_values', $custom_field_values[$id]);
 		
-		$tpl->display('file:' . $this->_TPL_PATH . 'stats/message/select_account.tpl');
+		$tpl->display('file:' . $this->_TPL_PATH . 'stats/message/failed_account.tpl');
 	}
 	
 	function saveAccountFailurePeekAction() {
