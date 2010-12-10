@@ -728,7 +728,7 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.core.send_status.in_queue'>
 			<tuv xml:lang="en_US"><seg>in queue</seg></tuv>
 		</tu>
-		<tu tuid='feg.core.send_status.perm_fail''>
+		<tu tuid='feg.core.send_status.perm_fail'>
 			<tuv xml:lang="en_US"><seg>Permently Failed</seg></tuv>
 		</tu>
 
