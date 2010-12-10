@@ -164,7 +164,7 @@ class FegStatsPage extends FegPageExtension {
 		$message_lines = explode('\r\n',substr($message->message,1,-1));
 		$tpl->assign('message_lines', $message_lines);
 		
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/message_recipient/failed_peek.tpl');
+		$tpl->display('file:' . $this->_TPL_PATH . 'stats/message_recipient/failed_recipient.tpl');
 	}
 	
 	function saveMessageRecipientFailurePeekAction() {
