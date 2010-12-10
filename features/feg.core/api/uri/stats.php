@@ -97,11 +97,28 @@ class FegStatsPage extends FegPageExtension {
 	}
 	
 	function showAccountFailurePeekAction() {
+		$active_worker = FegApplication::getActiveWorker();
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('path', $this->_TPL_PATH);
+		
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
 		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
 		
-		$tpl = DevblocksPlatform::getTemplateService();
-		$tpl->assign('path', $this->_TPL_PATH);
+		if(!$active_worker->hasPriv('core.access.failed.message_recipient.resubmit')) {
+			$can_resubmit = 1;
+			$tpl->assign('can_resubmit', $can_resubmit);
+		} else {
+			$can_resubmit = 0;
+			$tpl->assign('can_resubmit', $can_resubmit);
+		}
+		
+		if(!$active_worker->hasPriv('core.access.failed.message_recipient.permfail')) {
+			$can_permfail = 1;
+			$tpl->assign('can_permfail', $can_permfail);
+		} else {
+			$can_permfail = 0;
+			$tpl->assign('can_permfail', $can_permfail);
+		}
 		
 		$tpl->assign('id', $id);
 		$tpl->assign('view_id', $view_id);
