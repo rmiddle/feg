@@ -5,6 +5,10 @@
 <input type="hidden" name="view_id" value="{$view_id}">
 <input type="hidden" name="resubmit" value="0">
 
+<button type="button" onclick="genericPanel.dialog('close');this.form.resubmit.value='5';genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('feg.message_recipient.submit.resubmit')}</button>
+<button type="button" onclick="genericPanel.dialog('close');this.form.resubmit.value='6';genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete2.gif{/devblocks_url}" align="top"> {$translate->_('feg.message_recipient.submit.permfail')}</button>
+<button type="button" onclick="genericPanel.dialog('close');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete.gif{/devblocks_url}" align="top"> {$translate->_('common.cancel')|capitalize}</button>
+<br>
 {$rec = DAO_CustomerRecipient::get($message_recipient->recipient_id)}
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
@@ -42,10 +46,6 @@
 	</tr>	
 </table>
 
-<br>
-<button type="button" onclick="genericPanel.dialog('close');this.form.resubmit.value='5';genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('feg.message_recipient.submit.resubmit')}</button>
-<button type="button" onclick="genericPanel.dialog('close');this.form.resubmit.value='6';genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete2.gif{/devblocks_url}" align="top"> {$translate->_('feg.message_recipient.submit.permfail')}</button>
-<button type="button" onclick="genericPanel.dialog('close');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete.gif{/devblocks_url}" align="top"> {$translate->_('common.cancel')|capitalize}</button>
 <br>
 </form>
 
