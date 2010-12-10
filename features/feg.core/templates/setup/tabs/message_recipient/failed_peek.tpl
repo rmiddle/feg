@@ -5,7 +5,7 @@
 <input type="hidden" name="view_id" value="{$view_id}">
 <input type="hidden" name="resubmit" value="0">
 
-{$rec = DAO_CustomerRecipient::get($message->recipient_id)}
+{$rec = DAO_CustomerRecipient::get($message_recipient->recipient_id)}
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
 		<td nowrap="nowrap" align="right">ID: </td>
@@ -32,6 +32,14 @@
 			- {$account->account_name}
 		</td>
 	</tr>
+	<tr>
+		<td width="0%" nowrap="nowrap" valign="top" align="right">{$translate->_('feg.message.message')|capitalize}: </td>
+		<td width="100%">
+			{foreach from=$message_lines item=line name=line_id}
+				{$line}<br>
+			{/foreach}
+		</td>
+	</tr>	
 </table>
 
 <br>

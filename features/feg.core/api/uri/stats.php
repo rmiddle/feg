@@ -155,9 +155,15 @@ class FegStatsPage extends FegPageExtension {
 		$tpl->assign('id', $id);
 		$tpl->assign('view_id', $view_id);
 		
-		$message = DAO_MessageRecipient::get($id);
+		$message_recipient = DAO_MessageRecipient::get($id);
+		$tpl->assign('message_recipient', $message_recipient);
+
+		$message = DAO_Message::get($message_recipient->message_id);
 		$tpl->assign('message', $message);
 
+		$message_lines = explode('\r\n',substr($message->message,1,-1));
+		$tpl->assign('message_lines', $message_lines);
+		
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/message_recipient/failed_peek.tpl');
 	}
 	
