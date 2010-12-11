@@ -117,17 +117,17 @@ class CustomerAuditLogTab extends Extension_CustomerTab {
     }
 	
 	function showTab() {
-		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
-		$tpl->assign('customer_id', $customer_id);
-
 		$visit = FegApplication::getVisit(); /* @var $visit CerberusVisit */
 		$translate = DevblocksPlatform::getTranslationService();
 		
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->tpl_path);
 		
+		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
+		$tpl->assign('customer_id', $customer_id);
+
 		$defaults = new Feg_AbstractViewModel();
-		$defaults->class_name = 'Feg_MessageAuditLogView';
+		$defaults->class_name = 'Feg_CustomerAuditLogView';
 		$defaults->id = 'audit_log';
 		$defaults->view_columns = array(
 			SearchFields_MessageAuditLog::CHANGE_DATE,
