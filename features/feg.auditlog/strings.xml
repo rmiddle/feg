@@ -10,7 +10,7 @@
 		<tu tuid='auditlog.audit_log'>
 			<tuv xml:lang="en_US"><seg>Audit Log</seg></tuv>
 		</tu>
-		<tu tuid='z.auditlog.display.tab.log'>
+		<tu tuid='auditlog.display.tab.log'>
 			<tuv xml:lang="en_US"><seg>Audit Log</seg></tuv>
 		</tu>
 		
