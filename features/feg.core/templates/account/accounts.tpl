@@ -1,9 +1,10 @@
+{if $active_worker->hasPriv('core.access.customer.create')}
 <form action="{devblocks_url}{/devblocks_url}" method="post">
 	<input type="hidden" name="c" value="account">
 	<input type="hidden" name="a" value="createNewCustomer">
 	<button type="submit"><span class="feg-sprite sprite-check"></span>Add Customer</button>
 </form>
-
+{/if}
 <table cellpadding="0" cellspacing="0" border="0">
 	<tr>
 		<td valign="top" width="0%" nowrap="nowrap">
