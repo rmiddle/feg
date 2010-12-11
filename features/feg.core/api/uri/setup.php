@@ -694,7 +694,7 @@ class FegSetupPage extends FegPageExtension  {
 		$smtp_enc = $settings->get('feg.core',FegSettings::SMTP_ENCRYPTION_TYPE,'None');
 		$smtp_max_sends = $settings->get('feg.core',FegSettings::SMTP_MAX_SENDS,'20');
 		
-		$tpl->display('file:' . $this->_TPL_PATH . 'internal/tabs/mail/index.tpl');
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/mail/index.tpl');
 	}
 	
 	// Form Submit
