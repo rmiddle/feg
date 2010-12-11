@@ -1,7 +1,7 @@
 <!DOCTYPE plugin SYSTEM "../../libs/devblocks/plugin.dtd">
 <plugin>
 	<id>feg.auditlog</id>
-	<name>[Cerb5] Message Audit Log</name>
+	<name>[Feg] Message Audit Log</name>
 	<description>Track iterative changes and events on messages.</description>
 	<author>Robert Middleswarth</author>
 	<revision>0</revision>
