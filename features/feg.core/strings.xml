@@ -40,10 +40,16 @@
 			<tuv xml:lang="en_US"><seg>Update Customers</seg></tuv>
 		</tu>
 		<tu tuid='acl.core.access.recipient.create'>
-			<tuv xml:lang="en_US"><seg>Create Recipients</seg></tuv>
+			<tuv xml:lang="en_US"><seg>Can Create Recipients</seg></tuv>
 		</tu>
 		<tu tuid='acl.core.access.recipient.update'>
-			<tuv xml:lang="en_US"><seg>Update Recipients</seg></tuv>
+			<tuv xml:lang="en_US"><seg>Can Update Recipients</seg></tuv>
+		</tu>
+		<tu tuid='acl.core.access.recipient.disable'>
+			<tuv xml:lang="en_US"><seg>Can Disable Recipients</seg></tuv>
+		</tu>
+		<tu tuid='acl.core.access.recipient.delete'>
+			<tuv xml:lang="en_US"><seg>Can Delete Recipients</seg></tuv>
 		</tu>
 		<tu tuid='acl.core.access.failed.message_recipient.resubmit'>
 			<tuv xml:lang="en_US"><seg>Can Resubmit Message Recipient Failures</seg></tuv>
