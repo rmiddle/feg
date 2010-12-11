@@ -49,7 +49,7 @@
 		<td width="100%"><input type="text" name="recipient_account_id" value="{$account->id}" style="width:98%;"></td>
 	</tr>
 	<tr>
-		<td cellspacing="2">* {$translate->_('feg.customer_account.id.warning')}</td>
+		<td colspan="2">* {$translate->_('feg.customer_account.id.warning')}</td>
 	</tr>
 {/if}
 	<tr>
