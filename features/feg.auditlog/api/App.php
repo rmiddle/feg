@@ -108,7 +108,7 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
     }
 };
 
-class ZCustomerAuditLogTab extends Extension_CustomerTab {
+class CustomerAuditLogTab extends Extension_CustomerTab {
 	private $tpl_path = null; 
 	
     function __construct($manifest) {

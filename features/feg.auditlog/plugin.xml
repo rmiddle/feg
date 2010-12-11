@@ -59,7 +59,7 @@
 			<name>Audit Log Customer Tab</name>
 			<class>
 				<file>api/App.php</file>
-				<name>ZCustomerAuditLogTab</name>
+				<name>CustomerAuditLogTab</name>
 			</class>
 			<params>
 				<param key="uri" value="log" />
