@@ -5,7 +5,7 @@ $tables = $db->metaTables();
 // `message_audit_log` ========================
 if(!isset($tables['message_audit_log'])) {
 	$sql = "
-		CREATE TABLE IF NOT EXISTS ticket_audit_log (
+		CREATE TABLE IF NOT EXISTS message_audit_log (
 			id INT UNSIGNED DEFAULT 0 NOT NULL,
 			account_id INT UNSIGNED DEFAULT 0 NOT NULL,
 			recipient_id INT UNSIGNED DEFAULT 0 NOT NULL,

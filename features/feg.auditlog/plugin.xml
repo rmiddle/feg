@@ -17,7 +17,7 @@
 	<!-- Patches -->
 	
 	<patches>
-		<patch version="1.0.0-alpha" revision="2" file="patches/1.0.0_alpha.php" />
+		<patch version="1.0.0-alpha" revision="3" file="patches/1.0.0_alpha.php" />
 	</patches>
 
 	<!-- Exported Classes -->
