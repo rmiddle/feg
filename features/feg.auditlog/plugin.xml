@@ -55,11 +55,11 @@
 		<!-- Ticket Tabs  -->
 		
 		<extension point="feg.customer.tab">
-			<id>z.auditlog.customer.tab</id>
+			<id>auditlog.customer.tab</id>
 			<name>Audit Log Customer Tab</name>
 			<class>
 				<file>api/App.php</file>
-				<name>CustomerAuditLogTab</name>
+				<name>ZCustomerAuditLogTab</name>
 			</class>
 			<params>
 				<param key="uri" value="log" />
