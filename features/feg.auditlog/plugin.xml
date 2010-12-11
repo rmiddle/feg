@@ -54,12 +54,12 @@
 	
 		<!-- Ticket Tabs  -->
 		
-		<extension point="cerberusweb.ticket.tab">
+		<extension point="feg.customer.tab">
 			<id>auditlog.customer.tab</id>
-			<name>Audit Log Customer Message Tab</name>
+			<name>Audit Log Customer Tab</name>
 			<class>
 				<file>api/App.php</file>
-				<name>MessageAuditLogTab</name>
+				<name>CustomerAuditLogTab</name>
 			</class>
 			<params>
 				<param key="uri" value="log" />
