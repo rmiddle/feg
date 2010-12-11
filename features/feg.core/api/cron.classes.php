@@ -292,7 +292,7 @@ class ImportCron extends FegCronExtension {
 	}
 };
 
-**
+/**
  * Plugins can implement an event listener on the import action being done 
  * every 1 minutes.
  */

@@ -918,11 +918,9 @@ class FegSetupPage extends FegPageExtension  {
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
 
-echo "Is it getting this far?<br>";		
 	    $jobs = DevblocksPlatform::getExtensions('feg.cron', true);
-//		$tpl->assign('jobs', $jobs);
+		$tpl->assign('jobs', $jobs);
 
-echo "How about this far?<br>";		
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/scheduler/index.tpl');
 	}
 	
