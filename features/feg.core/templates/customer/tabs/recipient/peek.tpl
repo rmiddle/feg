@@ -45,8 +45,11 @@
 	</tr>
 {if $active_worker->is_superuser}
 	<tr>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.id')|capitalize}: </td>
+		<td width="0%" nowrap="nowrap" align="right">*{$translate->_('feg.customer_account.id')|capitalize}: </td>
 		<td width="100%"><input type="text" name="recipient_account_id" value="{$account->id}" style="width:98%;"></td>
+	</tr>
+	<tr>
+		<td cellspacing="2">* {$translate->_('feg.customer_account.id.warning')}</td>
 	</tr>
 {/if}
 	<tr>

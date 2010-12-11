@@ -507,6 +507,9 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.customer_account.id'>
 			<tuv xml:lang="en_US"><seg>Customer ID</seg></tuv>
 		</tu>
+		<tu tuid='feg.customer_account.id.warning'>
+			<tuv xml:lang="en_US"><seg>Warning changing the Customer ID can cause problems only change if you know what you are doing</seg></tuv>
+		</tu>
 		
 		<!-- Stat Translations -->
 		
