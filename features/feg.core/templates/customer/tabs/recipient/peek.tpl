@@ -69,18 +69,18 @@
 {include file="file:$core_tpl/internal/custom_fields/bulk/form.tpl" bulk=false}
 <br>
 {if $active_worker->hasPriv('core.access.recipient.update')}
-	<button type="button" onclick="genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><span class="feg-sprite sprite-check"></span> {$translate->_('common.save_changes')}</button>
+<button type="button" onclick="genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><span class="feg-sprite sprite-check"></span> {$translate->_('common.save_changes')}</button>
 {/if}
 {if $active_worker->hasPriv('core.access.recipient.disable)}
-	{if $customer_recipient->is_disabled == 0}
-		<button type="button" onclick="this.form.recipient_is_disabled.value='1';genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><span class="feg-sprite sprite-delete_gray"></span> {$translate->_('common.disable')|capitalize}</button>
+{if $customer_recipient->is_disabled == 0}
+<button type="button" onclick="this.form.recipient_is_disabled.value='1';genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><span class="feg-sprite sprite-delete_gray"></span> {$translate->_('common.disable')|capitalize}</button>
 {else}
-		<button type="button" onclick="this.form.recipient_is_disabled.value='0';genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><span class="feg-sprite sprite-check"></span>{$translate->_('common.enable')|capitalize}</button>
-	{/if}
+<button type="button" onclick="this.form.recipient_is_disabled.value='0';genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><span class="feg-sprite sprite-check"></span>{$translate->_('common.enable')|capitalize}</button>
+{/if}
 {/if}
 <button type="button" onclick="genericPanel.dialog('close');"><span class="feg-sprite sprite-delete"></span>  {$translate->_('common.cancel')|capitalize}</button>
 {if $active_worker->is_superuser}
-	<button type="button" onclick="if(confirm('Are you sure you want to delete this Customers Recipient?')){literal}{{/literal}this.form.do_delete.value='1';genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');{literal}}{/literal}"><span class="feg-sprite sprite-delete2"></span> {$translate->_('common.delete')|capitalize}</button>
+<button type="button" onclick="if(confirm('Are you sure you want to delete this Customers Recipient?')){literal}{{/literal}this.form.do_delete.value='1';genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');{literal}}{/literal}"><span class="feg-sprite sprite-delete2"></span> {$translate->_('common.delete')|capitalize}</button>
 {/if}
 <br>
 </form>
