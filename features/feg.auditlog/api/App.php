@@ -137,7 +137,7 @@ class CustomerAuditLogTab extends Extension_CustomerTab {
 		$defaults->params = array();
 		$defaults->renderLimit = 15;
 		$defaults->renderPage = 0;
-		$defaults->renderSortBy = SearchFields_messageAuditLog::CHANGE_DATE;
+		$defaults->renderSortBy = SearchFields_MessageAuditLog::CHANGE_DATE;
 		$defaults->renderSortAsc = false;
 		
 		$view = Feg_AbstractViewLoader::getView('audit_log', $defaults);
@@ -383,7 +383,7 @@ class Model_MessageAuditLog {
 	public $change_value = '';
 };
 
-class MessageAuditLogView extends FEG_AbstractView {
+class MessageAuditLogView extends Feg_AbstractView {
 	const DEFAULT_ID = 'audit_log';
 	
 	function __construct() {
@@ -435,7 +435,17 @@ class MessageAuditLogView extends FEG_AbstractView {
 		$message_fields = SearchFields_message::getFields();
 		$tpl->assign('message_fields', $message_fields);
 		
-		$tpl->display('file:' . APP_PATH . '/features/feg.auditlog/templates/display/log/log_view.tpl');
+		switch($this->renderTemplate) {
+			case 'example1':
+				$tpl->display('file:' . APP_PATH . '/features/feg.auditlog/templates/display/log/example1_view.tpl');
+				break;
+			case 'example2':
+				$tpl->display('file:' . APP_PATH . '/features/feg.auditlog/templates/display/log/example2_view.tpl');
+				break;
+			default:
+				$tpl->display('file:' . APP_PATH . '/features/feg.auditlog/templates/display/log/log_view.tpl');
+				break;
+		}
 	}
 	
 	function renderCriteria($field) {
