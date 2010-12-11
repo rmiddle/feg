@@ -125,8 +125,8 @@ class CustomerAuditLogTab extends Extension_CustomerTab {
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->tpl_path);
 		
-		$defaults = new C4_AbstractViewModel();
-		$defaults->class_name = 'C4_messageAuditLogView';
+		$defaults = new Feg_AbstractViewModel();
+		$defaults->class_name = 'Feg_MessageAuditLogView';
 		$defaults->id = 'audit_log';
 		$defaults->view_columns = array(
 			SearchFields_MessageAuditLog::CHANGE_DATE,
@@ -140,14 +140,14 @@ class CustomerAuditLogTab extends Extension_CustomerTab {
 		$defaults->renderSortBy = SearchFields_messageAuditLog::CHANGE_DATE;
 		$defaults->renderSortAsc = false;
 		
-		$view = FEG_AbstractViewLoader::getView('audit_log', $defaults);
+		$view = Feg_AbstractViewLoader::getView('audit_log', $defaults);
 		
 		$view->params = array(
 			SearchFields_messageAuditLog::message_ID => new DevblocksSearchCriteria(SearchFields_MessageAuditLog::MESSAGE_ID,DevblocksSearchCriteria::OPER_EQ,$message_id)
 		);
 		$view->renderPage = 0;
 		
-		C4_AbstractViewLoader::setView($view->id,$view);
+		Feg_AbstractViewLoader::setView($view->id,$view);
 		
 		$tpl->assign('view', $view);
 		
