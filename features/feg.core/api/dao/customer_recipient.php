@@ -314,7 +314,7 @@ class View_CustomerRecipient extends Feg_AbstractView {
 		$tpl->assign('custom_fields', $custom_fields);
 		
 		$tpl->assign('view_fields', $this->getColumns());	
-		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/customer_recipient/view.tpl');
+		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/tabs/customer_recipient/view.tpl');
 	}
 
 	function renderCriteria($field) {
