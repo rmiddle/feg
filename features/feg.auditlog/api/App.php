@@ -143,7 +143,7 @@ class CustomerAuditLogTab extends Extension_CustomerTab {
 		$view = Feg_AbstractViewLoader::getView('audit_log', $defaults);
 		
 		$view->params = array(
-			SearchFields_messageAuditLog::message_ID => new DevblocksSearchCriteria(SearchFields_MessageAuditLog::MESSAGE_ID,DevblocksSearchCriteria::OPER_EQ,$message_id)
+			SearchFields_MessageAuditLog::MESSAGE_ID => new DevblocksSearchCriteria(SearchFields_MessageAuditLog::MESSAGE_ID,DevblocksSearchCriteria::OPER_EQ,$message_id)
 		);
 		$view->renderPage = 0;
 		
