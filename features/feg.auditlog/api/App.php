@@ -76,7 +76,7 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
             	
             	@$messages = DAO_message::getmessages($message_ids);
             	// Is a worker around to invoke this change?  0 = automatic
-            	@$worker_id = (null != ($active_worker = CerberusApplication::getActiveWorker()) && !empty($active_worker->id))
+            	@$worker_id = (null != ($active_worker = FegApplication::getActiveWorker()) && !empty($active_worker->id))
             		? $active_worker->id
             		: 0;
             	
@@ -119,7 +119,7 @@ class CustomerAuditLogTab extends Extension_CustomerTab {
 	function showTab() {
 		@$message_id = DevblocksPlatform::importGPC($_REQUEST['message_id'],'integer', 0);
 
-		$visit = CerberusApplication::getVisit(); /* @var $visit CerberusVisit */
+		$visit = FegApplication::getVisit(); /* @var $visit CerberusVisit */
 		$translate = DevblocksPlatform::getTranslationService();
 		
 		$tpl = DevblocksPlatform::getTemplateService();
