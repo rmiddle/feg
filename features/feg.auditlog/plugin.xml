@@ -63,7 +63,7 @@
 			</class>
 			<params>
 				<param key="uri" value="log" />
-				<param key="title" value="auditlog.display.tab.log" />
+				<param key="title" value="z.auditlog.display.tab.log" />
 			</params>
 		</extension>
 	
