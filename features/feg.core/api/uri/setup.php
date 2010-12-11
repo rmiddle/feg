@@ -442,7 +442,7 @@ class FegSetupPage extends FegPageExtension  {
 		$tpl->assign('view_fields', View_ImportSource::getFields());
 		$tpl->assign('view_searchable_fields', View_ImportSource::getSearchFields());
 				
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/import_source/index.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'internal/tabs/import_source/index.tpl');		
 	}
 	
 	function showImportPeekAction() {
@@ -455,7 +455,7 @@ class FegSetupPage extends FegPageExtension  {
 		$tpl->assign('id', $id);
 		$tpl->assign('view_id', $view_id);
 		
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/import_source/peek.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'internal/tabs/import_source/peek.tpl');		
 	}
 	
 	function saveImportPeekAction() {
@@ -507,7 +507,7 @@ class FegSetupPage extends FegPageExtension  {
 	        $tpl->assign('ids', implode(',', $ids));
 	    }
 		
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/import_source/bulk.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'internal/tabs/import_source/bulk.tpl');		
 	}
 	
 	function doImportBulkUpdateAction() {
@@ -568,7 +568,7 @@ class FegSetupPage extends FegPageExtension  {
 		$tpl->assign('view_fields', View_CustomerRecipient::getFields());
 		$tpl->assign('view_searchable_fields', View_CustomerRecipient::getSearchFields());
 				
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_recipient/index.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'internal/tabs/customer_recipient/index.tpl');		
 	}
 	
 	function showRecipientBulkPanelAction() {
@@ -589,7 +589,7 @@ class FegSetupPage extends FegPageExtension  {
 		$custom_fields = DAO_CustomField::getBySource(SearchFields_CustomerRecipient::ID);
 		$tpl->assign('custom_fields', $custom_fields);
 		
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_recipient/bulk.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'internal/tabs/customer_recipient/bulk.tpl');		
 	}
 	
 	function doRecipientBulkUpdateAction() {
@@ -640,7 +640,7 @@ class FegSetupPage extends FegPageExtension  {
 		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerAccount::ID);
 		$tpl->assign('custom_fields', $custom_fields);
 		
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_account/bulk.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'internal/tabs/customer_account/bulk.tpl');		
 	}
 	
 	function doAccountBulkUpdateAction() {
@@ -694,7 +694,7 @@ class FegSetupPage extends FegPageExtension  {
 		$smtp_enc = $settings->get('feg.core',FegSettings::SMTP_ENCRYPTION_TYPE,'None');
 		$smtp_max_sends = $settings->get('feg.core',FegSettings::SMTP_MAX_SENDS,'20');
 		
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/mail/index.tpl');
+		$tpl->display('file:' . $this->_TPL_PATH . 'internal/tabs/mail/index.tpl');
 	}
 	
 	// Form Submit
