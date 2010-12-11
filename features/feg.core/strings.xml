@@ -51,11 +51,14 @@
 		<tu tuid='acl.core.access.recipient.disable'>
 			<tuv xml:lang="en_US"><seg>Disable Recipients</seg></tuv>
 		</tu>
-		<tu tuid='acl.core.access.failed.message_recipient.resubmit'>
-			<tuv xml:lang="en_US"><seg>Resubmit Message Recipient Failures</seg></tuv>
-		</tu>
-		<tu tuid='acl.core.access.failed.message_recipient.permfail'>
+		<tu tuid='acl.core.access.message_recipient.permfail'>
 			<tuv xml:lang="en_US"><seg>Permentaly Fail Message Recipient</seg></tuv>
+		</tu>
+		<tu tuid='acl.core.access.message_recipient.retry'>
+			<tuv xml:lang="en_US"><seg>Retry Message Recipient Failures</seg></tuv>
+		</tu>
+		<tu tuid='acl.core.access.message_recipient.resend'>
+			<tuv xml:lang="en_US"><seg>Resend Message Recipient Failures</seg></tuv>
 		</tu>
 		
 		<!-- Common Strings -->
@@ -678,8 +681,8 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.message_recipient.closed_date'>
 			<tuv xml:lang="en_US"><seg>Closed Date</seg></tuv>
 		</tu>
-		<tu tuid='feg.message_recipient.submit.resubmit'>
-			<tuv xml:lang="en_US"><seg>Resubmit</seg></tuv>
+		<tu tuid='feg.message_recipient.submit.retry'>
+			<tuv xml:lang="en_US"><seg>Retry</seg></tuv>
 		</tu>
 		<tu tuid='feg.message_recipient.submit.permfail'>
 			<tuv xml:lang="en_US"><seg>Permentaly Fail</seg></tuv>

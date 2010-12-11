@@ -185,15 +185,13 @@ class FegStatsPage extends FegPageExtension {
 	}
 	
 	function saveMessageRecipientFailurePeekAction() {
-		$translate = DevblocksPlatform::getTranslationService();
-		
 		@$id = DevblocksPlatform::importGPC($_POST['id'],'integer');
 		@$view_id = DevblocksPlatform::importGPC($_POST['view_id'],'string');
 
-		@$resubmit = DevblocksPlatform::importGPC($_POST['resubmit'],'integer',0);
+		@$retry = DevblocksPlatform::importGPC($_POST['retry'],'integer',0);
 		
 		$fields = array(
-			DAO_MessageRecipient::SEND_STATUS => $resubmit,
+			DAO_MessageRecipient::SEND_STATUS => $retry,
 		);
 		
 		$status = DAO_MessageRecipient::update($id, $fields);

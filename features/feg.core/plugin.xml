@@ -144,8 +144,9 @@
 		<priv id="core.access.recipient.create" label="acl.core.access.recipient.create" />
 		<priv id="core.access.recipient.update" label="acl.core.access.recipient.update" />
 		<priv id="core.access.recipient.disable" label="acl.core.access.recipient.disable" />
-		<priv id="core.access.failed.message_recipient.resubmit" label="acl.core.access.failed.message_recipient.resubmit" />
-		<priv id="core.access.failed.message_recipient.permfail" label="acl.core.access.failed.message_recipient.permfail" />
+		<priv id="core.access.message_recipient.permfail" label="acl.core.access.message_recipient.permfail" />
+		<priv id="core.access.message_recipient.retry" label="acl.core.access.message_recipient.retry" />
+		<priv id="core.access.message_recipient.resend" label="acl.core.access.message_recipient.resend" />
 		
 		<!-- Workspaces -->
 		<!--

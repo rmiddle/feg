@@ -3,13 +3,13 @@
 <input type="hidden" name="a" value="saveMessageRecipientFailurePeek">
 <input type="hidden" name="id" value="{$id}">
 <input type="hidden" name="view_id" value="{$view_id}">
-<input type="hidden" name="resubmit" value="0">
+<input type="hidden" name="retry" value="0">
 
-{if $active_worker->hasPriv('core.access.failed.message_recipient.resubmit')}
-<button type="button" onclick="genericPanel.dialog('close');this.form.resubmit.value='5';genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('feg.message_recipient.submit.resubmit')}</button>
+{if $active_worker->hasPriv('core.access.message_recipient.retry')}
+<button type="button" onclick="genericPanel.dialog('close');this.form.retry.value='5';genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('feg.message_recipient.submit.retry')}</button>
 {/if}
-{if $active_worker->hasPriv('core.access.failed.message_recipient.permfail')}
-	<button type="button" onclick="genericPanel.dialog('close');this.form.resubmit.value='6';genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete2.gif{/devblocks_url}" align="top"> {$translate->_('feg.message_recipient.submit.permfail')}</button>
+{if $active_worker->hasPriv('core.access.message_recipient.permfail')}
+	<button type="button" onclick="genericPanel.dialog('close');this.form.retry.value='6';genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete2.gif{/devblocks_url}" align="top"> {$translate->_('feg.message_recipient.submit.permfail')}</button>
 {/if}
 	<button type="button" onclick="genericPanel.dialog('close');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete.gif{/devblocks_url}" align="top"> {$translate->_('common.cancel')|capitalize}</button>
 <br>
