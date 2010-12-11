@@ -550,7 +550,7 @@ For example: *receipt*</seg></tuv>
 			<tuv xml:lang="en_US"><seg>Customer Recipients</seg></tuv>
 		</tu>
 		<tu tuid='feg.customer_recipient.savechanges.warn'>
-			<tuv xml:lang="en_US"><seg>Changes will be lost if you don't Save Changes before switching tab's</seg></tuv>
+			<tuv xml:lang="en_US"><seg>Changes will be lost if you don't Save Your Changes before switching to another tab</seg></tuv>
 		</tu>
 		<tu tuid='feg.customer_recipient.id'>
 			<tuv xml:lang="en_US"><seg>Recipient ID</seg></tuv>
