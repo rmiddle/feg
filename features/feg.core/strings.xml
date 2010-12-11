@@ -34,13 +34,16 @@
 			<tuv xml:lang="en_US"><seg>Update Export Filter</seg></tuv>
 		</tu>
 		<tu tuid='acl.core.access.customer.create'>
-			<tuv xml:lang="en_US"><seg>Create Customers</seg></tuv>
+			<tuv xml:lang="en_US"><seg>Create Customers (Requires Update Customer to work correctly)</seg></tuv>
 		</tu>
 		<tu tuid='acl.core.access.customer.update'>
 			<tuv xml:lang="en_US"><seg>Update Customers</seg></tuv>
 		</tu>
+		<tu tuid='acl.core.access.customer.disable'>
+			<tuv xml:lang="en_US"><seg>Disable Customers</seg></tuv>
+		</tu>
 		<tu tuid='acl.core.access.recipient.create'>
-			<tuv xml:lang="en_US"><seg>Create Recipients</seg></tuv>
+			<tuv xml:lang="en_US"><seg>Create Recipients (Requires Update Recipients to work correctly)</seg></tuv>
 		</tu>
 		<tu tuid='acl.core.access.recipient.update'>
 			<tuv xml:lang="en_US"><seg>Update Recipients</seg></tuv>

@@ -140,6 +140,7 @@
 		<priv id="core.access.export_filter.update" label="acl.core.access.export_filter.update" />
 		<priv id="core.access.customer.create" label="acl.core.access.customer.create" />
 		<priv id="core.access.customer.update" label="acl.core.access.customer.update" />
+		<priv id="core.access.customer.disable" label="acl.core.access.customer.disable" />
 		<priv id="core.access.recipient.create" label="acl.core.access.recipient.create" />
 		<priv id="core.access.recipient.update" label="acl.core.access.recipient.update" />
 		<priv id="core.access.recipient.disable" label="acl.core.access.recipient.disable" />
