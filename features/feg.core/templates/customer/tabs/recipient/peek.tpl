@@ -71,7 +71,7 @@
 {if $active_worker->hasPriv('core.access.recipient.update')}
 <button type="button" onclick="genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><span class="feg-sprite sprite-check"></span> {$translate->_('common.save_changes')}</button>
 {/if}
-{if $active_worker->hasPriv('core.access.recipient.disable)}
+{if $active_worker->hasPriv('core.access.recipient.disable')}
 {if $customer_recipient->is_disabled == 0}
 <button type="button" onclick="this.form.recipient_is_disabled.value='1';genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><span class="feg-sprite sprite-delete_gray"></span> {$translate->_('common.disable')|capitalize}</button>
 {else}

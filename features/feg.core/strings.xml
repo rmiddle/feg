@@ -48,9 +48,6 @@
 		<tu tuid='acl.core.access.recipient.disable'>
 			<tuv xml:lang="en_US"><seg>Disable Recipients</seg></tuv>
 		</tu>
-		<tu tuid='acl.core.access.recipient.delete'>
-			<tuv xml:lang="en_US"><seg>Delete Recipients</seg></tuv>
-		</tu>
 		<tu tuid='acl.core.access.failed.message_recipient.resubmit'>
 			<tuv xml:lang="en_US"><seg>Resubmit Message Recipient Failures</seg></tuv>
 		</tu>
