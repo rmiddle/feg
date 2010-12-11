@@ -400,6 +400,7 @@
 			</params>
 		</extension>
 		
+		<!-- 
 		<extension point="feg.cron">
 			<id>cron.export</id>
 			<name>Message Export</name>
@@ -410,6 +411,7 @@
 			<params>
 			</params>
 		</extension>
+		-->
 		<!-- Custom Field Sources -->
 
 		<extension point="feg.fields.source">
