@@ -17,7 +17,7 @@
 		<!-- Database Strings -->
 
 		<tu tuid='auditlog_entry.account_id'>
-			<tuv xml:lang="en_US"><seg>Account ID</seg></tuv>
+			<tuv xml:lang="en_US"><seg>Customer ID</seg></tuv>
 		</tu>
 		<tu tuid='auditlog_entry.recipient_id'>
 			<tuv xml:lang="en_US"><seg>Recipient ID</seg></tuv>
