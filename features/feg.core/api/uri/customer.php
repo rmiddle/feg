@@ -50,11 +50,6 @@ class FegCustomerPage extends FegPageExtension {
 		$tab_manifests = DevblocksPlatform::getExtensions('feg.customer.tab', false);
 		$tpl->assign('tab_manifests', $tab_manifests);
 
-echo "<pre>";
-print_r($tab_manifests);
-echo "</pre>";
-
-
 		@$tab_selected = array_shift($stack);
 		if(empty($tab_selected)) $tab_selected = 'property';
 		$tpl->assign('tab_selected', $tab_selected);

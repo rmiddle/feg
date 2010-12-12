@@ -58,7 +58,7 @@
 		<!-- Ticket Tabs  -->
 		
 		<extension point="feg.customer.tab">
-			<id>auditlog.customer.tab</id>
+			<id>z.auditlog.customer.tab</id>
 			<name>Audit Log Customer Tab</name>
 			<class>
 				<file>api/App.php</file>
