@@ -16,6 +16,18 @@
 		
 		<!-- Database Strings -->
 
+		<tu tuid='auditlog_entry.account_id'>
+			<tuv xml:lang="en_US"><seg>Account ID</seg></tuv>
+		</tu>
+		<tu tuid='auditlog_entry.recipient_id'>
+			<tuv xml:lang="en_US"><seg>Recipient ID</seg></tuv>
+		</tu>
+		<tu tuid='auditlog_entry.message_id'>
+			<tuv xml:lang="en_US"><seg>Message ID</seg></tuv>
+		</tu>
+		<tu tuid='auditlog_entry.worker_id'>
+			<tuv xml:lang="en_US"><seg>Worker ID</seg></tuv>
+		</tu>
 		<tu tuid='auditlog_entry.change_date'>
 			<tuv xml:lang="en_US"><seg>Change Date</seg></tuv>
 		</tu>
@@ -24,12 +36,6 @@
 		</tu>
 		<tu tuid='auditlog_entry.change_value'>
 			<tuv xml:lang="en_US"><seg>Value</seg></tuv>
-		</tu>
-		<tu tuid='auditlog_entry.ticket_id'>
-			<tuv xml:lang="en_US"><seg>Ticket ID</seg></tuv>
-		</tu>
-		<tu tuid='auditlog_entry.worker_id'>
-			<tuv xml:lang="en_US"><seg>Worker ID</seg></tuv>
 		</tu>
 		
 		<!-- Change Field Strings -->
