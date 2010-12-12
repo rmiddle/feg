@@ -129,27 +129,31 @@ class CustomerAuditLogTab extends Extension_CustomerTab {
 		$defaults = new Feg_AbstractViewModel();
 		$defaults->class_name = 'Feg_CustomerAuditLogView';
 		$defaults->id = 'audit_log';
+		$defaults->renderLimit = 15;
+		
 		$defaults->view_columns = array(
 			SearchFields_MessageAuditLog::CHANGE_DATE,
 			SearchFields_MessageAuditLog::WORKER_ID,
 			SearchFields_MessageAuditLog::CHANGE_FIELD,
 			SearchFields_MessageAuditLog::CHANGE_VALUE,
 		);
-		$defaults->params = array();
-		$defaults->renderLimit = 15;
-		$defaults->renderPage = 0;
+		
 		$defaults->renderSortBy = SearchFields_MessageAuditLog::CHANGE_DATE;
 		$defaults->renderSortAsc = false;
+		$defaults->params = array();
+		$defaults->renderPage = 0;
+
+		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 		
-		$view = Feg_AbstractViewLoader::getView('audit_log', $defaults);
-		
+		$view->name = 'Failed Account Messages List';
+		//$view->renderTemplate = 'failed';
 		$view->params = array(
 			SearchFields_MessageAuditLog::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_MessageAuditLog::ACCOUNT_ID,DevblocksSearchCriteria::OPER_EQ,$customer_id)
 		);
 		$view->renderPage = 0;
-		
+		$view->renderPage = 0;
+
 		Feg_AbstractViewLoader::setView($view->id,$view);
-		
 		$tpl->assign('view', $view);
 		
 		$tpl->display('file:' . $this->tpl_path . '/display/log/index.tpl');
