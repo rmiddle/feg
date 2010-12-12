@@ -1,10 +1,3 @@
-<div id="RecipientsTabs">
-	<ul>
-		<li><a href="#kbArticleEditor">Editor</a></li>
-		<li><a href="#kbArticleProperties">Properties</a></li>
-	</ul>
-</div>	
-
 <form action="{devblocks_url}{/devblocks_url}" method="POST" id="formRecipientPeek" name="formRecipientPeek" onsubmit="return false;">
 <input type="hidden" name="c" value="customer">
 <input type="hidden" name="a" value="handleTabAction">
@@ -15,6 +8,13 @@
 <input type="hidden" name="do_delete" value="0">
 <input type="hidden" name="recipient_is_disabled" value="{$customer_recipient->is_disabled}">
 
+<div id="peekTabs">
+	<ul>
+		<li><a href="#ticketPeekTab1">Properties</a></li>
+		<li><a href="#ticketPeekTab2">Audit Log</a></li>
+	</ul>
+		
+    <div id="ticketPeekTab1">
 {if $id}
 	{$account = DAO_CustomerAccount::get($customer_recipient->account_id)}
 {else}
@@ -74,6 +74,12 @@
 		</td>
 	</tr>
 </table>
+    </div>
+	
+    <div id="ticketPeekTab2" style="display:none;">
+		Tab2
+	</div>
+
 <input type="hidden" name="recipient_export_filter" value="{$customer_recipient->export_filter}">
 
 {include file="file:$core_tpl/internal/custom_fields/bulk/form.tpl" bulk=false}
@@ -95,8 +101,17 @@
 <br>
 </form>
 
-<script type="text/javascript" language="JavaScript1.2">
+{*<script type="text/javascript" language="JavaScript1.2">
 	$(genericPanel).one('dialogopen',function(event,ui) {
 		genericPanel.dialog('option','title','Recipient'); 
+	} );
+</script>*}
+<script language="JavaScript1.2" type="text/javascript">
+	genericPanel.one('dialogopen',function(event,ui) {
+		genericPanel.dialog('option','title',"Recipient");
+		$("#peekTabs").tabs();
+		{*$("#ticketPeekContent").css('width','100%');*}
+		$("#ticketPeekTab2").show();
+		genericPanel.focus();
 	} );
 </script>
