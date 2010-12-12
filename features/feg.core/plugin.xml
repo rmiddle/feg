@@ -291,7 +291,7 @@
 		</extension>
 		
 		<extension point="feg.page">
-			<id>core.page.stats</id>
+			<id>z.feg.page.stats</id>
 			<name>Home Page</name>
 			<class>
 				<file>api/uri/stats.php</file>
