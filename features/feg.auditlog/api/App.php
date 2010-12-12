@@ -145,16 +145,7 @@ class CustomerAuditLogTab extends Extension_CustomerTab {
 
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 
-echo "Defaults: <br>";
-echo "<pre>";
-print_r($defaults);		
-echo "</pre>";
-echo "view: <br>";
-echo "<pre>";
-print_r($view);		
-echo "</pre>";
-
-		$view->name = 'Failed Account Messages List';
+		$view->name = 'Message Audit Log';
 		//$view->renderTemplate = 'failed';
 		$view->params = array(
 			SearchFields_MessageAuditLog::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_MessageAuditLog::ACCOUNT_ID,DevblocksSearchCriteria::OPER_EQ,$customer_id)
@@ -165,6 +156,15 @@ echo "</pre>";
 		Feg_AbstractViewLoader::setView($view->id,$view);
 		$tpl->assign('view', $view);
 		
+echo "Defaults: <br>";
+echo "<pre>";
+print_r($defaults);		
+echo "</pre>";
+echo "view: <br>";
+echo "<pre>";
+print_r($view);		
+echo "</pre>";
+
 		$tpl->display('file:' . $this->tpl_path . '/display/log/index.tpl');
 	}
 	
