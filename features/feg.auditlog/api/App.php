@@ -145,8 +145,12 @@ class CustomerAuditLogTab extends Extension_CustomerTab {
 
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 
+echo "Defaults: <br>";
 echo "<pre>";
 print_r($defaults);		
+echo "</pre>";
+echo "view: <br>";
+echo "<pre>";
 print_r($view);		
 echo "</pre>";
 
