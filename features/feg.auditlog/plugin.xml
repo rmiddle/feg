@@ -65,7 +65,7 @@
 				<name>CustomerAuditLogTab</name>
 			</class>
 			<params>
-				<param key="uri" value="log" />
+				<param key="uri" value="customer_log" />
 				<param key="title" value="auditlog.display.tab.log" />
 			</params>
 		</extension>
