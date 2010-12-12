@@ -437,15 +437,6 @@ class View_MessageAuditLog extends Feg_AbstractView {
 		$workers = DAO_Worker::getAll();
 		$tpl->assign('workers', $workers);
 
-		$groups = DAO_Group::getAll();
-		$tpl->assign('groups', $groups);
-		
-		$buckets = DAO_Bucket::getAll();
-		$tpl->assign('buckets', $buckets);
-		
-		$message_fields = SearchFields_message::getFields();
-		$tpl->assign('message_fields', $message_fields);
-		
 		switch($this->renderTemplate) {
 			case 'example1':
 				$tpl->display('file:' . APP_PATH . '/features/feg.auditlog/templates/display/log/example1_view.tpl');
