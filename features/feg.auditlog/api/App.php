@@ -127,7 +127,7 @@ class CustomerAuditLogTab extends Extension_CustomerTab {
 		$tpl->assign('customer_id', $customer_id);
 
 		$defaults = new Feg_AbstractViewModel();
-		$defaults->class_name = 'Feg_CustomerAuditLogView';
+		$defaults->class_name = 'View_MessageAuditLog';
 		$defaults->id = 'audit_log';
 		$defaults->renderLimit = 15;
 		
@@ -154,17 +154,13 @@ class CustomerAuditLogTab extends Extension_CustomerTab {
 		$view->renderPage = 0;
 
 		Feg_AbstractViewLoader::setView($view->id,$view);
-		$tpl->assign('view', $view);
 		
-echo "Defaults: <br>";
-echo "<pre>";
-print_r($defaults);		
-echo "</pre>";
 echo "view: <br>";
 echo "<pre>";
 print_r($view);		
 echo "</pre>";
 
+		$tpl->assign('view', $view);
 		$tpl->display('file:' . $this->tpl_path . '/display/log/index.tpl');
 	}
 	
@@ -397,8 +393,8 @@ class Model_MessageAuditLog {
 	public $change_value = '';
 };
 
-class MessageAuditLogView extends Feg_AbstractView {
-	const DEFAULT_ID = 'audit_log';
+class View_MessageAuditLog extends Feg_AbstractView {
+	const DEFAULT_ID = 'message_audit_log';
 	
 	function __construct() {
 		$translate = DevblocksPlatform::getTranslationService();
@@ -411,6 +407,9 @@ class MessageAuditLogView extends Feg_AbstractView {
 		
 		$this->view_columns = array(
 			SearchFields_MessageAuditLog::CHANGE_DATE,
+			SearchFields_MessageAuditLog::ACCOUNT_ID,
+			SearchFields_MessageAuditLog::RECIPIENT_ID,
+			SearchFields_MessageAuditLog::MESSAGE_ID,
 			SearchFields_MessageAuditLog::WORKER_ID,
 			SearchFields_MessageAuditLog::CHANGE_FIELD,
 			SearchFields_MessageAuditLog::CHANGE_VALUE,

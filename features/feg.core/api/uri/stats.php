@@ -66,10 +66,6 @@ class FegStatsPage extends FegPageExtension {
 		$view->renderPage = 0;
 		Feg_AbstractViewLoader::setView($view->id,$view);
 
-echo "Defaults: <br>";
-echo "<pre>";
-print_r($defaults);		
-echo "</pre>";
 echo "view: <br>";
 echo "<pre>";
 print_r($view);		
