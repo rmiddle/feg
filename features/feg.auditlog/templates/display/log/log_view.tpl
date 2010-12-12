@@ -50,18 +50,18 @@
 			{if $column=="l_id"}
 				<td>{$result.l_id}&nbsp;</td>
 			{elseif $column=="l_account_id"}
-				<td>Account ID: {$result.$column}&nbsp;</td>
+				<td><a href="{devblocks_url}{/devblocks_url}customer/{$customer_id}/property">{$result.$column}&nbsp;</a></td>
 			{elseif $column=="l_recipient_id"}
-				<td>Recipient ID: {$result.$column}&nbsp;</td>
+				<td><a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.l_recipient_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
 			{elseif $column=="l_message_id"}
-				<td>Message ID: {$result.$column}&nbsp;</td>
+				<td>{$result.$column}&nbsp;</td>
 			{elseif $column=="l_worker_id"}
 				<td>
 				{assign var=log_worker_id value=$result.l_worker_id}
 				{if isset($workers.$log_worker_id)}{$workers.$log_worker_id->getName()}{else}(auto){/if}&nbsp;
 				</td>
 			{elseif $column=="l_change_date"}
-			<td><abbr title="{$result.l_change_date|devblocks_date}">{$result.l_change_date|devblocks_date}</abbr>&nbsp;</td>
+			<td><abbr title="{$result.l_change_date|devblocks_date}">{$result.l_change_date|devblocks_prettytime}</abbr>&nbsp;</td>
 			{elseif $column=="l_change_field"}
 				<td>{$translate->_($result.l_change_field)}&nbsp;</td>
 			{elseif $column=="l_change_value"}
