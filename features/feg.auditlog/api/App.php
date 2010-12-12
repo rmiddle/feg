@@ -167,6 +167,65 @@ class CustomerAuditLogTab extends Extension_CustomerTab {
 	}
 };
 
+class RecipientsAuditLogTab extends Extension_RecipientsTab {
+	private $tpl_path = null; 
+	
+    function __construct($manifest) {
+        parent::__construct($manifest);
+        $this->tpl_path = dirname(dirname(__FILE__)).'/templates';
+    }
+	
+	function showTab() {
+		$visit = FegApplication::getVisit(); /* @var $visit CerberusVisit */
+		$translate = DevblocksPlatform::getTranslationService();
+		
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('path', $this->tpl_path);
+		
+		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
+		$tpl->assign('customer_id', $customer_id);
+
+		$defaults = new Feg_AbstractViewModel();
+		$defaults->class_name = 'View_MessageAuditLog';
+		$defaults->id = 'customer_audit_log';
+		$defaults->renderLimit = 15;
+		
+		$defaults->view_columns = array(
+			SearchFields_MessageAuditLog::CHANGE_DATE,
+		    SearchFields_MessageAuditLog::ACCOUNT_ID,
+		    //SearchFields_MessageAuditLog::RECIPIENT_ID,
+		    SearchFields_MessageAuditLog::MESSAGE_ID,
+			SearchFields_MessageAuditLog::WORKER_ID,
+			SearchFields_MessageAuditLog::CHANGE_FIELD,
+			SearchFields_MessageAuditLog::CHANGE_VALUE,
+		);
+		
+		$defaults->renderSortBy = SearchFields_MessageAuditLog::CHANGE_DATE;
+		$defaults->renderSortAsc = false;
+		$defaults->params = array();
+		$defaults->renderPage = 0;
+
+		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
+
+		$view->name = 'Customer Audit Log';
+		//$view->renderTemplate = 'failed';
+		$view->params = array(
+			SearchFields_MessageAuditLog::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_MessageAuditLog::ACCOUNT_ID,DevblocksSearchCriteria::OPER_EQ,$customer_id)
+		);
+		$view->renderPage = 0;
+		$view->renderPage = 0;
+
+		Feg_AbstractViewLoader::setView($view->id,$view);
+		
+		$tpl->assign('view', $view);
+		$tpl->display('file:' . $this->tpl_path . '/display/log/index.tpl');
+	}
+	
+	function saveTab() {
+		
+	}
+};
+
 class DAO_MessageAuditLog extends DevblocksORMHelper {
 	const ID = 'id';
 	const WORKER_ID = 'worker_id';

@@ -1,3 +1,10 @@
+<div id="RecipientsTabs">
+	<ul>
+		<li><a href="#kbArticleEditor">Editor</a></li>
+		<li><a href="#kbArticleProperties">Properties</a></li>
+	</ul>
+</div>	
+
 <form action="{devblocks_url}{/devblocks_url}" method="POST" id="formRecipientPeek" name="formRecipientPeek" onsubmit="return false;">
 <input type="hidden" name="c" value="customer">
 <input type="hidden" name="a" value="handleTabAction">

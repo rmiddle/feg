@@ -160,7 +160,7 @@ abstract class Extension_CustomerTab extends DevblocksExtension {
 	function saveTab() {}
 };
 
-abstract class Extension_MessageTab extends DevblocksExtension {
+abstract class Extension_RecipientsTab extends DevblocksExtension {
 	function __construct($manifest) {
 		$this->DevblocksExtension($manifest);
 	}
