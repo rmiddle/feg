@@ -133,6 +133,9 @@ class CustomerAuditLogTab extends Extension_CustomerTab {
 		
 		$defaults->view_columns = array(
 			SearchFields_MessageAuditLog::CHANGE_DATE,
+		    SearchFields_MessageAuditLog::ACCOUNT_ID,
+		    SearchFields_MessageAuditLog::RECIPIENT_ID,
+		    SearchFields_MessageAuditLog::MESSAGE_ID,
 			SearchFields_MessageAuditLog::WORKER_ID,
 			SearchFields_MessageAuditLog::CHANGE_FIELD,
 			SearchFields_MessageAuditLog::CHANGE_VALUE,
