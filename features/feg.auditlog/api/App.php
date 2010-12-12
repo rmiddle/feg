@@ -144,7 +144,12 @@ class CustomerAuditLogTab extends Extension_CustomerTab {
 		$defaults->renderPage = 0;
 
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
-		
+
+echo "<pre>";
+print_r($defaults);		
+print_r($view);		
+echo "</pre>";
+
 		$view->name = 'Failed Account Messages List';
 		//$view->renderTemplate = 'failed';
 		$view->params = array(
