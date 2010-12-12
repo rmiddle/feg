@@ -61,7 +61,7 @@
 				{if isset($workers.$log_worker_id)}{$workers.$log_worker_id->getName()}{else}(auto){/if}&nbsp;
 				</td>
 			{elseif $column=="l_change_date"}
-			<td><abbr title="{$result.l_change_date|devblocks_date}">{$result.l_change_date|devblocks_prettytime}</abbr>&nbsp;</td>
+			<td><abbr title="{$result.l_change_date|devblocks_date}">{$result.l_change_date|devblocks_date}</abbr>&nbsp;</td>
 			{elseif $column=="l_change_field"}
 				<td>{$translate->_($result.l_change_field)}&nbsp;</td>
 			{elseif $column=="l_change_value"}
