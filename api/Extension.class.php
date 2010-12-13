@@ -159,13 +159,3 @@ abstract class Extension_CustomerTab extends DevblocksExtension {
 	function showTab() {}
 	function saveTab() {}
 };
-
-abstract class Extension_RecipientsTab extends DevblocksExtension {
-	function __construct($manifest) {
-		$this->DevblocksExtension($manifest);
-	}
-	
-	function showTab() {}
-	function saveTab() {}
-};
-
