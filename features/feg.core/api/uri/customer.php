@@ -268,6 +268,15 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 			);
 			$view->renderPage = 0;
 			$view->renderPage = 0;
+			$view->view_columns = array(
+				SearchFields_MessageAuditLog::CHANGE_DATE,
+				//SearchFields_MessageAuditLog::ACCOUNT_ID,
+				//SearchFields_MessageAuditLog::RECIPIENT_ID,
+				//SearchFields_MessageAuditLog::MESSAGE_ID,
+				SearchFields_MessageAuditLog::WORKER_ID,
+				SearchFields_MessageAuditLog::CHANGE_FIELD,
+				SearchFields_MessageAuditLog::CHANGE_VALUE,
+			);
 
 			Feg_AbstractViewLoader::setView($view->id,$view);
         endif;
