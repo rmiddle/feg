@@ -77,9 +77,9 @@
     </div>
 	
     <div id="ticketPeekTab2" style="display:none;">
-		{*{if is_array($view)}*}
+		{if is_array($view)}
 			<div id="view{$view->id}">{$view->render()}</div>
-		{*{/if}*}
+		{/if}
 	</div>
 
 <input type="hidden" name="recipient_export_filter" value="{$customer_recipient->export_filter}">
