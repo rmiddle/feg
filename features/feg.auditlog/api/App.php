@@ -497,8 +497,8 @@ class View_MessageAuditLog extends Feg_AbstractView {
 		$tpl->assign('workers', $workers);
 
 		switch($this->renderTemplate) {
-			case 'example1':
-				$tpl->display('file:' . APP_PATH . '/features/feg.auditlog/templates/display/log/example1_view.tpl');
+			case 'peek_tab':
+				$tpl->display('file:' . APP_PATH . '/features/feg.auditlog/templates/display/log/peek_tab_view.tpl');
 				break;
 			case 'example2':
 				$tpl->display('file:' . APP_PATH . '/features/feg.auditlog/templates/display/log/example2_view.tpl');
