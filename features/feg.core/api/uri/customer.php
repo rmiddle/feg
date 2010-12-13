@@ -252,7 +252,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 			$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 
 			$view->name = 'Customer Audit Log';
-			$view->renderTemplate = 'peek_tab22';
+			$view->renderTemplate = 'peek_tab';
 			$view->params = array(
 				SearchFields_MessageAuditLog::RECIPIENT_ID => new DevblocksSearchCriteria(SearchFields_MessageAuditLog::RECIPIENT_ID,DevblocksSearchCriteria::OPER_EQ,$id)
 			);
