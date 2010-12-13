@@ -1,3 +1,12 @@
+{if $display_view}
+<div id="peekTabs">
+	<ul>
+		<li><a href="#ticketPeekTab1">Properties</a></li>
+		<li><a href="#ticketPeekTab2">Audit Log</a></li>
+	</ul>
+		
+    <div id="ticketPeekTab1">
+{/if}
 <form action="{devblocks_url}{/devblocks_url}" method="POST" id="formRecipientPeek" name="formRecipientPeek" onsubmit="return false;">
 <input type="hidden" name="c" value="customer">
 <input type="hidden" name="a" value="handleTabAction">
@@ -8,15 +17,6 @@
 <input type="hidden" name="do_delete" value="0">
 <input type="hidden" name="recipient_is_disabled" value="{$customer_recipient->is_disabled}">
 
-{if $display_view}
-<div id="peekTabs">
-	<ul>
-		<li><a href="#ticketPeekTab1">Properties</a></li>
-		<li><a href="#ticketPeekTab2">Audit Log</a></li>
-	</ul>
-		
-    <div id="ticketPeekTab1">
-{/if}
 {if $id}
 	{$account = DAO_CustomerAccount::get($customer_recipient->account_id)}
 {else}
@@ -76,18 +76,12 @@
 		</td>
 	</tr>
 </table>
-    </div>
 	
-{if $display_view}
-    <div id="ticketPeekTab2" style="display:none;">
-			<div id="view{$view->id}">{$view->render()}</div>
-	</div>
-{/if}
-
 <input type="hidden" name="recipient_export_filter" value="{$customer_recipient->export_filter}">
 
 {include file="file:$core_tpl/internal/custom_fields/bulk/form.tpl" bulk=false}
 <br>
+
 {if $active_worker->hasPriv('core.access.recipient.update')}
 <button type="button" onclick="genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><span class="feg-sprite sprite-check"></span> {$translate->_('common.save_changes')}</button>
 {/if}
@@ -104,6 +98,13 @@
 {/if}
 <br>
 </form>
+</div>
+
+{if $display_view}
+    <div id="ticketPeekTab2" style="display:none;">
+			<div id="view{$view->id}">{$view->render()}</div>
+	</div>
+{/if}
 
 <script language="JavaScript1.2" type="text/javascript">
 	genericPanel.one('dialogopen',function(event,ui) {
