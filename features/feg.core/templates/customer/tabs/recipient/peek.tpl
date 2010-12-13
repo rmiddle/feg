@@ -93,9 +93,9 @@
 {/if}
 {/if}
 <button type="button" onclick="genericPanel.dialog('close');"><span class="feg-sprite sprite-delete"></span>  {$translate->_('common.cancel')|capitalize}</button>
-{if $active_worker->is_superuser}
+{*Remove Delete it is dangerous{if $active_worker->is_superuser}
 <button type="button" onclick="if(confirm('Are you sure you want to delete this Customers Recipient?')){literal}{{/literal}this.form.do_delete.value='1';genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');{literal}}{/literal}"><span class="feg-sprite sprite-delete2"></span> {$translate->_('common.delete')|capitalize}</button>
-{/if}
+{/if}*}
 <br>
 </form>
 </div>
