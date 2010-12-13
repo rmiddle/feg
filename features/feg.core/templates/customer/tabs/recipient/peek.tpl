@@ -105,7 +105,6 @@
 <br>
 </form>
 
-{if $display_view}
 <script language="JavaScript1.2" type="text/javascript">
 	genericPanel.one('dialogopen',function(event,ui) {
 		genericPanel.dialog('option','title',"Recipient");
@@ -115,10 +114,3 @@
 		genericPanel.focus();
 	} );
 </script>
-{else}
-<script type="text/javascript" language="JavaScript1.2">
-	$(genericPanel).one('dialogopen',function(event,ui) {
-		genericPanel.dialog('option','title','Recipient'); 
-	} );
-</script>
-{/if}
