@@ -243,21 +243,9 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 			$defaults->class_name = 'View_MessageAuditLog';
 			$defaults->id = 'customer_audit_log';
 			$defaults->renderLimit = 10;
-		
-			$defaults->view_columns = array(
-				SearchFields_MessageAuditLog::CHANGE_DATE,
-				//SearchFields_MessageAuditLog::ACCOUNT_ID,
-				//SearchFields_MessageAuditLog::RECIPIENT_ID,
-				//SearchFields_MessageAuditLog::MESSAGE_ID,
-				SearchFields_MessageAuditLog::WORKER_ID,
-				SearchFields_MessageAuditLog::CHANGE_FIELD,
-				SearchFields_MessageAuditLog::CHANGE_VALUE,
-			);
-		
 			$defaults->renderSortBy = SearchFields_MessageAuditLog::CHANGE_DATE;
 			$defaults->renderSortAsc = false;
 			$defaults->params = array();
-			$defaults->renderPage = 0;
 
 			$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 
@@ -268,6 +256,15 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 			);
 			$view->renderPage = 0;
 			$view->renderLimit = 10;
+			$view->view_columns = array(
+				SearchFields_MessageAuditLog::CHANGE_DATE,
+				//SearchFields_MessageAuditLog::ACCOUNT_ID,
+				//SearchFields_MessageAuditLog::RECIPIENT_ID,
+				SearchFields_MessageAuditLog::MESSAGE_ID,
+				SearchFields_MessageAuditLog::WORKER_ID,
+				SearchFields_MessageAuditLog::CHANGE_FIELD,
+				SearchFields_MessageAuditLog::CHANGE_VALUE,
+			);
 
 			Feg_AbstractViewLoader::setView($view->id,$view);
         endif;
