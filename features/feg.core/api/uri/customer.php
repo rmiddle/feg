@@ -236,7 +236,43 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		$custom_field_values = DAO_CustomFieldValue::getValuesBySourceIds(FegCustomFieldSource_CustomerRecipient::ID, $id);
 		if(isset($custom_field_values[$id]))
 			$tpl->assign('custom_field_values', $custom_field_values[$id]);
-			
+
+		// Below is the Audit log view only avaible is the audit log plugin is enabled. 
+		if (class_exists('View_MessageAuditLog',true)):
+			$defaults = new Feg_AbstractViewModel();
+			$defaults->class_name = 'View_MessageAuditLog';
+			$defaults->id = 'customer_audit_log';
+			$defaults->renderLimit = 15;
+		
+			$defaults->view_columns = array(
+				SearchFields_MessageAuditLog::CHANGE_DATE,
+				SearchFields_MessageAuditLog::ACCOUNT_ID,
+				//SearchFields_MessageAuditLog::RECIPIENT_ID,
+				SearchFields_MessageAuditLog::MESSAGE_ID,
+				SearchFields_MessageAuditLog::WORKER_ID,
+				SearchFields_MessageAuditLog::CHANGE_FIELD,
+				SearchFields_MessageAuditLog::CHANGE_VALUE,
+			);
+		
+			$defaults->renderSortBy = SearchFields_MessageAuditLog::CHANGE_DATE;
+			$defaults->renderSortAsc = false;
+			$defaults->params = array();
+			$defaults->renderPage = 0;
+
+			$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
+
+			$view->name = 'Customer Audit Log';
+			//$view->renderTemplate = 'failed';
+			$view->params = array(
+				SearchFields_MessageAuditLog::RECIPIENT_ID => new DevblocksSearchCriteria(SearchFields_MessageAuditLog::RECIPIENT_ID,DevblocksSearchCriteria::OPER_EQ,$id)
+			);
+			$view->renderPage = 0;
+			$view->renderPage = 0;
+
+			Feg_AbstractViewLoader::setView($view->id,$view);
+			$tpl->assign('view', $view);
+        endif;
+		
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recipient/peek.tpl');		
 	}
 	
