@@ -8,6 +8,7 @@
 <input type="hidden" name="do_delete" value="0">
 <input type="hidden" name="recipient_is_disabled" value="{$customer_recipient->is_disabled}">
 
+{if $display_view}
 <div id="peekTabs">
 	<ul>
 		<li><a href="#ticketPeekTab1">Properties</a></li>
@@ -15,6 +16,7 @@
 	</ul>
 		
     <div id="ticketPeekTab1">
+{/if}
 {if $id}
 	{$account = DAO_CustomerAccount::get($customer_recipient->account_id)}
 {else}
@@ -76,11 +78,11 @@
 </table>
     </div>
 	
+{if $display_view}
     <div id="ticketPeekTab2" style="display:none;">
-		{if is_array($view)}
 			<div id="view{$view->id}">{$view->render()}</div>
-		{/if}
 	</div>
+{/if}
 
 <input type="hidden" name="recipient_export_filter" value="{$customer_recipient->export_filter}">
 
@@ -103,11 +105,7 @@
 <br>
 </form>
 
-{*<script type="text/javascript" language="JavaScript1.2">
-	$(genericPanel).one('dialogopen',function(event,ui) {
-		genericPanel.dialog('option','title','Recipient'); 
-	} );
-</script>*}
+{if $display_view}
 <script language="JavaScript1.2" type="text/javascript">
 	genericPanel.one('dialogopen',function(event,ui) {
 		genericPanel.dialog('option','title',"Recipient");
@@ -117,3 +115,10 @@
 		genericPanel.focus();
 	} );
 </script>
+{else}
+<script type="text/javascript" language="JavaScript1.2">
+	$(genericPanel).one('dialogopen',function(event,ui) {
+		genericPanel.dialog('option','title','Recipient'); 
+	} );
+</script>
+{/if}

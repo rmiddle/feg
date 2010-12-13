@@ -218,6 +218,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
 		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
 		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
+		$display_view = 0;
 		
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
@@ -267,8 +268,9 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 			);
 
 			Feg_AbstractViewLoader::setView($view->id,$view);
-        endif;
-		$tpl->assign('view', $view);
+			$tpl->assign('view', $view);
+		endif;
+		$tpl->assign('display_view', $display_view);
 
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recipient/peek.tpl');		
 	}
