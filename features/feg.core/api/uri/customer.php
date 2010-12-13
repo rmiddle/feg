@@ -239,7 +239,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 			$tpl->assign('custom_field_values', $custom_field_values[$id]);
 
 		// Below is the Audit log view only avaible is the audit log plugin is enabled. 
-		if (class_exists('View_MessageAuditLog',true)):
+		if (class_exists('View_MessageAuditLog1',true)):
 			$display_view = 1;
 			$defaults = new Feg_AbstractViewModel();
 			$defaults->class_name = 'View_MessageAuditLog';
