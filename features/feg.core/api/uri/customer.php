@@ -270,9 +270,11 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 			$view->renderPage = 0;
 
 			Feg_AbstractViewLoader::setView($view->id,$view);
-			$tpl->assign('view', $view);
         endif;
-		
+		$tpl->assign('view', $view);
+
+print_r($view);
+
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recipient/peek.tpl');		
 	}
 	
