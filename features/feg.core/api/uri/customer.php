@@ -243,7 +243,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 			$display_view = 1;
 			$defaults = new Feg_AbstractViewModel();
 			$defaults->class_name = 'View_MessageAuditLog';
-			$defaults->id = 'customer_audit_log';
+			$defaults->id = 'recipient_audit_log';
 			$defaults->renderLimit = 10;
 			$defaults->renderSortBy = SearchFields_MessageAuditLog::CHANGE_DATE;
 			$defaults->renderSortAsc = false;
@@ -251,7 +251,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 
 			$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 
-			$view->name = 'Customer Audit Log';
+			$view->name = 'Recipient Audit Log';
 			$view->renderTemplate = 'peek_tab';
 			$view->params = array(
 				SearchFields_MessageAuditLog::RECIPIENT_ID => new DevblocksSearchCriteria(SearchFields_MessageAuditLog::RECIPIENT_ID,DevblocksSearchCriteria::OPER_EQ,$id)
