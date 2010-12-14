@@ -309,7 +309,7 @@ class FegStatsPage extends FegPageExtension {
 		echo "</b><br>";
 		mysql_free_result($rs);
 		
-		echo "Fax(s) In Queue: <b>";
+		echo "Fax(s) In Hylafax Queue: <b>";
 		$sql = sprintf("SELECT count(*) as total ".
 				"FROM message_recipient mr ".
 				"inner join customer_recipient cr on mr.recipient_id = cr.id ".
