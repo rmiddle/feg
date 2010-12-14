@@ -30,13 +30,13 @@ Account Info:<br>
 <br>
 Recipient Info:<br>
 {$translate->_('feg.customer_recipient.type')|capitalize}: {if $recipient->type == '0'}{$translate->_('recipient.type.email')|capitalize}{/if}{if $recipient->type == '1'}{$translate->_('recipient.type.fax')|capitalize}{/if}{if $recipient->type == '2'}{$translate->_('recipient.type.snpp')|capitalize}{/if}<br>
-{$recipient->address_to|capitalize}<br>
-{$recipient->address|escape}<br>
-{$recipient->subject}<br>
+{$translate->_('feg.customer_recipient.address_to')|capitalize}: {$recipient->address_to|capitalize}<br>
+{$translate->_('feg.customer_recipient.address')|capitalize}: {$recipient->address|escape}<br>
+{$translate->_('feg.feg.customer_recipient.subject')|capitalize}: {$recipient->subject}<br>
 <br>
 Message Info:<br>
-{$message->created_date|devblocks_date}<br>
-{$message->updated_date|devblocks_date}<br>
+{$translate->_('feg.message.created_date')|capitalize}: {$message->created_date|devblocks_date}<br>
+{$translate->_('feg.message.updated_date')|capitalize}: {$message->updated_date|devblocks_date}<br>
 {$translate->_('feg.message.message')|capitalize}:<br>
 {foreach from=$message_lines item=line name=line_id}
 	{$line}<br>
