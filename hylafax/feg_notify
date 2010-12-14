@@ -1,0 +1,152 @@
+#!/usr/bin/php
+<?php
+/**
+ * Feg Notification process
+ */
+
+	// check for proper arguments
+	if ($_SERVER['argc'] < 3) {
+		exit("Usage: ".$_SERVER['argv'][0]." qfile why jobtime [nextTry]\n");
+	}
+	
+	$debug		= false;
+	
+	$qfile		= $_SERVER['argv'][1];
+	$why		= $_SERVER['argv'][2];
+	$jobtime	= ($_SERVER['argc'] >= 4) ? $_SERVER['argv'][3] : NULL;
+	$nextTry	= ($_SERVER['argc'] >= 5) ? $_SERVER['argv'][4] : NULL;
+
+	// open qfile for sender information
+	if (!file_exists($qfile)) { exit("$qfile doesn't exist\n"); }
+	
+//	avantfaxlog("notify> Executing: $qfile $why $jobtime $nextTry (${_SERVER['argc']})", true);
+	
+	// parse "why" argument
+	$faxdone	= false;
+	$fatal		= false;
+	$alert		= false;
+	
+	switch ($why) {
+		case "done":
+			$faxdone = true;
+			break;
+		case "blocked":
+		case "requeued":
+			$alert = true; // retries
+			break;
+		case "format_failed":
+		case "no_formatter":
+		case "poll_no_document":
+		case "killed":
+		case "rejected":
+		case "removed":
+		case "timedout":
+		case "poll_rejected":
+		case "poll_failed":
+		default:
+			$fatal = true;
+			break;
+	}
+	
+	$file_data		= file($qfile);
+	$faxfiles		= array();
+	$file_cnt		= 0;
+	$fp = fopen('/feg/feg_notify.txt', 'a');
+	
+	// parse for totpages, external (phone number), mailaddr, groupid, to_location, to_voice, to_person, to_company, regarding, owner (username), and the various fax files
+	foreach ($file_data as $line) {
+		$line		= trim($line);
+		$line_info	= split(":", $line);
+			fwrite($fp, "");
+
+		if ($line_info[0] == "totpages") {			// total pages
+			$totpages = $line_info[1];
+			echo "$line_info[0]: $totpages\n";
+			fwrite($fp, "$line_info[0]: $totpages\n");
+		} elseif ($line_info[0] == "status") {
+			$status = $line_info[1];
+			echo "$line_info[0]: $status\n";
+			fwrite($fp, "$line_info[0]: $status\n");
+		} elseif ($line_info[0] == "external") {	// the fax number
+			$external = $line_info[1];
+			echo "$line_info[0]: $external\n";
+			fwrite($fp, "$line_info[0]: $external\n");
+		} elseif ($line_info[0] == "jobid") {		// HylaFAX jobid
+			$jobid = $line_info[1];
+			echo "$line_info[0]: $jobid\n";
+			fwrite($fp, "$line_info[0]: $jobid\n");
+		} elseif ($line_info[0] == "mailaddr") {	// the mailaddr
+			$mailaddr = $line_info[1];
+			echo "$line_info[0]: $mailaddr\n";
+			fwrite($fp, "$line_info[0]: $mailaddr\n");
+		} elseif ($line_info[0] == "groupid") {		// gets the groupid
+			$groupid = $line_info[1];
+			echo "$line_info[0]: $groupid\n";
+			fwrite($fp, "$line_info[0]: $groupid\n");
+		} elseif ($line_info[0] == "location") {	// gets the to_location
+			$to_location = (isset($line_info[1])) ? $line_info[1] : NULL;
+			echo "$line_info[0]: $to_location\n";
+			fwrite($fp, "$line_info[0]: $to_location\n");
+		} elseif ($line_info[0] == "voice") {		// gets the to_voice number
+			$to_voice = (isset($line_info[1])) ? $line_info[1] : NULL;
+			echo "$line_info[0]: $to_voice\n";
+			fwrite($fp, "$line_info[0]: $to_voice\n");
+		} elseif ($line_info[0] == "receiver") {	// gets the to_person
+			$to_person = (isset($line_info[1])) ? $line_info[1] : NULL;
+			echo "$line_info[0]: $to_person\n";
+			fwrite($fp, "$line_info[0]: $to_person\n");
+		} elseif ($line_info[0] == "company") {		// gets the to_company
+			$to_company = (isset($line_info[1])) ? $line_info[1] : NULL;
+			echo "$line_info[0]: $to_company\n";
+			fwrite($fp, "$line_info[0]: $to_company\n");
+		} elseif ($line_info[0] == "regarding") {	// gets the RE: text
+			$regarding = (isset($line_info[1])) ? $line_info[1] : NULL;
+			echo "$line_info[0]: $regarding\n";
+			fwrite($fp, "$line_info[0]: $regarding\n");
+		} elseif ($line_info[0] == "owner") {		// the sender's username
+			$owner = strtolower ($line_info[1]);
+			echo "$line_info[0]: $owner\n";
+			fwrite($fp, "$line_info[0]: $owner\n");
+		} elseif (preg_match("/postscript/", $line_info[0]) || preg_match("/pdf/", $line_info[0]) || preg_match("/tiff/", $line_info[0])) {
+			echo "Found file: $line_info[3]\n";
+			if (!preg_match("/\;/", $line_info[3])) {
+				$faxfiles[$file_cnt] = $line_info[3];
+				$file_cnt++;
+			}
+			fwrite($fp, "Found file: $line_info[3]\n");
+		}
+	}
+
+	// if fatal, notify sender
+	if ($fatal) {
+//		$subject	= $LANG['FAX_WHY'][$why]." $subject";
+//		$text		= $LANG['FAX_FAILED'].": ".$LANG['FAX_WHY'][$why]." $status\n\n$text";
+		
+		// create the temp directory
+//		$faxpath	= $TMPDIR.date("Y-m-d-").$external."-".date("His")."-".$jobid;
+//		mkdirs($faxpath);
+		
+		fclose($fp);
+		exit;
+	}
+	
+	// if alert, notify sender
+	if ($alert) {
+//		$subject	= "Fax $groupid ".$LANG['TO']." $external ".$LANG['FAX_WHY'][$why];
+//		$text		= $LANG['FAX_WHY'][$why]." $status\n\n$text";
+//		if ($nextTry)
+//			$text	.= "\nFAX --> $nextTry";
+//		send_mail($to, $from, $subject, $text);
+		fclose($fp);
+		exit;
+	}
+	
+	// only if faxdone, create pdf file and db entry
+	if (!$faxdone) {
+		fclose($fp);
+		exit;
+	}
+	
+	echo "Done\n";
+	fclose($fp);
+	exit;

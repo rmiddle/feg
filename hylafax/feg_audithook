@@ -1,0 +1,7 @@
+#!/usr/bin/php
+<?php
+$fp = fopen('/feg/feg_hook.txt', 'a');
+foreach ($argv as $key => $value){
+        fwrite($fp, "\n".$key.":".$value);
+}
+fclose($fp);
