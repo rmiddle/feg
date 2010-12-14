@@ -24,8 +24,11 @@
 
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
-		<td nowrap="nowrap" align="right">ID: </td>
+		<td nowrap="nowrap" align="right">{$translate->_('feg.message_recipient.id')|capitalize}</td>
 		<td>{if $id}{$id}{else}{$translate->_('feg.customer_recipient.id.new')|capitalize}{/if}</td>
+	</tr>
+		<tr>
+		<td colspan="2">Account Info:</td>
 	</tr>
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_number')|capitalize}: </td>
@@ -34,6 +37,9 @@
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_name')|capitalize}: </td>
 		<td width="100%">{$account->account_name}</td>
+	<tr>
+		<td colspan="2">Recipient Info:</td>
+	</tr>
 	</tr>
 		<td width="0%" nowrap="nowrap" align="right">
 			{if $recipient->type == '0'}{$translate->_('recipient.type.email')|capitalize}{/if}
@@ -41,6 +47,9 @@
 			{if $recipient->type == '2'}{$translate->_('recipient.type.snpp')|capitalize}{/if}
 		</td>
 		<td width="100%" nowrap="nowrap"> - {$recipient->address|escape}</td>
+	</tr>
+	<tr>
+		<td colspan="2">Message Info:</td>
 	</tr>
 	<tr>
 		<td width="0%" nowrap="nowrap" valign="top" align="right">{$translate->_('feg.message.message')|capitalize}: </td>
