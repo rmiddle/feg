@@ -16,6 +16,7 @@ class DAO_MessageRecipient extends Feg_ORMHelper {
 	const MESSAGE_ID = 'message_id';
 	const ACCOUNT_ID = 'account_id';
 	const SEND_STATUS = 'send_status';
+	const FAX_ID = 'fax_id';
 	const UPDATED_DATE = 'updated_date';
 	const CLOSED_DATE = 'closed_date';
 
@@ -50,7 +51,7 @@ class DAO_MessageRecipient extends Feg_ORMHelper {
 	static function getWhere($where=null) {
 		$db = DevblocksPlatform::getDatabaseService();
 		
-		$sql = "SELECT id, recipient_id, message_id, account_id, send_status, updated_date, closed_date ".
+		$sql = "SELECT id, recipient_id, message_id, account_id, send_status, fax_id, updated_date, closed_date ".
 			"FROM message_recipient ".
 			(!empty($where) ? sprintf("WHERE %s ",$where) : "").
 			"ORDER BY id asc";
@@ -88,6 +89,7 @@ class DAO_MessageRecipient extends Feg_ORMHelper {
 			$object->message_id = $row['message_id'];
 			$object->account_id = $row['account_id'];
 			$object->send_status = $row['send_status'];
+			$object->fax_id = $row['fax_id'];
 			$object->updated_date = $row['updated_date'];
 			$object->closed_date = $row['closed_date'];
 			$objects[$object->id] = $object;
@@ -142,6 +144,7 @@ class DAO_MessageRecipient extends Feg_ORMHelper {
 			"mr.message_id as %s, ".
 			"mr.account_id as %s, ".
 			"mr.send_status as %s, ".
+			"mr.fax_id as %s, ".
 			"mr.updated_date as %s, ".
 			"mr.closed_date as %s ",
 				SearchFields_MessageRecipient::ID,
@@ -149,6 +152,7 @@ class DAO_MessageRecipient extends Feg_ORMHelper {
 				SearchFields_MessageRecipient::MESSAGE_ID,
 				SearchFields_MessageRecipient::ACCOUNT_ID,
 				SearchFields_MessageRecipient::SEND_STATUS,
+				SearchFields_MessageRecipient::FAX_ID,
 				SearchFields_MessageRecipient::UPDATED_DATE,
 				SearchFields_MessageRecipient::CLOSED_DATE
 			);
@@ -218,6 +222,7 @@ class SearchFields_MessageRecipient implements IDevblocksSearchFields {
 	const MESSAGE_ID = 'mr_message_id';
 	const ACCOUNT_ID = 'mr_account_id';
 	const SEND_STATUS = 'mr_send_status';
+	const FAX_ID = 'mr_fax_id';
 	const UPDATED_DATE = 'mr_updated_date';
 	const CLOSED_DATE = 'mr_closed_date';
 	
@@ -233,6 +238,7 @@ class SearchFields_MessageRecipient implements IDevblocksSearchFields {
 			self::MESSAGE_ID => new DevblocksSearchField(self::MESSAGE_ID, 'mr', 'message_id', $translate->_('feg.message_recipient.message_id')),
 			self::ACCOUNT_ID => new DevblocksSearchField(self::ACCOUNT_ID, 'mr', 'account_id', $translate->_('feg.message_recipient.account_id')),
 			self::SEND_STATUS => new DevblocksSearchField(self::SEND_STATUS, 'mr', 'send_status', $translate->_('feg.message_recipient.send_status')),
+			self::FAX_ID => new DevblocksSearchField(self::FAX_ID, 'mr', 'fax_id', $translate->_('feg.message_recipient.fax_id')),
 			self::UPDATED_DATE => new DevblocksSearchField(self::UPDATED_DATE, 'mr', 'updated_date', $translate->_('feg.message_recipient.updated_date')),
 			self::CLOSED_DATE => new DevblocksSearchField(self::CLOSED_DATE, 'mr', 'closed_date', $translate->_('feg.message_recipient.closed_date')),
 		);
@@ -264,6 +270,7 @@ class View_MessageRecipient extends FEG_AbstractView {
 			SearchFields_MessageRecipient::MESSAGE_ID,
 			SearchFields_MessageRecipient::ACCOUNT_ID,
 			SearchFields_MessageRecipient::SEND_STATUS,
+			SearchFields_MessageRecipient::FAX_ID,
 			SearchFields_MessageRecipient::UPDATED_DATE,
 			SearchFields_MessageRecipient::CLOSED_DATE,
 		);
@@ -323,6 +330,7 @@ class View_MessageRecipient extends FEG_AbstractView {
 			case SearchFields_MessageRecipient::RECIPIENT_ID:
 			case SearchFields_MessageRecipient::MESSAGE_ID:
 			case SearchFields_MessageRecipient::ACCOUNT_ID:
+			case SearchFields_MessageRecipient::FAX_ID:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__number.tpl');
 				break;
 //			case 'placeholder_bool':
@@ -393,6 +401,7 @@ class View_MessageRecipient extends FEG_AbstractView {
 			case SearchFields_MessageRecipient::MESSAGE_ID:
 			case SearchFields_MessageRecipient::ACCOUNT_ID:
 			case SearchFields_MessageRecipient::SEND_STATUS:
+			case SearchFields_MessageRecipient::FAX_ID:
 				$criteria = new DevblocksSearchCriteria($field,$oper,$value);
 				break;
 				
@@ -443,6 +452,7 @@ class View_MessageRecipient extends FEG_AbstractView {
 //			$change_fields[DAO_MessageRecipient::MESSAGE_ID] = intval($v);
 //			$change_fields[DAO_MessageRecipient::ACCOUNT_ID] = intval($v);
 //			$change_fields[DAO_MessageRecipient::SEND_STATUS] = intval($v);
+//			$change_fields[DAO_MessageRecipient::FAX_ID] = intval($v);
 //			$change_fields[DAO_MessageRecipient::UPDATED_DATE] = intval($v);
 //			$change_fields[DAO_MessageRecipient::CLOSED_DATE] = intval($v);
 				// [TODO] Implement actions

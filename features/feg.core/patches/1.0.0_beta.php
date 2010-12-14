@@ -257,6 +257,7 @@ if(!isset($tables['message_recipient'])) {
 			recipient_id INT UNSIGNED DEFAULT 0 NOT NULL,
 			account_id INT UNSIGNED DEFAULT 0 NOT NULL,
 			send_status TINYINT UNSIGNED DEFAULT 0 NOT NULL,
+			fax_id BIGINT UNSIGNED DEFAULT 0 NOT NULL,
 			created_date INT UNSIGNED DEFAULT 0 NOT NULL,
 			updated_date INT UNSIGNED DEFAULT 0 NOT NULL,
 			closed_date INT UNSIGNED DEFAULT 0 NOT NULL,
@@ -264,6 +265,7 @@ if(!isset($tables['message_recipient'])) {
 			INDEX message_id (message_id),
 			INDEX recipient_id (recipient_id),
 			INDEX account_id (account_id),
+			INDEX fax_id (account_id),
 			INDEX send_status (send_status)
 		) ENGINE=MyISAM;
 	";

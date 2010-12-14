@@ -678,6 +678,9 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.message_recipient.send_status'>
 			<tuv xml:lang="en_US"><seg>Send Status</seg></tuv>
 		</tu>
+		<tu tuid='feg.message_recipient.fax_id'>
+			<tuv xml:lang="en_US"><seg>FAX/Email ID</seg></tuv>
+		</tu>
 		<tu tuid='feg.message_recipient.updated_date'>
 			<tuv xml:lang="en_US"><seg>Updated Date</seg></tuv>
 		</tu>
