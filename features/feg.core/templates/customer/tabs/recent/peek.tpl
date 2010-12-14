@@ -25,19 +25,21 @@
 {$translate->_('feg.message_recipient.id')|capitalize} {if $id}{$id}{else}{$translate->_('feg.customer_recipient.id.new')|capitalize}{/if}<br>
 <br>
 Account Info:<br>
-<br>
 {$translate->_('feg.customer_account.account_number')|capitalize}: {$account->account_number}<br>
 {$translate->_('feg.customer_account.account_name')|capitalize}: {$account->account_name}<br>
 <br>
 Recipient Info:<br>
-<br>
 {if $recipient->type == '0'}{$translate->_('recipient.type.email')|capitalize}{/if}
 {if $recipient->type == '1'}{$translate->_('recipient.type.fax')|capitalize}{/if}
 {if $recipient->type == '2'}{$translate->_('recipient.type.snpp')|capitalize}{/if}
- - {$recipient->address|escape}<br>
+<br>
+{$recipient->address_to|escape}<br>
+{$recipient->address|escape|capitalize}<br>
+{$recipient->subject|escape}<br>
 <br>
 Message Info:<br>
-<br>
+{$message->created_date|devblocks_date}<br>
+{$message->updated_date|devblocks_date}<br>
 {$translate->_('feg.message.message')|capitalize}:<br>
 {foreach from=$message_lines item=line name=line_id}
 	{$line}<br>
