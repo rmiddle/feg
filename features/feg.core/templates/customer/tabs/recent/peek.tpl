@@ -22,44 +22,20 @@
 	<button type="button" onclick="genericPanel.dialog('close');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete.gif{/devblocks_url}" align="top"> {$translate->_('common.cancel')|capitalize}</button>
 <br>
 
-<table cellpadding="0" cellspacing="2" border="0" width="98%">
-	<tr>
-		<td nowrap="nowrap" align="right">{$translate->_('feg.message_recipient.id')|capitalize}</td>
-		<td>{if $id}{$id}{else}{$translate->_('feg.customer_recipient.id.new')|capitalize}{/if}</td>
-	</tr>
-		<tr>
-		<td colspan="2">Account Info:</td>
-	</tr>
-	<tr>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_number')|capitalize}: </td>
-		<td width="100%">{$account->account_number}</td>
-	</tr>
-	<tr>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_name')|capitalize}: </td>
-		<td width="100%">{$account->account_name}</td>
-	<tr>
-		<td colspan="2">Recipient Info:</td>
-	</tr>
-	</tr>
-		<td width="0%" nowrap="nowrap" align="right">
-			{if $recipient->type == '0'}{$translate->_('recipient.type.email')|capitalize}{/if}
-			{if $recipient->type == '1'}{$translate->_('recipient.type.fax')|capitalize}{/if}
-			{if $recipient->type == '2'}{$translate->_('recipient.type.snpp')|capitalize}{/if}
-		</td>
-		<td width="100%" nowrap="nowrap"> - {$recipient->address|escape}</td>
-	</tr>
-	<tr>
-		<td colspan="2">Message Info:</td>
-	</tr>
-	<tr>
-		<td width="0%" nowrap="nowrap" valign="top" align="right">{$translate->_('feg.message.message')|capitalize}: </td>
-		<td width="100%">
-			{foreach from=$message_lines item=line name=line_id}
-				{$line}<br>
-			{/foreach}
-		</td>
-	</tr>		
-</table>
+{$translate->_('feg.message_recipient.id')|capitalize} {if $id}{$id}{else}{$translate->_('feg.customer_recipient.id.new')|capitalize}{/if}<br>
+Account Info:<br>
+{$translate->_('feg.customer_account.account_number')|capitalize}: {$account->account_number}<br>
+{$translate->_('feg.customer_account.account_name')|capitalize}: {$account->account_name}<br>
+Recipient Info:<br>
+{if $recipient->type == '0'}{$translate->_('recipient.type.email')|capitalize}{/if}
+{if $recipient->type == '1'}{$translate->_('recipient.type.fax')|capitalize}{/if}
+{if $recipient->type == '2'}{$translate->_('recipient.type.snpp')|capitalize}{/if}
+ - {$recipient->address|escape}<br>
+Message Info:<br>
+{$translate->_('feg.message.message')|capitalize}:<br>
+{foreach from=$message_lines item=line name=line_id}
+	{$line}<br>
+{/foreach}
 <br>
 </form>
 </div>
