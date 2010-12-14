@@ -295,11 +295,25 @@ class FegStatsPage extends FegPageExtension {
 	function showFaxQueAction() {
 		$db = DevblocksPlatform::getDatabaseService();
 		
-		echo "Fax(s) Waiting to send: <b>";
+		echo "Fax(s) Waiting to process: <b>";
 		$sql = sprintf("SELECT count(*) as total ".
 				"FROM message_recipient mr ".
 				"inner join customer_recipient cr on mr.recipient_id = cr.id ".
-				"WHERE mr.send_status in (0,3,4,5) ".
+				"WHERE mr.send_status in (0,3,4) ".
+				"AND cr.is_disabled = 0 ".
+				"AND cr.type = 1 "
+				);
+		$rs = $db->Execute($sql);
+		$row = mysql_fetch_assoc($rs);
+		echo $row['total'];
+		echo "</b><br>";
+		mysql_free_result($rs);
+		
+		echo "Fax(s) In Queue: <b>";
+		$sql = sprintf("SELECT count(*) as total ".
+				"FROM message_recipient mr ".
+				"inner join customer_recipient cr on mr.recipient_id = cr.id ".
+				"WHERE mr.send_status in (5) ".
 				"AND cr.is_disabled = 0 ".
 				"AND cr.type = 1 "
 				);
