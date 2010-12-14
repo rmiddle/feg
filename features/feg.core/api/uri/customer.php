@@ -404,14 +404,6 @@ echo "Display Something<br>";
 		$account = DAO_CustomerAccount::get($message_recipient->account_id);
 		$tpl->assign('account', $account);
 
-		// Custom Fields
-		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_MessageRecipient::ID);
-		$tpl->assign('custom_fields', $custom_fields);
-		
-		$custom_field_values = DAO_CustomFieldValue::getValuesBySourceIds(FegCustomFieldSource_MessageRecipient::ID, $id);
-		if(isset($custom_field_values[$id]))
-			$tpl->assign('custom_field_values', $custom_field_values[$id]);
-
 		// Below is the Audit log view only avaible is the audit log plugin is enabled. 
 		if (class_exists('View_MessageAuditLog',true)):
 			$display_view = 1;

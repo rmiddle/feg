@@ -53,9 +53,7 @@
 		<tr class="{$tableRowBg}" id="{$rowIdPrefix}" onmouseover="$(this).addClass('hover');" onmouseout="$(this).removeClass('hover');" onclick="if(getEventTarget(event)=='TD') checkAll('{$rowIdPrefix}');">
 			<td align="center"><input type="checkbox" name="row_id[]" value="{$result.mr_id}"></td>
 		{foreach from=$view->view_columns item=column name=columns}
-			{if substr($column,0,3)=="cf_"}
-				{include file="file:$core_tpl/internal/custom_fields/view/cell_renderer.tpl"}
-			{elseif $column=="mr_account_id"}
+			{if $column=="mr_account_id"}
 				<td>
 					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessageRecipientPeek&id={$result.mr_id}&customer_id={$result.mr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
 					{include file="file:$core_tpl/internal/feg/display_customer_id.tpl"}&nbsp;</a>
