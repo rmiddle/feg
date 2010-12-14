@@ -305,6 +305,41 @@ class FegApplication extends DevblocksApplication {
 		return $str;
 	}
 	    
+	/**
+	 * exec_sendfax
+	 *
+	 * @param string command
+	 * @return array
+	 */
+	function exec_sendfax($command) {
+		$o = exec($command." 2>&1", $sendfax_output, $retval);
+		
+		$debug = DEBUG_MODE;
+		
+		if ($retval == 0) {// success
+			if ($debug) { echo "<p>$command"; }
+			
+			$result = str_replace("(", "", $sendfax_output[0]);
+			$result = str_replace(")", "", $result);
+			//	request id is 80 (group id 80) for host localhost (3 files)
+			//	request id is 81 (group id 81) for host localhost (1 file)
+			$output = split(" ", $result);
+			
+			return array('jobid' => $output[3], 'groupid' => $output[6], 'host' => $output[9], 'numfiles' => $output[10]);
+		}
+		
+		if ($debug) {
+			echo "<p>"; print_r($o); echo "<p>"; print_r($sendfax_output); 	echo "<p>$command";
+		}
+		
+		$forlog = implode("\n", $sendfax_output);
+		
+		avantfaxlog("Exec_sendfax failed: $command");
+		avantfaxlog("Exec_sendfax error: $forlog");
+		
+		return $forlog;
+	}
+
 	static function update() {
 		// Update the platform
 		if(!DevblocksPlatform::update())
