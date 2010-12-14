@@ -32,7 +32,7 @@ Recipient Info:<br>
 {$translate->_('feg.customer_recipient.type')|capitalize}: {if $recipient->type == '0'}{$translate->_('recipient.type.email')|capitalize}{/if}{if $recipient->type == '1'}{$translate->_('recipient.type.fax')|capitalize}{/if}{if $recipient->type == '2'}{$translate->_('recipient.type.snpp')|capitalize}{/if}<br>
 {$translate->_('feg.customer_recipient.address_to')|capitalize}: {$recipient->address_to|capitalize}<br>
 {$translate->_('feg.customer_recipient.address')|capitalize}: {$recipient->address|escape}<br>
-{$translate->_('feg.feg.customer_recipient.subject')|capitalize}: {$recipient->subject}<br>
+{$translate->_('feg.customer_recipient.subject')|capitalize}: {$recipient->subject}<br>
 <br>
 Message Info:<br>
 {$translate->_('feg.message.created_date')|capitalize}: {$message->created_date|devblocks_date}<br>
