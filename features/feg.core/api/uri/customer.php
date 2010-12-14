@@ -401,7 +401,7 @@ class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 		$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
 		$tpl->assign('recipient', $recipient);
 		
-		$account = DAO_CustomerAccount::get($message_recipient->account_id)}
+		$account = DAO_CustomerAccount::get($message_recipient->account_id);
 		$tpl->assign('account', $account);
 
 		// Custom Fields
