@@ -19,7 +19,12 @@
 	// open qfile for sender information
 	if (!file_exists($qfile)) { exit("$qfile doesn't exist\n"); }
 	
-//	avantfaxlog("notify> Executing: $qfile $why $jobtime $nextTry (${_SERVER['argc']})", true);
+	$fp = fopen('/feg/feg_notify.txt', 'a');
+	fwrite($fp, "\n");
+	fwrite($fp, "qfile: ".$qfile."\n");
+	fwrite($fp, "why: ".$why."\n");
+	if($jobtime) fwrite($fp, "jobtime: ".$jobtime."\n");
+	if($nextTry) fwrite($fp, "nexttry: ".$nextTry."\n");
 	
 	// parse "why" argument
 	$faxdone	= false;
@@ -51,13 +56,11 @@
 	$file_data		= file($qfile);
 	$faxfiles		= array();
 	$file_cnt		= 0;
-	$fp = fopen('/feg/feg_notify.txt', 'a');
 	
 	// parse for totpages, external (phone number), mailaddr, groupid, to_location, to_voice, to_person, to_company, regarding, owner (username), and the various fax files
 	foreach ($file_data as $line) {
 		$line		= trim($line);
 		$line_info	= split(":", $line);
-			fwrite($fp, "");
 
 		if ($line_info[0] == "totpages") {			// total pages
 			$totpages = $line_info[1];
