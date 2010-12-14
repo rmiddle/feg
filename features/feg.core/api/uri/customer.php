@@ -389,14 +389,26 @@ class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 		$tpl->assign('customer_id', $customer_id);
 		$tpl->assign('view_id', $view_id);
 
-		$customer_recipient = DAO_CustomerRecipient::get($id);
-		$tpl->assign('customer_recipient', $customer_recipient);
+		$message_recipient = DAO_MessageRecipient::get($id);
+		$tpl->assign('message_recipient', $message_recipient);
 		
+		$message = DAO_Message::get($message_recipient->message_id);
+		$tpl->assign('message', $message);
+
+		$message_lines = explode('\r\n',substr($message->message,1,-1));
+		$tpl->assign('message_lines', $message_lines);
+		
+		$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
+		$tpl->assign('recipient', $recipient);
+		
+		$account = DAO_CustomerAccount::get($message_recipient->account_id)}
+		$tpl->assign('account', $account);
+
 		// Custom Fields
-		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerRecipient::ID);
+		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_MessageRecipient::ID);
 		$tpl->assign('custom_fields', $custom_fields);
 		
-		$custom_field_values = DAO_CustomFieldValue::getValuesBySourceIds(FegCustomFieldSource_CustomerRecipient::ID, $id);
+		$custom_field_values = DAO_CustomFieldValue::getValuesBySourceIds(FegCustomFieldSource_MessageRecipient::ID, $id);
 		if(isset($custom_field_values[$id]))
 			$tpl->assign('custom_field_values', $custom_field_values[$id]);
 
@@ -405,7 +417,7 @@ class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 			$display_view = 1;
 			$defaults = new Feg_AbstractViewModel();
 			$defaults->class_name = 'View_MessageAuditLog';
-			$defaults->id = '_recipient_audit_log';
+			$defaults->id = '_message_recipient_audit_log';
 			$defaults->renderLimit = 10;
 			$defaults->renderSortBy = SearchFields_MessageAuditLog::CHANGE_DATE;
 			$defaults->renderSortAsc = false;
@@ -416,7 +428,7 @@ class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 			$view->name = 'Recipient Audit Log';
 			$view->renderTemplate = 'peek_tab';
 			$view->params = array(
-				SearchFields_MessageAuditLog::RECIPIENT_ID => new DevblocksSearchCriteria(SearchFields_MessageAuditLog::RECIPIENT_ID,DevblocksSearchCriteria::OPER_EQ,$id)
+				SearchFields_MessageAuditLog::MESSAGE_ID => new DevblocksSearchCriteria(SearchFields_MessageAuditLog::MESSAGE_ID,DevblocksSearchCriteria::OPER_EQ,$id)
 			);
 			$view->renderPage = 0;
 			$view->renderLimit = 10;
@@ -424,7 +436,7 @@ class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 				SearchFields_MessageAuditLog::CHANGE_DATE,
 				//SearchFields_MessageAuditLog::ACCOUNT_ID,
 				//SearchFields_MessageAuditLog::RECIPIENT_ID,
-				SearchFields_MessageAuditLog::MESSAGE_ID,
+				//SearchFields_MessageAuditLog::MESSAGE_ID,
 				SearchFields_MessageAuditLog::WORKER_ID,
 				SearchFields_MessageAuditLog::CHANGE_FIELD,
 				SearchFields_MessageAuditLog::CHANGE_VALUE,
@@ -435,7 +447,7 @@ class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 		endif;
 		$tpl->assign('display_view', $display_view);
 
-		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recipient/peek.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recent/peek.tpl');		
 	}
 	
 	function saveMessageRecipientPeekAction() {
