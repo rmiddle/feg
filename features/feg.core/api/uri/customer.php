@@ -381,7 +381,7 @@ class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
 		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
 		$display_view = 0;
-echo "Display Something<br>";		
+	
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
 		
@@ -417,7 +417,7 @@ echo "Display Something<br>";
 
 			$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 
-			$view->name = 'Recipient Audit Log';
+			$view->name = 'Message Recipient Audit Log';
 			$view->renderTemplate = 'peek_tab';
 			$view->params = array(
 				SearchFields_MessageAuditLog::MESSAGE_ID => new DevblocksSearchCriteria(SearchFields_MessageAuditLog::MESSAGE_ID,DevblocksSearchCriteria::OPER_EQ,$id)

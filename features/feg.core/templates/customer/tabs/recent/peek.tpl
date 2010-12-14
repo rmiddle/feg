@@ -16,12 +16,25 @@
 <input type="hidden" name="view_id" value="{$view_id}">
 <input type="hidden" name="do_delete" value="0">
 
+{if $active_worker->hasPriv('core.access.message_recipient.permfail')}
+	<button type="button" onclick="genericPanel.dialog('close');this.form.retry.value='6';genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete2.gif{/devblocks_url}" align="top"> {$translate->_('feg.message_recipient.submit.permfail')}</button>
+{/if}
+	<button type="button" onclick="genericPanel.dialog('close');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete.gif{/devblocks_url}" align="top"> {$translate->_('common.cancel')|capitalize}</button>
+<br>
+
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
 		<td nowrap="nowrap" align="right">ID: </td>
 		<td>{if $id}{$id}{else}{$translate->_('feg.customer_recipient.id.new')|capitalize}{/if}</td>
 	</tr>
 	<tr>
+		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_number')|capitalize}: </td>
+		<td width="100%">{$account->account_number}</td>
+	</tr>
+	<tr>
+		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_name')|capitalize}: </td>
+		<td width="100%">{$account->account_name}</td>
+	</tr>
 		<td width="0%" nowrap="nowrap" align="right">
 			{if $recipient->type == '0'}{$translate->_('recipient.type.email')|capitalize}{/if}
 			{if $recipient->type == '1'}{$translate->_('recipient.type.fax')|capitalize}{/if}
@@ -36,24 +49,8 @@
 				{$line}<br>
 			{/foreach}
 		</td>
-	<tr>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_number')|capitalize}: </td>
-		<td width="100%">{$account->account_number}</td>
-	</tr>
-	<tr>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_name')|capitalize}: </td>
-		<td width="100%">{$account->account_name}</td>
-	</tr>
+	</tr>		
 </table>
-<input type="hidden" name="recipient_export_filter" value="{$rec->export_filter}">
-
-{include file="file:$core_tpl/internal/custom_fields/bulk/form.tpl" bulk=false}
-<br>
-<button type="button" onclick="genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('common.save_changes')}</button>
-{if $active_worker->is_superuser}
-	<button type="button" onclick="if(confirm('Are you sure you want to delete this Customers Recipient?')){literal}{{/literal}this.form.do_delete.value='1';genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');{literal}}{/literal}"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete2.gif{/devblocks_url}" align="top"> {$translate->_('common.delete')|capitalize}</button>
-{/if}
-<button type="button" onclick="genericPanel.dialog('close');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete.gif{/devblocks_url}" align="top"> {$translate->_('common.cancel')|capitalize}</button>
 <br>
 </form>
 </div>
@@ -66,7 +63,7 @@
 
 <script language="JavaScript1.2" type="text/javascript">
 	genericPanel.one('dialogopen',function(event,ui) {
-		genericPanel.dialog('option','title',"Recipient");
+		genericPanel.dialog('option','title',"Message Recipient");
 		$("#peekTabs").tabs();
 		{*$("#ticketPeekContent").css('width','100%');*}
 		$("#ticketPeekTab2").show();
