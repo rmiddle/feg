@@ -29,13 +29,10 @@ Account Info:<br>
 {$translate->_('feg.customer_account.account_name')|capitalize}: {$account->account_name}<br>
 <br>
 Recipient Info:<br>
-{if $recipient->type == '0'}{$translate->_('recipient.type.email')|capitalize}{/if}
-{if $recipient->type == '1'}{$translate->_('recipient.type.fax')|capitalize}{/if}
-{if $recipient->type == '2'}{$translate->_('recipient.type.snpp')|capitalize}{/if}
-<br>
-{$recipient->address_to|escape}<br>
-{$recipient->address|escape|capitalize}<br>
-{$recipient->subject|escape}<br>
+{$translate->_('feg.customer_recipient.type')|capitalize}: {if $recipient->type == '0'}{$translate->_('recipient.type.email')|capitalize}{/if}{if $recipient->type == '1'}{$translate->_('recipient.type.fax')|capitalize}{/if}{if $recipient->type == '2'}{$translate->_('recipient.type.snpp')|capitalize}{/if}<br>
+{$recipient->address_to|capitalize}<br>
+{$recipient->address|escape}<br>
+{$recipient->subject}<br>
 <br>
 Message Info:<br>
 {$message->created_date|devblocks_date}<br>
