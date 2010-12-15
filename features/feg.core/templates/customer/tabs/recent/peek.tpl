@@ -22,8 +22,8 @@
 	<button type="button" onclick="genericPanel.dialog('close');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete.gif{/devblocks_url}" align="top"> {$translate->_('common.cancel')|capitalize}</button>
 <br>
 
-{$translate->_('feg.message_recipient.id')|capitalize} {if $id}{$id}{else}{$translate->_('feg.customer_recipient.id.new')|capitalize}{/if}<br>
-{include file="file:$core_tpl/internal/feg/display_send_status.tpl" message_recipient_id=$result.mr_id}
+{$translate->_('feg.message_recipient.id')|capitalize}: {if $id}{$id}{else}{$translate->_('feg.customer_recipient.id.new')|capitalize}{/if}<br>
+{$translate->_('feg.message_recipient.send_status')|capitalize}:{include file="file:$core_tpl/internal/feg/display_send_status.tpl" message_recipient_id=$result.mr_id}
 <br>
 Account Info:<br>
 {$translate->_('feg.customer_account.account_number')|capitalize}: {$account->account_number}<br>
