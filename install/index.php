@@ -385,6 +385,7 @@ switch($step) {
 				switch ($plugin->id) {
 					case 'devblocks.core':
 					case 'feg.core':
+					case 'feg.auditlog':
 						$plugin->setEnabled(true);
 						break;
 					

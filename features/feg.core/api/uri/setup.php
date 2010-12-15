@@ -178,6 +178,7 @@ class FegSetupPage extends FegPageExtension  {
 		$plugins = DevblocksPlatform::getPluginRegistry();
 		unset($plugins['devblocks.core']);
 		unset($plugins['feg.core']);
+		unset($plugins['feg.auditlog']);
 		$tpl->assign('plugins', $plugins);
 		
 		$license = FegLicense::getInstance();
