@@ -14,6 +14,8 @@ VBoxManage storageattach Win2000 --storagectl "IDE Controller" --port 1 --device
 
 nohup VBoxHeadless -startvm Win2000 &
 
+VBoxManage modifyvm Win2000 --boot1 disk
+
 VBoxManage storageattach Win2000 --storagectl "IDE Controller" --port 1 --device 0 --type dvddrive --medium ~/VBoxGuestAdditions_3.2.12.iso
 
 VBoxManage sharedfolder add Win2000 --name "import" --hostpath "/feg"
