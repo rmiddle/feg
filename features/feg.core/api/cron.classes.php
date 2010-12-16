@@ -238,7 +238,7 @@ class ImportCron extends FegCronExtension {
 			$account_id = $account->id;
 		else
 			$account_id = 0;				
-			
+		
 		if($this->_createMessage($account_id, $db->qstr($data), $json)) {
 			@unlink($full_filename);
 		} else {
@@ -258,6 +258,20 @@ class ImportCron extends FegCronExtension {
 		);
 		$message_id = DAO_Message::create($fields);
 		
+		// Give plugins a chance to note a message is imported.
+	    $eventMgr = DevblocksPlatform::getEventService();
+	    $eventMgr->trigger(
+	        new Model_DevblocksEvent(
+	            'message.create',
+                array(
+                    'account_id' => $account_id,
+                    'message_id' => $message_id,
+                    'message_text' => $data,
+					'json' => $json,
+                )
+            )
+	    );
+		
 		// Now we grab the Customer Recipient and create Message Recipients
 		if($account_id && $status) {
 			$status = $this->_createMessageRecipient($account_id, $message_id, $message_text);
@@ -265,6 +279,7 @@ class ImportCron extends FegCronExtension {
 		// return $status;
 		return FALSE; // ##### Fixme before we go live should be TRUE on success
 	}
+	
 	function _createMessageRecipient($account_id, $message_id, $message_text) {
 		$current_time = time();
 		$status = TRUE; // Return TRUE status unless something sets it to false
@@ -286,6 +301,19 @@ class ImportCron extends FegCronExtension {
 					DAO_MessageRecipient::CLOSED_DATE => 0, // 0 = Not Closed
 				);
 				DAO_MessageRecipient::create($fields);
+				// Give plugins a chance to note a message is imported.
+				$eventMgr = DevblocksPlatform::getEventService();
+				$eventMgr->trigger(
+					new Model_DevblocksEvent(
+						'message.recipient.create',
+						array(
+							'account_id' => $account_id,
+							'recipient_id' => $cr_id,
+							'message_id' => $message_id,
+							'message_text' => $data,
+						)
+					)
+				);
 			}
 		}
 		return $status; 

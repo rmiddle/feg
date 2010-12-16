@@ -129,6 +129,12 @@
 		<event id="cron.export">
 			<name>Export Messages</name>
 		</event>
+		<event id="message.create">
+			<name>Message Creation Event</name>
+		</event>
+		<event id="message.recipient.create">
+			<name>Message Recipient Creation Event</name>
+		</event>
 	</event_points>
 
 	<!-- Permissions -->

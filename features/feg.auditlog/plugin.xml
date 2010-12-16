@@ -48,8 +48,9 @@
 				<!-- Event Listener -->
 				<param key="events">
 					<value>
-						<data key="message.change" />
 						<data key="cron.maint" />
+						<data key="message.create" />
+						<data key="message.recipient.create" />
 					</value>
 				</param>
 			</params>

@@ -61,48 +61,58 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
             	DAO_MessageAuditLog::maint();
             	break;
             	
-            case 'message.change':
-            	@$message_ids = $event->params['message_ids'];
-            	@$changed_fields = $event->params['changed_fields'];
+            case 'message.create':
+            	@$account_id = $event->params['account_id'];
+            	@$message_id = $event->params['message_id'];
+            	@$message_text = $event->params['message_text'];
 
-            	// Filter out any mandatory changes we could care less about
-				unset($changed_fields[DAO_Message::UPDATED_DATE]);
-				unset($changed_fields[DAO_Message::MASK]);
-				unset($changed_fields[DAO_Message::FIRST_MESSAGE_ID]);
-				unset($changed_fields[DAO_Message::LAST_MESSAGE_ID]);
-				unset($changed_fields[DAO_Message::FIRST_WROTE_ID]);
-				unset($changed_fields[DAO_Message::LAST_WROTE_ID]);
-				unset($changed_fields[DAO_Message::INTERESTING_WORDS]);
-            	
-            	@$messages = DAO_message::getmessages($message_ids);
-            	// Is a worker around to invoke this change?  0 = automatic
-            	@$worker_id = (null != ($active_worker = FegApplication::getActiveWorker()) && !empty($active_worker->id))
-            		? $active_worker->id
-            		: 0;
-            	
-            	if(is_array($messages) 
-            		&& !empty($messages) 
-            		&& is_array($changed_fields) 
-            		&& !empty($changed_fields))
-            	foreach($messages as $message_id => $message) { /* @var $message Model_message */
-            		foreach($changed_fields as $changed_field => $changed_value) {
-            			if(is_array($changed_value))
-							$changed_value = implode("\r\n", $changed_value);
-						
-            			// If different
-            			if(isset($message->$changed_field) 
-            				&& 0 != strcmp($message->$changed_field,$changed_value)) {
-		            		$fields = array(
-		            			DAO_MessageAuditLog::MESSAGE_ID => $message_id,
-		            			DAO_MessageAuditLog::WORKER_ID => $worker_id,
-		            			DAO_MessageAuditLog::CHANGE_DATE => time(),
-		            			DAO_MessageAuditLog::CHANGE_FIELD => $changed_field,
-		            			DAO_MessageAuditLog::CHANGE_VALUE => substr($changed_value,0,128),
-		            		);
-			            	$log_id = DAO_MessageAuditLog::create($fields);
-            			}
-            		}
-            	}
+          		$fields = array(
+          			DAO_MessageAuditLog::WORKER_ID => 0,
+          			DAO_MessageAuditLog::ACCOUNT_ID => $account_id,
+          			DAO_MessageAuditLog::RECIPIENT_ID => 0,
+          			DAO_MessageAuditLog::MESSAGE_ID => $message_id,
+           			DAO_MessageAuditLog::CHANGE_DATE => time(),
+           			DAO_MessageAuditLog::CHANGE_FIELD => 'auditlog.cf.message.created',
+           			DAO_MessageAuditLog::CHANGE_VALUE => sprintf("Message created for account %d",$account_id),
+          		);
+            	$log_id = DAO_MessageAuditLog::create($fields);
+            	break;
+				
+            case 'message.recipient.create':
+            	@$account_id = $event->params['account_id'];
+            	@$recipient_id = $event->params['recipient_id'];
+            	@$message_id = $event->params['message_id'];
+            	@$message_text = $event->params['message_text'];
+				
+				$cr_id = array_shift(DAO_CustomerRecipient::getWhere(sprintf("%s = %d",
+					DAO_CustomerRecipient::RECIPIENT_ID,
+					$recipient_id
+				)));
+				switch($cr_id->type) {
+					case 0: // Email
+						$change_value = sprintf("Email Scheduled for %s \<%s\>",$address_to, $address);
+						break;
+					case 1: // Fax
+						$change_value = sprintf("Fax Scheduled for %s \<%s\>",$address_to, $address);
+						break;
+					case 2: // SNPP
+						$change_value = sprintf("Page Scheduled for %s \<%s\>",$address_to, $address);
+						break;
+					default:
+						$change_value = sprintf("Unknown Type %d",$cr_id->type);
+						break;
+				}
+
+          		$fields = array(
+          			DAO_MessageAuditLog::WORKER_ID => 0,
+          			DAO_MessageAuditLog::ACCOUNT_ID => $account_id,
+          			DAO_MessageAuditLog::RECIPIENT_ID => $recipient_id,
+          			DAO_MessageAuditLog::MESSAGE_ID => $message_id,
+           			DAO_MessageAuditLog::CHANGE_DATE => time(),
+           			DAO_MessageAuditLog::CHANGE_FIELD => 'auditlog.cf.message.recipient.created',
+           			DAO_MessageAuditLog::CHANGE_VALUE => $change_value,
+          		);
+            	$log_id = DAO_MessageAuditLog::create($fields);
             	break;
         }
     }

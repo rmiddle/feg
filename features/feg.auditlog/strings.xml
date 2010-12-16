@@ -40,8 +40,11 @@
 		
 		<!-- Change Field Strings -->
 
-		<tu tuid='auditlog.cf.message_imported'>
-			<tuv xml:lang="en_US"><seg>Message Imported</seg></tuv>
+		<tu tuid='auditlog.cf.message.created'>
+			<tuv xml:lang="en_US"><seg>Message Created</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cf.message.recipient.created'>
+			<tuv xml:lang="en_US"><seg>Message Recipient Created</seg></tuv>
 		</tu>
 
 	</body>
