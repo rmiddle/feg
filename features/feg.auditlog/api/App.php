@@ -94,7 +94,8 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
 							DAO_MessageAuditLog::CHANGE_FIELD => "account.".$key,
 							DAO_MessageAuditLog::CHANGE_VALUE => substr($value,0,128),
 	            		);
-						$log_id = DAO_MessageAuditLog::create($fields);
+						print_r($fields);
+						//$log_id = DAO_MessageAuditLog::create($fields);
 	            	}
 				}
            		break;
@@ -130,7 +131,8 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
 							DAO_MessageAuditLog::CHANGE_FIELD => "recipient.".$key,
 							DAO_MessageAuditLog::CHANGE_VALUE => substr($value,0,128),
 	            		);
-						$log_id = DAO_MessageAuditLog::create($fields);
+						print_r($fields);
+						//$log_id = DAO_MessageAuditLog::create($fields);
 	            	}
 				}
            		break;
