@@ -50,7 +50,7 @@ class DAO_CustomerRecipient extends Feg_ORMHelper {
 		 * Make a diff for the requested objects in batches
 		 */
  		foreach($ids as $id) {
-	    	$objects = DAO_CustomerAccount ::get($id);
+	    	$objects = DAO_CustomerRecipient::get($id);
 	    	$object_changes = array();
 	    	
     		$pre_fields = get_object_vars($objects);
