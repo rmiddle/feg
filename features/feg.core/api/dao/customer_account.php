@@ -48,26 +48,23 @@ class DAO_CustomerAccount extends Feg_ORMHelper {
 	    	$objects = DAO_CustomerAccount ::get($id);
 	    	$object_changes = array();
 	    	
-	    	foreach($objects as $object_id => $object) {
-				print_r($object);
-	    		$pre_fields = get_object_vars($object);
-	    		$changes = array();
+			$pre_fields = get_object_vars($objects);
+    		$changes = array();
 	    		
-	    		foreach($fields as $field_key => $field_val) {
-	    			// Make sure the value of the field actually changed
-	    			if($pre_fields[$field_key] != $field_val) {
-	    				$changes[$field_key] = array('from' => $pre_fields[$field_key], 'to' => $field_val);
-	    			}
-	    		}
-	    		
-	    		// If we had changes
-	    		if(!empty($changes)) {
-	    			$object_changes[$object_id] = array(
-	    				'model' => array_merge($pre_fields, $fields),
-	    				'changes' => $changes,
-	    			);
-	    		}
-	    	}
+    		foreach($fields as $field_key => $field_val) {
+    			// Make sure the value of the field actually changed
+    			if($pre_fields[$field_key] != $field_val) {
+    				$changes[$field_key] = array('from' => $pre_fields[$field_key], 'to' => $field_val);
+    			}
+    		}
+    		
+    		// If we had changes
+    		if(!empty($changes)) {
+    			$object_changes[$id] = array(
+    				'model' => array_merge($pre_fields, $fields),
+    				'changes' => $changes,
+    			);
+    		}
 	    	
 	    	/*
 	    	 * Make the changes
