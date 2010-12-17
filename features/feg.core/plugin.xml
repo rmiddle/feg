@@ -141,6 +141,9 @@
 		<event id="message.recipient.create">
 			<name>Message Recipient Creation Event</name>
 		</event>
+		<event id="message.recipient.status">
+			<name>Message Recipient Status Update</name>
+		</event>
 	</event_points>
 
 	<!-- Permissions -->

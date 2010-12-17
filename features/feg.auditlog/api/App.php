@@ -56,6 +56,8 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
      * @param Model_DevblocksEvent $event
      */
     function handleEvent(Model_DevblocksEvent $event) {
+		$translate = DevblocksPlatform::getTranslationService();
+		
         switch($event->id) {
             case 'cron.maint':
             	DAO_MessageAuditLog::maint();
@@ -183,6 +185,56 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
            			DAO_MessageAuditLog::CHANGE_DATE => time(),
            			DAO_MessageAuditLog::CHANGE_FIELD => 'auditlog.cf.message.recipient.created',
            			DAO_MessageAuditLog::CHANGE_VALUE => $change_value,
+          		);
+            	$log_id = DAO_MessageAuditLog::create($fields);
+            	break;
+				
+            case 'message.recipient.status':
+            	@$id = $event->params['id'];
+            	@$account_id = $event->params['account_id'];
+            	@$recipient_id = $event->params['recipient_id'];
+            	@$message_id = $event->params['message_id'];
+            	@$send_status = $event->params['send_status'];
+				
+            	// Is a worker around to invoke this change?  0 = automatic
+            	@$worker_id = (null != ($active_worker = FegApplication::getActiveWorker()) && !empty($active_worker->id))
+            		? $active_worker->id
+            		: 0;
+				
+		        switch($send_status) {
+					case 0:
+						$status_text = $translate->_('feg.core.send_status.new');
+						break;
+					case 1:
+						$status_text = $translate->_('feg.core.send_status.fail');
+						break;
+					case 2:
+						$status_text = $translate->_('feg.core.send_status.successful');
+						break;
+					case 3:
+						$status_text = $translate->_('feg.core.send_status.retry');
+						break;
+					case 4:
+						$status_text = $translate->_('feg.core.send_status.resend');
+						break;
+					case 5:
+						$status_text = $translate->_('feg.core.send_status.in_queue');
+						break;
+					case 6:
+						$status_text = $translate->_('feg.core.send_status.perm_fail');
+						break;
+					default:
+						$status_text = $translate->_('feg.core.send_status.unknown');
+						break;
+				}
+          		$fields = array(
+          			DAO_MessageAuditLog::WORKER_ID => $worker_id,
+          			DAO_MessageAuditLog::ACCOUNT_ID => $account_id,
+          			DAO_MessageAuditLog::RECIPIENT_ID => $recipient_id,
+          			DAO_MessageAuditLog::MESSAGE_ID => $message_id,
+           			DAO_MessageAuditLog::CHANGE_DATE => time(),
+           			DAO_MessageAuditLog::CHANGE_FIELD => 'auditlog.cf.message.recipient.status',
+           			DAO_MessageAuditLog::CHANGE_VALUE => $status_text,
           		);
             	$log_id = DAO_MessageAuditLog::create($fields);
             	break;

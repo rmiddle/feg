@@ -46,6 +46,9 @@
 		<tu tuid='auditlog.cf.message.recipient.created'>
 			<tuv xml:lang="en_US"><seg>Message Recipient Created</seg></tuv>
 		</tu>
+		<tu tuid='auditlog.cf.message.recipient.status'>
+			<tuv xml:lang="en_US"><seg>Message Recipient Status Changed</seg></tuv>
+		</tu>
 
 	</body>
 </tmx>

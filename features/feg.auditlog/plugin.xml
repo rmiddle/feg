@@ -53,6 +53,7 @@
 						<data key="dao.customer.recipient.update" />
 						<data key="message.create" />
 						<data key="message.recipient.create" />
+						<data key="message.recipient.status" />
 					</value>
 				</param>
 			</params>
