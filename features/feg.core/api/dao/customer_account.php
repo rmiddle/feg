@@ -71,20 +71,20 @@ class DAO_CustomerAccount extends Feg_ORMHelper {
 	    	 */
 			parent::_update($ids, 'customer_account', $fields);
 		
-			/*
-			 * Trigger an event about the changes
-			 */
-			if(!empty($object_changes)) {
-				$eventMgr = DevblocksPlatform::getEventService();
-				$eventMgr->trigger(
-					new Model_DevblocksEvent(
-						'dao.customer.account.update',
-						array(
-							'objects' => $object_changes,
-						)
+		}
+		/*
+		 * Trigger an event about the changes
+		 */
+		if(!empty($object_changes)) {
+			$eventMgr = DevblocksPlatform::getEventService();
+			$eventMgr->trigger(
+				new Model_DevblocksEvent(
+					'dao.customer.account.update',
+					array(
+						'objects' => $object_changes,
 					)
-				);
-			}
+				)
+			);
 		}
 	}
 	
