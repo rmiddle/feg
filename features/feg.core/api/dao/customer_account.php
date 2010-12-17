@@ -49,6 +49,7 @@ class DAO_CustomerAccount extends Feg_ORMHelper {
 	    	$object_changes = array();
 	    	
 	    	foreach($objects as $object_id => $object) {
+				print_r($object);
 	    		$pre_fields = get_object_vars($object);
 	    		$changes = array();
 	    		
