@@ -49,6 +49,8 @@
 				<param key="events">
 					<value>
 						<data key="cron.maint" />
+						<data key="dao.customer.account.update" />
+						<data key="dao.customer.recipient.update" />
 						<data key="message.create" />
 						<data key="message.recipient.create" />
 					</value>

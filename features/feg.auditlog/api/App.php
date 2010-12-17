@@ -61,6 +61,78 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
             	DAO_MessageAuditLog::maint();
             	break;
             	
+            case 'dao.customer.account.update':
+            	@$objects = $event->params['objects'];
+            	
+            	foreach($objects as $object_id => $object) {
+            		$model = $object['model'];
+            		$changes = $object['changes'];
+            		
+	            	// Filter out any changes we could care less about
+					//unset($changes[DAO_CustomerAccount::IS_DISABLED]);
+            		
+	            	// Is a worker around to invoke this change?  0 = automatic
+	            	@$worker_id = (null != ($active_worker = FegApplication::getActiveWorker()) && !empty($active_worker->id))
+	            		? $active_worker->id
+	            		: 0;
+	            		
+	            	if(!empty($changes))
+	            	foreach($changes as $key => $change) {
+	            		$value = $change['to'];
+	            		
+            			if(is_array($value))
+							$value = implode("\r\n", $value);
+						
+	            		$fields = array(
+							DAO_MessageAuditLog::WORKER_ID => $worker_id,
+							DAO_MessageAuditLog::ACCOUNT_ID => $object_id,
+							DAO_MessageAuditLog::RECIPIENT_ID => 0,
+							DAO_MessageAuditLog::MESSAGE_ID => 0,
+							DAO_MessageAuditLog::CHANGE_DATE => time(),
+							DAO_MessageAuditLog::CHANGE_FIELD => "account".$key,
+							DAO_MessageAuditLog::CHANGE_VALUE => substr($value,0,128),
+	            		);
+						$log_id = DAO_MessageAuditLog::create($fields);
+	            	}
+				}
+           		break;
+				
+            case 'dao.customer.recipient.update':
+            	@$objects = $event->params['objects'];
+            	
+            	foreach($objects as $object_id => $object) {
+            		$model = $object['model'];
+            		$changes = $object['changes'];
+            		
+	            	// Filter out any changes we could care less about
+					//unset($changes[DAO_CustomerAccount::IS_DISABLED]);
+            		
+	            	// Is a worker around to invoke this change?  0 = automatic
+	            	@$worker_id = (null != ($active_worker = FegApplication::getActiveWorker()) && !empty($active_worker->id))
+	            		? $active_worker->id
+	            		: 0;
+	            		
+	            	if(!empty($changes))
+	            	foreach($changes as $key => $change) {
+	            		$value = $change['to'];
+	            		
+            			if(is_array($value))
+							$value = implode("\r\n", $value);
+						
+	            		$fields = array(
+							DAO_MessageAuditLog::WORKER_ID => $worker_id,
+							DAO_MessageAuditLog::ACCOUNT_ID => $model['account_id'],
+							DAO_MessageAuditLog::RECIPIENT_ID => $object_id,
+							DAO_MessageAuditLog::MESSAGE_ID => 0,
+							DAO_MessageAuditLog::CHANGE_DATE => time(),
+							DAO_MessageAuditLog::CHANGE_FIELD => "recipient".$key,
+							DAO_MessageAuditLog::CHANGE_VALUE => substr($value,0,128),
+	            		);
+						$log_id = DAO_MessageAuditLog::create($fields);
+	            	}
+				}
+           		break;
+				
             case 'message.create':
             	@$account_id = $event->params['account_id'];
             	@$message_id = $event->params['message_id'];
