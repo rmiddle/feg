@@ -487,13 +487,13 @@ For example: *receipt*</seg></tuv>
 			<tuv xml:lang="en_US"><seg>Invalid Customer</seg></tuv>
 		</tu>
 		<tu tuid='customer.display.undefined_recipient'>
-			<tuv xml:lang="en_US"><seg>Undefined Recipient</seg></tuv>
+			<tuv xml:lang="en_US"><seg>Undefined Recipient ID</seg></tuv>
 		</tu>
 		<tu tuid='customer.display.undefined_message'>
-			<tuv xml:lang="en_US"><seg>Undefined Message</seg></tuv>
+			<tuv xml:lang="en_US"><seg>Undefined Message ID</seg></tuv>
 		</tu>
 		<tu tuid='customer.display.undefined_message_recipient'>
-			<tuv xml:lang="en_US"><seg>Undefined Message Recipient</seg></tuv>
+			<tuv xml:lang="en_US"><seg>Undefined Message Recipient ID</seg></tuv>
 		</tu>
 		<tu tuid='feg.customer.tab.property.title'>
 			<tuv xml:lang="en_US"><seg>Property</seg></tuv>

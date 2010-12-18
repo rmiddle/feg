@@ -60,11 +60,13 @@
 				{/if}
 				</td>
 			{elseif $column=="l_recipient_id"}
-				{if $result.l_recipient_id==0}
-					{$translate->_('customer.display.undefined_recipient')|capitalize}
-				{else}
-					<td><a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.l_recipient_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{include file="file:$core_tpl/internal/feg/display_recipient_id.tpl"}</a>&nbsp;</td>
-				{/if}
+				<td>
+					{if $result.l_recipient_id==0}
+						{$translate->_('customer.display.undefined_recipient')|capitalize}
+					{else}
+						<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.l_recipient_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{include file="file:$core_tpl/internal/feg/display_recipient_id.tpl"}</a>&nbsp;
+					{/if}
+				</td>
 			{elseif $column=="l_message_id"}
 				<td>
 					{if $result.l_message_id==0}
