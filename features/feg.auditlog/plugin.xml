@@ -82,7 +82,7 @@
 				<name>FegAuditLogPage</name>               
 			</class>                                          
 			<params>                                          
-				<param key="uri" value="page_audit_log" />       
+				<param key="uri" value="pageauditlog" />       
 				<param key="menutitle" value="auditlog.menu.tab.log" />                                                                               
 			</params>                                                
 		</extension>
