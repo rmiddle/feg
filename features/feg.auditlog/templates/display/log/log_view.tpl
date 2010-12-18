@@ -50,7 +50,9 @@
 			{if $column=="l_id"}
 				<td>{$result.l_id}&nbsp;</td>
 			{elseif $column=="l_account_id"}
-				<td>{include file="file:$core_tpl/internal/feg/display_customer_id.tpl"}&nbsp;</td>
+				<td><a href="{devblocks_url}{/devblocks_url}customer/{$result.ca_id}/property">
+					{include file="file:$core_tpl/internal/feg/display_customer_id.tpl"}&nbsp;
+				</a></td>
 			{elseif $column=="l_recipient_id"}
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.l_recipient_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
 			{elseif $column=="l_message_id"}
