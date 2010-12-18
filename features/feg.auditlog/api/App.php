@@ -272,7 +272,8 @@ class FegAuditLogPage extends FegPageExtension {
  		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
 		$tpl->assign('path', $tpl_path);
 		$tpl->assign('core_tplpath', $core_tplpath);
-echo "Output something<br>";		
+echo "Output something<br>";
+/*
 		$tpl->assign('view_id', $view_id);
 		
 		$defaults = new Feg_AbstractViewModel();
@@ -311,6 +312,7 @@ echo "Output something<br>";
 		$tpl->assign('view_searchable_fields', View_MessageAuditLog::getSearchFields());
 				
 		$tpl->display('file:' . $this->_TPL_PATH . 'display/index.tpl');		
+*/
 	}
 	
 };
