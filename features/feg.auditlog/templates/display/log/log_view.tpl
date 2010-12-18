@@ -63,10 +63,10 @@
 				</td>
 			{elseif $column=="l_message_recipient_id"}
 				<td>
-					{if $result.l_message_id==0}
+					{if $result.l_message_recipient_id==0}
 						0
 					{else}
-						<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessageRecipientPeek&id={$result.l_message_id}&customer_id={$result.l_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.l_message_id}&nbsp;</a>
+						<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessageRecipientPeek&id={$result.l_message_recipient_id}&customer_id={$result.l_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.l_message_recipient_id}&nbsp;</a>
 					{/if}				
 				</td>
 			{elseif $column=="l_worker_id"}
