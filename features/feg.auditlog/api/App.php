@@ -244,8 +244,8 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
 
 class FegAuditLogPage extends FegPageExtension {
 	private $_TPL_PATH = '';
+	const ID = 'zz.auditlog.page';
 
-	const VIEW_STATICS_PAGE = 'statics_page';
 	
 	function __construct($manifest) {
 		$this->_TPL_PATH = dirname(dirname(dirname(__FILE__))) . '/templates/';
@@ -268,19 +268,20 @@ class FegAuditLogPage extends FegPageExtension {
 	}
 	
 	function render() {
-		$active_worker = FegApplication::getActiveWorker();
-		$visit = FegApplication::getVisit();
-		
 		$tpl = DevblocksPlatform::getTemplateService();
-		$tpl->assign('path', $this->_TPL_PATH);
+		$translate = DevblocksPlatform::getTranslationService();
+		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
+		$tpl->assign('path', $tpl_path);
+		$tpl->assign('core_tplpath', $core_tplpath);
 		
-		$response = DevblocksPlatform::getHttpResponse();
-		$tpl->assign('request_path', implode('/',$response->path));
+		$tpl->assign('view_id', $view_id);
+		
+		$title = $translate->_('auditlog.menu.tab.log');
 		
 		$defaults = new Feg_AbstractViewModel();
 		$defaults->class_name = 'View_MessageAuditLog';
 		$defaults->id = '_audit_log';
-		$defaults->renderLimit = 15;
+		$defaults->renderLimit = 25;
 		
 		$defaults->view_columns = array(
 			SearchFields_MessageAuditLog::CHANGE_DATE,
@@ -299,27 +300,22 @@ class FegAuditLogPage extends FegPageExtension {
 
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 
-		$view->name = 'Audit Log';
+		$view->name = 'Customer Audit Log';
 		$view->renderTemplate = 'default';
 		$view->params = array(
-//			SearchFields_MessageAuditLog::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_MessageAuditLog::ACCOUNT_ID,DevblocksSearchCriteria::OPER_EQ,$customer_id)
+			//SearchFields_MessageAuditLog::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_MessageAuditLog::ACCOUNT_ID,DevblocksSearchCriteria::OPER_EQ,$customer_id)
 		);
 		$view->renderPage = 0;
 
 		Feg_AbstractViewLoader::setView($view->id,$view);
 		
 		$tpl->assign('view', $view);
-		
-		// ====== Who's Online
-		$whos_online = DAO_Worker::getAllOnline();
-		if(!empty($whos_online)) {
-			$tpl->assign('whos_online', $whos_online);
-			$tpl->assign('whos_online_count', count($whos_online));
-		}
-		
-		$tpl->display('file:' . $this->_TPL_PATH . '/display/index.tpl');
+		$tpl->assign('view_fields', View_CustomerAccount::getFields());
+		$tpl->assign('view_searchable_fields', View_CustomerAccount::getSearchFields());
+				
+		$tpl->display('file:' . $this->_TPL_PATH . 'account/accounts.tpl');		
 	}
-		
+	
 };
 
 class CustomerAuditLogTab extends Extension_CustomerTab {
