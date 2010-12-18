@@ -340,6 +340,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
                 )
             )
 	    );
+		echo "Send Status: Updated";
 	}	
 };
 
