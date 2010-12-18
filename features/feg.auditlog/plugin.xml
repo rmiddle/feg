@@ -74,5 +74,18 @@
 			</params>
 		</extension>
 	
+		<extension point="feg.page">
+			<id>z.auditlog.page</id>
+			<name>Audit Log Page</name>    
+			<class>                   
+				<file>api/App.php</file>
+				<name>FegAuditLogPage</name>               
+			</class>                                          
+			<params>                                          
+				<param key="uri" value="page_audit_log" />       
+				<param key="menutitle" value="auditlog.display.tab.log" />                                                                               
+			</params>                                                
+		</extension>
+		
 	</extensions>
 </plugin>

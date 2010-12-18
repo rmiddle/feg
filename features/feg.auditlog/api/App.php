@@ -242,6 +242,86 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
     }
 };
 
+class FegAuditLogPage extends FegPageExtension {
+	private $_TPL_PATH = '';
+
+	const VIEW_STATICS_PAGE = 'statics_page';
+	
+	function __construct($manifest) {
+		$this->_TPL_PATH = dirname(dirname(dirname(__FILE__))) . '/templates/';
+		parent::__construct($manifest);
+	}
+		
+	function isVisible() {
+		// check login
+		$visit = FegApplication::getVisit();
+		
+		if(empty($visit)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	function getActivity() {
+		return new Model_Activity('activity.auditlog');
+	}
+	
+	function render() {
+		$active_worker = FegApplication::getActiveWorker();
+		$visit = FegApplication::getVisit();
+		
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('path', $this->_TPL_PATH);
+
+		$response = DevblocksPlatform::getHttpResponse();
+		$tpl->assign('request_path', implode('/',$response->path));
+		
+		$defaults = new Feg_AbstractViewModel();
+		$defaults->class_name = 'View_MessageAuditLog';
+		$defaults->id = '_audit_log';
+		$defaults->renderLimit = 15;
+		
+		$defaults->view_columns = array(
+			SearchFields_MessageAuditLog::CHANGE_DATE,
+		    SearchFields_MessageAuditLog::ACCOUNT_ID,
+		    SearchFields_MessageAuditLog::RECIPIENT_ID,
+		    SearchFields_MessageAuditLog::MESSAGE_ID,
+			SearchFields_MessageAuditLog::WORKER_ID,
+			SearchFields_MessageAuditLog::CHANGE_FIELD,
+			SearchFields_MessageAuditLog::CHANGE_VALUE,
+		);
+		
+		$defaults->renderSortBy = SearchFields_MessageAuditLog::CHANGE_DATE;
+		$defaults->renderSortAsc = false;
+		$defaults->params = array();
+		$defaults->renderPage = 0;
+
+		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
+
+		$view->name = 'Audit Log';
+		$view->renderTemplate = 'default';
+		$view->params = array(
+//			SearchFields_MessageAuditLog::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_MessageAuditLog::ACCOUNT_ID,DevblocksSearchCriteria::OPER_EQ,$customer_id)
+		);
+		$view->renderPage = 0;
+
+		Feg_AbstractViewLoader::setView($view->id,$view);
+		
+		$tpl->assign('view', $view);
+		
+		// ====== Who's Online
+		$whos_online = DAO_Worker::getAllOnline();
+		if(!empty($whos_online)) {
+			$tpl->assign('whos_online', $whos_online);
+			$tpl->assign('whos_online_count', count($whos_online));
+		}
+		
+		$tpl->display('file:' . $this->tpl_path . '/display/index.tpl');
+	}
+		
+};
+
 class CustomerAuditLogTab extends Extension_CustomerTab {
 	private $tpl_path = null; 
 	
@@ -287,7 +367,6 @@ class CustomerAuditLogTab extends Extension_CustomerTab {
 		$view->params = array(
 			SearchFields_MessageAuditLog::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_MessageAuditLog::ACCOUNT_ID,DevblocksSearchCriteria::OPER_EQ,$customer_id)
 		);
-		$view->renderPage = 0;
 		$view->renderPage = 0;
 
 		Feg_AbstractViewLoader::setView($view->id,$view);

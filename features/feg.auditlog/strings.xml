@@ -13,6 +13,9 @@
 		<tu tuid='auditlog.display.tab.log'>
 			<tuv xml:lang="en_US"><seg>Audit Log</seg></tuv>
 		</tu>
+		<tu tuid='activity.auditlog'>
+			<tuv xml:lang="en_US"><seg>%s is displaying audit log</seg></tuv>
+		</tu>
 		
 		<!-- Database Strings -->
 
