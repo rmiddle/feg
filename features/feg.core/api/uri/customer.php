@@ -319,8 +319,9 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 	
 	function setMessageRecipientStatusAction() {
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
-		@$status = DevblocksPlatform::importGPC($_REQUEST['status'],'integer',0);
 		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
+		@$status = DevblocksPlatform::importGPC($_REQUEST['status'],'integer',0);
+		@$goto_recent = DevblocksPlatform::importGPC($_REQUEST['status'],'integer',0);
 		
 		$objects = DAO_MessageRecipient::get($id);
 		
@@ -341,7 +342,9 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
                 )
             )
 	    );
-		//echo "Send Status: Updated";
+		if ($goto_recent) {
+			DevblocksPlatform::redirect(new DevblocksHttpResponse(array('customer', $customer_id,'recent_messages')));
+		}
 	}	
 };
 
