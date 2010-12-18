@@ -313,7 +313,7 @@ class FegAuditLogPage extends FegPageExtension {
 		$tpl->assign('view_fields', View_CustomerAccount::getFields());
 		$tpl->assign('view_searchable_fields', View_CustomerAccount::getSearchFields());
 				
-		$tpl->display('file:' . $this->_TPL_PATH . 'account/accounts.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'display/index.tpl');		
 	}
 	
 };
