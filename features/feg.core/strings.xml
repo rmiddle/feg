@@ -694,6 +694,30 @@ For example: *receipt*</seg></tuv>
 			<tuv xml:lang="en_US"><seg>Permentaly Fail</seg></tuv>
 		</tu>
 		
+		<!-- Send Status Translations -->
+		
+		<tu tuid='feg.message_recipient.status_0'>
+			<tuv xml:lang="en_US"><seg>New</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_1'>
+			<tuv xml:lang="en_US"><seg>Fail</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_2'>
+			<tuv xml:lang="en_US"><seg>Successful</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_3'>
+			<tuv xml:lang="en_US"><seg>Retry</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_4'>
+			<tuv xml:lang="en_US"><seg>Resending</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_5'>
+			<tuv xml:lang="en_US"><seg>In Queue</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_6'>
+			<tuv xml:lang="en_US"><seg>Permently Failed</seg></tuv>
+		</tu>
+		
 		<!-- Source Imports Translations -->
 		
 		<tu tuid='feg.import_source.title'>

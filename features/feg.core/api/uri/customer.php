@@ -318,6 +318,8 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 	}
 	
 	function setMessageRecipientStatusAction() {
+		$translate = DevblocksPlatform::getTranslationService();
+
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
 		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
 		@$status = DevblocksPlatform::importGPC($_REQUEST['status'],'integer',0);
@@ -342,9 +344,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
                 )
             )
 	    );
-		if ($goto_recent == 1) {
-			DevblocksPlatform::redirect(new DevblocksHttpResponse(array('customer', $fields['account_id'],'recent_messages')));
-		}
+		echo $translate->_('feg.message_recipient.status_'.$status);
 	}	
 };
 
