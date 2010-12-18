@@ -31,6 +31,9 @@
 		<tu tuid='auditlog_entry.message_id'>
 			<tuv xml:lang="en_US"><seg>Message ID</seg></tuv>
 		</tu>
+		<tu tuid='auditlog_entry.message_recipient_id'>
+			<tuv xml:lang="en_US"><seg>Message Recipient ID</seg></tuv>
+		</tu>
 		<tu tuid='auditlog_entry.worker_id'>
 			<tuv xml:lang="en_US"><seg>Worker ID</seg></tuv>
 		</tu>
