@@ -273,7 +273,7 @@ class FegAuditLogPage extends FegPageExtension {
 		
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
-
+		
 		$response = DevblocksPlatform::getHttpResponse();
 		$tpl->assign('request_path', implode('/',$response->path));
 		
@@ -317,7 +317,7 @@ class FegAuditLogPage extends FegPageExtension {
 			$tpl->assign('whos_online_count', count($whos_online));
 		}
 		
-		$tpl->display('file:' . $this->tpl_path . '/display/index.tpl');
+		$tpl->display('file:' . $this->_TPL_PATH . '/display/index.tpl');
 	}
 		
 };
