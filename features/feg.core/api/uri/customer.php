@@ -343,7 +343,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
             )
 	    );
 		if ($goto_recent == 1) {
-			DevblocksPlatform::redirect(new DevblocksHttpResponse(array('customer', $customer_id,'recent_messages')));
+			DevblocksPlatform::redirect(new DevblocksHttpResponse(array('customer', $fields['account_id'],'recent_messages')));
 		}
 	}	
 };
