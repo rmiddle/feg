@@ -344,7 +344,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
                 )
             )
 	    );
-		echo $translate->_('feg.message_recipient.status_'.$status);
+		echo $translate->_('feg.message_recipient.status_'.$fields['send_status']);
 	}	
 };
 
