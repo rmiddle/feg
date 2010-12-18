@@ -52,25 +52,25 @@
 
 		<!-- Customer Account Strings -->
 
-		<tu tuid='auditlog.ca.account_name>
+		<tu tuid='auditlog.ca.account_name'>
 			<tuv xml:lang="en_US"><seg>Customer Account Name</seg></tuv>
 		</tu>
-		<tu tuid='auditlog.ca.account_number>
+		<tu tuid='auditlog.ca.account_number'>
 			<tuv xml:lang="en_US"><seg>Customer Account Number</seg></tuv>
 		</tu>
 
 		<!-- Customer Recipient Strings -->
 
-		<tu tuid='auditlog.cr.account_id>
+		<tu tuid='auditlog.cr.account_id'>
 			<tuv xml:lang="en_US"><seg>Customer Recipient Number</seg></tuv>
 		</tu>
-		<tu tuid='auditlog.cr.address_to>
+		<tu tuid='auditlog.cr.address_to'>
 			<tuv xml:lang="en_US"><seg>Customer Recipient Address To</seg></tuv>
 		</tu>
-		<tu tuid='auditlog.cr.address>
+		<tu tuid='auditlog.cr.address'>
 			<tuv xml:lang="en_US"><seg>Customer Recipient Address</seg></tuv>
 		</tu>
-		<tu tuid='auditlog.cr.subject>
+		<tu tuid='auditlog.cr.subject'>
 			<tuv xml:lang="en_US"><seg>Customer Recipient Subject</seg></tuv>
 		</tu>
 
