@@ -454,47 +454,6 @@ class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recent/peek.tpl');		
 	}
-	
-	function saveMessageRecipientPeekAction() {
-		$translate = DevblocksPlatform::getTranslationService();
-		
-		@$id = DevblocksPlatform::importGPC($_POST['id'],'integer');
-		@$view_id = DevblocksPlatform::importGPC($_POST['view_id'],'string');
-		@$delete = DevblocksPlatform::importGPC($_POST['do_delete'],'integer',0);
-
-		@$disabled = DevblocksPlatform::importGPC($_POST['recipient_is_disabled'],'integer',0);
-		@$recipient_type = DevblocksPlatform::importGPC($_POST['recipient_type'],'integer',0);
-		@$recipient_account_id = DevblocksPlatform::importGPC($_POST['recipient_account_id'],'integer',0);
-		@$recipient_address_to = DevblocksPlatform::importGPC($_POST['recipient_address_to'],'string',"");
-		@$recipient_address = DevblocksPlatform::importGPC($_POST['recipient_address'],'string',"");
-		@$recipient_subject = DevblocksPlatform::importGPC($_POST['recipient_subject'],'string',"");
-		@$recipient_export_filter = DevblocksPlatform::importGPC($_POST['recipient_export_filter'],'integer',0);
-		
-		$fields = array(
-			DAO_CustomerRecipient::ACCOUNT_ID => $recipient_account_id,
-			DAO_CustomerRecipient::EXPORT_FILTER => $recipient_export_filter,
-			DAO_CustomerRecipient::IS_DISABLED => $disabled,
-			DAO_CustomerRecipient::TYPE => $recipient_type,
-			DAO_CustomerRecipient::ADDRESS_TO => $recipient_address_to,
-			DAO_CustomerRecipient::ADDRESS => $recipient_address,
-			DAO_CustomerRecipient::SUBJECT => $recipient_subject,
-		);
-		
-		if($id == 0) {
-			// Create Customer Recipients 
-			$id = $status = DAO_CustomerRecipient::create($fields);
-		} else {
-			// Update Customer Recipients 
-			$status = DAO_CustomerRecipient::update($id, $fields);
-		}
-		
-		if(!empty($view_id)) {
-			$view = Feg_AbstractViewLoader::getView($view_id);
-			$view->render();
-		}
-		
-		//DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','workers')));		
-	}
 
 };
 

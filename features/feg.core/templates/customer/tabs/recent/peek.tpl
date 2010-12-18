@@ -7,23 +7,16 @@
 		
     <div id="ticketPeekTab1">
 {/if}
-<form action="{devblocks_url}{/devblocks_url}" method="POST" id="formMessageRecipientPeek" name="formMessageRecipientPeek" onsubmit="return false;">
-<input type="hidden" name="c" value="customer">
-<input type="hidden" name="a" value="handleTabAction">
-<input type="hidden" name="tab" value="feg.customer.tab.recent.messages">
-<input type="hidden" name="action" value="saveMessageRecipientPeek">
-<input type="hidden" name="id" value="{$id}">
-<input type="hidden" name="view_id" value="{$view_id}">
-<input type="hidden" name="do_delete" value="0">
-
 {if $active_worker->hasPriv('core.access.message_recipient.permfail')}
-	<button type="button" onclick="genericPanel.dialog('close');this.form.retry.value='6';genericAjaxPost('formMessageRecipientPeek', 'view{$view_id}', '');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete2.gif{/devblocks_url}" align="top"> {$translate->_('feg.message_recipient.submit.permfail')}</button>
+		<button type="button" onclick="$('#message_reciptient_peek_{$id}_status').load('{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=setMessageRecipientStatus&id={$message_recipient_id}&status=6&view_id={$view->id|escape:'url'}{/devblocks_url}"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete2.gif{/devblocks_url}" align="top"> {$translate->_('feg.message_recipient.submit.permfail')}</button>
 {/if}
 	<button type="button" onclick="genericPanel.dialog('close');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete.gif{/devblocks_url}" align="top"> {$translate->_('common.cancel')|capitalize}</button>
 <br>
 
+<div id="message_reciptient_peek_{$id}_status">
 {$translate->_('feg.message_recipient.id')|capitalize}: {if $id}{$id}{else}{$translate->_('feg.customer_recipient.id.new')|capitalize}{/if}<br>
 {$translate->_('feg.message_recipient.send_status')|capitalize}:{include file="file:$core_tpl/internal/feg/display_send_status.tpl" message_recipient_id=$result.mr_id}<br>
+</div>
 <br>
 Account Info:<br>
 {$translate->_('feg.customer_account.account_number')|capitalize}: {$account->account_number}<br>
@@ -43,7 +36,6 @@ Message Info:<br>
 	{$line}<br>
 {/foreach}
 <br>
-</form>
 </div>
 
 {if $display_view}
