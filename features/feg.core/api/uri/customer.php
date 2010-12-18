@@ -336,7 +336,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 	        new Model_DevblocksEvent(
 	            'message.recipient.status',
                 array(
-                    'id' => $id,
+                    'message_recipient_id' => $id,
 					'recipient_id' => $fields['recipient_id'],
                     'message_id' => $fields['message_id'],
                     'account_id' => $fields['account_id'],
@@ -344,7 +344,9 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
                 )
             )
 	    );
-		echo $translate->_('feg.message_recipient.status_'.$fields['send_status']);
+		$status_text = $translate->_('feg.message_recipient.status_'.$send_status);
+		if ($status_text == "") $status_text = $translate->_('feg.message_recipient.status_unknown');
+		echo $status_text;
 	}	
 };
 

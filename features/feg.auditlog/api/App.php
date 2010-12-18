@@ -90,6 +90,7 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
 							DAO_MessageAuditLog::ACCOUNT_ID => $model['id'],
 							DAO_MessageAuditLog::RECIPIENT_ID => 0,
 							DAO_MessageAuditLog::MESSAGE_ID => 0,
+							DAO_MessageAuditLog::MESSAGE_RECIPIENT_ID => 0,
 							DAO_MessageAuditLog::CHANGE_DATE => time(),
 							DAO_MessageAuditLog::CHANGE_FIELD => "auditlog.ca.".$key,
 							DAO_MessageAuditLog::CHANGE_VALUE => substr($value,0,128),
@@ -126,6 +127,7 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
 							DAO_MessageAuditLog::ACCOUNT_ID => $model['account_id'],
 							DAO_MessageAuditLog::RECIPIENT_ID => $model['id'],
 							DAO_MessageAuditLog::MESSAGE_ID => 0,
+							DAO_MessageAuditLog::MESSAGE_RECIPIENT_ID => 0,
 							DAO_MessageAuditLog::CHANGE_DATE => time(),
 							DAO_MessageAuditLog::CHANGE_FIELD => "auditlog.cr.".$key,
 							DAO_MessageAuditLog::CHANGE_VALUE => substr($value,0,128),
@@ -145,6 +147,7 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
           			DAO_MessageAuditLog::ACCOUNT_ID => $account_id,
           			DAO_MessageAuditLog::RECIPIENT_ID => 0,
           			DAO_MessageAuditLog::MESSAGE_ID => $message_id,
+          			DAO_MessageAuditLog::MESSAGE_RECIPIENT_ID => 0,
            			DAO_MessageAuditLog::CHANGE_DATE => time(),
            			DAO_MessageAuditLog::CHANGE_FIELD => 'auditlog.cf.message.created',
            			DAO_MessageAuditLog::CHANGE_VALUE => sprintf("Message created for account %d",$account_id),
@@ -156,6 +159,7 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
             	@$account_id = $event->params['account_id'];
             	@$recipient_id = $event->params['recipient_id'];
             	@$message_id = $event->params['message_id'];
+            	@$message_recipient_id = $event->params['message_recipient_id'];
             	@$message_text = $event->params['message_text'];
 				
 				$cr_id = array_shift(DAO_CustomerRecipient::getWhere(sprintf("%s = %d",
@@ -182,6 +186,7 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
           			DAO_MessageAuditLog::ACCOUNT_ID => $account_id,
           			DAO_MessageAuditLog::RECIPIENT_ID => $recipient_id,
           			DAO_MessageAuditLog::MESSAGE_ID => $message_id,
+          			DAO_MessageAuditLog::MESSAGE_RECIPIENT_ID => $message_recipient_id,
            			DAO_MessageAuditLog::CHANGE_DATE => time(),
            			DAO_MessageAuditLog::CHANGE_FIELD => 'auditlog.cf.message.recipient.created',
            			DAO_MessageAuditLog::CHANGE_VALUE => $change_value,
@@ -190,7 +195,7 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
             	break;
 				
             case 'message.recipient.status':
-            	@$id = $event->params['id'];
+            	@$message_recipient_id = $event->params['imessage_recipient_id'];
             	@$account_id = $event->params['account_id'];
             	@$recipient_id = $event->params['recipient_id'];
             	@$message_id = $event->params['message_id'];
@@ -201,37 +206,14 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
             		? $active_worker->id
             		: 0;
 				
-		        switch($send_status) {
-					case 0:
-						$status_text = $translate->_('feg.core.send_status.new');
-						break;
-					case 1:
-						$status_text = $translate->_('feg.core.send_status.fail');
-						break;
-					case 2:
-						$status_text = $translate->_('feg.core.send_status.successful');
-						break;
-					case 3:
-						$status_text = $translate->_('feg.core.send_status.retry');
-						break;
-					case 4:
-						$status_text = $translate->_('feg.core.send_status.resend');
-						break;
-					case 5:
-						$status_text = $translate->_('feg.core.send_status.in_queue');
-						break;
-					case 6:
-						$status_text = $translate->_('feg.core.send_status.perm_fail');
-						break;
-					default:
-						$status_text = $translate->_('feg.core.send_status.unknown');
-						break;
-				}
+				$status_text = $translate->_('feg.message_recipient.status_'.$send_status);
+				if ($status_text == "") $status_text = $translate->_('feg.core.send_status.unknown');
           		$fields = array(
           			DAO_MessageAuditLog::WORKER_ID => $worker_id,
           			DAO_MessageAuditLog::ACCOUNT_ID => $account_id,
           			DAO_MessageAuditLog::RECIPIENT_ID => $recipient_id,
           			DAO_MessageAuditLog::MESSAGE_ID => $message_id,
+          			DAO_MessageAuditLog::MESSAGE_RECIPIENT_ID => $message_recipient_id,
            			DAO_MessageAuditLog::CHANGE_DATE => time(),
            			DAO_MessageAuditLog::CHANGE_FIELD => 'auditlog.cf.message.recipient.status',
            			DAO_MessageAuditLog::CHANGE_VALUE => $status_text,
@@ -285,6 +267,7 @@ class FegAuditLogPage extends FegPageExtension {
 		    SearchFields_MessageAuditLog::ACCOUNT_ID,
 		    SearchFields_MessageAuditLog::RECIPIENT_ID,
 		    SearchFields_MessageAuditLog::MESSAGE_ID,
+		    SearchFields_MessageAuditLog::MESSAGE_RECIPIENT_ID,
 			SearchFields_MessageAuditLog::WORKER_ID,
 			SearchFields_MessageAuditLog::CHANGE_FIELD,
 			SearchFields_MessageAuditLog::CHANGE_VALUE,
@@ -343,6 +326,7 @@ class CustomerAuditLogTab extends Extension_CustomerTab {
 		    //SearchFields_MessageAuditLog::ACCOUNT_ID,
 		    SearchFields_MessageAuditLog::RECIPIENT_ID,
 		    SearchFields_MessageAuditLog::MESSAGE_ID,
+		    SearchFields_MessageAuditLog::MESSAGE_RECIPIENT_ID,
 			SearchFields_MessageAuditLog::WORKER_ID,
 			SearchFields_MessageAuditLog::CHANGE_FIELD,
 			SearchFields_MessageAuditLog::CHANGE_VALUE,
@@ -379,6 +363,7 @@ class DAO_MessageAuditLog extends DevblocksORMHelper {
 	const ACCOUNT_ID = 'account_id';
 	const RECIPIENT_ID = 'recipient_id';
 	const MESSAGE_ID = 'message_id';
+	const MESSAGE_RECIPIENT_ID = 'message_recipient_id';
 	const CHANGE_DATE = 'change_date';
 	const CHANGE_FIELD = 'change_field';
 	const CHANGE_VALUE = 'change_value';
@@ -386,10 +371,10 @@ class DAO_MessageAuditLog extends DevblocksORMHelper {
 	public static function create($fields) {
 		$db = DevblocksPlatform::getDatabaseService();
 		
-		$id = $db->GenID('message_audit_log_seq');
+		$id = $db->GenID('audit_log_message_seq');
 		
-		$sql = sprintf("INSERT INTO message_audit_log (id, worker_id, account_id, recipient_id, message_id, change_date, change_field, change_value) ".
-			"VALUES (%d,0,0,0,0,%d,'','')",
+		$sql = sprintf("INSERT INTO audit_log_message (id, worker_id, account_id, recipient_id, message_id, message_recipient_id, change_date, change_field, change_value) ".
+			"VALUES (%d,0,0,0,0,0,%d,'','')",
 			$id,
 			time()
 		);
@@ -406,8 +391,8 @@ class DAO_MessageAuditLog extends DevblocksORMHelper {
 	public static function getWhere($where) {
 		$db = DevblocksPlatform::getDatabaseService();
 		
-		$sql = "SELECT id, worker_id, message_id, change_date, change_field, change_value ".
-			"FROM message_audit_log ".
+		$sql = "SELECT id, worker_id, account_id, recipient_id, message_id, message_recipient_id, change_date, change_field, change_value ".
+			"FROM audit_log_message ".
 			(!empty($where)?sprintf("WHERE %s ",$where):" ").
 			"ORDER BY id "
 			;
@@ -425,6 +410,7 @@ class DAO_MessageAuditLog extends DevblocksORMHelper {
 		    $object->account_id = intval($row['account_id']);
 		    $object->recipient_id = intval($row['recipient_id']);
 		    $object->message_id = intval($row['message_id']);
+		    $object->message_recipient_id = intval($row['message_recipient_id']);
 		    $object->worker_id = intval($row['worker_id']);
 		    $object->change_date = intval($row['change_date']);
 		    $object->change_field = $row['change_field'];
@@ -438,18 +424,18 @@ class DAO_MessageAuditLog extends DevblocksORMHelper {
 	}
 			
 	public static function update($ids, $fields) {
-		parent::_update($ids, 'message_audit_log', $fields);
+		parent::_update($ids, 'audit_log_message', $fields);
 	}
 	
 	public static function updateWhere($fields, $where) {
-		parent::_updateWhere('message_audit_log', $fields, $where);
+		parent::_updateWhere('audit_log_message', $fields, $where);
 	}
 	
 	public static function maint() {
-		$db = DevblocksPlatform::getDatabaseService();
+//		$db = DevblocksPlatform::getDatabaseService();
 		
-		$sql = "DELETE QUICK message_audit_log FROM message_audit_log LEFT JOIN message ON message_audit_log.message_id=message.id WHERE message.id IS NULL";
-		$db->Execute($sql);
+//		$sql = "DELETE QUICK audit_log_message FROM audit_log_message LEFT JOIN message ON audit_log_message.message_id=message.id WHERE message.id IS NULL";
+//		$db->Execute($sql);
 	}
 	
 	public static function delete($ids) {
@@ -458,16 +444,7 @@ class DAO_MessageAuditLog extends DevblocksORMHelper {
 		$db = DevblocksPlatform::getDatabaseService();
 		$ids_list = implode(',', $ids);
 		
-		$db->Execute(sprintf("DELETE QUICK FROM message_audit_log WHERE id IN (%s)", $ids_list));
-	}
-	
-	public static function deleteByMessageIds($ids) {
-		if(!is_array($ids)) $ids = array($ids);
-		
-		$db = DevblocksPlatform::getDatabaseService();
-		$ids_list = implode(',', $ids);
-		
-		$db->Execute(sprintf("DELETE QUICK FROM message_audit_log WHERE message_id IN (%s)", $ids_list));
+		$db->Execute(sprintf("DELETE QUICK FROM audit_log_message WHERE id IN (%s)", $ids_list));
 	}
 	
     /**
@@ -498,15 +475,17 @@ class DAO_MessageAuditLog extends DevblocksORMHelper {
 			"l.account_id as %s, ".
 			"l.recipient_id as %s, ".
 			"l.message_id as %s, ".
+			"l.message_recipient_id as %s, ".
 			"l.worker_id as %s, ".
 			"l.change_date as %s, ".
 			"l.change_field as %s, ".
 			"l.change_value as %s ".
-			"FROM message_audit_log l ",
+			"FROM audit_log_message l ",
 			    SearchFields_MessageAuditLog::ID,
 			    SearchFields_MessageAuditLog::ACCOUNT_ID,
 			    SearchFields_MessageAuditLog::RECIPIENT_ID,
 			    SearchFields_MessageAuditLog::MESSAGE_ID,
+			    SearchFields_MessageAuditLog::MESSAGE_RECIPIENT_ID,
 			    SearchFields_MessageAuditLog::WORKER_ID,
 			    SearchFields_MessageAuditLog::CHANGE_DATE,
 			    SearchFields_MessageAuditLog::CHANGE_FIELD,
@@ -557,6 +536,7 @@ class SearchFields_MessageAuditLog implements IDevblocksSearchFields {
 	const ACCOUNT_ID = 'l_account_id';
 	const RECIPIENT_ID = 'l_recipient_id';
 	const MESSAGE_ID = 'l_message_id';
+	const MESSAGE_RECIPIENT_ID = 'l_message_recipient_id';
 	const WORKER_ID = 'l_worker_id';
 	const CHANGE_DATE = 'l_change_date';
 	const CHANGE_FIELD = 'l_change_field';
@@ -573,6 +553,7 @@ class SearchFields_MessageAuditLog implements IDevblocksSearchFields {
 			self::ACCOUNT_ID=> new DevblocksSearchField(self::ACCOUNT_ID, 'l', 'account_id',$translate->_('auditlog_entry.account_id')),
 			self::RECIPIENT_ID => new DevblocksSearchField(self::RECIPIENT_ID, 'l', 'recipient_id',$translate->_('auditlog_entry.recipient_id')),
 			self::MESSAGE_ID => new DevblocksSearchField(self::MESSAGE_ID, 'l', 'message_id',$translate->_('auditlog_entry.message_id')),
+			self::MESSAGE_RECIPIENT_ID => new DevblocksSearchField(self::MESSAGE_RECIPIENT_ID, 'l', 'message_recipient_id',$translate->_('auditlog_entry.message_recipient_id')),
 			self::WORKER_ID => new DevblocksSearchField(self::WORKER_ID, 'l', 'worker_id',$translate->_('auditlog_entry.worker_id')),
 			self::CHANGE_DATE => new DevblocksSearchField(self::CHANGE_DATE, 'l', 'change_date',$translate->_('auditlog_entry.change_date')),
 			self::CHANGE_FIELD => new DevblocksSearchField(self::CHANGE_FIELD, 'l', 'change_field',$translate->_('auditlog_entry.change_field')),
@@ -591,6 +572,7 @@ class Model_MessageAuditLog {
 	public $account_id = 0;
 	public $recipient_id = 0;
 	public $message_id = 0;
+	public $message_recipient_id = 0;
 	public $worker_id = 0;
 	public $change_date = 0;
 	public $change_field = '';
@@ -598,7 +580,7 @@ class Model_MessageAuditLog {
 };
 
 class View_MessageAuditLog extends Feg_AbstractView {
-	const DEFAULT_ID = 'message_audit_log';
+	const DEFAULT_ID = 'audit_log_message';
 	
 	function __construct() {
 		$translate = DevblocksPlatform::getTranslationService();
@@ -614,6 +596,7 @@ class View_MessageAuditLog extends Feg_AbstractView {
 			SearchFields_MessageAuditLog::ACCOUNT_ID,
 			SearchFields_MessageAuditLog::RECIPIENT_ID,
 			SearchFields_MessageAuditLog::MESSAGE_ID,
+			SearchFields_MessageAuditLog::MESSAGE_RECIPIENT_ID,
 			SearchFields_MessageAuditLog::WORKER_ID,
 			SearchFields_MessageAuditLog::CHANGE_FIELD,
 			SearchFields_MessageAuditLog::CHANGE_VALUE,
@@ -695,6 +678,7 @@ class View_MessageAuditLog extends Feg_AbstractView {
 			case SearchFields_MessageAuditLog::ACCOUNT_ID:
 			case SearchFields_MessageAuditLog::RECIPIENT_ID:
 			case SearchFields_MessageAuditLog::MESSAGE_ID:
+			case SearchFields_MessageAuditLog::MESSAGE_RECIPIENT_ID:
 			case SearchFields_MessageAuditLog::CHANGE_DATE:
 			case SearchFields_MessageAuditLog::CHANGE_FIELD:
 			case SearchFields_MessageAuditLog::CHANGE_VALUE:

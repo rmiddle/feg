@@ -22,6 +22,6 @@
 {else if $result.$column == 6}
 	{$translate->_('feg.message_recipient.status_6')|capitalize}
 {else}
-	{$translate->_('feg.core.send_status.unknown')|capitalize}
+	{$translate->_('feg.message_recipient.status_unknown')|capitalize}
 {/if}
 </td>

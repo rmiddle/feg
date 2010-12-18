@@ -717,6 +717,9 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.message_recipient.status_6'>
 			<tuv xml:lang="en_US"><seg>Permently Failed</seg></tuv>
 		</tu>
+		<tu tuid='feg.message_recipient.status_unknown'>
+			<tuv xml:lang="en_US"><seg>Unknown</seg></tuv>
+		</tu>
 		
 		<!-- Source Imports Translations -->
 		
@@ -760,31 +763,6 @@ For example: *receipt*</seg></tuv>
 			<tuv xml:lang="en_US"><seg>Source PI</seg></tuv>
 		</tu>
 				
-		<!-- Send Status Translations -->
-		<tu tuid='feg.core.send_status.unknown'>
-			<tuv xml:lang="en_US"><seg>Unknown</seg></tuv>
-		</tu>
-		<tu tuid='feg.core.send_status.new'>
-			<tuv xml:lang="en_US"><seg>New</seg></tuv>
-		</tu>
-		<tu tuid='feg.core.send_status.fail'>
-			<tuv xml:lang="en_US"><seg>Failed</seg></tuv>
-		</tu>
-		<tu tuid='feg.core.send_status.successful'>
-			<tuv xml:lang="en_US"><seg>Successful</seg></tuv>
-		</tu>
-		<tu tuid='feg.core.send_status.retry'>
-			<tuv xml:lang="en_US"><seg>retry</seg></tuv>
-		</tu>
-		<tu tuid='feg.core.send_status.resend'>
-			<tuv xml:lang="en_US"><seg>resend</seg></tuv>
-		</tu>
-		<tu tuid='feg.core.send_status.in_queue'>
-			<tuv xml:lang="en_US"><seg>in queue</seg></tuv>
-		</tu>
-		<tu tuid='feg.core.send_status.perm_fail'>
-			<tuv xml:lang="en_US"><seg>Permently Failed</seg></tuv>
-		</tu>
 
 	</body>
 </tmx>

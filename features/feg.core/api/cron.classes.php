@@ -300,7 +300,7 @@ class ImportCron extends FegCronExtension {
 					DAO_MessageRecipient::UPDATED_DATE => $current_time,
 					DAO_MessageRecipient::CLOSED_DATE => 0, // 0 = Not Closed
 				);
-				DAO_MessageRecipient::create($fields);
+				$message_recipient_id' = DAO_MessageRecipient::create($fields);
 				// Give plugins a chance to note a message is imported.
 				$eventMgr = DevblocksPlatform::getEventService();
 				$eventMgr->trigger(
@@ -310,6 +310,7 @@ class ImportCron extends FegCronExtension {
 							'account_id' => $account_id,
 							'recipient_id' => $cr_id,
 							'message_id' => $message_id,
+							'message_recipient_id' => $message_recipient_id,
 							'message_text' => $data,
 						)
 					)
