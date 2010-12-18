@@ -303,6 +303,7 @@ class FegAuditLogPage extends FegPageExtension {
 			//SearchFields_MessageAuditLog::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_MessageAuditLog::ACCOUNT_ID,DevblocksSearchCriteria::OPER_EQ,$customer_id)
 		);
 		$view->renderPage = 0;
+		$view->renderLimit = 5;
 
 		Feg_AbstractViewLoader::setView($view->id,$view);
 		
