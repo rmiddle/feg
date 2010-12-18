@@ -310,7 +310,7 @@ class FegAuditLogPage extends FegPageExtension {
 		$tpl->assign('view_fields', View_MessageAuditLog::getFields());
 		$tpl->assign('view_searchable_fields', View_MessageAuditLog::getSearchFields());
 				
-		$tpl->display('file:' . $this->_TPL_PATH . 'display/index.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . '/display/index.tpl');		
 	}
 	
 };

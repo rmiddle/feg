@@ -11,4 +11,4 @@
 	</tr>
 </table>
 
-{*{include file="devblocks:feg.core::whos_online.tpl"}*}
+{include file="devblocks:feg.core::whos_online.tpl"}
