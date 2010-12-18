@@ -248,7 +248,7 @@ class FegAuditLogPage extends FegPageExtension {
 
 	
 	function __construct($manifest) {
-		$this->_TPL_PATH = dirname(dirname(dirname(__FILE__))) . '/templates/';
+		$this->_TPL_PATH = dirname(dirname(__FILE__)).'/templates';
 		parent::__construct($manifest);
 	}
 		
@@ -269,14 +269,11 @@ class FegAuditLogPage extends FegPageExtension {
 	
 	function render() {
 		$tpl = DevblocksPlatform::getTemplateService();
-		$translate = DevblocksPlatform::getTranslationService();
-		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
+ 		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
 		$tpl->assign('path', $tpl_path);
 		$tpl->assign('core_tplpath', $core_tplpath);
 echo "Output something<br>";		
 		$tpl->assign('view_id', $view_id);
-		
-		$title = $translate->_('auditlog.menu.tab.log');
 		
 		$defaults = new Feg_AbstractViewModel();
 		$defaults->class_name = 'View_MessageAuditLog';
@@ -300,7 +297,7 @@ echo "Output something<br>";
 
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 
-		$view->name = 'Customer Audit Log';
+		$view->name = 'Audit Log';
 		$view->renderTemplate = 'default';
 		$view->params = array(
 			//SearchFields_MessageAuditLog::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_MessageAuditLog::ACCOUNT_ID,DevblocksSearchCriteria::OPER_EQ,$customer_id)
@@ -310,8 +307,8 @@ echo "Output something<br>";
 		Feg_AbstractViewLoader::setView($view->id,$view);
 		
 		$tpl->assign('view', $view);
-		$tpl->assign('view_fields', View_CustomerAccount::getFields());
-		$tpl->assign('view_searchable_fields', View_CustomerAccount::getSearchFields());
+		$tpl->assign('view_fields', View_MessageAuditLog::getFields());
+		$tpl->assign('view_searchable_fields', View_MessageAuditLog::getSearchFields());
 				
 		$tpl->display('file:' . $this->_TPL_PATH . 'display/index.tpl');		
 	}
