@@ -268,10 +268,10 @@ class FegAuditLogPage extends FegPageExtension {
 	}
 	
 	function render() {
-		$tpl = DevblocksPlatform::getTemplateService();
- 		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
-		$tpl->assign('path', $tpl_path);
-		$tpl->assign('core_tplpath', $core_tplpath);
+//		$tpl = DevblocksPlatform::getTemplateService();
+// 		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
+//		$tpl->assign('path', $tpl_path);
+//		$tpl->assign('core_tplpath', $core_tplpath);
 echo "Output something<br>";
 /*
 		$tpl->assign('view_id', $view_id);
