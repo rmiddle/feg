@@ -54,7 +54,22 @@
 			{elseif $column=="l_recipient_id"}
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.l_recipient_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
 			{elseif $column=="l_message_id"}
-				<td>{$result.$column}&nbsp;</td>
+				<td>
+					{if $result.$column==0}
+						0
+					{else}
+						<a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showRecipientPeek&id={$result.$column}&customer_id={$result.l_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a>
+					{/if}
+				</td>
+			{elseif $column=="l_message_recipient_id"}
+				<td>
+					{if $result.$column==0}
+						0
+					{else}
+						<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessageRecipientPeek&id={$result.mr_id}&customer_id={$result.mr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a>
+					{/if}				
+				{$result.$column}&nbsp;
+				</td>
 			{elseif $column=="l_worker_id"}
 				<td>
 				{assign var=log_worker_id value=$result.l_worker_id}
