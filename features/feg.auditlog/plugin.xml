@@ -75,7 +75,7 @@
 		</extension>
 	
 		<extension point="feg.page">
-			<id>z.auditlog.page</id>
+			<id>zz.auditlog.page</id>
 			<name>Audit Log Page</name>    
 			<class>                   
 				<file>api/App.php</file>
@@ -83,7 +83,7 @@
 			</class>                                          
 			<params>                                          
 				<param key="uri" value="page_audit_log" />       
-				<param key="menutitle" value="auditlog.display.tab.log" />                                                                               
+				<param key="menutitle" value="auditlog.menu.tab.log" />                                                                               
 			</params>                                                
 		</extension>
 		
