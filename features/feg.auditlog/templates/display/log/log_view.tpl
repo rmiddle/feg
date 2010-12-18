@@ -51,11 +51,11 @@
 				<td>{$result.l_id}&nbsp;</td>
 			{elseif $column=="l_account_id"}
 				<td>
-				{if $result..l_account_id!=0}
+				{if $result.l_account_id!=0}
 				<a href="{devblocks_url}{/devblocks_url}customer/{$result.l_account_id}/property">
 				{/if}
 					{include file="file:$core_tpl/internal/feg/display_customer_id.tpl"}&nbsp;
-				{if $result..l_account_id!=0}
+				{if $result.l_account_id!=0}
 				</a>
 				{/if}
 				</td>
