@@ -325,7 +325,7 @@ class ImportCron extends FegCronExtension {
  * Plugins can implement an event listener on the import action being done 
  * every 1 minutes.
  */
-/*
+
 class ExportCron extends FegCronExtension {
 	function run() {
 		$logger = DevblocksPlatform::getConsoleLog();
@@ -444,4 +444,4 @@ class ExportCron extends FegCronExtension {
 		return NULL;		
 	}
 };
-*/
+
