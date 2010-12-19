@@ -44,7 +44,9 @@
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.export_type')|capitalize}: </td>
 			<select name="recipient_type">
 				{foreach from=$export_type item=export name=export_id}
-					<option value="{$export->id}" {if $customer_recipient->type == $export->id}selected{/if}>{$export->name}</option>
+					{if $customer_recipient->type == $export->recipient_type}
+						<option value="{$export->id}" {if $customer_recipient->export_filter == $export->id}selected{/if}>{$export->name}</option>
+					{/if}
 				{/foreach}
 			</select>
 		</td>
