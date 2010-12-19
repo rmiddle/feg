@@ -63,6 +63,53 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
             	DAO_MessageAuditLog::maint();
             	break;
             	
+            case 'cron.import':
+            	// Is a worker around to invoke this change?  0 = automatic
+            	@$worker_id = (null != ($active_worker = FegApplication::getActiveWorker()) && !empty($active_worker->id))
+            		? $active_worker->id
+            		: 0;
+	            		
+           		$fields = array(
+					DAO_MessageAuditLog::WORKER_ID => $worker_id,
+					DAO_MessageAuditLog::ACCOUNT_ID => 0,
+					DAO_MessageAuditLog::RECIPIENT_ID => 0,
+					DAO_MessageAuditLog::MESSAGE_ID => 0,
+					DAO_MessageAuditLog::MESSAGE_RECIPIENT_ID => 0,
+					DAO_MessageAuditLog::CHANGE_DATE => time(),
+					DAO_MessageAuditLog::CHANGE_FIELD => 'auditlog.cron.import',
+					DAO_MessageAuditLog::CHANGE_VALUE => 'Cron Importer Ran',
+           		);
+				$log_id = DAO_MessageAuditLog::create($fields);
+            	break;
+            	
+            case 'cron.export':
+            	// Is a worker around to invoke this change?  0 = automatic
+            	@$worker_id = (null != ($active_worker = FegApplication::getActiveWorker()) && !empty($active_worker->id))
+            		? $active_worker->id
+            		: 0;
+	            		
+           		$fields = array(
+					DAO_MessageAuditLog::WORKER_ID => $worker_id,
+					DAO_MessageAuditLog::ACCOUNT_ID => 0,
+					DAO_MessageAuditLog::RECIPIENT_ID => 0,
+					DAO_MessageAuditLog::MESSAGE_ID => 0,
+					DAO_MessageAuditLog::MESSAGE_RECIPIENT_ID => 0,
+					DAO_MessageAuditLog::CHANGE_DATE => time(),
+					DAO_MessageAuditLog::CHANGE_FIELD => 'auditlog.cron.export',
+					DAO_MessageAuditLog::CHANGE_VALUE => 'Cron Exporter Ran',
+           		);
+				$log_id = DAO_MessageAuditLog::create($fields);
+            	break;
+            	
+            case 'cron.export.email':
+            	break;
+            	
+            case 'cron.export.fax':
+            	break;
+            	
+            case 'cron.export.snpp':
+            	break;
+				
             case 'dao.customer.account.update':
             	@$objects = $event->params['objects'];
             	

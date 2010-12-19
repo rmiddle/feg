@@ -157,6 +157,15 @@ class ImportCron extends FegCronExtension {
 		$timeout = ini_get('max_execution_time');
 		$runtime = microtime(true);
 		
+		// Give plugins a chance to run export
+	    $eventMgr = DevblocksPlatform::getEventService();
+	    $eventMgr->trigger(
+	        new Model_DevblocksEvent(
+	            'cron.import',
+                array()
+            )
+	    );
+		
 		$dir = $import_source->path;
 		if(!is_writable($dir)) {
 			$logger->error("[Importer] Unable to write in '$dir'.  Please check permissions.");
@@ -335,7 +344,7 @@ class ExportCron extends FegCronExtension {
 
 		$db = DevblocksPlatform::getDatabaseService();
 
-		// Give plugins a chance to run import
+		// Give plugins a chance to run export
 	    $eventMgr = DevblocksPlatform::getEventService();
 	    $eventMgr->trigger(
 	        new Model_DevblocksEvent(
@@ -343,6 +352,7 @@ class ExportCron extends FegCronExtension {
                 array()
             )
 	    );
+		
 		$export_type = DAO_ExportType::getAll();
     	foreach($export_type as $export_type_id => $export_type) { 
 			$logger->info('[Message Export] Now Processing ' . $export_type->name . ' Export Number: ' . $export_type->id);
@@ -396,9 +406,34 @@ class ExportCron extends FegCronExtension {
 		$logger->info("[Exporter] Overloaded memory_limit to: " . ini_get('memory_limit'));
 		$logger->info("[Exporter] Overloaded max_execution_time to: " . ini_get('max_execution_time'));
 		
+		$sql = sprintf("SELECT mr.id ".
+			"FROM message_recipient mr ".
+			"inner join customer_recipient cr on mr.recipient_id = cr.id ".
+			"WHERE mr.send_status in (0,3,4) ".
+			"AND cr.is_disabled = 0 ".
+			"AND cr.type = 0 "
+		);
+		$rs = $db->Execute($sql);
+		
+		// Loop though pending outbound emails.
+		while($row = mysql_fetch_assoc($rs)) {
+			
+		}
+		
+		mysql_free_result($rs);
+
+
 		$timeout = ini_get('max_execution_time');
 		$runtime = microtime(true);
 		
+		// Give plugins a chance to run export
+	    $eventMgr = DevblocksPlatform::getEventService();
+	    $eventMgr->trigger(
+	        new Model_DevblocksEvent(
+	            'cron.export.email',
+                array()
+            )
+	    );
 		return NULL;		
 	}
 	
@@ -418,6 +453,14 @@ class ExportCron extends FegCronExtension {
 		$timeout = ini_get('max_execution_time');
 		$runtime = microtime(true);
 		
+		// Give plugins a chance to run export
+	    $eventMgr = DevblocksPlatform::getEventService();
+	    $eventMgr->trigger(
+	        new Model_DevblocksEvent(
+	            'cron.export.fax',
+                array()
+            )
+	    );
 		return NULL;		
 	}
 	
@@ -437,6 +480,14 @@ class ExportCron extends FegCronExtension {
 		$timeout = ini_get('max_execution_time');
 		$runtime = microtime(true);
 		
+		// Give plugins a chance to run export
+	    $eventMgr = DevblocksPlatform::getEventService();
+	    $eventMgr->trigger(
+	        new Model_DevblocksEvent(
+	            'cron.export.snpp',
+                array()
+            )
+	    );
 		return NULL;		
 	}
 };
