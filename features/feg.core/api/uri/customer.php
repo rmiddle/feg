@@ -347,8 +347,9 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		$status_text = $translate->_('feg.message_recipient.status_'.$send_status);
 		if ($status_text == "") $status_text = $translate->_('feg.message_recipient.status_unknown');
 		echo $status_text;
-	}	
-	function showRecipientPeekAction() {
+	}
+	
+	function showRecipientTypeAction() {
 		@$type = DevblocksPlatform::importGPC($_REQUEST['type'],'integer',0);
 		
 		$tpl = DevblocksPlatform::getTemplateService();
