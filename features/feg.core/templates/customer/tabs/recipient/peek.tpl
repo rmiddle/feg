@@ -33,7 +33,7 @@
 {/if}
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.type')|capitalize}: </td>
-			<select name="recipient_type">
+			<select name="recipient_type" id="recipient_type">
 				<option value="0" {if $customer_recipient->type == '0'}selected{/if}>{$translate->_('recipient.type.email')|capitalize}</option>
 				<option value="1" {if $customer_recipient->type == '1'}selected{/if}>{$translate->_('recipient.type.fax')|capitalize}</option>
 				<option value="2" {if $customer_recipient->type == '2'}selected{/if}>{$translate->_('recipient.type.snpp')|capitalize}</option>
