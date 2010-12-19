@@ -123,4 +123,7 @@
 		$("#ticketPeekTab2").show();
 		genericPanel.focus();
 	} );
+	$('#recipient_type').change(function() {
+		alert('Handler for .change() called.');
+	});
 </script>
