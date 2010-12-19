@@ -1,1 +1,1 @@
-<div id="viewaudit_log">{$view->render()}</div>
+<div id="view{$view->id}">{$view->render()}</div>
