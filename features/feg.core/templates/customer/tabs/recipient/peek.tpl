@@ -40,17 +40,7 @@
 			</select>
 		</td>
 	</tr>
-	<tr>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.export_type')|capitalize}: </td>
-			<select name="recipient_export_type">
-				{foreach from=$export_type item=export name=export_id}
-					{if $customer_recipient->type == $export->recipient_type}
-						<option value="{$export->id}" {if $customer_recipient->export_type == $export->id}selected{/if}>{$export->name}</option>
-					{/if}
-				{/foreach}
-			</select>
-		</td>
-	</tr>
+	<div id="div_export_recipient_type"></div>
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address_to')|capitalize}: </td>
 		<td width="100%"><input type="text" name="recipient_address_to" value="{$customer_recipient->address_to|escape}" style="width:98%;"></td>
@@ -125,8 +115,9 @@
 	} );
 	
 	$(document).ready(function() {
+		$("#div_export_recipient_type").load("{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientType&type={$customer_recipient->type}{/devblocks_url}");
 		$('#recipient_type').change(function() {
-			alert('Handler for .change() called.');
+			$("#div_export_recipient_type").load("{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientType&type={$customer_recipient->type}{/devblocks_url}");
 		});
 	});
 </script>

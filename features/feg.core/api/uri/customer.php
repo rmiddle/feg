@@ -234,9 +234,6 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerRecipient::ID);
 		$tpl->assign('custom_fields', $custom_fields);
 		
-		$export_type = DAO_ExportType::getAll();
-		$tpl->assign('export_type', $export_type);
-		
 		$custom_field_values = DAO_CustomFieldValue::getValuesBySourceIds(FegCustomFieldSource_CustomerRecipient::ID, $id);
 		if(isset($custom_field_values[$id]))
 			$tpl->assign('custom_field_values', $custom_field_values[$id]);
@@ -350,6 +347,19 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		$status_text = $translate->_('feg.message_recipient.status_'.$send_status);
 		if ($status_text == "") $status_text = $translate->_('feg.message_recipient.status_unknown');
 		echo $status_text;
+	}	
+	function showRecipientPeekAction() {
+		@$type = DevblocksPlatform::importGPC($_REQUEST['type'],'integer',0);
+		
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('path', $this->_TPL_PATH);
+		
+		$tpl->assign('type', $type);
+
+		$export_type = DAO_ExportType::getAll();
+		$tpl->assign('export_type', $export_type);
+		
+		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recipient/select_export_type.tpl');		
 	}	
 };
 
