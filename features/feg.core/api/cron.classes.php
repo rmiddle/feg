@@ -350,15 +350,15 @@ class ExportCron extends FegCronExtension {
 			
 			switch($export_type->type) {
 				case 0:
-					$logger->info("[Email Exporter] Export started");
+					$logger->info("[Email Exporter] Export ".$export_type->type." started");
 					self::ExportEmail($export_type);
 					break;
 				case 1:
-					$logger->info("[Fax Exporter] Export started");
+					$logger->info("[Fax Exporter] Export ".$export_type->type." started");
 					self::ExportFax($export_type);
 					break;
 				case 2:
-					$logger->info("[SNPP Exporter] Export started");
+					$logger->info("[SNPP Exporter] Export ".$export_type->type." started");
 					self::ExportSnpp($export_type);
 					break;
 				default:
