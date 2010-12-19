@@ -395,8 +395,8 @@ class ExportCron extends FegCronExtension {
 		
 		@set_time_limit(0); // Unlimited (if possible)
 		 
-		$logger->info("[Exporter] Overloaded memory_limit to: " . ini_get('memory_limit'));
-		$logger->info("[Exporter] Overloaded max_execution_time to: " . ini_get('max_execution_time'));
+		$logger->info("[Email Exporter] Overloaded memory_limit to: " . ini_get('memory_limit'));
+		$logger->info("[Email Exporter] Overloaded max_execution_time to: " . ini_get('max_execution_time'));
 		
 		$sql = sprintf("SELECT mr.id ".
 			"FROM message_recipient mr ".
@@ -440,8 +440,8 @@ class ExportCron extends FegCronExtension {
 		
 		@set_time_limit(0); // Unlimited (if possible)
 		 
-		$logger->info("[Exporter] Overloaded memory_limit to: " . ini_get('memory_limit'));
-		$logger->info("[Exporter] Overloaded max_execution_time to: " . ini_get('max_execution_time'));
+		$logger->info("[Fax Exporter] Overloaded memory_limit to: " . ini_get('memory_limit'));
+		$logger->info("[Fax Exporter] Overloaded max_execution_time to: " . ini_get('max_execution_time'));
 		
 		$timeout = ini_get('max_execution_time');
 		$runtime = microtime(true);
@@ -467,8 +467,8 @@ class ExportCron extends FegCronExtension {
 		
 		@set_time_limit(0); // Unlimited (if possible)
 		 
-		$logger->info("[Exporter] Overloaded memory_limit to: " . ini_get('memory_limit'));
-		$logger->info("[Exporter] Overloaded max_execution_time to: " . ini_get('max_execution_time'));
+		$logger->info("[SNPP Exporter] Overloaded memory_limit to: " . ini_get('memory_limit'));
+		$logger->info("[SNPP Exporter] Overloaded max_execution_time to: " . ini_get('max_execution_time'));
 		
 		$timeout = ini_get('max_execution_time');
 		$runtime = microtime(true);
