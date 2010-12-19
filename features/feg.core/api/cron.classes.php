@@ -409,6 +409,7 @@ class ExportCron extends FegCronExtension {
 		
 		// Loop though pending outbound emails.
 		while($row = mysql_fetch_assoc($rs)) {
+			$logger->info("[Email Exporter] Procing MR ID: ".$row['id']);
 			
 		}
 		
