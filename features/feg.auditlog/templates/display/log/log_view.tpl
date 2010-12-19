@@ -96,7 +96,7 @@
 				<td>
 					{if $result.l_change_field=='auditlog.cr.account_id'}
 						{include file="file:$core_tpl/internal/feg/display_customer_id.tpl"}
-					{elseif $result.l_change_field=='auditlog.ca.is_disabled'}
+					{elseif $result.l_change_field=='auditlog.ca.is_disabled' || $result.l_change_field=='auditlog.cr.is_disabled' }
 						{if $result.l_change_value==0}
 							{$translate->_('common.enable')|capitalize}
 						{else}

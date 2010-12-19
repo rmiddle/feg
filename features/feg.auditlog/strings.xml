@@ -82,6 +82,9 @@
 		<tu tuid='auditlog.cr.type'>
 			<tuv xml:lang="en_US"><seg>CR Type</seg></tuv>
 		</tu>
+		<tu tuid='auditlog.cr.is_disabled'>
+			<tuv xml:lang="en_US"><seg>CR Enabled/Disabled</seg></tuv>
+		</tu>
 		<tu tuid='auditlog.cr.type_unknown'>
 			<tuv xml:lang="en_US"><seg>Unknown</seg></tuv>
 		</tu>
