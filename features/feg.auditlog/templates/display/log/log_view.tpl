@@ -96,6 +96,12 @@
 				<td>
 					{if $result.l_change_field=='auditlog.cr.account_id'}
 						{include file="file:$core_tpl/internal/feg/display_customer_id.tpl"}
+					{elseif $result.l_change_field=='auditlog.ca.is_disabled'}
+						{if $result.l_change_value==0}
+							{$translate->_('auditlog.ca.is_disabled_0')|capitalize}
+						{else}
+							{$translate->_('auditlog.ca.is_disabled_1')|capitalize}
+						{/if}						
 					{else}
 						{$result.l_change_value}
 					{/if}
