@@ -100,7 +100,7 @@
 						{if $result.l_change_value==0}
 							{$translate->_('common.enable')|capitalize}
 						{else}
-							{$translate->_('ccommon.disable')|capitalize}
+							{$translate->_('common.disable')|capitalize}
 						{/if}
 					{else}
 						{$result.l_change_value}
