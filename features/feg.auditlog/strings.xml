@@ -73,14 +73,7 @@
 		<tu tuid='auditlog.ca.is_disabled'>
 			<tuv xml:lang="en_US"><seg>CA Enabled/Disabled</seg></tuv>
 		</tu>
-		<tu tuid='auditlog.ca.is_disabled_0'>
-			<tuv xml:lang="en_US"><seg>Enabled</seg></tuv>
-		</tu>
-		<tu tuid='auditlog.ca.is_disabled_1'>
-			<tuv xml:lang="en_US"><seg>Disabled</seg></tuv>
-		</tu>
- 	
-	 
+ 		 
 		<!-- Customer Recipient Strings -->
 
 		<tu tuid='auditlog.cr.account_id'>
