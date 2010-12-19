@@ -157,15 +157,6 @@ class ImportCron extends FegCronExtension {
 		$timeout = ini_get('max_execution_time');
 		$runtime = microtime(true);
 		
-		// Give plugins a chance to run export
-	    $eventMgr = DevblocksPlatform::getEventService();
-	    $eventMgr->trigger(
-	        new Model_DevblocksEvent(
-	            'cron.import',
-                array()
-            )
-	    );
-		
 		$dir = $import_source->path;
 		if(!is_writable($dir)) {
 			$logger->error("[Importer] Unable to write in '$dir'.  Please check permissions.");
