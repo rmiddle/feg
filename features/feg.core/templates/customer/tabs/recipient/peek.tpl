@@ -41,7 +41,7 @@
 		</td>
 	</tr>
 	<tr>
-		{if $customer_recipient->type}{$customer_type=$customer_recipient->type}{else}{$customer_type=0}{/if}
+		{if !$customer_recipient->type}{$customer_type=$customer_recipient->type}{else}{$customer_type=0}{/if}
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.export_type')|capitalize}: </td>
 			<select name="recipient_export_type">
 				{foreach from=$export_type item=export name=export_id}
