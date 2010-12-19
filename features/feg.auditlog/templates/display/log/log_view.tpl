@@ -102,6 +102,9 @@
 						{else}
 							{$translate->_('common.disable')|capitalize}
 						{/if}
+					{elseif $result.l_change_field=='auditlog.cr.export_type'}
+						{$export = DAO_ExportType::get($result.l_change_value)}
+						{$export->name}
 					{else}
 						{$result.l_change_value}
 					{/if}
