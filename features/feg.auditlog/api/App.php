@@ -121,6 +121,11 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
 	            		
             			if(is_array($value))
 							$value = implode("\r\n", $value);
+							
+						if($key == 'cr.type') {
+							$value = $translate->_('auditlog.cr.type_'.$value);
+							if ($value == "") $value = $translate->_('auditlog.cr.type_unknown');							
+						}
 						
 	            		$fields = array(
 							DAO_MessageAuditLog::WORKER_ID => $worker_id,

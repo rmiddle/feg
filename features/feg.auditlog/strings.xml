@@ -67,11 +67,26 @@
 		<tu tuid='auditlog.ca.account_number'>
 			<tuv xml:lang="en_US"><seg>CA Number</seg></tuv>
 		</tu>
-
+	
 		<!-- Customer Recipient Strings -->
 
 		<tu tuid='auditlog.cr.account_id'>
 			<tuv xml:lang="en_US"><seg>CR Number</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cr.type'>
+			<tuv xml:lang="en_US"><seg>CR Type</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cr.type_unknown'>
+			<tuv xml:lang="en_US"><seg>Unknown</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cr.type_0'>
+			<tuv xml:lang="en_US"><seg>Email</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cr.type_1'>
+			<tuv xml:lang="en_US"><seg>Fax</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cr.type_2'>
+			<tuv xml:lang="en_US"><seg>Paging</seg></tuv>
 		</tu>
 		<tu tuid='auditlog.cr.address_to'>
 			<tuv xml:lang="en_US"><seg>CR Address To</seg></tuv>
