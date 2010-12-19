@@ -345,6 +345,7 @@ class ExportCron extends FegCronExtension {
 	    );
 		
 		$export_type_all = DAO_ExportType::getAll();
+		print_r($export_type_all);
     	foreach($export_type_all as $export_type_id => $export_type) { 
 			$logger->info('[Message Export] Now Processing ' . $export_type->name . ' Export Number: ' . $export_type->id);
 			
