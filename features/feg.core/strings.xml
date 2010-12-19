@@ -27,10 +27,10 @@
 		
 		<!-- Access Controls -->
 
-		<tu tuid='acl.core.access.export_filter.create'>
+		<tu tuid='acl.core.access.export_type.create'>
 			<tuv xml:lang="en_US"><seg>Create Export Filter</seg></tuv>
 		</tu>
-		<tu tuid='acl.core.access.export_filter.update'>
+		<tu tuid='acl.core.access.export_type.update'>
 			<tuv xml:lang="en_US"><seg>Update Export Filter</seg></tuv>
 		</tu>
 		<tu tuid='acl.core.access.customer.create'>
@@ -618,16 +618,10 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='recipient.type.snpp'>
 			<tuv xml:lang="en_US"><seg>Paging</seg></tuv>
 		</tu>
-		<tu tuid='recipient.export_filter'>
-			<tuv xml:lang="en_US"><seg>Export Filter</seg></tuv>
+		<tu tuid='recipient.export_type'>
+			<tuv xml:lang="en_US"><seg>Export Type</seg></tuv>
 		</tu>
 		
-		<!-- Export Filter Translations -->
-		
-		<tu tuid='feg.export_filter.title'>
-			<tuv xml:lang="en_US"><seg>Export Filters</seg></tuv>
-		</tu>
-				
 		<!-- Source Message Translations  -->
 		
 		<tu tuid='feg.message.title'>

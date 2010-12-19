@@ -345,23 +345,20 @@ class ExportCron extends FegCronExtension {
 	    );
 		
 		$export_type_all = DAO_ExportType::getAll();
-		echo "<pre>";
-		print_r($export_type_all);
-		echo "</pre>";
     	foreach($export_type_all as $export_type_id => $export_type) { 
 			$logger->info('[Message Export] Now Processing ' . $export_type->name . ' Export Number: ' . $export_type->id);
 			
 			switch($export_type->recipient_type) {
 				case 0:
-					$logger->info("[Email Exporter] Export ".$export_type->recipient_type." started");
+					$logger->info("[Email Exporter] Export Type ".$export_type->recipient_type." started");
 					self::ExportEmail($export_type);
 					break;
 				case 1:
-					$logger->info("[Fax Exporter] Export ".$export_type->recipient_type." started");
+					$logger->info("[Fax Exporter] Export Type ".$export_type->recipient_type." started");
 					self::ExportFax($export_type);
 					break;
 				case 2:
-					$logger->info("[SNPP Exporter] Export ".$export_type->recipient_type." started");
+					$logger->info("[SNPP Exporter] Export Type ".$export_type->recipient_type." started");
 					self::ExportSnpp($export_type);
 					break;
 				default:

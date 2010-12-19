@@ -41,6 +41,15 @@
 		</td>
 	</tr>
 	<tr>
+		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.export_type')|capitalize}: </td>
+			<select name="recipient_type">
+				{foreach from=$export_type item=export name=export_id}
+					{$export->name} - {$export->recipient_type}
+				{/foreach}
+			</select>
+		</td>
+	</tr>
+	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address_to')|capitalize}: </td>
 		<td width="100%"><input type="text" name="recipient_address_to" value="{$customer_recipient->address_to|escape}" style="width:98%;"></td>
 	</tr>
