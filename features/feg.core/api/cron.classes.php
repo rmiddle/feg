@@ -403,7 +403,9 @@ class ExportCron extends FegCronExtension {
 			"inner join customer_recipient cr on mr.recipient_id = cr.id ".
 			"WHERE mr.send_status in (0,3,4) ".
 			"AND cr.is_disabled = 0 ".
-			"AND cr.type = 0 "
+			"AND cr.export_type = %d ".
+			"AND cr.type = 0 ",
+			$export_type->id
 		);
 		$rs = $db->Execute($sql);
 		
