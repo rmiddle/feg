@@ -102,13 +102,6 @@
 			<class name="SearchFields_ExportType" />
 			<class name="View_ExportType" />
 		</file>
-		<file path="api/dao/export_filter.php">
-			<class name="FegCustomFieldSource_ExportFilter" />
-			<class name="DAO_ExportFilter" />
-			<class name="Model_ExportFilter" />
-			<class name="SearchFields_ExportFilter" />
-			<class name="View_ExportFilter" />
-		</file>
 	</class_loader>
 	
 	<!-- Event Points -->
@@ -160,8 +153,8 @@
 	<acl>
 		<!-- Access -->
 
-		<priv id="core.access.export_filter.create" label="acl.core.access.export_filter.create" />
-		<priv id="core.access.export_filter.update" label="acl.core.access.export_filter.update" />
+		<priv id="core.access.export_type.create" label="acl.core.access.export_type.create" />
+		<priv id="core.access.export_type.update" label="acl.core.access.export_type.update" />
 		<priv id="core.access.customer.create" label="acl.core.access.customer.create" />
 		<priv id="core.access.customer.update" label="acl.core.access.customer.update" />
 		<priv id="core.access.customer.disable" label="acl.core.access.customer.disable" />

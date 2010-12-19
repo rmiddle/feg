@@ -218,7 +218,7 @@ if(!isset($tables['customer_recipient'])) {
 		CREATE TABLE IF NOT EXISTS customer_recipient (
 			id INT UNSIGNED DEFAULT 0 NOT NULL,
 			account_id INT UNSIGNED DEFAULT 0 NOT NULL,
-			export_filter INT UNSIGNED DEFAULT 0 NOT NULL,
+			export_type INT UNSIGNED DEFAULT 0 NOT NULL,
 			is_disabled TINYINT UNSIGNED DEFAULT 0 NOT NULL,
 			type TINYINT UNSIGNED DEFAULT 0 NOT NULL,
 			address varchar(255) NOT NULL DEFAULT '',

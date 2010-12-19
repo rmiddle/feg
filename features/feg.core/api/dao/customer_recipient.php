@@ -8,7 +8,7 @@ class FegCustomFieldSource_CustomerRecipient extends Extension_CustomFieldSource
 class Model_CustomerRecipient {
 	public $id;
 	public $account_id;
-	public $export_filter;
+	public $export_type;
 	public $is_disabled;
 	public $type;
 	public $address;
@@ -19,7 +19,7 @@ class Model_CustomerRecipient {
 class DAO_CustomerRecipient extends Feg_ORMHelper {
 	const ID = 'id';
 	const ACCOUNT_ID = 'account_id';
-	const EXPORT_FILTER = 'export_filter';
+	const EXPORT_TYPE = 'export_type';
 	const IS_DISABLED = 'is_disabled';
 	const TYPE = 'type';
 	const ADDRESS = 'address';
@@ -103,7 +103,7 @@ class DAO_CustomerRecipient extends Feg_ORMHelper {
 	static function getWhere($where=null) {
 		$db = DevblocksPlatform::getDatabaseService();
 		
-		$sql = "SELECT id, account_id, export_filter, is_disabled, type, address, address_to, subject ".
+		$sql = "SELECT id, account_id, export_type, is_disabled, type, address, address_to, subject ".
 			"FROM customer_recipient cr ".
 			(!empty($where) ? sprintf("WHERE %s ",$where) : "").
 			"ORDER BY id asc";
@@ -138,7 +138,7 @@ class DAO_CustomerRecipient extends Feg_ORMHelper {
 			$object = new Model_CustomerRecipient();
 			$object->id = $row['id'];
 			$object->account_id = $row['account_id'];
-			$object->export_filter = $row['export_filter'];
+			$object->export_type = $row['export_type'];
 			$object->is_disabled = $row['is_disabled'];
 			$object->type = $row['type'];
 			$object->address = $row['address'];
@@ -193,7 +193,7 @@ class DAO_CustomerRecipient extends Feg_ORMHelper {
 		$select_sql = sprintf("SELECT ".
 			"cr.id as %s, ".
 			"cr.account_id as %s, ".
-			"cr.export_filter as %s, ".
+			"cr.export_type as %s, ".
 			"cr.is_disabled as %s, ".
 			"cr.type as %s, ".
 			"cr.address as %s, ".
@@ -201,7 +201,7 @@ class DAO_CustomerRecipient extends Feg_ORMHelper {
 			"cr.subject as %s ",
 				SearchFields_CustomerRecipient::ID,
 				SearchFields_CustomerRecipient::ACCOUNT_ID,
-				SearchFields_CustomerRecipient::EXPORT_FILTER,
+				SearchFields_CustomerRecipient::EXPORT_TYPE,
 				SearchFields_CustomerRecipient::IS_DISABLED,
 				SearchFields_CustomerRecipient::TYPE,
 				SearchFields_CustomerRecipient::ADDRESS,
@@ -271,7 +271,7 @@ class DAO_CustomerRecipient extends Feg_ORMHelper {
 class SearchFields_CustomerRecipient implements IDevblocksSearchFields {
 	const ID = 'cr_id';
 	const ACCOUNT_ID = 'cr_account_id';
-	const EXPORT_FILTER = 'cr_export_filter';
+	const EXPORT_TYPE = 'cr_export_type';
 	const IS_DISABLED = 'cr_is_disabled';
 	const TYPE = 'cr_type';
 	const ADDRESS = 'cr_address';
@@ -287,7 +287,7 @@ class SearchFields_CustomerRecipient implements IDevblocksSearchFields {
 		$columns = array(
 			self::ID => new DevblocksSearchField(self::ID, 'cr', 'id', $translate->_('feg.customer_recipient.id')),
 			self::ACCOUNT_ID => new DevblocksSearchField(self::ACCOUNT_ID, 'cr', 'account_id', $translate->_('feg.customer_recipient.account_id')),
-			self::EXPORT_FILTER => new DevblocksSearchField(self::EXPORT_FILTER, 'cr', 'export_filter', $translate->_('feg.customer_recipient.export_filter')),
+			self::EXPORT_TYPE => new DevblocksSearchField(self::EXPORT_TYPE, 'cr', 'export_type', $translate->_('feg.customer_recipient.export_type')),
 			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'cr', 'is_disabled', $translate->_('common.disabled')),
 			self::TYPE => new DevblocksSearchField(self::TYPE, 'cr', 'type', $translate->_('feg.customer_recipient.type')),
 			self::ADDRESS => new DevblocksSearchField(self::ADDRESS, 'cr', 'address', $translate->_('feg.customer_recipient.address')),
@@ -327,7 +327,7 @@ class View_CustomerRecipient extends Feg_AbstractView {
 		$this->view_columns = array(
 			SearchFields_CustomerRecipient::ID,
 			SearchFields_CustomerRecipient::ACCOUNT_ID,
-			SearchFields_CustomerRecipient::EXPORT_FILTER,
+			SearchFields_CustomerRecipient::EXPORT_TYPE,
 			SearchFields_CustomerRecipient::IS_DISABLED,
 			SearchFields_CustomerRecipient::TYPE,
 			SearchFields_CustomerRecipient::ADDRESS,
@@ -370,7 +370,7 @@ class View_CustomerRecipient extends Feg_AbstractView {
 		$tpl_path = APP_PATH . '/features/feg.core/templates/';
 		
 		switch($field) {
-			case SearchFields_CustomerRecipient::EXPORT_FILTER:
+			case SearchFields_CustomerRecipient::EXPORT_TYPE:
 			case SearchFields_CustomerRecipient::ADDRESS:
 			case SearchFields_CustomerRecipient::ADDRESS_TO:
 			case SearchFields_CustomerRecipient::SUBJECT:
@@ -441,7 +441,7 @@ class View_CustomerRecipient extends Feg_AbstractView {
 		$criteria = null;
 
 		switch($field) {
-			case SearchFields_CustomerRecipient::EXPORT_FILTER:
+			case SearchFields_CustomerRecipient::EXPORT_TYPE:
 			case SearchFields_CustomerRecipient::ADDRESS:
 			case SearchFields_CustomerRecipient::ADDRESS_TO:
 			case SearchFields_CustomerRecipient::SUBJECT:
@@ -504,7 +504,7 @@ class View_CustomerRecipient extends Feg_AbstractView {
 			switch($k) {
 //			$change_fields[DAO_CustomerRecipient::ID] = intval($v);
 //			$change_fields[DAO_CustomerRecipient::ACCOUNT_ID] = intval($v);
-//			$change_fields[DAO_CustomerRecipient::EXPORT_FILTER] = intval($v);
+//			$change_fields[DAO_CustomerRecipient::EXPORT_TYPE] = intval($v);
 //			$change_fields[DAO_CustomerRecipient::TYPE] = intval($v);
 //			$change_fields[DAO_CustomerRecipient::ADDRESS] = intval($v);
 //			$change_fields[DAO_CustomerRecipient::ADDRESS_TO] = intval($v);

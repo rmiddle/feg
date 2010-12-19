@@ -579,8 +579,8 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.customer_recipient.account_id'>
 			<tuv xml:lang="en_US"><seg>Customer ID</seg></tuv>
 		</tu>
-		<tu tuid='feg.customer_recipient.export_filter'>
-			<tuv xml:lang="en_US"><seg>Export Filter</seg></tuv>
+		<tu tuid='feg.customer_recipient.export_type'>
+			<tuv xml:lang="en_US"><seg>Export Type</seg></tuv>
 		</tu>
 		<tu tuid='feg.customer_recipient.type'>
 			<tuv xml:lang="en_US"><seg>Recipient Type</seg></tuv>
