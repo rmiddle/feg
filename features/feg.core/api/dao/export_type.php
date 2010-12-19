@@ -3,9 +3,9 @@
 class Model_ExportType {
 	public $id;
 	public $name;
-	public $type;
-	public $params_json;
+	public $recipient_type;
 	public $is_disabled;
+	public $params_json;
 };
 
 class DAO_ExportType extends Feg_ORMHelper {
@@ -13,8 +13,9 @@ class DAO_ExportType extends Feg_ORMHelper {
 
 	const ID = 'id';
 	const NAME = 'name';
-	const PARAMS_JSON = 'params_json';
+	const RECIPIENT_TYPE = 'recipient_type';
 	const IS_DISABLED = 'is_disabled';
+	const PARAMS_JSON = 'params_json';
 
 	static function create($fields) {
 		$db = DevblocksPlatform::getDatabaseService();
@@ -47,7 +48,7 @@ class DAO_ExportType extends Feg_ORMHelper {
 	static function getWhere($where=null) {
 		$db = DevblocksPlatform::getDatabaseService();
 		
-		$sql = "SELECT id, name, params_json, is_disabled ".
+		$sql = "SELECT id, name, recipient_type, is_disabled, params_json ".
 			"FROM export_type ".
 			(!empty($where) ? sprintf("WHERE %s ",$where) : "").
 			"ORDER BY id asc";
@@ -82,13 +83,14 @@ class DAO_ExportType extends Feg_ORMHelper {
 			$object = new Model_ExportType();
 			$object->id = $row['id'];
 			$object->name = $row['name'];
+			$object->recipient_type = $row['recipient_type'];
+			$object->is_disabled = $row['is_disabled'];
 			$object->params_json = $row['params_json'];
 			if(false !== ($params = json_decode($object->params_json, true))) {
 				$object->params = $params;
 			} else {
 				$object->params = array();
 			}
-			$object->is_disabled = $row['is_disabled'];
 			$objects[$object->id] = $object;
 		}
 		mysql_free_result($rs);
@@ -154,12 +156,14 @@ class DAO_ExportType extends Feg_ORMHelper {
 		$select_sql = sprintf("SELECT ".
 			"export_type.id as %s, ".
 			"export_type.name as %s, ".
-			"export_type.params_json as %s, ".
+			"export_type.recipient_type as %s, ".
 			"export_type.is_disabled as %s ",
+			"export_type.params_json as %s, ".
 				SearchFields_ExportType::ID,
 				SearchFields_ExportType::NAME,
-				SearchFields_ExportType::PARAMS_JSON,
-				SearchFields_ExportType::IS_DISABLED
+				SearchFields_ExportType::RECIPIENT_TYPE,
+				SearchFields_ExportType::IS_DISABLED,
+				SearchFields_ExportType::PARAMS_JSON
 			);
 			
 		$join_sql = "FROM export_type ";
@@ -224,8 +228,9 @@ class DAO_ExportType extends Feg_ORMHelper {
 class SearchFields_ExportType implements IDevblocksSearchFields {
 	const ID = 'export_type_id';
 	const NAME = 'export_type_name';
-	const PARAMS_JSON = 'export_type_params_json';
+	const RECIPIENT_TYPE = 'export_type_recipient_type';
 	const IS_DISABLED = 'export_type_is_disabled';
+	const PARAMS_JSON = 'export_type_params_json';
 	
 	/**
 	 * @return DevblocksSearchField[]
@@ -236,8 +241,9 @@ class SearchFields_ExportType implements IDevblocksSearchFields {
 		$columns = array(
 			self::ID => new DevblocksSearchField(self::ID, 'export_type', 'id', $translate->_('feg.export_type.id')),
 			self::NAME => new DevblocksSearchField(self::NAME, 'export_type', 'name', $translate->_('feg.export_type.name')),
-			self::PARAMS_JSON => new DevblocksSearchField(self::PARAMS_JSON, 'export_type', 'params_json', $translate->_('feg.export_type.params_json')),
+			self::RECIPIENT_TYPE => new DevblocksSearchField(self::RECIPIENT_TYPE, 'export_type', 'recipient_type', $translate->_('feg.export_type.recipient_type')),
 			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'export_type', 'is_disabled', $translate->_('feg.export_type.is_disabled')),
+			self::PARAMS_JSON => new DevblocksSearchField(self::PARAMS_JSON, 'export_type', 'params_json', $translate->_('feg.export_type.params_json')),
 		);
 		
 		// Sort by label (translation-conscious)
@@ -264,8 +270,9 @@ class View_ExportType extends FEG_AbstractView {
 		$this->view_columns = array(
 			SearchFields_ExportType::ID,
 			SearchFields_ExportType::NAME,
-			SearchFields_ExportType::PARAMS_JSON,
+			SearchFields_ExportType::RECIPIENT_TYPE,
 			SearchFields_ExportType::IS_DISABLED,
+			SearchFields_ExportType::PARAMS_JSON,
 		);
 		$this->doResetCriteria();
 	}
@@ -294,7 +301,7 @@ class View_ExportType extends FEG_AbstractView {
 		
 		$tpl->assign('view_fields', $this->getColumns());
 		// [TODO] Set your template path
-		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/export_type/view.tpl');
+		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/tabs/export_type/view.tpl');
 	}
 
 	function renderCriteria($field) {
@@ -321,6 +328,10 @@ class View_ExportType extends FEG_AbstractView {
 //			case 'placeholder_date':
 //				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__date.tpl');
 //				break;
+			// FIXME Need to create Customer criteria filter file
+			case SearchFields_ExportType::RECIPIENT_TYPE:
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__recipient_type.tpl');
+				break;
 			default:
 				echo ' ';
 				break;
@@ -372,6 +383,7 @@ class View_ExportType extends FEG_AbstractView {
 		switch($field) {
 			case SearchFields_ExportType::NAME:
 //			case SearchFields_ExportType::PARAMS_JSON:
+//			case SearchFields_ExportType::RECIPIENT_TYPE:
 //			case 'placeholder_string':
 				// force wildcards if none used on a LIKE
 				if(($oper == DevblocksSearchCriteria::OPER_LIKE || $oper == DevblocksSearchCriteria::OPER_NOT_LIKE)
@@ -429,8 +441,9 @@ class View_ExportType extends FEG_AbstractView {
 				// [TODO] Used for bulk update
 //			$change_fields[DAO_ExportType::ID] = intval($v);
 //			$change_fields[DAO_ExportType::NAME] = intval($v);
-//			$change_fields[DAO_ExportType::PARAMS_JSON] = intval($v);
+//			$change_fields[DAO_ExportType::RECIPIENT_TYPE] = intval($v);
 //			$change_fields[DAO_ExportType::IS_DISABLED] = intval($v);
+//			$change_fields[DAO_ExportType::PARAMS_JSON] = intval($v);
 				// [TODO] Implement actions
 //				case 'example':
 					//$change_fields[DAO_ExportType::EXAMPLE] = 'some value';
