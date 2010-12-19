@@ -296,7 +296,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		
 		$fields = array(
 			DAO_CustomerRecipient::ACCOUNT_ID => $recipient_account_id,
-			DAO_CustomerRecipient::EXPORT_FILTER => $recipient_export_type,
+			DAO_CustomerRecipient::EXPORT_TYPE => $recipient_export_type,
 			DAO_CustomerRecipient::IS_DISABLED => $disabled,
 			DAO_CustomerRecipient::TYPE => $recipient_type,
 			DAO_CustomerRecipient::ADDRESS_TO => $recipient_address_to,
