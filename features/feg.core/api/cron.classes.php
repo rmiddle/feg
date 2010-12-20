@@ -417,7 +417,6 @@ class ExportCron extends FegCronExtension {
 		
 		mysql_free_result($rs);
 
-
 		$timeout = ini_get('max_execution_time');
 		$runtime = microtime(true);
 		
@@ -448,6 +447,24 @@ class ExportCron extends FegCronExtension {
 		$timeout = ini_get('max_execution_time');
 		$runtime = microtime(true);
 		
+		$sql = sprintf("SELECT mr.id ".
+			"FROM message_recipient mr ".
+			"inner join customer_recipient cr on mr.recipient_id = cr.id ".
+			"WHERE mr.send_status in (0,3,4) ".
+			"AND cr.is_disabled = 0 ".
+			"AND cr.export_type = %d ".
+			"AND cr.type = 1 ",
+			$export_type->id
+		);
+		$rs = $db->Execute($sql);
+		
+		// Loop though pending outbound emails.
+		while($row = mysql_fetch_assoc($rs)) {
+			$logger->info("[Email Exporter] Procing MR ID: ".$row['id']);
+			
+		}
+		
+		mysql_free_result($rs);
 		// Give plugins a chance to run export
 	    $eventMgr = DevblocksPlatform::getEventService();
 	    $eventMgr->trigger(
@@ -475,6 +492,24 @@ class ExportCron extends FegCronExtension {
 		$timeout = ini_get('max_execution_time');
 		$runtime = microtime(true);
 		
+		$sql = sprintf("SELECT mr.id ".
+			"FROM message_recipient mr ".
+			"inner join customer_recipient cr on mr.recipient_id = cr.id ".
+			"WHERE mr.send_status in (0,3,4) ".
+			"AND cr.is_disabled = 0 ".
+			"AND cr.export_type = %d ".
+			"AND cr.type = 2 ",
+			$export_type->id
+		);
+		$rs = $db->Execute($sql);
+		
+		// Loop though pending outbound emails.
+		while($row = mysql_fetch_assoc($rs)) {
+			$logger->info("[Email Exporter] Procing MR ID: ".$row['id']);
+			
+		}
+		
+		mysql_free_result($rs);
 		// Give plugins a chance to run export
 	    $eventMgr = DevblocksPlatform::getEventService();
 	    $eventMgr->trigger(
