@@ -407,27 +407,25 @@ class ExportCron extends FegCronExtension {
 			$message = DAO_Message::get($message_recipient->message_id);
 			$message_lines = explode('\r\n',substr($message->message,1,-1));
 			$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
-			echo "<pre>";
-			print_r($message_recipient);
-			print_r($message);
-			print_r($recipient);
 			
-			// FIXME - Need to add in filter for now everything is unfiltered.
-//			$properties = array(
-//				'to'	=> $recipient->address,
-//				'subject' => $recipient->subject,
-//				'content' => implode("\r\n", $message_lines),
-//			);
 			$to	= !empty($recipient->address_to) ? (array($recipient->address => $recipient->address_to)) : (array($recipient->address));
-//			$to	= array($recipient->address => $recipient->address_to));
-//			$to	= array($recipient->address);
 			$subject = $recipient->subject;
 			
-			print_r($properties);
-			echo "</pre>";
-			//$send_status = FegMail::sendMail($properties);
+			// FIXME - Need to add in filter for now everything is unfiltered.
 			$send_status = FegMail::quickSend2($to, $subject, implode("\r\n", $message_lines));
-			echo "Send Status: " . ($send_status ? "Successful<br>" : "Failure<br>");
+			
+			$logger->info("[Email Exporter] Send Status: " . ($send_status ? "Successful" : "Failure");
+			
+			// Give plugins a chance to run export
+			$eventMgr = DevblocksPlatform::getEventService();
+			$eventMgr->trigger(
+				new Model_DevblocksEvent(
+					'cron.export.email',
+					array(
+						'send_status'  => $send_status,
+					)
+				)
+			);
 		}
 		
 		mysql_free_result($rs);
@@ -435,14 +433,6 @@ class ExportCron extends FegCronExtension {
 		$timeout = ini_get('max_execution_time');
 		$runtime = microtime(true);
 		
-		// Give plugins a chance to run export
-	    $eventMgr = DevblocksPlatform::getEventService();
-	    $eventMgr->trigger(
-	        new Model_DevblocksEvent(
-	            'cron.export.email',
-                array()
-            )
-	    );
 		return NULL;		
 	}
 	

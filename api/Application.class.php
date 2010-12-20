@@ -470,7 +470,8 @@ class FegMail {
 		return true;
 	}
 
-	static function quickSend2($to, $subject, $body, $from_addy=null, $from_personal=null) {
+	// To is an aaray no a string like above.
+	static function sendMail($to, $subject, $body, $from_addy=null, $from_personal=null) {
 		try {
 			$mail_service = DevblocksPlatform::getMailService();
 			$mailer = $mail_service->getMailer(FegMail::getMailerDefaults());
@@ -507,7 +508,7 @@ class FegMail {
 		return true;
 	}
 	
-	static function sendMail($properties) {
+	static function sendMailProperties($properties) {
 		$status = true;
 		@$toStr = $properties['to'];
 		@$cc = $properties['cc'];
