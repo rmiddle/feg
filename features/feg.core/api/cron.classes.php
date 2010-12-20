@@ -418,7 +418,7 @@ class ExportCron extends FegCronExtension {
 				'subject' => $recipient->subject,
 				'content' => $message_lines,
 			);
-			$to	= !empty($recipient->address_to) ? (sprintf("%s <%s>",$recipient->address_to,$recipient->address)) : (sprintf('%s',$recipient->address));
+			$to	= $recipient->address;
 			$subject = $recipient->subject;
 			$body = $message_lines;
 			
