@@ -439,33 +439,24 @@ class FegMail {
 			$mailer = $mail_service->getMailer(FegMail::getMailerDefaults());
 			$mail = $mail_service->createMessage();
 	
-echo "Step 1<br>";
 		    $settings = DevblocksPlatform::getPluginSettingsService();
 		    
-echo "Step 2<br>";
 		    if(empty($from_addy))
 				@$from_addy = $settings->get('feg.core',FegSettings::DEFAULT_REPLY_FROM, $_SERVER['SERVER_ADMIN']);
 		    
 		    if(empty($from_personal))
 				@$from_personal = $settings->get('feg.core',FegSettings::DEFAULT_REPLY_PERSONAL,'');
 			
-echo "Step 3<br>";
 			$mail->setTo(array($to));
-echo "Step 4<br>";
 			$mail->setFrom(array($from_addy => $from_personal));
-echo "Step 5<br>";
 			$mail->setSubject($subject);
-echo "Step 6<br>";
 			$mail->generateId();
-echo "Step 7<br>";
 			
 			$headers = $mail->getHeaders();
 			
 			$headers->addTextHeader('X-Mailer','Feg (Build '.APP_BUILD.')');
-echo "Step 8<br>";
 			
 			$mail->setBody($body);
-echo "Step 9<br>";
 		
 			// [TODO] Report when the message wasn't sent.
 			if(!$mailer->send($mail)) {
@@ -478,7 +469,7 @@ echo "Step 9<br>";
 		
 		return true;
 	}
-		
+
 	static function sendMail($properties) {
 		$status = true;
 		@$toStr = $properties['to'];
