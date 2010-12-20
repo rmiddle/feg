@@ -420,12 +420,24 @@ class ExportCron extends FegCronExtension {
 			$eventMgr = DevblocksPlatform::getEventService();
 			$eventMgr->trigger(
 				new Model_DevblocksEvent(
-					'cron.export.email',
+					'cron.send.email',
 					array(
+						'recipient' => $recipient,
+						'message' => $message.
+						'message_lines' => $message_lines,
+						'message_recipient' => $message_recipient,
 						'send_status'  => $send_status,
 					)
 				)
 			);
+			if($send_status) {
+				$email_current_hour++;
+				$email_sent_today++;
+			} 
+			$fields = array(
+           		DAO_MessageRecipient::SEND_STATUS => $send_status $status ? 2 : 1, // 2 = Successful // 1 = Fail
+          	);
+            DAO_MessageRecipient::update($id, $fields);
 		}
 		
 		mysql_free_result($rs);

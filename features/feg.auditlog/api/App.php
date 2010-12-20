@@ -101,13 +101,30 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
 				$log_id = DAO_MessageAuditLog::create($fields);
             	break;
             	
-            case 'cron.export.email':
+            case 'cron.send.email':
+            	@$recipient = $event->params['recipient'];
+            	@$message = $event->params['message'];
+            	@$message_recipient = $event->params['message_recipient'];
+            	@$message_text = $event->params['message_text'];
+            	@$send_status = $event->params['send_status'];
+				
+          		$fields = array(
+          			DAO_MessageAuditLog::WORKER_ID => 0,
+          			DAO_MessageAuditLog::ACCOUNT_ID => $message_recipient->account_id,
+          			DAO_MessageAuditLog::RECIPIENT_ID => $message_recipient->recipient_id,
+          			DAO_MessageAuditLog::MESSAGE_ID => $message_recipient->message_id,
+          			DAO_MessageAuditLog::MESSAGE_RECIPIENT_ID => $message_recipient->id,
+           			DAO_MessageAuditLog::CHANGE_DATE => time(),
+           			DAO_MessageAuditLog::CHANGE_FIELD => 'auditlog.cs.message.send',
+           			DAO_MessageAuditLog::CHANGE_VALUE => $send_status ? "Successful" : "Failure",
+          		);
+            	$log_id = DAO_MessageAuditLog::create($fields);
             	break;
             	
-            case 'cron.export.fax':
+            case 'cron.send.fax':
             	break;
             	
-            case 'cron.export.snpp':
+            case 'cron.send.snpp':
             	break;
 				
             case 'dao.customer.account.update':

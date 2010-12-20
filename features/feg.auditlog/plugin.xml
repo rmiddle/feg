@@ -50,9 +50,9 @@
 					<value>
 						<data key="cron.maint" />
 						<data key="cron.import" />
-						<data key="cron.export.email" />
-						<data key="cron.export.fax" />
-						<data key="cron.export.snpp" />
+						<data key="cron.send.email" />
+						<data key="cron.send.fax" />
+						<data key="cron.send.snpp" />
 						<data key="dao.customer.account.update" />
 						<data key="dao.customer.recipient.update" />
 						<data key="email.send" />

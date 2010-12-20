@@ -119,13 +119,13 @@
 		<event id="cron.import">
 			<name>Import Messages</name>
 		</event>
-		<event id="cron.export.email">
+		<event id="cron.send.email">
 			<name>Export Email Messages</name>
 		</event>
-		<event id="cron.export.fax">
+		<event id="cron.send.fax">
 			<name>Export Fax Messages</name>
 		</event>
-		<event id="cron.export.snpp">
+		<event id="cron.send.snpp">
 			<name>Export SNPP Messages</name>
 		</event>
 		<event id="dao.customer.account.update">
