@@ -433,6 +433,7 @@ class ExportCron extends FegCronExtension {
 	
 	function ExportFax(Model_ExportType $export_type) {
 		$logger = DevblocksPlatform::getConsoleLog();
+		$db = DevblocksPlatform::getDatabaseService();
 	
 		$memory_limit = ini_get('memory_limit');
 		if(substr($memory_limit, 0, -1)  < 128) {
@@ -478,6 +479,7 @@ class ExportCron extends FegCronExtension {
 	
 	function ExportSnpp(Model_ExportType $export_type) {
 		$logger = DevblocksPlatform::getConsoleLog();
+		$db = DevblocksPlatform::getDatabaseService();
 	
 		$memory_limit = ini_get('memory_limit');
 		if(substr($memory_limit, 0, -1)  < 128) {
