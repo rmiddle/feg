@@ -351,11 +351,13 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 	
 	function showRecipientTypeAction() {
 		@$type = DevblocksPlatform::importGPC($_REQUEST['type'],'integer',0);
+		@$select_type = DevblocksPlatform::importGPC($_REQUEST['select_type'],'integer',0);
 		
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
 		
 		$tpl->assign('type', $type);
+		$tpl->assign('select_type', $select_type);
 
 		$export_type = DAO_ExportType::getAll();
 		$tpl->assign('export_type', $export_type);
