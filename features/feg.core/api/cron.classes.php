@@ -333,17 +333,6 @@ class ExportCron extends FegCronExtension {
 		//	System wide default should be fine will revisit if needed	
 		//	@ini_set('memory_limit','128M');
 
-		$db = DevblocksPlatform::getDatabaseService();
-
-		// Give plugins a chance to run export
-	    $eventMgr = DevblocksPlatform::getEventService();
-	    $eventMgr->trigger(
-	        new Model_DevblocksEvent(
-	            'cron.export',
-                array()
-            )
-	    );
-		
 		$export_type_all = DAO_ExportType::getAll();
     	foreach($export_type_all as $export_type_id => $export_type) { 
 			$logger->info('[Message Export] Now Processing ' . $export_type->name . ' Export Number: ' . $export_type->id);
@@ -411,8 +400,23 @@ class ExportCron extends FegCronExtension {
 		
 		// Loop though pending outbound emails.
 		while($row = mysql_fetch_assoc($rs)) {
-			$logger->info("[Email Exporter] Procing MR ID: ".$row['id']);
+			$id = $row['id'];
+			$logger->info("[Email Exporter] Procing MR ID: ".$id);
 			
+			$message_recipient = DAO_MessageRecipient::get($id);
+			$message = DAO_Message::get($message_recipient->message_id);
+			$message_lines = explode('\r\n',substr($message->message,1,-1));
+			$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
+			echo "<pre>";
+			print_r($message_recipient);
+			print_r($message);
+			print_r($recipient);
+			echo "</pre>";
+			$properties = array(
+				'content' => $message_lines,
+			);
+			
+			//$send_status = FegMail::send_mail($properties);
 		}
 		
 		mysql_free_result($rs);

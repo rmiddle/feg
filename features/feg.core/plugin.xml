@@ -119,9 +119,6 @@
 		<event id="cron.import">
 			<name>Import Messages</name>
 		</event>
-		<event id="cron.export">
-			<name>Export Messages</name>
-		</event>
 		<event id="cron.export.email">
 			<name>Export Email Messages</name>
 		</event>
@@ -137,6 +134,9 @@
 		<event id="dao.customer.recipient.update">
 			<name>Customer Recipient Update Event</name>
 		</event>
+		<event id="email.send">
+			<name>Email Send</name>
+		</event>
 		<event id="message.create">
 			<name>Message Creation Event</name>
 		</event>
@@ -147,7 +147,7 @@
 			<name>Message Recipient Status Update</name>
 		</event>
 	</event_points>
-
+	
 	<!-- Permissions -->
 
 	<acl>
