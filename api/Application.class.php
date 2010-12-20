@@ -23,6 +23,10 @@ DevblocksPlatform::registerClasses($path . 'Update.php', array(
 	'FegUpdateController',
 ));
 
+DevblocksPlatform::registerClasses($path . 'Mail.php', array(
+	'FegMail',
+));
+
 /**
  * Application-level Facade
  */
