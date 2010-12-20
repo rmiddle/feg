@@ -15,8 +15,8 @@ class FegMail {
 			'enc' => $settings->get('feg.core',FegSettings::SMTP_ENCRYPTION_TYPE,'None'),
 			'max_sends' => $settings->get('feg.core',FegSettings::SMTP_MAX_SENDS,'20'),
 			'timeout' => $settings->get('feg.core',FegSettings::SMTP_TIMEOUT,'30'),
-			'sender_address' => $settings->get('feg.core','default_reply_from'),
-			'sender_personal' => $settings->get('feg.core','default_reply_personal'),
+			'sender_address' => $settings->get('feg.core','default_reply_from',''),
+			'sender_personal' => $settings->get('feg.core','default_reply_personal',''),
 		);
 	}
 		
@@ -29,7 +29,7 @@ class FegMail {
 		@$content = $properties['content'];
 		@$files = $properties['files'];
 
-		$mail_settings = FegMail::getMailerDefaults();
+		$mail_settings = self::getMailerDefaults();
 		$from = $mail_settings['sender_address'];
 		$personal = $mail_settings['sender_personal'];
 		
