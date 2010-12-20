@@ -421,7 +421,8 @@ class ExportCron extends FegCronExtension {
 			
 			print_r($properties);
 			echo "</pre>";
-			//$send_status = FegMail::send_mail($properties);
+			$send_status = FegMail::send_mail($properties);
+			echo "Send Status: " . ($send_status ? "Successful<br>" : "Failure<br>");
 		}
 		
 		mysql_free_result($rs);
