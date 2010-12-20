@@ -497,7 +497,7 @@ class FegMail {
 		// Headers needed for the ticket message
 		$log_headers = new Swift_Message_Headers();
 		$log_headers->setCharset(LANG_CHARSET_CODE);
-		$log_headers->set('To', $toStr);
+		$log_headers->set('To', $toList);
 		$log_headers->set('From', !empty($from_personal) ? (sprintf("%s <%s>",$from_personal,$from_addy)) : (sprintf('%s',$from_addy)));
 		$log_headers->set('Subject', $subject);
 		$log_headers->set('Date', date('r'));
