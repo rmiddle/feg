@@ -461,6 +461,10 @@ class FegMail {
 			// [TODO] Report when the message wasn't sent.
 			if(!$mailer->send($mail)) {
 				return false;
+				echo "<pre>";
+				print_r($mailer);
+				echo "<pre>";
+
 			}
 			
 		} catch (Exception $e) {
