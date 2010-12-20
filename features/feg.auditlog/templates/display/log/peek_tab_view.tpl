@@ -63,7 +63,22 @@
 			{elseif $column=="l_change_field"}
 				<td>{$translate->_($result.l_change_field)}&nbsp;</td>
 			{elseif $column=="l_change_value"}
-				<td>{$result.l_change_value}&nbsp;</td>
+				<td>
+					{if $result.l_change_field=='auditlog.cr.account_id'}
+						{include file="file:$core_tpl/internal/feg/display_customer_id.tpl"}
+					{elseif $result.l_change_field=='auditlog.ca.is_disabled' || $result.l_change_field=='auditlog.cr.is_disabled'}
+						{if $result.l_change_value==0}
+							{$translate->_('common.enable')|capitalize}
+						{else}
+							{$translate->_('common.disable')|capitalize}
+						{/if}
+					{elseif $result.l_change_field=='auditlog.cr.export_type'}
+						{$export = DAO_ExportType::get($result.l_change_value)}
+						{$export->name}
+					{else}
+						{$result.l_change_value}
+					{/if}
+				&nbsp;</td>
 			{else}
 				<td>{$result.$column}&nbsp;</td>
 			{/if}
