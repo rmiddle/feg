@@ -66,7 +66,12 @@
 					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.cr_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
 					{include file="file:$core_tpl/internal/feg/display_recipient_type.tpl"}</a>
 					&nbsp;
-					</a>
+				</td>
+			{elseif $column=="cr_export_type"}
+				<td>
+					{$export = DAO_ExportType::get($result.cr_export_type)}
+					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.cr_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
+					{$export->name}</a>&nbsp;
 				</td>
 			{elseif $column=="cr_account_id"}
 				<td>{include file="file:$core_tpl/internal/feg/display_customer_id.tpl"}&nbsp;</td>
