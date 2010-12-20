@@ -420,7 +420,7 @@ class ExportCron extends FegCronExtension {
 //			);
 			$to	= !empty($recipient->address_to) ? (array($recipient->address => $recipient->address_to)) : (array($recipient->address));
 //			$to	= array($recipient->address => $recipient->address_to));
-			$to	= array($recipient->address);
+//			$to	= array($recipient->address);
 			$subject = $recipient->subject;
 			
 			print_r($properties);
