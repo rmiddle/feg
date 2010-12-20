@@ -411,6 +411,8 @@ class ExportCron extends FegCronExtension {
 			print_r($message_recipient);
 			print_r($message);
 			print_r($recipient);
+			
+			// FIXME - Need to add in filter for now everything is unfiltered.
 			$properties = array(
 				'to'	=> !empty($recipient->address_to) ? (sprintf("%s <%s>",$recipient->address_to,$recipient->address)) : (sprintf('%s',$recipient->address)),
 				'subject' => $recipient->subject,
