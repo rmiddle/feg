@@ -418,10 +418,14 @@ class ExportCron extends FegCronExtension {
 				'subject' => $recipient->subject,
 				'content' => $message_lines,
 			);
+			$to	= !empty($recipient->address_to) ? (sprintf("%s <%s>",$recipient->address_to,$recipient->address)) : (sprintf('%s',$recipient->address));
+			$subject = $recipient->subject;
+			$body = $message_lines;
 			
 			print_r($properties);
 			echo "</pre>";
-			$send_status = FegMail::sendMail($properties);
+//			$send_status = FegMail::sendMail($properties);
+			$send_status = FegMail::quickSend($to, $subject, $body);
 			echo "Send Status: " . ($send_status ? "Successful<br>" : "Failure<br>");
 		}
 		
