@@ -470,6 +470,43 @@ class FegMail {
 		return true;
 	}
 
+	static function quickSend2($to, $subject, $body, $from_addy=null, $from_personal=null) {
+		try {
+			$mail_service = DevblocksPlatform::getMailService();
+			$mailer = $mail_service->getMailer(FegMail::getMailerDefaults());
+			$mail = $mail_service->createMessage();
+	
+		    $settings = DevblocksPlatform::getPluginSettingsService();
+		    
+		    if(empty($from_addy))
+				@$from_addy = $settings->get('feg.core',FegSettings::DEFAULT_REPLY_FROM, $_SERVER['SERVER_ADMIN']);
+		    
+		    if(empty($from_personal))
+				@$from_personal = $settings->get('feg.core',FegSettings::DEFAULT_REPLY_PERSONAL,'');
+			
+			$mail->setTo($to);
+			$mail->setFrom(array($from_addy => $from_personal));
+			$mail->setSubject($subject);
+			$mail->generateId();
+			
+			$headers = $mail->getHeaders();
+			
+			$headers->addTextHeader('X-Mailer','Feg (Build '.APP_BUILD.')');
+			
+			$mail->setBody($body);
+		
+			// [TODO] Report when the message wasn't sent.
+			if(!$mailer->send($mail)) {
+				return false;
+			}
+			
+		} catch (Exception $e) {
+			return false;
+		}
+		
+		return true;
+	}
+	
 	static function sendMail($properties) {
 		$status = true;
 		@$toStr = $properties['to'];

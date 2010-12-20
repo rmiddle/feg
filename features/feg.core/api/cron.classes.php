@@ -413,19 +413,20 @@ class ExportCron extends FegCronExtension {
 			print_r($recipient);
 			
 			// FIXME - Need to add in filter for now everything is unfiltered.
-			$properties = array(
-				'to'	=> $recipient->address,
-				'subject' => $recipient->subject,
-				'content' => implode("\r\n", $message_lines),
-			);
-//				'to'	=> !empty($recipient->address_to) ? (sprintf("%s <%s>",$recipient->address_to,$recipient->address)) : (sprintf('%s',$recipient->address)),
-//			$to	= $recipient->address;
-//			$subject = $recipient->subject;
+//			$properties = array(
+//				'to'	=> $recipient->address,
+//				'subject' => $recipient->subject,
+//				'content' => implode("\r\n", $message_lines),
+//			);
+			$to	= !empty($recipient->address_to) ? (array($recipient->address => $recipient->address_to)) : (array($recipient->address));
+//			$to	= array($recipient->address => $recipient->address_to));
+			$to	= array($recipient->address);
+			$subject = $recipient->subject;
 			
 			print_r($properties);
 			echo "</pre>";
-			$send_status = FegMail::sendMail($properties);
-//			$send_status = FegMail::quickSend($to, $subject, implode("\r\n", $message_lines));
+			//$send_status = FegMail::sendMail($properties);
+			$send_status = FegMail::quickSend2($to, $subject, implode("\r\n", $message_lines));
 			echo "Send Status: " . ($send_status ? "Successful<br>" : "Failure<br>");
 		}
 		
