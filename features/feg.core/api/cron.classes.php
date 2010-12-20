@@ -420,7 +420,7 @@ class ExportCron extends FegCronExtension {
 			);
 			$to	= $recipient->address;
 			$subject = $recipient->subject;
-			$body = $message_lines;
+			$body = substr($message->message,1,-1);
 			
 			print_r($properties);
 			echo "</pre>";
