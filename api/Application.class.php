@@ -467,6 +467,9 @@ class FegMail {
 			}
 			
 		} catch (Exception $e) {
+				echo "<pre>";
+				print_r($mailer);
+				echo "<pre>";
 			return false;
 		}
 		
