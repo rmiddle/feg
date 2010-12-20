@@ -121,7 +121,8 @@
 	$(document).ready(function() {
 		$("#div_export_recipient_type").load("{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientType&type={$customer_recipient->type}{/devblocks_url}");
 		$('#recipient_type').change(function() {
-			$("#div_export_recipient_type").load("{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientType&type={$customer_recipient->type}{/devblocks_url}");
+			var sel = $(this).val();
+			$("#div_export_recipient_type").load("{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientType&type="+sel+"{/devblocks_url}");
 		});
 	});
 </script>
