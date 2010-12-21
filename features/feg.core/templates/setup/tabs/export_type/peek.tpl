@@ -32,6 +32,10 @@
 				<option value="2" {if $export_type->recipient_type == '2'}selected{/if}>{$translate->_('recipient.type.snpp')|capitalize}</option>
 			</select>
 		</td>
+	<tr>
+		<td width="0%" nowrap="nowrap" align="right"><b>Parms</b>: </td>
+		<td width="100%"><input type="text" name="export_type_name" value="{$export_type->params['import_source']|escape}" style="width:98%;"></td>
+	</tr>
 	</tr>
 </table>
 <br>
