@@ -531,7 +531,7 @@ class ExportCron extends FegCronExtension {
 			//$send_status = FegFax::sendFax($recipient->address, 	substr($message_str,0,160));
 			$send_status = false;
 			
-			$logger->info("[SNPP Exporter] Send Status: " . ($send_status ? "Successful" : "Failure"));
+			$logger->info("[FAX Exporter] Send Status: " . ($send_status ? "Successful" : "Failure"));
 			
 			// Give plugins a chance to run export
 			$eventMgr = DevblocksPlatform::getEventService();
