@@ -602,13 +602,17 @@ class ExportCron extends FegCronExtension {
 		while($row = mysql_fetch_assoc($rs)) {
 			$logger->info("[SNPP Exporter] Procing MR ID: ".$row['id']);
 			
+echo "<pre>";
 			$message_recipient = DAO_MessageRecipient::get($id);
 			$message = DAO_Message::get($message_recipient->message_id);
 			$message_lines = explode('\r\n',substr($message->message,1,-1));
 			$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
+print_r($message_recipient);
+print_r($message);
+print_r($message_lines);
+print_r($recipient);
 			
 			$message_str = substr(implode("\r\n", $message_lines),0,160);
-echo "<pre>";
 echo "message_str:<br>";
 print_r($message_str);
 echo "<br>";
