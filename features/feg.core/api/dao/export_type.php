@@ -157,8 +157,8 @@ class DAO_ExportType extends Feg_ORMHelper {
 			"export_type.id as %s, ".
 			"export_type.name as %s, ".
 			"export_type.recipient_type as %s, ".
-			"export_type.is_disabled as %s, ",
-			"export_type.params_json as %s ".
+			"export_type.is_disabled as %s, ".
+			"export_type.params_json as %s ",
 				SearchFields_ExportType::ID,
 				SearchFields_ExportType::NAME,
 				SearchFields_ExportType::RECIPIENT_TYPE,
