@@ -2,6 +2,7 @@
 
 class Model_Stats {
 	public $id;
+	public $current_hour;
 	public $fax_current_hour;
 	public $fax_last_hour;
 	public $fax_sent_today;
@@ -18,6 +19,7 @@ class Model_Stats {
 
 class DAO_Stats extends Feg_ORMHelper {
 	const ID = 'id';
+	const CURRENT_HOUR = 'current_hour';
 	const FAX_CURRENT_HOUR = 'fax_current_hour';
 	const FAX_LAST_HOUR = 'fax_last_hour';
 	const FAX_SENT_TODAY = 'fax_sent_today';
@@ -63,7 +65,7 @@ class DAO_Stats extends Feg_ORMHelper {
 	static function getWhere($where=null) {
 		$db = DevblocksPlatform::getDatabaseService();
 		
-		$sql = "SELECT id, fax_current_hour, fax_last_hour, fax_sent_today, fax_sent_yesterday, email_current_hour, email_last_hour, email_sent_today, email_sent_yesterday, snpp_current_hour, snpp_last_hour, snpp_sent_today, snpp_sent_yesterday ".
+		$sql = "SELECT id, current_hour, fax_current_hour, fax_last_hour, fax_sent_today, fax_sent_yesterday, email_current_hour, email_last_hour, email_sent_today, email_sent_yesterday, snpp_current_hour, snpp_last_hour, snpp_sent_today, snpp_sent_yesterday ".
 			"FROM stats ".
 			(!empty($where) ? sprintf("WHERE %s ",$where) : "").
 			"ORDER BY id asc";
@@ -97,6 +99,7 @@ class DAO_Stats extends Feg_ORMHelper {
 		while($row = mysql_fetch_assoc($rs)) {
 			$object = new Model_Stats();
 			$object->id = $row['id'];
+			$object->current_hour = $row['current_hour'];
 			$object->fax_current_hour = $row['fax_current_hour'];
 			$object->fax_last_hour = $row['fax_last_hour'];
 			$object->fax_sent_today = $row['fax_sent_today'];
@@ -159,6 +162,7 @@ class DAO_Stats extends Feg_ORMHelper {
 		
 		$select_sql = sprintf("SELECT ".
 			"stats.id as %s, ".
+			"stats.current_hour as %s, ".
 			"stats.fax_current_hour as %s, ".
 			"stats.fax_last_hour as %s, ".
 			"stats.fax_sent_today as %s, ".
@@ -172,6 +176,7 @@ class DAO_Stats extends Feg_ORMHelper {
 			"stats.snpp_sent_today as %s, ".
 			"stats.snpp_sent_yesterday as %s ",
 				SearchFields_Stats::ID,
+				SearchFields_Stats::CURRENT_HOUR,
 				SearchFields_Stats::FAX_CURRENT_HOUR,
 				SearchFields_Stats::FAX_LAST_HOUR,
 				SearchFields_Stats::FAX_SENT_TODAY,
@@ -247,6 +252,7 @@ class DAO_Stats extends Feg_ORMHelper {
 
 class SearchFields_Stats implements IDevblocksSearchFields {
 	const ID = 'stats_id';
+	const CURRENT_HOUR = 'stats_current_hour';
 	const FAX_CURRENT_HOUR = 'stats_fax_current_hour';
 	const FAX_LAST_HOUR = 'stats_fax_last_hour';
 	const FAX_SENT_TODAY = 'stats_fax_sent_today';
@@ -268,6 +274,7 @@ class SearchFields_Stats implements IDevblocksSearchFields {
 		
 		$columns = array(
 			self::ID => new DevblocksSearchField(self::ID, 'stats', 'id', $translate->_('feg.stats.id')),
+			self::CURRENT_HOUR => new DevblocksSearchField(self::CURRENT_HOUR, 'stats', 'current_hour', $translate->_('feg.stats.current_hour')),
 			self::FAX_CURRENT_HOUR => new DevblocksSearchField(self::FAX_CURRENT_HOUR, 'stats', 'fax_current_hour', $translate->_('feg.stats.fax_current_hour')),
 			self::FAX_LAST_HOUR => new DevblocksSearchField(self::FAX_LAST_HOUR, 'stats', 'fax_last_hour', $translate->_('feg.stats.fax_last_hour')),
 			self::FAX_SENT_TODAY => new DevblocksSearchField(self::FAX_SENT_TODAY, 'stats', 'fax_sent_today', $translate->_('feg.stats.fax_sent_today')),
@@ -310,7 +317,6 @@ class View_Stats extends FEG_AbstractView {
 		$this->renderSortAsc = true;
 
 		$this->view_columns = array(
-			SearchFields_Stats::ID,
 			SearchFields_Stats::FAX_CURRENT_HOUR,
 			SearchFields_Stats::FAX_LAST_HOUR,
 			SearchFields_Stats::FAX_SENT_TODAY,
@@ -366,6 +372,7 @@ class View_Stats extends FEG_AbstractView {
 //				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__string.tpl');
 //				break;
 			case SearchFields_Stats::ID:
+			case SearchFields_Stats::CURRENT_HOUR:
 			case SearchFields_Stats::FAX_CURRENT_HOUR:
 			case SearchFields_Stats::FAX_LAST_HOUR:
 			case SearchFields_Stats::FAX_SENT_TODAY:
@@ -412,6 +419,7 @@ class View_Stats extends FEG_AbstractView {
 		$fields = self::getFields();
 		// [TODO] Filter fields
 		unset($fields[SearchFields_Stats::ID]);
+		unset($fields[SearchFields_Stats::CURRENT_HOUR]);
 		return $fields;
 	}
 
@@ -419,6 +427,7 @@ class View_Stats extends FEG_AbstractView {
 		$fields = self::getFields();
 		// [TODO] Filter fields
 		unset($fields[SearchFields_Stats::ID]);
+		unset($fields[SearchFields_Stats::CURRENT_HOUR]);
 		return $fields;
 	}
 
@@ -444,6 +453,7 @@ class View_Stats extends FEG_AbstractView {
 //				$criteria = new DevblocksSearchCriteria($field, $oper, $value);
 //				break;
 			case SearchFields_Stats::ID:
+			case SearchFields_Stats::CURRENT_HOUR:
 			case SearchFields_Stats::FAX_CURRENT_HOUR:
 			case SearchFields_Stats::FAX_LAST_HOUR:
 			case SearchFields_Stats::FAX_SENT_TODAY:
@@ -504,6 +514,7 @@ class View_Stats extends FEG_AbstractView {
 				case 'example':
 				// [TODO] Used for bulk update
 			$change_fields[DAO_Stats::ID] = intval($v);
+			$change_fields[DAO_Stats::CURRENT_HOUR] = intval($v);
 			$change_fields[DAO_Stats::FAX_CURRENT_HOUR] = intval($v);
 			$change_fields[DAO_Stats::FAX_LAST_HOUR] = intval($v);
 			$change_fields[DAO_Stats::FAX_SENT_TODAY] = intval($v);
