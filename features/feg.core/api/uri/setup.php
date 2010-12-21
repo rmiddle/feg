@@ -586,9 +586,6 @@ class FegSetupPage extends FegPageExtension  {
 		$export_type = DAO_ExportType::get($id);
 		$tpl->assign('export_type', $export_type);
 		
-echo "<pre>";
-print_r($export_type);
-echo "</pre>";
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/export_type/peek.tpl');		
 	}
 	
