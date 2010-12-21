@@ -435,7 +435,7 @@ class ExportCron extends FegCronExtension {
 				$email_sent_today++;
 			} 
 			$fields = array(
-           		DAO_MessageRecipient::SEND_STATUS => $send_status $status ? 2 : 1, // 2 = Successful // 1 = Fail
+           		DAO_MessageRecipient::SEND_STATUS => $send_status ? 2 : 1, // 2 = Successful // 1 = Fail
           	);
             DAO_MessageRecipient::update($id, $fields);
 		}
