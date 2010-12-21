@@ -527,12 +527,13 @@ class ExportCron extends FegCronExtension {
 			$message = DAO_Message::get($message_recipient->message_id);
 			$message_lines = explode('\r\n',substr($message->message,1,-1));
 			$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
+			$account = DAO_CustomerRecipient::get($message_recipient->account_id);
 			
 			$message_str = implode("\r\n", $message_lines);
 			
 			// FIXME - Need to add in filter for now everything is unfiltered.
-			// sendSnpp($phone_number, $message, $snpp_server="ann100sms01.answernet.com", $port=444)
-			//$send_status = FegFax::sendFax($recipient->address, 	substr($message_str,0,160));
+			// sendFax($phone_number, $message, $subject, $to, $account_name, $from=null, )
+			//$send_status = FegFax::sendFax($recipient->address, 	$message_str, $recipient->subject, $recipient->address_to, $account->name);
 			$send_status = false;
 			
 			$logger->info("[FAX Exporter] Send Status: " . ($send_status ? "Successful" : "Failure"));
@@ -543,6 +544,7 @@ class ExportCron extends FegCronExtension {
 				new Model_DevblocksEvent(
 					'cron.send.fax',
 					array(
+						'account' => $account,
 						'recipient' => $recipient,
 						'message' => $message,
 						'message_lines' => $message_lines,

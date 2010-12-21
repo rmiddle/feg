@@ -52,6 +52,8 @@ if(empty($step)) $step = STEP_ENVIRONMENT;
 @chmod(APP_TEMP_PATH . '/templates_c/', 0774);
 @mkdir(APP_TEMP_PATH . '/cache/');
 @chmod(APP_TEMP_PATH . '/cache/', 0774);
+@mkdir(APP_TEMP_PATH . '/fax_cache/');
+@chmod(APP_TEMP_PATH . '/fax_cache/', 0774);
 
 // Make sure the temporary directories of Devblocks are writeable.
 if(!is_writeable(APP_TEMP_PATH)) {
@@ -64,6 +66,10 @@ if(!is_writeable(APP_TEMP_PATH . "/templates_c/")) {
 
 if(!is_writeable(APP_TEMP_PATH . "/cache/")) {
 	die(APP_TEMP_PATH . "/cache/" . " is not writeable by the webserver.  Please adjust permissions and reload this page.");
+}
+
+if(!is_writeable(APP_TEMP_PATH . "/fax_cache/")) {
+	die(APP_TEMP_PATH . "/fax_cache/" . " is not writeable by the webserver.  Please adjust permissions and reload this page.");
 }
 
 @chmod(APP_STORAGE_PATH, 0774);

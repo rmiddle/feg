@@ -27,6 +27,10 @@ DevblocksPlatform::registerClasses($path . 'Snpp.php', array(
 	'FegSnpp',
 ));
 
+DevblocksPlatform::registerClasses($path . 'Hylafax.php', array(
+	'FegFax',
+));
+
 /**
  * Application-level Facade
  */
@@ -90,6 +94,14 @@ class FegApplication extends DevblocksApplication {
 		
 		if(!is_writeable(APP_TEMP_PATH . "/cache/")) {
 			$errors[] = APP_TEMP_PATH . "/cache/" . " is not writeable by the webserver.  Please adjust permissions and reload this page.";
+		}
+		
+		if(!file_exists(APP_TEMP_PATH . "/fax_cache")) {
+			@mkdir(APP_TEMP_PATH . "/fax_cache");
+		}
+		
+		if(!is_writeable(APP_TEMP_PATH . "/fax_cache/")) {
+			$errors[] = APP_TEMP_PATH . "/fax_cache/" . " is not writeable by the webserver.  Please adjust permissions and reload this page.";
 		}
 		
 		if(!is_writeable(APP_STORAGE_PATH)) {
