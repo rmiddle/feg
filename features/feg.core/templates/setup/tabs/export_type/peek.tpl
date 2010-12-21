@@ -1,4 +1,4 @@
-<form action="{devblocks_url}{/devblocks_url}" method="POST" id="formImportPeek" name="formImportPeek" onsubmit="return false;">
+<form action="{devblocks_url}{/devblocks_url}" method="POST" id="formExportPeek" name="formExportPeek" onsubmit="return false;">
 <input type="hidden" name="c" value="setup">
 <input type="hidden" name="a" value="saveExportPeek">
 <input type="hidden" name="id" value="{$id}">
@@ -29,7 +29,7 @@
 			<select name="import_type">
 				<option value="0" {if $export_type->recipient_type == '0'}selected{/if}>{$translate->_('recipient.type.email')|capitalize}</option>
 				<option value="1" {if $export_type->recipient_type == '1'}selected{/if}>{$translate->_('recipient.type.fax')|capitalize}</option>
-				<option value="2" {if $export_type->recipient_type == '2'}selected{/if}>{$translate->_('recipient.type.snpp)|capitalize}</option>
+				<option value="2" {if $export_type->recipient_type == '2'}selected{/if}>{$translate->_('recipient.type.snpp')|capitalize}</option>
 			</select>
 		</td>
 	</tr>
