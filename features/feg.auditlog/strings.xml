@@ -55,8 +55,14 @@
 		<tu tuid='auditlog.cron.export'>
 			<tuv xml:lang="en_US"><seg>Cron Exporter</seg></tuv>
 		</tu>
-		<tu tuid='auditlog.cs.message.send'>
-			<tuv xml:lang="en_US"><seg>Message Send</seg></tuv>
+		<tu tuid='auditlog.cs.message.email.send'>
+			<tuv xml:lang="en_US"><seg>Message Email Send</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cs.message.fax.send'>
+			<tuv xml:lang="en_US"><seg>Message Email Send</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cs.message.snpp.send'>
+			<tuv xml:lang="en_US"><seg>Message Email Send</seg></tuv>
 		</tu>
 			 
 		<!-- Change Field Strings -->

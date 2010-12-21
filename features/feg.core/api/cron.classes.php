@@ -517,19 +517,56 @@ class ExportCron extends FegCronExtension {
 		
 		// Loop though pending outbound emails.
 		while($row = mysql_fetch_assoc($rs)) {
-			$logger->info("[Email Exporter] Procing MR ID: ".$row['id']);
+			$logger->info("[Fax Exporter] Procing MR ID: ".$row['id']);
 			
+			$message_recipient = DAO_MessageRecipient::get($id);
+			$message = DAO_Message::get($message_recipient->message_id);
+			$message_lines = explode('\r\n',substr($message->message,1,-1));
+			$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
+			
+			$message_str = implode("\r\n", $message_lines);
+			
+			// FIXME - Need to add in filter for now everything is unfiltered.
+			// sendSnpp($phone_number, $message, $snpp_server="ann100sms01.answernet.com", $port=444)
+			//$send_status = FegFax::sendFax($recipient->address, 	substr($message_str,0,160));
+			$send_status = false;
+			
+			$logger->info("[SNPP Exporter] Send Status: " . ($send_status ? "Successful" : "Failure"));
+			
+			// Give plugins a chance to run export
+			$eventMgr = DevblocksPlatform::getEventService();
+			$eventMgr->trigger(
+				new Model_DevblocksEvent(
+					'cron.send.fax',
+					array(
+						'recipient' => $recipient,
+						'message' => $message,
+						'message_lines' => $message_lines,
+						'message_recipient' => $message_recipient,
+						'send_status'  => $send_status,
+					)
+				)
+			);
+			if($send_status) {
+				$fax_current_hour++;
+				$fax_sent_today++;
+			} 
+			$fields = array(
+           		DAO_MessageRecipient::SEND_STATUS => $send_status ? 2 : 1, // 2 = Successful // 1 = Fail
+          	);
+            DAO_MessageRecipient::update($id, $fields);
 		}
 		
 		mysql_free_result($rs);
-		// Give plugins a chance to run export
-	    $eventMgr = DevblocksPlatform::getEventService();
-	    $eventMgr->trigger(
-	        new Model_DevblocksEvent(
-	            'cron.export.fax',
-                array()
-            )
-	    );
+
+    	$current_fields = DAO_Stats::get(0);
+
+		$fields = array(
+       		DAO_Stats::FAX_CURRENT_HOUR => $current_fields->fax_current_hour + $fax_current_hour,
+       		DAO_Stats::FAX_SENT_TODAY => $current_fields->fax_sent_today + $fax_sent_today,
+       	);
+        DAO_Stats::update(0, $fields);
+		
 		return NULL;		
 	}
 	
@@ -563,19 +600,55 @@ class ExportCron extends FegCronExtension {
 		
 		// Loop though pending outbound emails.
 		while($row = mysql_fetch_assoc($rs)) {
-			$logger->info("[Email Exporter] Procing MR ID: ".$row['id']);
+			$logger->info("[SNPP Exporter] Procing MR ID: ".$row['id']);
 			
+			$message_recipient = DAO_MessageRecipient::get($id);
+			$message = DAO_Message::get($message_recipient->message_id);
+			$message_lines = explode('\r\n',substr($message->message,1,-1));
+			$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
+			
+			$message_str = implode("\r\n", $message_lines);
+			
+			// FIXME - Need to add in filter for now everything is unfiltered.
+			// sendSnpp($phone_number, $message, $snpp_server="ann100sms01.answernet.com", $port=444)
+			$send_status = FegSnpp::sendSnpp($recipient->address, 	substr($message_str,0,160));
+			
+			$logger->info("[SNPP Exporter] Send Status: " . ($send_status ? "Successful" : "Failure"));
+			
+			// Give plugins a chance to run export
+			$eventMgr = DevblocksPlatform::getEventService();
+			$eventMgr->trigger(
+				new Model_DevblocksEvent(
+					'cron.send.snpp',
+					array(
+						'recipient' => $recipient,
+						'message' => $message,
+						'message_lines' => $message_lines,
+						'message_recipient' => $message_recipient,
+						'send_status'  => $send_status,
+					)
+				)
+			);
+			if($send_status) {
+				$snpp_current_hour++;
+				$snpp_sent_today++;
+			} 
+			$fields = array(
+           		DAO_MessageRecipient::SEND_STATUS => $send_status ? 2 : 1, // 2 = Successful // 1 = Fail
+          	);
+            DAO_MessageRecipient::update($id, $fields);
 		}
 		
 		mysql_free_result($rs);
-		// Give plugins a chance to run export
-	    $eventMgr = DevblocksPlatform::getEventService();
-	    $eventMgr->trigger(
-	        new Model_DevblocksEvent(
-	            'cron.export.snpp',
-                array()
-            )
-	    );
+
+    	$current_fields = DAO_Stats::get(0);
+
+		$fields = array(
+       		DAO_Stats::SNPP_CURRENT_HOUR => $current_fields->snpp_current_hour + $snpp_current_hour,
+       		DAO_Stats::SNPP_SENT_TODAY => $current_fields->snpp_sent_today + $snpp_sent_today,
+       	);
+        DAO_Stats::update(0, $fields);
+		
 		return NULL;		
 	}
 };
