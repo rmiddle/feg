@@ -336,18 +336,6 @@ class ExportCron extends FegCronExtension {
     	$current_fields = DAO_Stats::get(0);
 		$current_hour = date("G");
 		if($current_fields->current_hour != $current_hour) {
-			$current_day = date("j");
-			if($current_fields->current_day != $current_day) {
-				$fields = array(
-					DAO_Stats::CURRENT_DAY => $current_day,
-					DAO_Stats::FAX_SENT_TODAY => 0,
-					DAO_Stats::FAX_SENT_YESTERDAY => $current_fields->fax_sent_today,
-					DAO_Stats::EMAIL_SENT_TODAY => 0,
-					DAO_Stats::EMAIL_SENT_YESTERDAY => $current_fields->email_sent_today,
-					DAO_Stats::SNPP_SENT_TODAY => 0,
-					DAO_Stats::SNPP_SENT_YESTERDAY => $current_fields->snpp_sent_today,
-				);
-			}
 			$fields = array(
 				DAO_Stats::CURRENT_HOUR => $current_hour,
 				DAO_Stats::FAX_CURRENT_HOUR => 0,
@@ -357,6 +345,19 @@ class ExportCron extends FegCronExtension {
 				DAO_Stats::SNPP_CURRENT_HOUR => 0,
 				DAO_Stats::SNPP_LAST_HOUR => $current_fields->snpp_current_hour,
 			);
+			$current_day = date("j");
+			if($current_fields->current_day != $current_day) {
+				$fields_day = array(
+					DAO_Stats::CURRENT_DAY => $current_day,
+					DAO_Stats::FAX_SENT_TODAY => 0,
+					DAO_Stats::FAX_SENT_YESTERDAY => $current_fields->fax_sent_today,
+					DAO_Stats::EMAIL_SENT_TODAY => 0,
+					DAO_Stats::EMAIL_SENT_YESTERDAY => $current_fields->email_sent_today,
+					DAO_Stats::SNPP_SENT_TODAY => 0,
+					DAO_Stats::SNPP_SENT_YESTERDAY => $current_fields->snpp_sent_today,
+				);
+				array_merge($fields, $fields_day),
+			}
 			DAO_Stats::update(0, $fields);
 		}
 
