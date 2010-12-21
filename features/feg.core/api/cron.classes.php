@@ -377,6 +377,9 @@ class ExportCron extends FegCronExtension {
 		$logger = DevblocksPlatform::getConsoleLog();
 		$db = DevblocksPlatform::getDatabaseService();
 	
+		$email_current_hour = 0;
+		$email_sent_today = 0;
+		
 		$memory_limit = ini_get('memory_limit');
 		if(substr($memory_limit, 0, -1)  < 128) {
 			@ini_set('memory_limit','128M');
@@ -441,6 +444,14 @@ class ExportCron extends FegCronExtension {
 		}
 		
 		mysql_free_result($rs);
+
+    	$current_fields = DAO_Stats::get(0);
+
+		$fields = array(
+       		DAO_Stats::EMAIL_CURRENT_HOUR => $current_fields->email_current_hour + $email_current_hour,
+       		DAO_Stats::EMAIL_SENT_TODAY => $current_fields->email_sent_today + $email_sent_today,
+       	);
+        DAO_Stats::update(0, $fields);
 
 		$timeout = ini_get('max_execution_time');
 		$runtime = microtime(true);
