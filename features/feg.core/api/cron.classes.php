@@ -412,7 +412,7 @@ class ExportCron extends FegCronExtension {
 			$subject = $recipient->subject;
 			
 			// FIXME - Need to add in filter for now everything is unfiltered.
-			$send_status = FegMail::quickSend2($to, $subject, implode("\r\n", $message_lines));
+			$send_status = FegMail::sendMail($to, $subject, implode("\r\n", $message_lines));
 			
 			$logger->info("[Email Exporter] Send Status: " . ($send_status ? "Successful" : "Failure"));
 			
