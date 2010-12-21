@@ -600,13 +600,14 @@ class ExportCron extends FegCronExtension {
 		
 		// Loop though pending outbound emails.
 		while($row = mysql_fetch_assoc($rs)) {
-			$logger->info("[SNPP Exporter] Procing MR ID: ".$row['id']);
-			
-echo "<pre>";
+			$id = $row['id'];
+			$logger->info("[SNPP Exporter] Procing MR ID: ".$id);
+
 			$message_recipient = DAO_MessageRecipient::get($id);
 			$message = DAO_Message::get($message_recipient->message_id);
 			$message_lines = explode('\r\n',substr($message->message,1,-1));
 			$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
+echo "<pre>";
 print_r($message_recipient);
 print_r($message);
 print_r($message_lines);
