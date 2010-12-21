@@ -32,15 +32,13 @@
 				<option value="2" {if $export_type->recipient_type == '2'}selected{/if}>{$translate->_('recipient.type.snpp')|capitalize}</option>
 			</select>
 		</td>
-	<tr>
-		<td width="0%" nowrap="nowrap" align="right"><b>Parms</b>: </td>
-		<td width="100%">
-		{foreach from=$export_type->params item=parm key=parm_id}
-			<input type="text" name="export_type_parm_{$parm_id}" value="{$parm|escape}" style="width:98%;">
-		{/foreach}
-		</td>
 	</tr>
-	</tr>
+	{foreach from=$export_type->params item=parm key=parm_id}
+		<tr>
+			<td width="0%" nowrap="nowrap" align="right"><b>{$parm_id}</b>: </td>
+			<td width="100%"><input type="text" name="export_type_parm_{$parm_id}" value="{$parm|escape}" style="width:98%;"></td>
+		</tr>
+	{/foreach}
 </table>
 <br>
 <button type="button" onclick="genericPanel.dialog('close');genericAjaxPost('formExportPeek', 'view{$view_id}', '');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('common.save_changes')}</button>
