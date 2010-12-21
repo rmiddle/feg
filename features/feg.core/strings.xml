@@ -729,10 +729,22 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.export_type.id'>
 			<tuv xml:lang="en_US"><seg>Export id</seg></tuv>
 		</tu>
+		<tu tuid='feg.export_type.name'>
+			<tuv xml:lang="en_US"><seg>Export Name</seg></tuv>
+		</tu>
+		<tu tuid='feg.export_type.recipient_type'>
+			<tuv xml:lang="en_US"><seg>Recipient Type</seg></tuv>
+		</tu>
+		<tu tuid='feg.export_type.is_disabled'>
+			<tuv xml:lang="en_US"><seg>Disabled/Enabled</seg></tuv>
+		</tu>
+		<tu tuid='feg.export_type.params_json'>
+			<tuv xml:lang="en_US"><seg>Filter Registray</seg></tuv>
+		</tu>
 		<tu tuid='feg.export_type.add_source'>
 			<tuv xml:lang="en_US"><seg>Add Export Type</seg></tuv>
 		</tu>
-		
+
 		<!-- Source Imports Translations -->
 		
 		<tu tuid='feg.import_source.title'>
