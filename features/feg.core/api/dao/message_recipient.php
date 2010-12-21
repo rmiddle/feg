@@ -365,6 +365,7 @@ class View_MessageRecipient extends FEG_AbstractView {
 		$fields = self::getFields();
 		// [TODO] Filter fields
 		// unset($fields[SearchFields_MessageRecipient::ID]);
+		unset($fields[SearchFields_MessageRecipient::FAX_ID]);
 		return $fields;
 	}
 
@@ -372,6 +373,7 @@ class View_MessageRecipient extends FEG_AbstractView {
 		$fields = self::getFields();
 		// [TODO] Filter fields
 		//	unset($fields[SearchFields_MessageRecipient::ID]);
+		unset($fields[SearchFields_MessageRecipient::FAX_ID]);
 		return $fields;
 	}
 
