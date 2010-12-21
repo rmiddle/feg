@@ -36,7 +36,7 @@
 		<td width="0%" nowrap="nowrap" align="right"><b>Parms</b>: </td>
 		<td width="100%">
 		{foreach from=$export_type->params item=parm key=parm_id}
-			<input type="text" name="export_type_name_{$parm_id}" value="{parm|escape}" style="width:98%;">
+			<input type="text" name="export_type_parm_{$parm_id}" value="{$parm|escape}" style="width:98%;">
 		{/foreach}
 		</td>
 	</tr>
