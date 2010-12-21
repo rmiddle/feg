@@ -467,6 +467,7 @@ class ExportCron extends FegCronExtension {
 			} 
 			$fields = array(
            		DAO_MessageRecipient::SEND_STATUS => $send_status ? 2 : 1, // 2 = Successful // 1 = Fail
+				DAO_MessageRecipient::CLOSED_DATE => $send_status ? time() : 0,
           	);
             DAO_MessageRecipient::update($id, $fields);
 		}
@@ -554,6 +555,7 @@ class ExportCron extends FegCronExtension {
 			} 
 			$fields = array(
            		DAO_MessageRecipient::SEND_STATUS => $send_status ? 2 : 1, // 2 = Successful // 1 = Fail
+				DAO_MessageRecipient::CLOSED_DATE => $send_status ? time() : 0,
           	);
             DAO_MessageRecipient::update($id, $fields);
 		}
@@ -637,6 +639,7 @@ class ExportCron extends FegCronExtension {
 			} 
 			$fields = array(
            		DAO_MessageRecipient::SEND_STATUS => $send_status ? 2 : 1, // 2 = Successful // 1 = Fail
+				DAO_MessageRecipient::CLOSED_DATE => $send_status ? time() : 0,
           	);
             DAO_MessageRecipient::update($id, $fields);
 		}
