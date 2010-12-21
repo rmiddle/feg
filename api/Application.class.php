@@ -23,6 +23,10 @@ DevblocksPlatform::registerClasses($path . 'Update.php', array(
 	'FegUpdateController',
 ));
 
+DevblocksPlatform::registerClasses($path . 'Snpp.php', array(
+	'FegSnpp',
+));
+
 /**
  * Application-level Facade
  */
