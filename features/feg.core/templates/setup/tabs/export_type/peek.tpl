@@ -34,7 +34,11 @@
 		</td>
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right"><b>Parms</b>: </td>
-		<td width="100%"><input type="text" name="export_type_name" value="{$export_type->params['import_source']|escape}" style="width:98%;"></td>
+		<td width="100%">
+		{foreach from=$export_type->params item=parm key=parm_id}
+			<input type="text" name="export_type_name_{$parm_id}" value="{parm|escape}" style="width:98%;">
+		{/foreach}
+		</td>
 	</tr>
 	</tr>
 </table>
