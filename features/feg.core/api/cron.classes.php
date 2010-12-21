@@ -423,7 +423,7 @@ class ExportCron extends FegCronExtension {
 					'cron.send.email',
 					array(
 						'recipient' => $recipient,
-						'message' => $message.
+						'message' => $message,
 						'message_lines' => $message_lines,
 						'message_recipient' => $message_recipient,
 						'send_status'  => $send_status,
