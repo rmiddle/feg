@@ -356,7 +356,7 @@ class ExportCron extends FegCronExtension {
 					DAO_Stats::SNPP_SENT_TODAY => 0,
 					DAO_Stats::SNPP_SENT_YESTERDAY => $current_fields->snpp_sent_today,
 				);
-				array_merge($fields, $fields_day),
+				$fields = array_merge($fields, $fields_day);
 			}
 			DAO_Stats::update(0, $fields);
 		}
