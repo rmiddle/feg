@@ -298,7 +298,7 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
             	break;
 				
             case 'message.recipient.status':
-            	@$message_recipient_id = $event->params['imessage_recipient_id'];
+            	@$message_recipient_id = $event->params['message_recipient_id'];
             	@$account_id = $event->params['account_id'];
             	@$recipient_id = $event->params['recipient_id'];
             	@$message_id = $event->params['message_id'];
