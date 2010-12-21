@@ -52,4 +52,12 @@
 	$(genericPanel).one('dialogopen',function(event,ui) {
 		genericPanel.dialog('option','title','Import'); 
 	} );
+		$(document).ready(function() {
+		$("#div_export_recipient_type").load("{devblocks_url}ajax.php?c=setup&a=showExportType&type={$export_type->recipient_type}&selected_type={$customer_recipient->export_type}{/devblocks_url}");
+		$('#recipient_type').change(function() {
+			var sel = $(this).val();
+			$("#div_export_recipient_type").load("{devblocks_url}ajax.php?c=setup&a=showExportType&type="+sel+"&selected_type={$export_type->recipient_type}{/devblocks_url}");
+		});
+	});
+
 </script>

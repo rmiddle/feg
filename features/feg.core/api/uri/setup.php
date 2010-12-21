@@ -573,6 +573,73 @@ class FegSetupPage extends FegPageExtension  {
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/export_type/index.tpl');		
 	}
 	
+	function showExportPeekAction() {
+		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
+		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
+		
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('path', $this->_TPL_PATH);
+		
+		$tpl->assign('id', $id);
+		$tpl->assign('view_id', $view_id);
+		
+		$export_type = DAO_ExportType::getAll();
+		$tpl->assign('export_type', $export_type);
+		
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/export_type/peek.tpl');		
+	}
+	
+	function saveExportPeekAction() {
+		$translate = DevblocksPlatform::getTranslationService();
+		
+		@$id = DevblocksPlatform::importGPC($_POST['id'],'integer');
+		@$view_id = DevblocksPlatform::importGPC($_POST['view_id'],'string');
+		@$delete = DevblocksPlatform::importGPC($_POST['do_delete'],'integer',0);
+
+		@$disabled = DevblocksPlatform::importGPC($_POST['imports_is_disabled'],'integer',0);
+		@$import_name = DevblocksPlatform::importGPC($_POST['import_name'],'string',"");
+		@$import_type = DevblocksPlatform::importGPC($_POST['import_type'],'integer',0);
+		@$import_path = DevblocksPlatform::importGPC($_POST['import_path'],'string', "");
+		
+		$fields = array(
+			DAO_ImportSource::NAME => $import_name,
+			DAO_ImportSource::PATH => $import_path,
+			DAO_ImportSource::TYPE => $import_type,
+			DAO_ImportSource::IS_DISABLED => $disabled,
+		);
+		
+		if($id == 0) {
+			// Create New Import 
+			$id = $status = DAO_ImportSource::create($fields);
+		} else {
+			// Update Existing Import 
+			$status = DAO_ImportSource::update($id, $fields);
+		}
+		
+		if(!empty($view_id)) {
+			$view = Feg_AbstractViewLoader::getView($view_id);
+			$view->render();
+		}
+		
+		//DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','workers')));		
+	}
+	
+	function showExportTypeAction() {
+		@$type = DevblocksPlatform::importGPC($_REQUEST['type'],'integer',0);
+		@$selected_type = DevblocksPlatform::importGPC($_REQUEST['selected_type'],'integer',0);
+		
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('path', $this->_TPL_PATH);
+		
+		$tpl->assign('type', $type);
+		$tpl->assign('selected_type', $selected_type);
+
+		$export_type = DAO_ExportType::getAll();
+		$tpl->assign('export_type', $export_type);
+		
+		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recipient/select_export_type.tpl');		
+	}	
+
 	function showExportBulkPanelAction() {
 		@$id_csv = DevblocksPlatform::importGPC($_REQUEST['ids']);
 		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id']);
