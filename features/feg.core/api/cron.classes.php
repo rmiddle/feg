@@ -608,7 +608,11 @@ class ExportCron extends FegCronExtension {
 			$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
 			
 			$message_str = substr(implode("\r\n", $message_lines),0,160);
-			
+echo "<pre>";
+echo "message_str:<br>";
+print_r($message_str);
+echo "<br>";
+echo "</pre>";
 			// FIXME - Need to add in filter for now everything is unfiltered.
 			// sendSnpp($phone_number, $message, $snpp_server="ann100sms01.answernet.com", $port=444)
 			$send_status = FegSnpp::sendSnpp($recipient->address, 	$message_str);
