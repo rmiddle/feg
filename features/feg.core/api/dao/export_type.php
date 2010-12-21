@@ -168,15 +168,6 @@ class DAO_ExportType extends Feg_ORMHelper {
 			
 		$join_sql = "FROM export_type ";
 		
-		// Custom field joins
-		list($select_sql, $join_sql, $has_multiple_values) = self::_appendSelectJoinSqlForCustomFieldTables(
-			$tables,
-			$params,
-			'export_type.id',
-			$select_sql,
-			$join_sql
-		);
-				
 		$where_sql = "".
 			(!empty($wheres) ? sprintf("WHERE %s ",implode(' AND ',$wheres)) : "");
 			
@@ -296,12 +287,9 @@ class View_ExportType extends FEG_AbstractView {
 		$tpl->assign('id', $this->id);
 		$tpl->assign('view', $this);
 
-		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_ExportType::ID);
-		$tpl->assign('custom_fields', $custom_fields);
-		
 		$tpl->assign('view_fields', $this->getColumns());
 		// [TODO] Set your template path
-		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/tabs/export_type/view.tpl');
+		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/export_type/view.tpl');
 	}
 
 	function renderCriteria($field) {
@@ -425,8 +413,7 @@ class View_ExportType extends FEG_AbstractView {
 		@set_time_limit(0); 
 	  
 		$change_fields = array();
-		$custom_fields = array();
-
+		
 		// Make sure we have actions
 		if(empty($do))
 			return;
@@ -474,9 +461,6 @@ class View_ExportType extends FEG_AbstractView {
 			$batch_ids = array_slice($ids,$x,100);
 			
 			DAO_ExportType::update($batch_ids, $change_fields);
-			
-			// Custom Fields
-			self::_doBulkSetCustomFields(FegCustomFieldSource_ExportType::ID, $custom_fields, $batch_ids);
 			
 			unset($batch_ids);
 		}
