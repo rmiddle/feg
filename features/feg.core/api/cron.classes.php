@@ -414,7 +414,7 @@ class ExportCron extends FegCronExtension {
 			// FIXME - Need to add in filter for now everything is unfiltered.
 			$send_status = FegMail::quickSend2($to, $subject, implode("\r\n", $message_lines));
 			
-			$logger->info("[Email Exporter] Send Status: " . ($send_status ? "Successful" : "Failure");
+			$logger->info("[Email Exporter] Send Status: " . ($send_status ? "Successful" : "Failure"));
 			
 			// Give plugins a chance to run export
 			$eventMgr = DevblocksPlatform::getEventService();
