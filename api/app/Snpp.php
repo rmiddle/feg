@@ -13,17 +13,6 @@ class FegSnpp {
 			$command = "snpp -s " . $snpp_server . ":" . $port . ' -n -m "'. $message .'" ' . $phone_number . ' 2>&1';
 			$o = exec($command, $snpp_output, $retval);
 
-echo "<pre>";
-print_r($phone_number);
-echo "<br>";
-print_r($message);
-echo "<br>";
-print_r($command);
-echo "<br>";
-echo "retval: " . $retval . "<br>";
-print_r($o);
-echo "<br>";
-echo "</pre>";
 			if ($retval == 0) {// success
 				// Do something when successful
 			} else {
