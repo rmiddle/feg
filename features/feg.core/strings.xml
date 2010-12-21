@@ -744,7 +744,12 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.export_type.add_source'>
 			<tuv xml:lang="en_US"><seg>Add Export Type</seg></tuv>
 		</tu>
-
+		<tu tuid='feg.export_type.new_source'>
+			<tuv xml:lang="en_US"><seg>New Export</seg></tuv>
+		</tu>
+		<tu tuid='feg.export_type.peek.recipient_type'>
+			<tuv xml:lang="en_US"><seg>Recipient Type</seg></tuv>
+		</tu>
 		<!-- Source Imports Translations -->
 		
 		<tu tuid='feg.import_source.title'>
