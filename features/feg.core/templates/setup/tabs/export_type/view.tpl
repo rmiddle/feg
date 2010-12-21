@@ -55,8 +55,8 @@
 		{foreach from=$view->view_columns item=column name=columns}
 			{if $column=="i_id" || $column=="i_name" || $column=="i_path"}
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showImportPeek&id={$result.i_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
-			{elseif $column=="i_is_disabled"}
-				<td>{if $result.i_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</td>
+			{elseif $column=="export_type_is_disabled"}
+				<td>{if $result.export_type_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</td>
 			{elseif $column=="i_type"}
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showImportPeek&id={$result.i_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
 					{if $result.i_type == 0}{$translate->_('feg.import_source.peek.type.ixo')|capitalize}
