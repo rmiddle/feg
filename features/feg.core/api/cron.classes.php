@@ -404,7 +404,6 @@ class ExportCron extends FegCronExtension {
 	function ExportEmail(Model_ExportType $export_type) {
 		$logger = DevblocksPlatform::getConsoleLog();
 		$db = DevblocksPlatform::getDatabaseService();
-	
 		$email_current_hour = 0;
 		$email_sent_today = 0;
 		
@@ -474,14 +473,15 @@ class ExportCron extends FegCronExtension {
 		
 		mysql_free_result($rs);
 
-    	$current_fields = DAO_Stats::get(0);
-
-		$fields = array(
-       		DAO_Stats::EMAIL_CURRENT_HOUR => $current_fields->email_current_hour + $email_current_hour,
-       		DAO_Stats::EMAIL_SENT_TODAY => $current_fields->email_sent_today + $email_sent_today,
-       	);
-        DAO_Stats::update(0, $fields);
-
+		if($email_current_hour) {
+			$current_fields = DAO_Stats::get(0);
+			$fields = array(
+				DAO_Stats::EMAIL_CURRENT_HOUR => $current_fields->email_current_hour + $email_current_hour,
+				DAO_Stats::EMAIL_SENT_TODAY => $current_fields->email_sent_today + $email_sent_today,
+			);
+			DAO_Stats::update(0, $fields);
+		}
+		
 		$timeout = ini_get('max_execution_time');
 		$runtime = microtime(true);
 		
@@ -491,6 +491,8 @@ class ExportCron extends FegCronExtension {
 	function ExportFax(Model_ExportType $export_type) {
 		$logger = DevblocksPlatform::getConsoleLog();
 		$db = DevblocksPlatform::getDatabaseService();
+		$fax_current_hour = 0;
+		$fax_sent_today = 0;
 	
 		$memory_limit = ini_get('memory_limit');
 		if(substr($memory_limit, 0, -1)  < 128) {
@@ -562,21 +564,23 @@ class ExportCron extends FegCronExtension {
 		
 		mysql_free_result($rs);
 
-    	$current_fields = DAO_Stats::get(0);
-
-		$fields = array(
-       		DAO_Stats::FAX_CURRENT_HOUR => $current_fields->fax_current_hour + $fax_current_hour,
-       		DAO_Stats::FAX_SENT_TODAY => $current_fields->fax_sent_today + $fax_sent_today,
-       	);
-        DAO_Stats::update(0, $fields);
-		
+		if($fax_current_hour) {
+			$current_fields = DAO_Stats::get(0);
+			$fields = array(
+				DAO_Stats::FAX_CURRENT_HOUR => $current_fields->fax_current_hour + $fax_current_hour,
+				DAO_Stats::FAX_SENT_TODAY => $current_fields->fax_sent_today + $fax_sent_today,
+			);
+			DAO_Stats::update(0, $fields);
+		}
 		return NULL;		
 	}
 	
 	function ExportSnpp(Model_ExportType $export_type) {
 		$logger = DevblocksPlatform::getConsoleLog();
 		$db = DevblocksPlatform::getDatabaseService();
-	
+		$snpp_current_hour = 0;
+		$snpp_sent_today = 0;
+		
 		$memory_limit = ini_get('memory_limit');
 		if(substr($memory_limit, 0, -1)  < 128) {
 			@ini_set('memory_limit','128M');
@@ -646,14 +650,14 @@ class ExportCron extends FegCronExtension {
 		
 		mysql_free_result($rs);
 
-    	$current_fields = DAO_Stats::get(0);
-
-		$fields = array(
-       		DAO_Stats::SNPP_CURRENT_HOUR => $current_fields->snpp_current_hour + $snpp_current_hour,
-       		DAO_Stats::SNPP_SENT_TODAY => $current_fields->snpp_sent_today + $snpp_sent_today,
-       	);
-        DAO_Stats::update(0, $fields);
-		
+		if($snpp_current_hour) {
+			$current_fields = DAO_Stats::get(0);
+			$fields = array(
+				DAO_Stats::SNPP_CURRENT_HOUR => $current_fields->snpp_current_hour + $snpp_current_hour,
+				DAO_Stats::SNPP_SENT_TODAY => $current_fields->snpp_sent_today + $snpp_sent_today,
+			);
+			DAO_Stats::update(0, $fields);
+		}
 		return NULL;		
 	}
 };
