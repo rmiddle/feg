@@ -333,6 +333,33 @@ class ExportCron extends FegCronExtension {
 		//	System wide default should be fine will revisit if needed	
 		//	@ini_set('memory_limit','128M');
 
+    	$current_fields = DAO_Stats::get(0);
+		$current_hour = date("G");
+		if($current_fields->current_hour != $current_hour) {
+			$current_day = date("j");
+			if($current_fields->current_day != $current_day) {
+				$fields = array(
+					DAO_Stats::CURRENT_DAY => $current_day,
+					DAO_Stats::FAX_SENT_TODAY => 0,
+					DAO_Stats::FAX_SENT_YESTERDAY => $current_fields->fax_sent_today,
+					DAO_Stats::EMAIL_SENT_TODAY => 0,
+					DAO_Stats::EMAIL_SENT_YESTERDAY => $current_fields->email_sent_today,
+					DAO_Stats::SNPP_SENT_TODAY => 0,
+					DAO_Stats::SNPP_SENT_YESTERDAY => $current_fields->snpp_sent_today,
+				);
+			}
+			$fields = array(
+				DAO_Stats::CURRENT_HOUR => $current_hour,
+				DAO_Stats::FAX_CURRENT_HOUR => 0,
+				DAO_Stats::FAX_LAST_HOUR => $current_fields->fax_current_hour,
+				DAO_Stats::EMAIL_CURRENT_HOUR => 0,
+				DAO_Stats::EMAIL_LAST_HOUR => $current_fields->email_current_hour,
+				DAO_Stats::SNPP_CURRENT_HOUR => 0,
+				DAO_Stats::SNPP_LAST_HOUR => $current_fields->snpp_current_hour,
+			);
+			DAO_Stats::update(0, $fields);
+		}
+
 		$export_type_all = DAO_ExportType::getAll();
     	foreach($export_type_all as $export_type_id => $export_type) { 
 			$logger->info('[Message Export] Now Processing ' . $export_type->name . ' Export Number: ' . $export_type->id);

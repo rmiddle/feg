@@ -163,6 +163,7 @@ if(!isset($tables['stats'])) {
 		CREATE TABLE IF NOT EXISTS stats (
 			id INT UNSIGNED DEFAULT 0 NOT NULL,
 			current_hour INT UNSIGNED DEFAULT 0 NOT NULL,
+			current_day INT UNSIGNED DEFAULT 0 NOT NULL,
 			fax_current_hour INT UNSIGNED DEFAULT 0 NOT NULL,
 			fax_last_hour INT UNSIGNED DEFAULT 0 NOT NULL,
 			fax_sent_today INT UNSIGNED DEFAULT 0 NOT NULL,
