@@ -587,7 +587,7 @@ class FegSetupPage extends FegPageExtension  {
 		$tpl->assign('export_type', $export_type);
 		
 echo "<pre>";
-print_r($export_type)
+print_r($export_type);
 echo "</pre>";
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/export_type/peek.tpl');		
 	}
