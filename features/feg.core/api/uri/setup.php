@@ -549,28 +549,28 @@ class FegSetupPage extends FegPageExtension  {
 			return;
 		}
 		
-		$tpl->assign('response_uri', 'setup/recipient');
+		$tpl->assign('response_uri', 'setup/export_type');
 		
 		$tpl->assign('core_tplpath', $core_tplpath);
 		
 		$defaults = new Feg_AbstractViewModel();
-		$defaults->name = 'Full Customer Recipient List';
-		$defaults->id = 'full_view_recipient';
-		$defaults->class_name = 'View_CustomerRecipient';
+		$defaults->name = 'Export Type List';
+		$defaults->id = '_full_export_type_list';
+		$defaults->class_name = 'View_ExportType';
 		$defaults->renderLimit = 15;
 		
-		$defaults->renderSortBy = SearchFields_CustomerRecipient::ID;
+		$defaults->renderSortBy = SearchFields_ExportType::ID;
 		$defaults->renderSortAsc = 0;
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
-		$view->name = 'Full Customer Recipient List';
+		$view->name = 'Export Type Management List';
 		$view->renderPage = 0;
 		Feg_AbstractViewLoader::setView($view->id,$view);
 		
 		$tpl->assign('view', $view);
-		$tpl->assign('view_fields', View_CustomerRecipient::getFields());
-		$tpl->assign('view_searchable_fields', View_CustomerRecipient::getSearchFields());
+		$tpl->assign('view_fields', View_ExportType::getFields());
+		$tpl->assign('view_searchable_fields', View_ExportType::getSearchFields());
 				
-		$tpl->display('file:' . $this->_TPL_PATH . 'internal/tabs/customer_recipient/index.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/export_type/index.tpl');		
 	}
 	
 	function showExportBulkPanelAction() {
@@ -588,10 +588,10 @@ class FegSetupPage extends FegPageExtension  {
 	    }
 		
 		// Custom Fields
-		$custom_fields = DAO_CustomField::getBySource(SearchFields_CustomerRecipient::ID);
+		$custom_fields = DAO_CustomField::getBySource(SearchFields_ExportType::ID);
 		$tpl->assign('custom_fields', $custom_fields);
 		
-		$tpl->display('file:' . $this->_TPL_PATH . 'internal/tabs/customer_recipient/bulk.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/export_type/bulk.tpl');		
 	}
 	
 	function doExportBulkUpdateAction() {
@@ -615,11 +615,6 @@ class FegSetupPage extends FegPageExtension  {
 		if(0 != strlen($is_disabled))
 			$do['is_disabled'] = $is_disabled;
 			
-		// Do: Custom fields
-		$do = DAO_CustomFieldValue::handleBulkPost($do);
-		
-		$view->doBulkUpdate($filter, $do, $ids);
-		
 		$view->render();
 		return;
 	}
