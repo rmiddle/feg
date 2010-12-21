@@ -396,6 +396,9 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='setup.tab.import_source'>
 			<tuv xml:lang="en_US"><seg>Import Sources</seg></tuv>
 		</tu>
+		<tu tuid='setup.tab.export_type'>
+			<tuv xml:lang="en_US"><seg>Export Type</seg></tuv>
+		</tu>
 		
 		<!-- Update -->
 
