@@ -443,7 +443,7 @@ class ExportCron extends FegCronExtension {
 			$subject = $recipient->subject;
 			
 			// FIXME - Need to add in filter for now everything is unfiltered.
-			$send_status = FegMail::sendMail($to, $subject, implode("\r\n", $message_lines));
+			$send_status = FegMail::sendMail($to, $subject, implode("", $message_lines));
 			
 			$logger->info("[Email Exporter] Send Status: " . ($send_status ? "Successful" : "Failure"));
 			
@@ -517,7 +517,8 @@ class ExportCron extends FegCronExtension {
 		
 		// Loop though pending outbound emails.
 		while($row = mysql_fetch_assoc($rs)) {
-			$logger->info("[Fax Exporter] Procing MR ID: ".$row['id']);
+			$id = $row['id'];
+			$logger->info("[Fax Exporter] Procing MR ID: ".$id);
 			
 			$message_recipient = DAO_MessageRecipient::get($id);
 			$message = DAO_Message::get($message_recipient->message_id);
