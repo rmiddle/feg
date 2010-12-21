@@ -58,10 +58,11 @@
 			{elseif $column=="export_type_is_disabled"}
 				<td>{if $result.export_type_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</td>
 			{elseif $column=="export_type_recipient_type"}
-<a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showExportPeek&id={$result.export_type_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
+				<td>
+					<a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showExportPeek&id={$result.export_type_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
 					{include file="file:$core_tpl/internal/feg/display_recipient_type.tpl"}</a>
 					&nbsp;
-					</td>
+				</td>
 			{else}
 			<td>{$result.$column}&nbsp;</td>
 			{/if}
