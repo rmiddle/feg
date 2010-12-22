@@ -63,10 +63,10 @@
 		genericPanel.focus();
 	} );
 	$(document).ready(function() {
-		$("#div_export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportTypeParams&type={$export_type->recipient_type}&id={$export_type->id}{/devblocks_url}");
+		$("#div_export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportTypeParams&type={$export_type->recipient_type}&id={$id}{/devblocks_url}");
 		$('#export_type_recipient_type').change(function() {
 			var sel = $(this).val();
-			$("#div_export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportTypeParams&type="+sel+"&id={$export_type->id}{/devblocks_url}");
+			$("#div_export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportTypeParams&type="+sel+"&id={$id}{/devblocks_url}");
 		});
 	});
 </script>
