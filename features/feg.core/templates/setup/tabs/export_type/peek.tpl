@@ -3,7 +3,6 @@
 		<li><a href="#ticketPeekTab1">Properties</a></li>
 		<li><a href="#ticketPeekTab2">Params</a></li>
 	</ul>
-</div>
 		
 <div id="ticketPeekTab1">
 <form action="{devblocks_url}{/devblocks_url}" method="POST" id="formExportPeek" name="formExportPeek" onsubmit="return false;">
@@ -55,6 +54,9 @@
 <div id="ticketPeekTab2" style="display:none">
 	{*<div id="div_export_type_params"></div>*}
 	To display something.
+</div>
+
+{* End div for the tab*}
 </div>
 
 <script type="text/javascript" language="JavaScript1.2">
