@@ -22,8 +22,7 @@
 {else if $result.$column == 6}
 	{$translate->_('feg.message_recipient.status_6')|capitalize}
 {else if $result.$column > 99 && $result.$column < 140}
-	{$status_str = 'feg.message_recipient.status_'}
-	{$status_str|cat:$result.$column}
+	{$status_str = 'feg.message_recipient.status_'|cat:$result.$column}
 	{$translate->_($status_str)|capitalize}
 {else}
 	{$translate->_('feg.message_recipient.status_unknown')|capitalize}
