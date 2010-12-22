@@ -546,7 +546,7 @@ echo "</pre>";
 				DAO_MessageRecipient::update($id, $fields);				
 				$logger->info("[FAX Exporter] Fax added to queue");
 			} else {
-				$logger->info("[FAX Exporter] Failed to add to queue");
+				$logger->info("[FAX Exporter] Failed to add fax to queue");
 			}
 			
 			// Give plugins a chance to run export
