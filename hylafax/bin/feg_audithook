@@ -124,7 +124,7 @@ if ($status) {
 	// Cycle through results
 	$row = $mysqli->fetch_object($result);
 		
-	if(($row->send_status = 5) || (($row->send_status => 100) && ($row->send_status <= 140)) {
+	if(($row->send_status == 5) || (($row->send_status > 99) && ($row->send_status < 140)) {
 		// Create Query
 		$query = sprintf("UPDATE message_recipient SET send_status = %d WHERE ID  = %d", $status, $row-->id);
 	
