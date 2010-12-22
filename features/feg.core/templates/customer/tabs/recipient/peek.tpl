@@ -104,7 +104,7 @@
 </div>
 
 {if $display_view}
-    <div id="ticketPeekTab2" style="display:none;">
+    <div id="ticketPeekTab2" style="display:none">
 			<div id="view{$view->id}">{$view->render()}</div>
 	</div>
 {/if}
