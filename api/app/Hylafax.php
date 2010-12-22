@@ -66,7 +66,7 @@ class FegFax {
 		fputs($temp_fh, $message);
 		fclose($temp_fh) or die($php_errormsg);		// Generate Text file of message.
 		
-		$command .= sprintf("'%s' ", $tempfilename);
+		//$command .= sprintf("'%s' ", $tempfilename);
 		
 		$o = exec($command." 2>&1", $sendfax_output, $retval);
 		

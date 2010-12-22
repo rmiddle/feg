@@ -1,3 +1,5 @@
+ModemDialCmd: ATDT9,W%s
+
 sendfax -f "robert.middleswarth@answernet.com" -D -R -r "Test Fax" -x "Account Name" -d "RecipientName@4106311699" /home/rmiddle/test.txt
 
 VBoxManage createvm --name Win2000 --ostype Windows2000 --register
