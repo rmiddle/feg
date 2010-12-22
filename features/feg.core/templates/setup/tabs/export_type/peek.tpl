@@ -1,10 +1,11 @@
- <div id="peekTabs">
+<div id="peekTabs">
 	<ul>
-		<li><a href="#ExportPeekTab1">Properties</a></li>
-		<li><a href="#ExportPeekTab2">Params</a></li>
+		<li><a href="#exportPeekTab1">Properties</a></li>
+		<li><a href="#exportPeekTab2">Params</a></li>
 	</ul>
+</div>
 		
- <div id="ExportPeekTab1">
+<div id="exportPeekTab1">
 <form action="{devblocks_url}{/devblocks_url}" method="POST" id="formExportPeek" name="formExportPeek" onsubmit="return false;">
 <input type="hidden" name="c" value="setup">
 <input type="hidden" name="a" value="saveExportPeek">
@@ -50,8 +51,8 @@
 <br>
 </form>
 </div>
-<div id="ExportPeekTab2" style="display:none;">
-	<div id="view{$view->id}">{$view->render()}</div>
+<div id="exportPeekTab2" style="display:none;">
+	<div id="div_export_type_params"></div>
 </div>
 
 <script type="text/javascript" language="JavaScript1.2">

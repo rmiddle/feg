@@ -631,8 +631,8 @@ class FegSetupPage extends FegPageExtension  {
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
 		
-		$tpl->assign('type', $type);
 		$tpl->assign('id', $id);
+		$tpl->assign('type', $type);
 
 		$export_type = DAO_ExportType::get($id);
 		$tpl->assign('export_type', $export_type);
