@@ -536,9 +536,10 @@ class ExportCron extends FegCronExtension {
 			$fax_info = FegFax::sendFax($recipient->address, 	$message_str, $recipient->subject, $recipient->address_to, $account->name);
 echo "<pre>";
 print_r($fax_info);
-print_r($fax_info->jobid);
+echo "Jobid: ";
+print_r($fax_info['jobid']);
 echo "</pre>";
-			if(!empty($fax_info->jobid)) {
+			if(!empty($fax_info['jobid'])) {
 				$fields = array(
 					//DAO_MessageRecipient::SEND_STATUS => 5,
 					DAO_MessageRecipient::FAX_ID => $fax_info['jobid'],
