@@ -624,7 +624,7 @@ class FegSetupPage extends FegPageExtension  {
 		//DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','workers')));		
 	}
 	
-	function showExportTypeAction() {
+	function showExportTypeParamsAction() {
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
 		@$type = DevblocksPlatform::importGPC($_REQUEST['type'],'integer',0);
 		
