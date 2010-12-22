@@ -533,8 +533,19 @@ class ExportCron extends FegCronExtension {
 			
 			// FIXME - Need to add in filter for now everything is unfiltered.
 			// sendFax($phone_number, $message, $subject, $to, $account_name, $from=null, )
-			//$send_status = FegFax::sendFax($recipient->address, 	$message_str, $recipient->subject, $recipient->address_to, $account->name);
-			$send_status = false;
+			$fax_info = FegFax::sendFax($recipient->address, 	$message_str, $recipient->subject, $recipient->address_to, $account->name);
+echo "<pre>";
+print_r($fax_info);
+echo "</pre>";
+			if($fax_info['jobid']) {
+				$fields = array(
+					DAO_MessageRecipient::SEND_STATUS => 5,
+					DAO_MessageRecipient::FAX_ID => $fax_info['jobid'],
+				);
+				DAO_MessageRecipient::update($id, $fields);				
+			} else {
+				$send_status = false;
+			}
 			
 			$logger->info("[FAX Exporter] Send Status: " . ($send_status ? "Successful" : "Failure"));
 			
@@ -557,11 +568,6 @@ class ExportCron extends FegCronExtension {
 				$fax_current_hour++;
 				$fax_sent_today++;
 			} 
-			$fields = array(
-           		DAO_MessageRecipient::SEND_STATUS => $send_status ? 2 : 1, // 2 = Successful // 1 = Fail
-				DAO_MessageRecipient::CLOSED_DATE => $send_status ? time() : 0,
-          	);
-            DAO_MessageRecipient::update($id, $fields);
 		}
 		
 		mysql_free_result($rs);
