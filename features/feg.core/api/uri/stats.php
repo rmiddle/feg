@@ -313,9 +313,10 @@ class FegStatsPage extends FegPageExtension {
 		$sql = sprintf("SELECT count(*) as total ".
 				"FROM message_recipient mr ".
 				"inner join customer_recipient cr on mr.recipient_id = cr.id ".
-				"WHERE mr.send_status in (5) ".
+				"WHERE cr.is_disabled = 0 ".
 				"AND cr.is_disabled = 0 ".
 				"AND cr.type = 1 "
+				"AND ((mr.send_status = 5) or (mr.send_status BETWEEN 100 AND 140))".
 				);
 		$rs = $db->Execute($sql);
 		$row = mysql_fetch_assoc($rs);
