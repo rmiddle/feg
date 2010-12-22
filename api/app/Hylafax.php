@@ -52,7 +52,7 @@ class FegFax {
 		$settings = DevblocksPlatform::getPluginSettingsService();
 		
 		if(empty($from))
-			@$from_addy = $settings->get('feg.core',FegSettings::DEFAULT_REPLY_FROM, $_SERVER['SERVER_ADMIN']);
+			@$from = $settings->get('feg.core',FegSettings::DEFAULT_REPLY_FROM, $_SERVER['SERVER_ADMIN']);
 
 		$command = "sendfax ";
 		$command .= sprintf("-f '%s' ", $from);
