@@ -52,7 +52,6 @@
 </div>
 
 <div id="ticketPeekTab2" style="display:none">
-	<div id="div_export_type_params"></div>
 </div>
 
 {* End div for the tab*}

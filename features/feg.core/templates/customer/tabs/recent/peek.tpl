@@ -1,12 +1,10 @@
-{if $display_view}
 <div id="peekTabs">
 	<ul>
 		<li><a href="#ticketPeekTab1">Properties</a></li>
 		<li><a href="#ticketPeekTab2">Audit Log</a></li>
 	</ul>
 		
-    <div id="ticketPeekTab1">
-{/if}
+<div id="ticketPeekTab1">
 {if $active_worker->hasPriv('core.access.message_recipient.permfail')}
 		<button type="button" onclick="$('#message_reciptient_{$id}_status').load('{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=setMessageRecipientStatus&id={$id}&status=6&goto_recent=1&view_id={$view->id|escape:'url'}{/devblocks_url}');genericPanel.dialog('close');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete2.gif{/devblocks_url}" align="top"> {$translate->_('feg.message_recipient.submit.permfail')}</button>
 {/if}
@@ -38,11 +36,12 @@ Message Info:<br>
 <br>
 </div>
 
-{if $display_view}
-    <div id="ticketPeekTab2" style="display:none;">
-			<div id="view{$view->id}">{$view->render()}</div>
-	</div>
-{/if}
+<div id="ticketPeekTab2" style="display:none;">
+	<div id="view{$view->id}">{$view->render()}</div>
+</div>
+
+{* End div for the tab*}
+</div>
 
 <script language="JavaScript1.2" type="text/javascript">
 	genericPanel.one('dialogopen',function(event,ui) {
