@@ -47,7 +47,7 @@ class FegFax {
 	 * @param string command
 	 * @return array
 	 */
-	function sendFax($phone_number, $message, $subject, $to, $account_name, $from=null, ) {
+	function sendFax($phone_number, $message, $subject, $to, $account_name, $from=null) {
 		// sendfax -f "robert.middleswarth@answernet.com" -D -R -r "Test Fax" -x "Account Name" -d "RecipientName@4106311699" /home/rmiddle/test.txt
 		$settings = DevblocksPlatform::getPluginSettingsService();
 		
