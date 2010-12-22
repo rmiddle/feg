@@ -57,6 +57,7 @@ if ($event_type == "JOB") {
 		case '0x8000': // JOB_PREP_END
 			$status = 115;
 			break;
+	}
 } elseif ($event_type == "SEND") {
 	switch($event) {
 		case '0x0001': // SEND_BEGIN
