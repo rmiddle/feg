@@ -721,6 +721,90 @@ For example: *receipt*</seg></tuv>
 			<tuv xml:lang="en_US"><seg>Unknown</seg></tuv>
 		</tu>
 		
+		<!-- Fax Send Status Translations -->
+		
+		<tu tuid='feg.message_recipient.status_100'>
+			<tuv xml:lang="en_US"><seg>JOB_CREATE</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_101'>
+			<tuv xml:lang="en_US"><seg>JOB_SUSPEND</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_102'>
+			<tuv xml:lang="en_US"><seg>JOB_READY</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_103'>
+			<tuv xml:lang="en_US"><seg>JOB_SLEEP</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_104'>
+			<tuv xml:lang="en_US"><seg>JOB_DEAD</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_105'>
+			<tuv xml:lang="en_US"><seg>JOB_PROCESS</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_106'>
+			<tuv xml:lang="en_US"><seg>JOB_REAP</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_107'>
+			<tuv xml:lang="en_US"><seg>JOB_ACTIVE</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_108'>
+			<tuv xml:lang="en_US"><seg>JOB_REJECT</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_109'>
+			<tuv xml:lang="en_US"><seg>JOB_KILL</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_110'>
+			<tuv xml:lang="en_US"><seg>JOB_BLOCKED</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_111'>
+			<tuv xml:lang="en_US"><seg>JOB_DELAYED</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_112'>
+			<tuv xml:lang="en_US"><seg>JOB_ALTERED</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_113'>
+			<tuv xml:lang="en_US"><seg>JOB_TIMEDOUT</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_114'>
+			<tuv xml:lang="en_US"><seg>JOB_PREP_BEGIN</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_115'>
+			<tuv xml:lang="en_US"><seg>JOB_PREP_END</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_120'>
+			<tuv xml:lang="en_US"><seg>SEND_BEGIN</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_121'>
+			<tuv xml:lang="en_US"><seg>SEND_CALL</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_122'>
+			<tuv xml:lang="en_US"><seg>SEND_CONNECTED</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_123'>
+			<tuv xml:lang="en_US"><seg>SEND_PAGE</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_124'>
+			<tuv xml:lang="en_US"><seg>SEND_DOC</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_125'>
+			<tuv xml:lang="en_US"><seg>SEND_POLLRCVD</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_126'>
+			<tuv xml:lang="en_US"><seg>SEND_POLLDONE</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_127'>
+			<tuv xml:lang="en_US"><seg>SEND_END</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_128'>
+			<tuv xml:lang="en_US"><seg>SEND_REFORMAT</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_129'>
+			<tuv xml:lang="en_US"><seg>SEND_REQUEUE</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_130'>
+			<tuv xml:lang="en_US"><seg>SEND_DONE</seg></tuv>
+		</tu>
+		
 		<!-- Export Type Translations -->
 		
 		<tu tuid='feg.export_type.title'>
