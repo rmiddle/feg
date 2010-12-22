@@ -607,11 +607,11 @@ class FegSetupPage extends FegPageExtension  {
 		);
 		
 		if($id == 0) {
-			// Create New Import 
-			$id = $status = DAO_ImportSource::create($fields);
+			// Create New Export
+			$id = $status = DAO_ExportType::create($fields);
 		} else {
 			// Update Existing Import 
-			$status = DAO_ImportSource::update($id, $fields);
+			$status = DAO_ExportType::update($id, $fields);
 		}
 		
 		if(!empty($view_id)) {
