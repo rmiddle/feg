@@ -625,16 +625,16 @@ class FegSetupPage extends FegPageExtension  {
 	}
 	
 	function showExportTypeAction() {
+		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
 		@$type = DevblocksPlatform::importGPC($_REQUEST['type'],'integer',0);
-		@$selected_type = DevblocksPlatform::importGPC($_REQUEST['selected_type'],'integer',0);
 		
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
 		
 		$tpl->assign('type', $type);
-		$tpl->assign('selected_type', $selected_type);
+		$tpl->assign('id', $id);
 
-		$export_type = DAO_ExportType::getAll();
+		$export_type = DAO_ExportType::get($id);
 		$tpl->assign('export_type', $export_type);
 		
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/export_type/params_manager.tpl');		
