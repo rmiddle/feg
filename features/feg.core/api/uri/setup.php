@@ -628,7 +628,7 @@ class FegSetupPage extends FegPageExtension  {
 		
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('$path', $this->_TPL_PATH);
-		$tpl->assign('core_tplpath', $core_tplpath);
+		//$tpl->assign('core_tplpath', $core_tplpath);
 		
 		$tpl->assign('id', $id);
 		$tpl->assign('type', $type);
