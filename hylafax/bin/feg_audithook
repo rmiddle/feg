@@ -117,13 +117,11 @@ if ($status) {
 	}
 
 	$sql = sprintf("SELECT id, send_status FROM message_recipient WHERE FAX_ID = %d", $jobid);
-	echo $sql;
 	$result = $mysqli->query($sql);
 	$row = $result->fetch_object();
 		
 	if(($row->send_status == 5) || (($row->send_status > 99) && ($row->send_status < 140))) {
 		$sql2 = sprintf("UPDATE message_recipient SET send_status = %d WHERE ID  = %d", $status, $row->id);
-		echo $sql2;
 		$mysqli->query($sql2);
 	}
 	// Close connection
