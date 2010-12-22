@@ -52,8 +52,7 @@
 </div>
 
 <div id="ticketPeekTab2" style="display:none">
-	{*<div id="div_export_type_params"></div>*}
-	To display something.
+	<div id="div_export_type_params"></div>
 </div>
 
 {* End div for the tab*}
@@ -67,7 +66,6 @@
 		$("#ticketPeekTab2").show();
 		genericPanel.focus();
 	} );
-	{*
 	$(document).ready(function() {
 		$("#ticketPeekTab2").load("{devblocks_url}ajax.php?c=setup&a=showExportTypeParams&type={$export_type->recipient_type}&id={$id}{/devblocks_url}");
 		$('#export_type_recipient_type').change(function() {
@@ -75,5 +73,4 @@
 			$("#ticketPeekTab2").load("{devblocks_url}ajax.php?c=setup&a=showExportTypeParams&type="+sel+"&id={$id}{/devblocks_url}");
 		});
 	});
-	*}
 </script>
