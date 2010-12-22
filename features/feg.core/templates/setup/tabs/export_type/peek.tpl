@@ -33,12 +33,7 @@
 			</select>
 		</td>
 	</tr>
-	{foreach from=$export_type->params item=parm key=parm_id}
-		<tr>
-			<td width="0%" nowrap="nowrap" align="right"><b>{$parm_id}</b>: </td>
-			<td width="100%"><input type="text" name="export_type_parm_{$parm_id}" value="{$parm|escape}" style="width:98%;"></td>
-		</tr>
-	{/foreach}
+	<div id="div_export_type_params"></div>
 </table>
 <br>
 <button type="button" onclick="genericPanel.dialog('close');genericAjaxPost('formExportPeek', 'view{$view_id}', '');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('common.save_changes')}</button>
@@ -54,10 +49,10 @@
 		genericPanel.dialog('option','title','Export Type Editor'); 
 	} );
 		$(document).ready(function() {
-		$("#div_export_recipient_type").load("{devblocks_url}ajax.php?c=setup&a=showExportType&type={$export_type->recipient_type}&selected_type={$customer_recipient->export_type}{/devblocks_url}");
+		$("#div_export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportTypeParams&type={$export_type->export_type}&id={$export_type->id}{/devblocks_url}");
 		$('#recipient_type').change(function() {
 			var sel = $(this).val();
-			$("#div_export_recipient_type").load("{devblocks_url}ajax.php?c=setup&a=showExportType&type="+sel+"&selected_type={$export_type->recipient_type}{/devblocks_url}");
+			$("#div_export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportTypeParams&type="+sel+"&id={$export_type->id}{/devblocks_url}");
 		});
 	});
 
