@@ -59,8 +59,8 @@
 	genericPanel.one('dialogopen',function(event,ui) {
 		genericPanel.dialog('option','title','Export Type Editor'); 
 		$("#peekTabs").tabs();
-		{*$("#ExportPeekContent").css('width','100%');*}
-		$("#ExportPeekTab2").show();
+		{*$("#exportPeekContent").css('width','100%');*}
+		$("#exportPeekTab2").show();
 		genericPanel.focus();
 	} );
 	$(document).ready(function() {
