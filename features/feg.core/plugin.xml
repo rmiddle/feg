@@ -122,7 +122,7 @@
 		<event id="cron.send.email">
 			<name>Export Email Messages</name>
 		</event>
-		<event id="cron.send.fax">
+		<event id="cron.queue.fax">
 			<name>Export Fax Messages</name>
 		</event>
 		<event id="cron.send.snpp">

@@ -58,8 +58,8 @@
 		<tu tuid='auditlog.cs.message.email.send'>
 			<tuv xml:lang="en_US"><seg>Message Email Send</seg></tuv>
 		</tu>
-		<tu tuid='auditlog.cs.message.fax.send'>
-			<tuv xml:lang="en_US"><seg>Message Fax Send</seg></tuv>
+		<tu tuid='auditlog.cs.message.fax.queue'>
+			<tuv xml:lang="en_US"><seg>Message Fax Queue</seg></tuv>
 		</tu>
 		<tu tuid='auditlog.cs.message.snpp.send'>
 			<tuv xml:lang="en_US"><seg>Message Paging Send</seg></tuv>

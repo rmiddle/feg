@@ -116,17 +116,18 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
           			DAO_MessageAuditLog::MESSAGE_RECIPIENT_ID => $message_recipient->id,
            			DAO_MessageAuditLog::CHANGE_DATE => time(),
            			DAO_MessageAuditLog::CHANGE_FIELD => 'auditlog.cs.message.email.send',
-           			DAO_MessageAuditLog::CHANGE_VALUE => $send_status ? "Successful" : "Failure",
+           			DAO_MessageAuditLog::CHANGE_VALUE => $send_status ? "Successful Sent" : "Failed to Send",
           		);
             	$log_id = DAO_MessageAuditLog::create($fields);
             	break;
             	
-            case 'cron.send.fax':
+            case 'cron.queue.fax':
             	@$recipient = $event->params['recipient'];
             	@$message = $event->params['message'];
             	@$message_recipient = $event->params['message_recipient'];
             	@$message_text = $event->params['message_text'];
-            	@$send_status = $event->params['send_status'];
+            	@$queue_status = $event->params['queue_status'];
+            	@$fax_id = $event->params['fax_id'];
 				
           		$fields = array(
           			DAO_MessageAuditLog::WORKER_ID => 0,
@@ -135,8 +136,8 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
           			DAO_MessageAuditLog::MESSAGE_ID => $message_recipient->message_id,
           			DAO_MessageAuditLog::MESSAGE_RECIPIENT_ID => $message_recipient->id,
            			DAO_MessageAuditLog::CHANGE_DATE => time(),
-           			DAO_MessageAuditLog::CHANGE_FIELD => 'auditlog.cs.message.fax.send',
-           			DAO_MessageAuditLog::CHANGE_VALUE => $send_status ? "Successful" : "Failure",
+           			DAO_MessageAuditLog::CHANGE_FIELD => 'auditlog.cs.message.fax.queue',
+           			DAO_MessageAuditLog::CHANGE_VALUE => $queue_status ? "Fax successful queue with ID: " . $fax_id : "Failed to Queue",
           		);
             	$log_id = DAO_MessageAuditLog::create($fields);
             	break;
@@ -156,7 +157,7 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
           			DAO_MessageAuditLog::MESSAGE_RECIPIENT_ID => $message_recipient->id,
            			DAO_MessageAuditLog::CHANGE_DATE => time(),
            			DAO_MessageAuditLog::CHANGE_FIELD => 'auditlog.cs.message.snpp.send',
-           			DAO_MessageAuditLog::CHANGE_VALUE => $send_status ? "Successful" : "Failure",
+           			DAO_MessageAuditLog::CHANGE_VALUE => $send_status ? "Successful Sent" : "Failed to Send",
           		);
             	$log_id = DAO_MessageAuditLog::create($fields);
             	break;
