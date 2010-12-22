@@ -81,7 +81,7 @@ class FegFax {
 			//	request id is 81 (group id 81) for host localhost (1 file)
 			$output = split(" ", $result);
 			
-			return array('jobid' => $output[3], 'groupid' => $output[6], 'host' => $output[9], 'numfiles' => $output[10]);
+			return array('status' =>  true, 'jobid' => $output[3], 'groupid' => $output[6], 'host' => $output[9], 'numfiles' => $output[10]);
 		}
 		
 		if ($debug) {
@@ -90,7 +90,7 @@ class FegFax {
 		
 		$forlog = implode("\n", $sendfax_output);
 		
-		return $forlog;
+		return array('status' =>  false, 'output' => $forlog);
 	}
 	
 	/**

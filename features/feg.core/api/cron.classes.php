@@ -535,11 +535,7 @@ class ExportCron extends FegCronExtension {
 			// sendFax($phone_number, $message, $subject, $to, $account_name, $from=null, )
 			$fax_info = FegFax::sendFax($recipient->address, 	$message_str, $recipient->subject, $recipient->address_to, $account->name);
 
-echo "<pre>";
-print_r($fax_info['jobid']);
-echo "</pre>";
-
-			if(!empty($fax_info['jobid'])) {
+			if($fax_info['status']) {
 				$snpp_current_hour++;
 				$snpp_sent_today++;
 				
@@ -549,10 +545,8 @@ echo "</pre>";
 				);
 				DAO_MessageRecipient::update($id, $fields);				
 				$logger->info("[FAX Exporter] Fax added to queue");
-				$queue_status = true;
 			} else {
 				$logger->info("[FAX Exporter] Failed to add fax to queue");
-				$queue_status = false;
 			}
 			
 			// Give plugins a chance to run export
@@ -566,8 +560,8 @@ echo "</pre>";
 						'message' => $message,
 						'message_lines' => $message_lines,
 						'message_recipient' => $message_recipient,
-						'queue_status'  => $queue_status,
-						'fax_id' => $fax_info['jobid'],
+						'queue_status'  => $fax_info['status'],
+						'fax_id' => $fax_info['status'] ? $fax_info['jobid'] : 0,
 					)
 				)
 			);
