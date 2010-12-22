@@ -1,3 +1,10 @@
+ <div id="peekTabs">
+	<ul>
+		<li><a href="#ExportPeekTab1">Properties</a></li>
+		<li><a href="#ExportPeekTab2">Params</a></li>
+	</ul>
+		
+ <div id="ExportPeekTab1">
 <form action="{devblocks_url}{/devblocks_url}" method="POST" id="formExportPeek" name="formExportPeek" onsubmit="return false;">
 <input type="hidden" name="c" value="setup">
 <input type="hidden" name="a" value="saveExportPeek">
@@ -33,7 +40,6 @@
 			</select>
 		</td>
 	</tr>
-	<div id="div_export_type_params"></div>
 </table>
 <br>
 <button type="button" onclick="genericPanel.dialog('close');genericAjaxPost('formExportPeek', 'view{$view_id}', '');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('common.save_changes')}</button>
@@ -43,11 +49,19 @@
 <button type="button" onclick="genericPanel.dialog('close');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete.gif{/devblocks_url}" align="top"> {$translate->_('common.cancel')|capitalize}</button>
 <br>
 </form>
+</div>
+<div id="ExportPeekTab2" style="display:none;">
+	<div id="view{$view->id}">{$view->render()}</div>
+</div>
 
 <script type="text/javascript" language="JavaScript1.2">
-	$(genericPanel).one('dialogopen',function(event,ui) {
+	genericPanel.one('dialogopen',function(event,ui) {
 		genericPanel.dialog('option','title','Export Type Editor'); 
-	});
+		$("#peekTabs").tabs();
+		{*$("#ExportPeekContent").css('width','100%');*}
+		$("#ExportPeekTab2").show();
+		genericPanel.focus();
+	} );
 	$(document).ready(function() {
 		$("#div_export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportTypeParams&type={$export_type->recipient_type}&id={$export_type->id}{/devblocks_url}");
 		$('#export_type_recipient_type').change(function() {
