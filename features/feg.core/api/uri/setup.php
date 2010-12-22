@@ -596,16 +596,14 @@ class FegSetupPage extends FegPageExtension  {
 		@$view_id = DevblocksPlatform::importGPC($_POST['view_id'],'string');
 		@$delete = DevblocksPlatform::importGPC($_POST['do_delete'],'integer',0);
 
-		@$disabled = DevblocksPlatform::importGPC($_POST['imports_is_disabled'],'integer',0);
-		@$import_name = DevblocksPlatform::importGPC($_POST['import_name'],'string',"");
-		@$import_type = DevblocksPlatform::importGPC($_POST['import_type'],'integer',0);
-		@$import_path = DevblocksPlatform::importGPC($_POST['import_path'],'string', "");
+		@$disabled = DevblocksPlatform::importGPC($_POST['export_type_is_disabled'],'integer',0);
+		@$export_type_name = DevblocksPlatform::importGPC($_POST['export_type_name'],'string',"");
+		@$export_type_recipient_type = DevblocksPlatform::importGPC($_POST['export_type_recipient_type'],'integer',0);
 		
 		$fields = array(
-			DAO_ImportSource::NAME => $import_name,
-			DAO_ImportSource::PATH => $import_path,
-			DAO_ImportSource::TYPE => $import_type,
-			DAO_ImportSource::IS_DISABLED => $disabled,
+			DAO_ExportType::NAME => $export_type_name,
+			DAO_ExportType::RECIPIENT_TYPE => $export_type_recipient_type,
+			DAO_ExportType::IS_DISABLED => $disabled,
 		);
 		
 		if($id == 0) {

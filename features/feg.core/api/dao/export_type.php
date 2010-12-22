@@ -6,6 +6,7 @@ class Model_ExportType {
 	public $recipient_type;
 	public $is_disabled;
 	public $params_json;
+	public $params;
 };
 
 class DAO_ExportType extends Feg_ORMHelper {
@@ -16,6 +17,7 @@ class DAO_ExportType extends Feg_ORMHelper {
 	const RECIPIENT_TYPE = 'recipient_type';
 	const IS_DISABLED = 'is_disabled';
 	const PARAMS_JSON = 'params_json';
+	const PARAMS = 'params';
 
 	static function create($fields) {
 		$db = DevblocksPlatform::getDatabaseService();
@@ -34,6 +36,9 @@ class DAO_ExportType extends Feg_ORMHelper {
 	}
 	
 	static function update($ids, $fields) {
+		if( !empty($fields['params']) {
+			$fields['params_json'] = json_encode($fields['params_json']);
+		}
 		parent::_update($ids, 'export_type', $fields);
 	}
 	
@@ -222,6 +227,7 @@ class SearchFields_ExportType implements IDevblocksSearchFields {
 	const RECIPIENT_TYPE = 'export_type_recipient_type';
 	const IS_DISABLED = 'export_type_is_disabled';
 	const PARAMS_JSON = 'export_type_params_json';
+	const PARAMS = 'export_type_params';
 	
 	/**
 	 * @return DevblocksSearchField[]
@@ -235,6 +241,7 @@ class SearchFields_ExportType implements IDevblocksSearchFields {
 			self::RECIPIENT_TYPE => new DevblocksSearchField(self::RECIPIENT_TYPE, 'export_type', 'recipient_type', $translate->_('feg.export_type.recipient_type')),
 			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'export_type', 'is_disabled', $translate->_('feg.export_type.is_disabled')),
 			self::PARAMS_JSON => new DevblocksSearchField(self::PARAMS_JSON, 'export_type', 'params_json', $translate->_('feg.export_type.params_json')),
+			self::PARAMS => new DevblocksSearchField(self::PARAMS, 'export_type', 'params', $translate->_('feg.export_type.params')),
 		);
 		
 		// Sort by label (translation-conscious)
@@ -345,6 +352,7 @@ class View_ExportType extends FEG_AbstractView {
 		$fields = self::getFields();
 		// [TODO] Filter fields
 		unset($fields[SearchFields_ExportType::PARAMS_JSON]);
+		unset($fields[SearchFields_ExportType::PARAMS]);
 		return $fields;
 	}
 
@@ -353,6 +361,7 @@ class View_ExportType extends FEG_AbstractView {
 		// [TODO] Filter fields
 		//	unset($fields[SearchFields_ExportType::ID]);
 		unset($fields[SearchFields_ExportType::PARAMS_JSON]);
+		unset($fields[SearchFields_ExportType::PARAMS]);
 		return $fields;
 	}
 

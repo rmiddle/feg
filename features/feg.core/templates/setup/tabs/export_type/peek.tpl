@@ -19,7 +19,7 @@
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('common.disabled')|capitalize}: </td>
 		<td width="100%">
-			<select name="export_is_disabled">
+			<select name="export_type_is_disabled">
 				<option value="0" {if $export_type->is_disabled == 0}selected{/if}>{$translate->_('common.enable')|capitalize}</option>
 				<option value="1" {if $export_type->is_disabled == 1}selected{/if}>{$translate->_('common.disable')|capitalize}</option>
 			</select>
