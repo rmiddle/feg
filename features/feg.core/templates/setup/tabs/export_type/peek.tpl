@@ -54,6 +54,7 @@
 
 <div id="ticketPeekTab2" style="display:none">
 	{*<div id="div_export_type_params"></div>*}
+	To display something.
 </div>
 
 <script type="text/javascript" language="JavaScript1.2">
