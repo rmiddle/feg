@@ -132,13 +132,11 @@ if ($status) {
 		$query = $mysqli->real_escape_string($query);
 
 		// Execute Query
-		if($result2 = $mysqli->query($query)){			
+		$result2 = $mysqli->query($query);
 	}
 
 	// Free result set
 	$result->close();
-		
-	// Free result set
 	$result2->close();
 	
 	// Close connection
