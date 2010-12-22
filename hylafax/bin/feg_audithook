@@ -1,10 +1,10 @@
 #!/usr/bin/php
 <?php
 
-$event_type = $argv[1];
-$event = $argv[2];
-$jobid = $argv[3];
-$misc = $argv[4];
+$event_type = $argv['1'];
+$event = $argv['2'];
+$jobid = $argv['3'];
+$misc = $argv['4'];
 $status = 0;
 
 if ($event_type == "JOB") {
