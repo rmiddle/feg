@@ -1,3 +1,9 @@
+<form action="{devblocks_url}{/devblocks_url}" method="POST" id="formExportPeek" name="formExportPeek" onsubmit="return false;">
+<input type="hidden" name="c" value="setup">
+<input type="hidden" name="a" value="saveExportPeek">
+<input type="hidden" name="id" value="{$id}">
+<input type="hidden" name="view_id" value="{$view_id}">
+<input type="hidden" name="do_delete" value="0">
 <div id="peekTabs">
 	<ul>
 		<li><a href="#ticketPeekTab1">Properties</a></li>
@@ -5,13 +11,6 @@
 	</ul>
 		
 <div id="ticketPeekTab1">
-<form action="{devblocks_url}{/devblocks_url}" method="POST" id="formExportPeek" name="formExportPeek" onsubmit="return false;">
-<input type="hidden" name="c" value="setup">
-<input type="hidden" name="a" value="saveExportPeek">
-<input type="hidden" name="id" value="{$id}">
-<input type="hidden" name="view_id" value="{$view_id}">
-<input type="hidden" name="do_delete" value="0">
-
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
 		<td nowrap="nowrap" align="right">ID: </td>
@@ -42,6 +41,11 @@
 	</tr>
 </table>
 <br>
+</div>
+
+<div id="ticketPeekTab2" style="display:none">
+</div>
+
 <button type="button" onclick="genericPanel.dialog('close');genericAjaxPost('formExportPeek', 'view{$view_id}', '');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('common.save_changes')}</button>
 {if $active_worker->is_superuser}
 	<button type="button" onclick="if(confirm('Are you sure you want to delete this Export Type?')){literal}{{/literal}this.form.do_delete.value='1';genericPanel.dialog('close');genericAjaxPost('formExportPeek', 'view{$view_id}', '');{literal}}{/literal}"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete2.gif{/devblocks_url}" align="top"> {$translate->_('common.delete')|capitalize}</button>
@@ -49,10 +53,6 @@
 <button type="button" onclick="genericPanel.dialog('close');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete.gif{/devblocks_url}" align="top"> {$translate->_('common.cancel')|capitalize}</button>
 <br>
 </form>
-</div>
-
-<div id="ticketPeekTab2" style="display:none">
-</div>
 
 {* End div for the tab*}
 </div>
