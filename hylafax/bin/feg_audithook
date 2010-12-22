@@ -112,27 +112,15 @@ if ($status) {
 		echo mysqli_connect_error();
 	}
 
-	// Create Query
-	$query = sprintf("SELECT id, send_status FROM message_recipient WHERE FAX_ID = %d", $jobid);
-	
-	// Escape Query
-	$query = $mysqli->real_escape_string($query);
-
-	// Execute Query
-	if($result = $mysqli->query($query)){
-
-	// Cycle through results
+	$sql = sprintf("SELECT id, send_status FROM message_recipient WHERE FAX_ID = %d", $jobid);
+	$query = $mysqli->real_escape_string($sql);
+	$result = $mysqli->query($query));
 	$row = $mysqli->fetch_object($result);
 		
 	if(($row->send_status == 5) || (($row->send_status > 99) && ($row->send_status < 140))) {
-		// Create Query
-		$query = sprintf("UPDATE message_recipient SET send_status = %d WHERE ID  = %d", $status, $row-->id);
-	
-		// Escape Query
-		$query = $mysqli->real_escape_string($query);
-
-		// Execute Query
-		$result2 = $mysqli->query($query);
+		$sql2 = sprintf("UPDATE message_recipient SET send_status = %d WHERE ID  = %d", $status, $row-->id);
+		$query2 = $mysqli->real_escape_string($sql2);
+		$result2 = $mysqli->query($query2);
 	}
 
 	// Free result set
