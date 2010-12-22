@@ -551,7 +551,7 @@ class FegSetupPage extends FegPageExtension  {
 		
 		$tpl->assign('response_uri', 'setup/export_type');
 		
-		$tpl->assign('core_tplpath', $core_tplpath);
+		//$tpl->assign('core_tplpath', $core_tplpath);
 		
 		$defaults = new Feg_AbstractViewModel();
 		$defaults->name = 'Export Type List';
