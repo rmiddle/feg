@@ -4,6 +4,8 @@
 <input type="hidden" name="id" value="{$id}">
 <input type="hidden" name="view_id" value="{$view_id}">
 <input type="hidden" name="do_delete" value="0">
+<input type="hidden" name="export_type_is_disabled" value="{$export_type->is_disabled}">
+
 <div id="peekTabs">
 	<ul>
 		<li><a href="#ticketPeekTab1">Properties</a></li>
