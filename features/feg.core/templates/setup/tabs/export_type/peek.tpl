@@ -1,11 +1,11 @@
 <div id="peekTabs">
 	<ul>
-		<li><a href="#exportPeekTab1">Properties</a></li>
-		<li><a href="#exportPeekTab2">Params</a></li>
+		<li><a href="#ticketPeekTab1">Properties</a></li>
+		<li><a href="#ticketPeekTab2">Params</a></li>
 	</ul>
 </div>
 		
-<div id="exportPeekTab1">
+<div id="ticketPeekTab1">
 <form action="{devblocks_url}{/devblocks_url}" method="POST" id="formExportPeek" name="formExportPeek" onsubmit="return false;">
 <input type="hidden" name="c" value="setup">
 <input type="hidden" name="a" value="saveExportPeek">
@@ -51,7 +51,7 @@
 <br>
 </form>
 </div>
-<div id="exportPeekTab2" style="display:none">
+<div id="ticketPeekTab2" style="display:none">
 	<div id="div_export_type_params"></div>
 </div>
 
@@ -59,7 +59,7 @@
 	genericPanel.one('dialogopen',function(event,ui) {
 		genericPanel.dialog('option','title','Export Type Editor'); 
 		$("#peekTabs").tabs();
-		$("#exportPeekTab2").show();
+		$("#ticketPeekTab2").show();
 		genericPanel.focus();
 	} );
 	$(document).ready(function() {
