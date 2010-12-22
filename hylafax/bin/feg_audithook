@@ -114,7 +114,7 @@ if ($status) {
 
 	$sql = sprintf("SELECT id, send_status FROM message_recipient WHERE FAX_ID = %d", $jobid);
 	$query = $mysqli->real_escape_string($sql);
-	$result = $mysqli->query($query));
+	$result = $mysqli->query($query);
 	$row = $mysqli->fetch_object($result);
 		
 	if(($row->send_status == 5) || (($row->send_status > 99) && ($row->send_status < 140))) {
