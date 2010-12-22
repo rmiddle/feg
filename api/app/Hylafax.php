@@ -85,7 +85,7 @@ class FegFax {
 		}
 		
 		if ($debug) {
-			echo "<p>"; print_r($o); echo "<p>"; print_r($sendfax_output); 	echo "<p>$command";
+			echo "<p>"; print_r($o); echo "<p>"; print_r($sendfax_output); 	echo "<p>$command<br>";
 		}
 		
 		$forlog = implode("\n", $sendfax_output);

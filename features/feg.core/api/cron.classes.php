@@ -538,16 +538,19 @@ class ExportCron extends FegCronExtension {
 			if($fax_info['status']) {
 				$snpp_current_hour++;
 				$snpp_sent_today++;
-				
 				$fields = array(
 					DAO_MessageRecipient::SEND_STATUS => 5,
 					DAO_MessageRecipient::FAX_ID => $fax_info['jobid'],
 				);
-				DAO_MessageRecipient::update($id, $fields);				
 				$logger->info("[FAX Exporter] Fax added to queue");
 			} else {
+				$fields = array(
+					DAO_MessageRecipient::SEND_STATUS => 1,
+					DAO_MessageRecipient::FAX_ID => 0,
+				);
 				$logger->info("[FAX Exporter] Failed to add fax to queue");
 			}
+			DAO_MessageRecipient::update($id, $fields);				
 			
 			// Give plugins a chance to run export
 			$eventMgr = DevblocksPlatform::getEventService();
