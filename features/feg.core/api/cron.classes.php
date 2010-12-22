@@ -543,11 +543,10 @@ echo "</pre>";
 					DAO_MessageRecipient::FAX_ID => $fax_info['jobid'],
 				);
 				DAO_MessageRecipient::update($id, $fields);				
+				$logger->info("[FAX Exporter] Fax added to queue");
 			} else {
-				$send_status = false;
+				$logger->info("[FAX Exporter] Failed to add to queue");
 			}
-			
-			$logger->info("[FAX Exporter] Send Status: " . ($send_status ? "Successful" : "Failure"));
 			
 			// Give plugins a chance to run export
 			$eventMgr = DevblocksPlatform::getEventService();
@@ -560,14 +559,9 @@ echo "</pre>";
 						'message' => $message,
 						'message_lines' => $message_lines,
 						'message_recipient' => $message_recipient,
-						'send_status'  => $send_status,
 					)
 				)
 			);
-			if($send_status) {
-				$fax_current_hour++;
-				$fax_sent_today++;
-			} 
 		}
 		
 		mysql_free_result($rs);
