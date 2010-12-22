@@ -51,14 +51,16 @@
 <br>
 </form>
 </div>
+
 <div id="ticketPeekTab2" style="display:none">
 	<div id="div_export_type_params"></div>
 </div>
 
 <script type="text/javascript" language="JavaScript1.2">
 	genericPanel.one('dialogopen',function(event,ui) {
-		genericPanel.dialog('option','title','Export Type Editor'); 
+		genericPanel.dialog('option','title',"Export Type Editor");
 		$("#peekTabs").tabs();
+		{*$("#ticketPeekContent").css('width','100%');*}
 		$("#ticketPeekTab2").show();
 		genericPanel.focus();
 	} );
