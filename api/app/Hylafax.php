@@ -61,7 +61,12 @@ class FegFax {
 		$command .= sprintf("-x '%s' ", $account_name);
 		$command .= sprintf("-d '%s@%s' ", $to, $phone_number);
 		
-		// Generate Text file of message.
+		$tempfilename = tempnam(APP_TEMP_PATH . "/fax_cache", 'fax_message-');
+		$temp_fh = fopen($tempfilename,'w') or die($php_errormsg);
+		fputs($temp_fh, $message);
+		fclose($temp_fh) or die($php_errormsg);		// Generate Text file of message.
+		
+		$command .= sprintf("'%s' ", $tempfilename);
 		
 		$o = exec($command." 2>&1", $sendfax_output, $retval);
 		
