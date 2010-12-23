@@ -124,6 +124,12 @@ if ($status) {
 		$sql2 = sprintf("UPDATE message_recipient SET send_status = %d WHERE ID  = %d", $status, $row->id);
 		$mysqli->query($sql2);
 	}
+	
+	$sql2 = sprintf("UPDATE audit_log_message_seq SET id=LAST_INSERT_ID(id+1)");
+	$result2 = $mysqli->query($sql2);
+	$audit_log_id = $mysqli->insert_id;
+print_r($audit_log_id);
+
 	// Close connection
 	$mysqli->close();
 }
