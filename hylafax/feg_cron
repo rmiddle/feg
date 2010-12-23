@@ -1,0 +1,2 @@
+# Run cron job every 1 minutes
+* * * * * root   /usr/bin/php /var/vhosts/emailresponse/emailresponse_cron.php
