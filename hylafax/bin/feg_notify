@@ -29,6 +29,8 @@
 			$send_success = true;
 			break;
 		case "blocked":
+			exit
+			break;
 		case "requeued":
 			$failed_attempt = true; // retries
 			break;
