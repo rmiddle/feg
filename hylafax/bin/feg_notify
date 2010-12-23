@@ -19,25 +19,18 @@
 	// open qfile for sender information
 	if (!file_exists($qfile)) { exit("$qfile doesn't exist\n"); }
 	
-	$fp = fopen('/feg/feg_notify.txt', 'a');
-	fwrite($fp, "\n");
-	fwrite($fp, "qfile: ".$qfile."\n");
-	fwrite($fp, "why: ".$why."\n");
-	if($jobtime) fwrite($fp, "jobtime: ".$jobtime."\n");
-	if($nextTry) fwrite($fp, "nexttry: ".$nextTry."\n");
-	
 	// parse "why" argument
-	$faxdone	= false;
+	$send_success	= false;
 	$fatal		= false;
-	$alert		= false;
+	$failed_attempt		= false;
 	
 	switch ($why) {
 		case "done":
-			$faxdone = true;
+			$send_success = true;
 			break;
 		case "blocked":
 		case "requeued":
-			$alert = true; // retries
+			$failed_attempt = true; // retries
 			break;
 		case "format_failed":
 		case "no_formatter":
@@ -65,91 +58,115 @@
 		if ($line_info[0] == "totpages") {			// total pages
 			$totpages = $line_info[1];
 			echo "$line_info[0]: $totpages\n";
-			fwrite($fp, "$line_info[0]: $totpages\n");
 		} elseif ($line_info[0] == "status") {
 			$status = $line_info[1];
 			echo "$line_info[0]: $status\n";
-			fwrite($fp, "$line_info[0]: $status\n");
 		} elseif ($line_info[0] == "external") {	// the fax number
 			$external = $line_info[1];
 			echo "$line_info[0]: $external\n";
-			fwrite($fp, "$line_info[0]: $external\n");
 		} elseif ($line_info[0] == "jobid") {		// HylaFAX jobid
 			$jobid = $line_info[1];
 			echo "$line_info[0]: $jobid\n";
-			fwrite($fp, "$line_info[0]: $jobid\n");
 		} elseif ($line_info[0] == "mailaddr") {	// the mailaddr
 			$mailaddr = $line_info[1];
 			echo "$line_info[0]: $mailaddr\n";
-			fwrite($fp, "$line_info[0]: $mailaddr\n");
 		} elseif ($line_info[0] == "groupid") {		// gets the groupid
 			$groupid = $line_info[1];
 			echo "$line_info[0]: $groupid\n";
-			fwrite($fp, "$line_info[0]: $groupid\n");
 		} elseif ($line_info[0] == "location") {	// gets the to_location
 			$to_location = (isset($line_info[1])) ? $line_info[1] : NULL;
 			echo "$line_info[0]: $to_location\n";
-			fwrite($fp, "$line_info[0]: $to_location\n");
 		} elseif ($line_info[0] == "voice") {		// gets the to_voice number
 			$to_voice = (isset($line_info[1])) ? $line_info[1] : NULL;
 			echo "$line_info[0]: $to_voice\n";
-			fwrite($fp, "$line_info[0]: $to_voice\n");
 		} elseif ($line_info[0] == "receiver") {	// gets the to_person
 			$to_person = (isset($line_info[1])) ? $line_info[1] : NULL;
 			echo "$line_info[0]: $to_person\n";
-			fwrite($fp, "$line_info[0]: $to_person\n");
 		} elseif ($line_info[0] == "company") {		// gets the to_company
 			$to_company = (isset($line_info[1])) ? $line_info[1] : NULL;
 			echo "$line_info[0]: $to_company\n";
-			fwrite($fp, "$line_info[0]: $to_company\n");
 		} elseif ($line_info[0] == "regarding") {	// gets the RE: text
 			$regarding = (isset($line_info[1])) ? $line_info[1] : NULL;
 			echo "$line_info[0]: $regarding\n";
-			fwrite($fp, "$line_info[0]: $regarding\n");
 		} elseif ($line_info[0] == "owner") {		// the sender's username
 			$owner = strtolower ($line_info[1]);
 			echo "$line_info[0]: $owner\n";
-			fwrite($fp, "$line_info[0]: $owner\n");
 		} elseif (preg_match("/postscript/", $line_info[0]) || preg_match("/pdf/", $line_info[0]) || preg_match("/tiff/", $line_info[0])) {
 			echo "Found file: $line_info[3]\n";
 			if (!preg_match("/\;/", $line_info[3])) {
 				$faxfiles[$file_cnt] = $line_info[3];
 				$file_cnt++;
 			}
-			fwrite($fp, "Found file: $line_info[3]\n");
 		}
 	}
 
-	// if fatal, notify sender
+	// define('APP_DB_DRIVER','mysql');
+	// define('APP_DB_HOST','localhost');
+	// define('APP_DB_DATABASE','feg');
+	// define('APP_DB_USER','feg');
+	// define('APP_DB_PASS','feg');
+	// define('APP_DB_PCONNECT',false);
+	// $mysqli = new mysqli('host','username','password','default database');
+	// New Connection
+	$mysqli = new mysqli('localhost','feg','feg','feg');
+
+	// Check for errors
+	if(mysqli_connect_errno()){
+		echo mysqli_connect_error();
+	}
+
+	$sql = sprintf("SELECT id, recipient_id, message_id, account_id, send_status FROM message_recipient WHERE FAX_ID = %d", $jobid);
+	$result = $mysqli->query($sql);
+	$row = $result->fetch_object();
+
+	
+	$sql2 = sprintf("UPDATE audit_log_message_seq SET id=LAST_INSERT_ID(id+1)");
+	$result2 = $mysqli->query($sql2);
+	
+	/* 
+	const ID = 'id';
+	const WORKER_ID = 'worker_id';
+	const ACCOUNT_ID = 'account_id';
+	const RECIPIENT_ID = 'recipient_id';
+	const MESSAGE_ID = 'message_id';
+	const MESSAGE_RECIPIENT_ID = 'message_recipient_id';
+	const CHANGE_DATE = 'change_date';
+	const CHANGE_FIELD = 'change_field';
+	const CHANGE_VALUE = 'change_value';
+	*/
+	$audit_log_id = $mysqli->insert_id;
+
+	$sql_audit_log = "UPDATE audit_log_message_seq SET ";
+	$sql_audit_log .= "worker_id = 0, ";
+	$sql_audit_log .= sprintf("account_id =  %d, ", $row->account_id);
+	$sql_audit_log .= sprintf("recipient_id =  %d, ", $row->recipient_id);
+	$sql_audit_log .= sprintf("message_id =  %d, ", $row->message_id);
+	$sql_audit_log .= sprintf("message_recipient_id, =  %d ", $row->id);
+	$sql_audit_log .= sprintf("change_date =  %d, ", time());
+	$sql_audit_log .= "change_field = auditlog.cs.message.fax.status, ";
+		
+	// Just create an audit log entry with reason why.
+	if ($failed_attempt) {
+		$sql_audit_log .= sprintf("change_value =  'Fax %s: %s', ", $why, $status);
+		
+	}
+	
+	// Giving up attempting to send set status to fail and record a reason why
 	if ($fatal) {
-//		$subject	= $LANG['FAX_WHY'][$why]." $subject";
-//		$text		= $LANG['FAX_FAILED'].": ".$LANG['FAX_WHY'][$why]." $status\n\n$text";
+		$sql_audit_log .= sprintf("change_value =  'Fax %s: %s', ", $why, $status);
 		
-		// create the temp directory
-//		$faxpath	= $TMPDIR.date("Y-m-d-").$external."-".date("His")."-".$jobid;
-//		mkdirs($faxpath);
-		
-		fclose($fp);
-		exit;
 	}
 	
-	// if alert, notify sender
-	if ($alert) {
-//		$subject	= "Fax $groupid ".$LANG['TO']." $external ".$LANG['FAX_WHY'][$why];
-//		$text		= $LANG['FAX_WHY'][$why]." $status\n\n$text";
-//		if ($nextTry)
-//			$text	.= "\nFAX --> $nextTry";
-//		send_mail($to, $from, $subject, $text);
-		fclose($fp);
-		exit;
+	// Fax was sent successfully set status and record send time and add audit log entry.
+	if (!$send_success) {
+		$sql_audit_log .= sprintf("change_value =  'Fax Sent Secessfully', ");
+		$sql_status = sprintf("UPDATE message_recipient SET send_status = 2 WHERE ID  = %d", $row->id);
+		$mysqli->query($sql_status);
+
 	}
+	$sql_audit_log .= sprintf("WHERE ID  = %d", $audit_log_id);
+	$result_audit_log = $mysqli->query($sql_audit_log);
 	
-	// only if faxdone, create pdf file and db entry
-	if (!$faxdone) {
-		fclose($fp);
-		exit;
-	}
 	
 	echo "Done\n";
-	fclose($fp);
 	exit;
