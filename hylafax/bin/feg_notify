@@ -135,35 +135,33 @@
 	const CHANGE_FIELD = 'change_field';
 	const CHANGE_VALUE = 'change_value';
 	*/
-
-	$sql_audit_log = "UPDATE audit_log_message_seq SET ";
-	$sql_audit_log .= "worker_id = 0, ";
-	$sql_audit_log .= sprintf("account_id =  %d, ", $row->account_id);
-	$sql_audit_log .= sprintf("recipient_id =  %d, ", $row->recipient_id);
-	$sql_audit_log .= sprintf("message_id =  %d, ", $row->message_id);
-	$sql_audit_log .= sprintf("message_recipient_id, =  %d ", $row->id);
-	$sql_audit_log .= sprintf("change_date =  %d, ", time());
-	$sql_audit_log .= "change_field = auditlog.cs.message.fax.status, ";
+	// INSERT INTO message_recipient (id)  VALUES (%d)",
+	$sql_audit_log = "INSERT INTO audit_log_message_seq ";
+	$sql_audit_log .= "(id, worker_id, account_id, recipient_id, message_id, ";
+	$sql_audit_log .= "message_recipient_id, change_date, change_field, change_value) ";
+	$sql_audit_log .= "VALUES  ";
+	$sql_audit_log .= sprintf("(%d, 0, %d, ", $audit_log_id, $row->account_id);
+	$sql_audit_log .= sprintf("%d, %d, %d, ", $row->recipient_id, $row->message_id, $row->id);
+	$sql_audit_log .= sprintf("%d, 'auditlog.cs.message.fax.status', ", time());
 		
 	// Just create an audit log entry with reason why.
 	if ($failed_attempt) {
-		$sql_audit_log .= sprintf("change_value =  'Fax %s: %s', ", $why, $status);
+		$sql_audit_log .= sprintf("'Fax %s: %s') ", $why, $status);
 		
 	}
 	
 	// Giving up attempting to send set status to fail and record a reason why
 	if ($fatal) {
-		$sql_audit_log .= sprintf("change_value =  'Fax %s: %s', ", $why, $status);
+		$sql_audit_log .= sprintf("'Fax %s: %s') ", $why, $status);
 		
 	}
 	
 	// Fax was sent successfully set status and record send time and add audit log entry.
 	if ($send_success) {
-		$sql_audit_log .= sprintf("change_value =  'Fax Sent Secessfully', ");
+		$sql_audit_log .= sprintf("'Fax Sent Secessfully' ");
 		$sql_status = sprintf("UPDATE message_recipient SET send_status = 2 WHERE ID  = %d", $row->id);
 		$mysqli->query($sql_status);
 	}
-	$sql_audit_log .= sprintf("WHERE ID  = %d", $audit_log_id);
 	$result_audit_log = $mysqli->query($sql_audit_log);
 	
 	
