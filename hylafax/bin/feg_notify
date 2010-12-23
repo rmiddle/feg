@@ -161,7 +161,7 @@
 	// Fax was sent successfully set status and record send time and add audit log entry.
 	if ($send_success) {
 		$sql_audit_log .= sprintf("'Fax Sent Secessfully') ");
-		$sql_status = sprintf("UPDATE message_recipient SET send_status = 2 WHERE ID  = %d", $row->id);
+		$sql_status = sprintf("UPDATE message_recipient SET send_status = 2, closed_date = %d WHERE ID  = %d", time(), $row->id);
 		$mysqli->query($sql_status);
 	}
 	$result_audit_log = $mysqli->query($sql_audit_log);
