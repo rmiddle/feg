@@ -136,7 +136,7 @@
 	const CHANGE_VALUE = 'change_value';
 	*/
 	// INSERT INTO message_recipient (id)  VALUES (%d)",
-	$sql_audit_log = "INSERT INTO audit_log_message_seq ";
+	$sql_audit_log = "INSERT INTO audit_log_message ";
 	$sql_audit_log .= "(id, worker_id, account_id, recipient_id, message_id, ";
 	$sql_audit_log .= "message_recipient_id, change_date, change_field, change_value) ";
 	$sql_audit_log .= "VALUES  ";
@@ -158,7 +158,7 @@
 	
 	// Fax was sent successfully set status and record send time and add audit log entry.
 	if ($send_success) {
-		$sql_audit_log .= sprintf("'Fax Sent Secessfully' ");
+		$sql_audit_log .= sprintf("'Fax Sent Secessfully') ");
 		$sql_status = sprintf("UPDATE message_recipient SET send_status = 2 WHERE ID  = %d", $row->id);
 		$mysqli->query($sql_status);
 	}
