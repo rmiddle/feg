@@ -29,7 +29,7 @@
 			$send_success = true;
 			break;
 		case "blocked":
-			exit
+			exit;
 			break;
 		case "requeued":
 			$failed_attempt = true; // retries
