@@ -30,6 +30,7 @@ class MaintCron extends FegCronExtension {
 //		}
 //		
 //		$logger->info('[Maint] Cleaned up import directories.');
+		$logger->info("[FEG] Finished Maintenance Task");
 	}
 
 	function configure($instance) {
@@ -67,6 +68,7 @@ class HeartbeatCron extends FegCronExtension {
 				)
 			)
 		);
+		$logger->info("[Heartbeat] Finished Heartbeat Task");
 	}
 
 	function configure($instance) {
