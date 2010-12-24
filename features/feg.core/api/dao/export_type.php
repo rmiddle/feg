@@ -487,6 +487,10 @@ class DAO_ExportTypeParams extends DevblocksORMHelper {
 	
 	const CACHE_ALL = 'export_type_params'; 
 	
+/* 
+ *No reason for a create option since all these are going to have to be created manually well adding the features into the exporter.
+ */
+/* 
 	static function create($fields) {
 		$db = DevblocksPlatform::getDatabaseService();
 		$id = $db->GenID('export_type_params_seq');
@@ -501,7 +505,8 @@ class DAO_ExportTypeParams extends DevblocksORMHelper {
 		
 		return $id;
 	}
-	
+*/
+
 	static function update($ids, $fields) {
 		parent::_update($ids, 'export_type_params', $fields);
 		
@@ -562,6 +567,10 @@ class DAO_ExportTypeParams extends DevblocksORMHelper {
 		return $objects;
 	}
 	
+/* 
+ *No reason for a delete option since all these are going to have to be created manually well adding the features into the exporter.
+ */
+/* 
 	public static function delete($ids) {
 		if(!is_array($ids)) $ids = array($ids);
 		
@@ -577,7 +586,8 @@ class DAO_ExportTypeParams extends DevblocksORMHelper {
 
 		self::clearCache();
 	}
-	
+*/
+
 	public static function clearCache() {
 		// Invalidate cache on changes
 		$cache = DevblocksPlatform::getCacheService();

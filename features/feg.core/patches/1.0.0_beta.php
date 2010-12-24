@@ -309,7 +309,7 @@ if(!isset($tables['export_type'])) {
 if(!isset($tables['export_type_params'])) {
 	$sql = "
 		CREATE TABLE IF NOT EXISTS export_type_params (
-			id INT UNSIGNED DEFAULT 0 NOT NULL,
+			id INT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE,
 			name VARCHAR(255) DEFAULT '' NOT NULL,
 			type VARCHAR(1) DEFAULT 'S' NOT NULL,
 			pos SMALLINT UNSIGNED DEFAULT 0 NOT NULL,
