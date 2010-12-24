@@ -560,7 +560,7 @@ class FegSetupPage extends FegPageExtension  {
 		$defaults->renderLimit = 15;
 		
 		$defaults->renderSortBy = SearchFields_ExportType::ID;
-		$defaults->renderSortAsc = 0;
+		$defaults->renderSortAsc = true;
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 		$view->name = 'Export Type Management List';
 		$view->renderPage = 0;
