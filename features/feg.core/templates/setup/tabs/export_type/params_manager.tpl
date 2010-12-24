@@ -16,10 +16,19 @@
 				<select name="export_type_params_add">
 					{foreach from=$export_type_params item=export_type_param key=export_type_param_id}
 						{if $type == $export_type_param->recipient_type}
-							<option value="{$export_type_param->id}">{$export_type_param->name} - {$export_type_param->options['default']}</option>
+							<option value="{$export_type_param->id}">{$export_type_param->name}}</option>
 						{/if}
 					{/foreach}
 				</select>
 		</td>
 	</tr>
 </table>
+<script type="text/javascript" language="JavaScript1.2">
+	$(document).ready(function() {
+		$('#export_type_params_add').change(function() {
+			var sel = $(this).val();
+			{*$("#ticketPeekTab2").load("{devblocks_url}ajax.php?c=setup&a=showExportTypeParams&type="+sel+"&id={$id}{/devblocks_url}");*]
+			$("#ticketPeekTab2").load("{devblocks_url}ajax.php?c=setup&a=showExportTypeParams&type={$export_type->recipient_type}&id={$id}{/devblocks_url}");
+		});
+	});
+</script>
