@@ -335,7 +335,7 @@ if(!isset($tables['export_type_params'])) {
 	$db->Execute($sql);
 	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(5, 1, 'Fax Strip Account Number from message', 1, 0, '{\"default\":\"false\"}')";
 	$db->Execute($sql);
-	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(6, 2, SNPP Strip Account Number from message', 1, 0, '{\"default\":\"false\"}')";
+	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(6, 2, 'SNPP Strip Account Number from message', 1, 0, '{\"default\":\"false\"}')";
 	$db->Execute($sql);
 	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(7, 0, 'Email Overide From', 2, 0, '')";
 	$db->Execute($sql);
