@@ -38,7 +38,7 @@ class DAO_ExportType extends Feg_ORMHelper {
 	static function update($ids, $fields) {
 		if( !empty($fields['params'])) {
 			$fields['params_json'] = json_encode($fields['params']);
-			unset($fields['params'])
+			unset($fields['params']);
 		}
 		parent::_update($ids, 'export_type', $fields);
 	}
@@ -523,7 +523,7 @@ class DAO_ExportTypeParams extends DevblocksORMHelper {
 	static function update($ids, $fields) {
 		if( !empty($fields['options'])) {
 			$fields['options_json'] = json_encode($fields['options']);
-			unset($fields['options'])
+			unset($fields['options']);
 		}
 		parent::_update($ids, 'export_type_params', $fields);
 		
