@@ -325,23 +325,23 @@ if(!isset($tables['export_type_params'])) {
 	// recipient_type 0 = Email, 1 = Fax, 2 = SNPP
 	// type  1 = Yes/No, 2 = 255 Char input
 	
-	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(1, 'Email use subject', 0, 1, 0, '')";
+	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(1, 0, 'Email use subject', 1, 0, '')";
 	$db->Execute($sql);
-	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(2, 'Fax use subject', 1, 1, 0, '')";
+	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(2, 1, 'Fax use subject', 1, 0, '')";
 	$db->Execute($sql);
-	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(3, 'SNPP use subject', 2, 1, 0, '')";
+	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(3, 2, 'SNPP use subject', 1, 0, '')";
 	$db->Execute($sql);
-	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(4, 'Email Strip Account Number from message', 0, 1, 0, '')";
+	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(4, 0, 'Email Strip Account Number from message', 1, 0, '')";
 	$db->Execute($sql);
-	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(5, 'Fax Strip Account Number from message', 1, 1, 0, '')";
+	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(5, 1, 'Fax Strip Account Number from message', 1, 0, '')";
 	$db->Execute($sql);
-	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(6, 'SNPP Strip Account Number from message', 2, 1, 0, '')";
+	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(6, '2, SNPP Strip Account Number from message', 1, 0, '')";
 	$db->Execute($sql);
-	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(7, 'Email Overide From', 0, 2, 0, '')";
+	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(7, 0, 'Email Overide From', 2, 0, '')";
 	$db->Execute($sql);
-	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(8, 'Fax Overide From', 1, 2, 0, '')";
+	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(8, 1, 'Fax Overide From', 2, 0, '')";
 	$db->Execute($sql);
-	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(9, 'SNPP Send to server FQN', 2, 1, 0, '')";
+	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(9, 2, 'SNPP Send to server FQN', 1, 0, '')";
 	$db->Execute($sql);
 }
 
