@@ -10,7 +10,7 @@
 | ______________________________________________________________________
 |	http://www.feg.com	  http://www.webgroupmedia.com/
 ***********************************************************************/
-define("APP_BUILD", 2010122401);
+define("APP_BUILD", 2010122402);
 
 require_once(APP_PATH . "/api/DAO.class.php");
 require_once(APP_PATH . "/api/Model.class.php");

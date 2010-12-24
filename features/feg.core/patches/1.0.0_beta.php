@@ -305,7 +305,7 @@ if(!isset($tables['export_type'])) {
 	$db->Execute($sql);	
 }
 
-/ `export_type_params` =============================
+// `export_type_params` =============================
 if(!isset($tables['export_type_params'])) {
 	$sql = "
 		CREATE TABLE IF NOT EXISTS export_type_params (
