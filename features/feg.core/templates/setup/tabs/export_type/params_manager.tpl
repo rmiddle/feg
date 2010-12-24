@@ -23,12 +23,3 @@
 		</td>
 	</tr>
 </table>
-<script type="text/javascript" language="JavaScript1.2">
-	$(document).ready(function() {
-		$('#export_type_params_add').change(function() {
-			var sel = $(this).val();
-			{*$("#ticketPeekTab2").load("{devblocks_url}ajax.php?c=setup&a=showExportTypeParams&type="+sel+"&id={$id}{/devblocks_url}");*]
-			$("#ticketPeekTab2").load("{devblocks_url}ajax.php?c=setup&a=showExportTypeParams&type={$export_type->recipient_type}&id={$id}{/devblocks_url}");
-		});
-	});
-</script>
