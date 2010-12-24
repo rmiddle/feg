@@ -582,12 +582,7 @@ class DAO_ExportTypeParams extends DevblocksORMHelper {
 			} else {
 				$object->options = array();
 			}
-			$objects[$object->id] = $object;
-echo "<pre>";	
-print_r($row);
-print_r($objects);
-echo "</pre>";		
-			
+			$objects[$object->id] = $object;			
 		}
 		
 		mysql_free_result($rs);
