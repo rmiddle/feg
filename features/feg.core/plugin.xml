@@ -395,6 +395,7 @@
 			</params>
 		</extension>
 		
+		<!-- 
 		<extension point="feg.cron">
 			<id>cron.stats</id>
 			<name>Update Stats</name>
@@ -405,7 +406,8 @@
 			<params>
 			</params>
 		</extension>
-		
+		 -->
+		 
 		<extension point="feg.cron">
 			<id>cron.import</id>
 			<name>Message Imports</name>
