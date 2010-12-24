@@ -37,7 +37,8 @@ class DAO_ExportType extends Feg_ORMHelper {
 	
 	static function update($ids, $fields) {
 		if( !empty($fields['params'])) {
-			$fields['params_json'] = json_encode($fields['params_json']);
+			$fields['params_json'] = json_encode($fields['params']);
+			unset($fields['params'])
 		}
 		parent::_update($ids, 'export_type', $fields);
 	}
@@ -478,12 +479,24 @@ class View_ExportType extends FEG_AbstractView {
 	}	
 };
 
+class Model_ExportTypeParams {
+	public $id;
+	public $recipient_type;
+	public $name;
+	public $type;
+	public $pos;
+	public $options;
+	public $options_json;
+};
+
 class DAO_ExportTypeParams extends DevblocksORMHelper {
 	const ID = 'id';
+	const RECIPIENT_TYPE = 'recipient_type';
 	const NAME = 'name';
 	const TYPE = 'type';
 	const POS = 'pos';
 	const OPTIONS = 'options';
+	const OPTIONS_JSON = 'options_json';
 	
 	const CACHE_ALL = 'export_type_params'; 
 	
@@ -508,6 +521,10 @@ class DAO_ExportTypeParams extends DevblocksORMHelper {
 */
 
 	static function update($ids, $fields) {
+		if( !empty($fields['options'])) {
+			$fields['options_json'] = json_encode($fields['options']);
+			unset($fields['options'])
+		}
 		parent::_update($ids, 'export_type_params', $fields);
 		
 		self::clearCache();
@@ -533,7 +550,7 @@ class DAO_ExportTypeParams extends DevblocksORMHelper {
 		
 		if(null === ($objects = $cache->load(self::CACHE_ALL))) {
 			$db = DevblocksPlatform::getDatabaseService();
-			$sql = "SELECT id, name, type, pos, options ".
+			$sql = "SELECT id, recipient_type, name, type, pos, options_json ".
 				"FROM export_type_params ".
 				"ORDER BY pos ASC "
 			;
@@ -553,12 +570,17 @@ class DAO_ExportTypeParams extends DevblocksORMHelper {
 		$objects = array();
 		
 		while($row = mysql_fetch_assoc($rs)) {
-			$object = new Model_CustomField();
+			$object = new Model_ExportTypeParams();
 			$object->id = intval($row['id']);
+			$object->recipient_type = $row['recipient_type'];
 			$object->name = $row['name'];
 			$object->type = $row['type'];
 			$object->pos = intval($row['pos']);
-			$object->options = DevblocksPlatform::parseCrlfString($row['options']);
+			if(false !== ($options = json_decode($object->options_json, true))) {
+				$object->options = $options;
+			} else {
+				$object->options = array();
+			}
 			$objects[$object->id] = $object;
 		}
 		
