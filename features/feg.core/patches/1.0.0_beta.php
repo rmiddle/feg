@@ -309,16 +309,30 @@ if(!isset($tables['export_type'])) {
 if(!isset($tables['export_type_params'])) {
 	$sql = "
 		CREATE TABLE IF NOT EXISTS export_type_params (
-			id INT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE,
+			id INT UNSIGNED DEFAULT 0 NOT NULL,
 			name VARCHAR(255) DEFAULT '' NOT NULL,
 			type VARCHAR(1) DEFAULT 'S' NOT NULL,
 			pos SMALLINT UNSIGNED DEFAULT 0 NOT NULL,
 			options LONGTEXT,
 			PRIMARY KEY (id),
+			INDEX name (name),
 			INDEX pos (pos)
 		) ENGINE=MyISAM;
 	";
 	$db->Execute($sql);	
+	
+	$sql = "INSERT INTO export_type_params (id, name, type, pos, options) VALUES(1, 'Email use subject', 0, 0, '')";
+	$db->Execute($sql);
+	$sql = "INSERT INTO export_type_params (id, name, type, pos, options) VALUES(2, 'Fax use subject', 1, 0, '')";
+	$db->Execute($sql);
+	$sql = "INSERT INTO export_type_params (id, name, type, pos, options) VALUES(3, 'SNPP use subject', 2, 0, '')";
+	$db->Execute($sql);
+	$sql = "INSERT INTO export_type_params (id, name, type, pos, options) VALUES(4, 'Email Strip Account Number from message', 0, 0, '')";
+	$db->Execute($sql);
+	$sql = "INSERT INTO export_type_params (id, name, type, pos, options) VALUES(5, 'Fax Strip Account Number from message', 1, 0, '')";
+	$db->Execute($sql);
+	$sql = "INSERT INTO export_type_params (id, name, type, pos, options) VALUES(6, 'SNPP Strip Account Number from message', 2, 0, '')";
+	$db->Execute($sql);
 }
 
 return TRUE;
