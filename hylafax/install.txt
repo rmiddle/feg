@@ -34,3 +34,24 @@ W=`date +%V`                                                    # Week Number e.
 
 VBoxManage modifyvm Win2000 --uart1 0x3F8 4
 VBoxManage modifyvm Win2000 --uartmode1 /dev/ttyS0
+
+Array
+(
+    [1] => Model_ExportTypeParams Object
+        (
+            [id] => 1
+            [recipient_type] => 0
+            [name] => Email use subject
+            [type] => 1
+            [pos] => 0
+            [options] => Array
+                (
+                    [default] => true
+                )
+
+            [options_json] => {"default":"true"}
+        )
+
+)
+
+
