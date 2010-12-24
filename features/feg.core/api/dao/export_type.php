@@ -576,7 +576,7 @@ class DAO_ExportTypeParams extends DevblocksORMHelper {
 			$object->name = $row['name'];
 			$object->type = $row['type'];
 			$object->pos = intval($row['pos']);
-			$object->options_json = intval($row['options_json']);
+			$object->options_json = $row['options_json'];
 			if(false !== ($options = json_decode($object->options_json, true))) {
 				$object->options = $options;
 			} else {
