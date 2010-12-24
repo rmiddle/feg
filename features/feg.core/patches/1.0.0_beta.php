@@ -304,5 +304,21 @@ if(!isset($tables['export_type'])) {
 	";
 	$db->Execute($sql);	
 }
-	
+
+/ `export_type_params` =============================
+if(!isset($tables['export_type_params'])) {
+	$sql = "
+		CREATE TABLE IF NOT EXISTS export_type_params (
+			id INT UNSIGNED DEFAULT 0 NOT NULL,
+			name VARCHAR(255) DEFAULT '' NOT NULL,
+			type VARCHAR(1) DEFAULT 'S' NOT NULL,
+			pos SMALLINT UNSIGNED DEFAULT 0 NOT NULL,
+			options LONGTEXT,
+			PRIMARY KEY (id),
+			INDEX pos (pos)
+		) ENGINE=MyISAM;
+	";
+	$db->Execute($sql);	
+}
+
 return TRUE;

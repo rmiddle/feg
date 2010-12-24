@@ -477,3 +477,110 @@ class View_ExportType extends FEG_AbstractView {
 		unset($ids);
 	}	
 };
+
+class DAO_ExportTypeParams extends DevblocksORMHelper {
+	const ID = 'id';
+	const NAME = 'name';
+	const TYPE = 'type';
+	const POS = 'pos';
+	const OPTIONS = 'options';
+	
+	const CACHE_ALL = 'export_type_params'; 
+	
+	static function create($fields) {
+		$db = DevblocksPlatform::getDatabaseService();
+		$id = $db->GenID('export_type_params_seq');
+		
+		$sql = sprintf("INSERT INTO export_type_params (id,name,type,pos,options) ".
+			"VALUES (%d,'','','',0,'')",
+			$id
+		);
+		$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
+
+		self::update($id, $fields);
+		
+		return $id;
+	}
+	
+	static function update($ids, $fields) {
+		parent::_update($ids, 'export_type_params', $fields);
+		
+		self::clearCache();
+	}
+	
+	/**
+	 * Enter description here...
+	 *
+	 * @param integer $id
+	 * @return Model_CustomField|null
+	 */
+	static function get($id) {
+		$fields = self::getAll();
+		
+		if(isset($fields[$id]))
+			return $fields[$id];
+			
+		return null;
+	}
+	
+	static function getAll($nocache=false) {
+		$cache = DevblocksPlatform::getCacheService();
+		
+		if(null === ($objects = $cache->load(self::CACHE_ALL))) {
+			$db = DevblocksPlatform::getDatabaseService();
+			$sql = "SELECT id, name, type, pos, options ".
+				"FROM export_type_params ".
+				"ORDER BY pos ASC "
+			;
+			$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
+			
+			$objects = self::_createObjectsFromResultSet($rs);
+			
+			$cache->save($objects, self::CACHE_ALL);
+		}
+		
+		return $objects;
+	}
+	
+	private static function _createObjectsFromResultSet($rs) {
+		$db = DevblocksPlatform::getDatabaseService();
+		
+		$objects = array();
+		
+		while($row = mysql_fetch_assoc($rs)) {
+			$object = new Model_CustomField();
+			$object->id = intval($row['id']);
+			$object->name = $row['name'];
+			$object->type = $row['type'];
+			$object->pos = intval($row['pos']);
+			$object->options = DevblocksPlatform::parseCrlfString($row['options']);
+			$objects[$object->id] = $object;
+		}
+		
+		mysql_free_result($rs);
+		
+		return $objects;
+	}
+	
+	public static function delete($ids) {
+		if(!is_array($ids)) $ids = array($ids);
+		
+		if(empty($ids))
+			return;
+		
+		$db = DevblocksPlatform::getDatabaseService();
+		
+		$id_string = implode(',', $ids);
+		
+		$sql = sprintf("DELETE QUICK FROM export_type_params WHERE id IN (%s)",$id_string);
+		$db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
+
+		self::clearCache();
+	}
+	
+	public static function clearCache() {
+		// Invalidate cache on changes
+		$cache = DevblocksPlatform::getCacheService();
+		$cache->remove(self::CACHE_ALL);
+	}
+};
