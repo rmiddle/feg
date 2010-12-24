@@ -583,6 +583,7 @@ class DAO_ExportTypeParams extends DevblocksORMHelper {
 			}
 			$objects[$object->id] = $object;
 echo "<pre>";	
+print_r($row);
 print_r($objects);
 echo "</pre>";		
 			
