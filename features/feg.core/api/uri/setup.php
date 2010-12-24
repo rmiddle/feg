@@ -636,6 +636,9 @@ class FegSetupPage extends FegPageExtension  {
 		$export_type = DAO_ExportType::get($id);
 		$tpl->assign('export_type', $export_type);
 		
+		$export_type_params = DAO_ExportTypeParams::getAll();
+		$tpl->assign('export_type_params', $export_type_params);
+		
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/export_type/params_manager.tpl');		
 	}	
 

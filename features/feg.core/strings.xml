@@ -825,6 +825,9 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.export_type.params_json'>
 			<tuv xml:lang="en_US"><seg>Filter Registray</seg></tuv>
 		</tu>
+		<tu tuid='feg.export_type.add_filter'>
+			<tuv xml:lang="en_US"><seg>Add Filter Option</seg></tuv>
+		</tu>
 		<tu tuid='feg.export_type.add_source'>
 			<tuv xml:lang="en_US"><seg>Add Export Type</seg></tuv>
 		</tu>

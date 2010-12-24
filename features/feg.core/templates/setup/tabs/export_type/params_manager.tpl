@@ -9,4 +9,17 @@
 			<td width="100%"><input type="text" name="export_type_params_{$param_id}" value="{$param|escape}" style="width:98%;"></td>
 		</tr>
 	{/foreach}
+	
+		<tr>
+			<td width="0%" nowrap="nowrap" align="right"><b></b>{$translate->_('feg.export_type.add_filter')|capitalize}: </td>
+			<td width="100%">
+				<select name="recipient_export_type">
+					{foreach from=export_type_params item=export_type_param key=xport_type_param_id}
+						{if $type == $export_type_param->recipient_type}
+							<option value="{$export_type_param->id}">{$export_type_param->name}</option>
+						{/if}
+					{/foreach}
+				</select>
+		</td>
+	</tr>
 </table>
