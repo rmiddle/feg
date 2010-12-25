@@ -54,4 +54,22 @@ Array
 
 )
 
+// Useful jquery code.
+<a class="preset_text" id="1">model 1</a>
+<a class="preset_text" id="2">model 2</a>
 
+<textarea name="editor" cols="50" rows="17" id="editor">Just type.</textarea>
+
+<input type="hidden" value="ceci est le contenue de l'example 1" id="link_content_1"/>
+<input type="hidden" value="ceci est le contenue de l'example 2" id="link_content_2"/>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.preset_text').click(function(){			
+			var target = $(this).attr("id");			
+			$('textarea#editor').val($('#link_content_'+target).val());
+			<!--alert(target);-->
+		});
+	});
+</script>
+// End of code

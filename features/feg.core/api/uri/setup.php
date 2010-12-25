@@ -586,6 +586,9 @@ class FegSetupPage extends FegPageExtension  {
 		$export_type = DAO_ExportType::get($id);
 		$tpl->assign('export_type', $export_type);
 		
+		$export_type_params = DAO_ExportTypeParams::getAll();
+		$tpl->assign('export_type_params', $export_type_params);
+		
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/export_type/peek.tpl');		
 	}
 	
@@ -622,26 +625,6 @@ class FegSetupPage extends FegPageExtension  {
 		//DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','workers')));		
 	}
 	
-	function showExportTypeParamsAction() {
-		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
-		@$type = DevblocksPlatform::importGPC($_REQUEST['type'],'integer',0);
-		
-		$tpl = DevblocksPlatform::getTemplateService();
-		$tpl->assign('$path', $this->_TPL_PATH);
-		//$tpl->assign('core_tplpath', $core_tplpath);
-		
-		$tpl->assign('id', $id);
-		$tpl->assign('type', $type);
-
-		$export_type = DAO_ExportType::get($id);
-		$tpl->assign('export_type', $export_type);
-		
-		$export_type_params = DAO_ExportTypeParams::getAll();
-		$tpl->assign('export_type_params', $export_type_params);
-		
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/export_type/params_manager.tpl');		
-	}	
-
 	function showExportBulkPanelAction() {
 		@$id_csv = DevblocksPlatform::importGPC($_REQUEST['ids']);
 		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id']);
