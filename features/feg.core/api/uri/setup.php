@@ -600,7 +600,7 @@ class FegSetupPage extends FegPageExtension  {
 		$tpl->assign('path', $this->_TPL_PATH);
 		
 		$tpl->assign('id', $id);
-		$tpl->assign('view_id', $view_id);
+		$tpl->assign('type', $type);
 		
 		$export_type_params = DAO_ExportTypeParams::getAll();
 		$tpl->assign('export_type_params', $export_type_params);
