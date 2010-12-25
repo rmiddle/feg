@@ -101,6 +101,8 @@
 			<class name="Model_ExportType" />
 			<class name="SearchFields_ExportType" />
 			<class name="View_ExportType" />
+			<class name="DAO_ExportTypeParams" />
+			<class name="Model_ExportTypeParams" />
 		</file>
 	</class_loader>
 	
