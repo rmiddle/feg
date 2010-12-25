@@ -18,7 +18,7 @@
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right"><b>{$translate->_('feg.export_type.peek.recipient_type')|capitalize}</b>: </td>
 		<td width="100%">
-			<select name="export_type_recipient_type">
+			<select name="export_type_recipient_type" id="export_type_recipient_type">
 				<option value="0" {if $export_type->recipient_type == '0'}selected{/if}>{$translate->_('recipient.type.email')|capitalize}</option>
 				<option value="1" {if $export_type->recipient_type == '1'}selected{/if}>{$translate->_('recipient.type.fax')|capitalize}</option>
 				<option value="2" {if $export_type->recipient_type == '2'}selected{/if}>{$translate->_('recipient.type.snpp')|capitalize}</option>
