@@ -592,6 +592,22 @@ class FegSetupPage extends FegPageExtension  {
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/export_type/peek.tpl');		
 	}
 	
+	function showExportPeekTypeParmAction() {
+		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
+		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
+		
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('path', $this->_TPL_PATH);
+		
+		$tpl->assign('id', $id);
+		$tpl->assign('view_id', $view_id);
+		
+		$export_type_params = DAO_ExportTypeParams::getAll();
+		$tpl->assign('export_type_params', $export_type_params);
+		
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/export_type/export_type_param.tpl');		
+	}
+	
 	function saveExportPeekAction() {
 		$translate = DevblocksPlatform::getTranslationService();
 		
