@@ -590,13 +590,10 @@ class FegSetupPage extends FegPageExtension  {
 	}
 	
 	function showExportPeekTypeParmAction() {
-		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
-		@$type = DevblocksPlatform::importGPC($_REQUEST['type'],'integer',0);
-		
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
 		
-		$tpl->assign('id', $id);
+		@$type = DevblocksPlatform::importGPC($_REQUEST['type'],'integer',0);
 		$tpl->assign('type', $type);
 		
 		$export_type_params = DAO_ExportTypeParams::getAll();
