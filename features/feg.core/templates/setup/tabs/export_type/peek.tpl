@@ -61,7 +61,6 @@
 	$(document).ready(function() {
 		$("#export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type={$export_type->recipient_type}{/devblocks_url}");
 		$('#export_type_recipient_type').change(function() {
-			alert($(this).val());
 			var sel = $(this).val();
 			$("#export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type="+sel+"{/devblocks_url}");
 		});
