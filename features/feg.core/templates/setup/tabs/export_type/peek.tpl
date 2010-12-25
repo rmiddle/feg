@@ -16,7 +16,7 @@
 		<td width="100%"><input type="text" name="export_type_name" value="{$export_type->name|escape}" style="width:98%;"></td>
 	</tr>
 	<tr>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.export_type.peek.recipient_type')|capitalize}: </td>
+		<td width="0%" nowrap="nowrap" align="right"><b>{$translate->_('feg.export_type.peek.recipient_type')|capitalize}</b>: </td>
 		<td width="100%">
 			<select name="export_type_recipient_type">
 				<option value="0" {if $export_type->recipient_type == '0'}selected{/if}>{$translate->_('recipient.type.email')|capitalize}</option>
@@ -63,6 +63,7 @@
 		$('#export_type_recipient_type').change(function() {
 			var sel = $(this).val();
 			$("#export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type="+sel+"{/devblocks_url}");
+			alert($(this).val());
 		});
 	});
 </script>
