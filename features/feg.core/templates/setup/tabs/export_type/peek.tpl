@@ -55,12 +55,8 @@
 </form>
 
 <script type="text/javascript" language="JavaScript1.2">
-	genericPanel.one('dialogopen',function(event,ui) {
-		genericPanel.dialog('option','title',"Export Type Editor");
-		$("#peekTabs").tabs();
-		{*$("#ticketPeekContent").css('width','100%');*}
-		$("#ticketPeekTab2").show();
-		genericPanel.focus();
+	$(genericPanel).one('dialogopen',function(event,ui) {
+		genericPanel.dialog('option','title','Export Type Editor'); 
 	} );
 	$(document).ready(function() {
 		$("#export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type={$export_type->recipient_type}{/devblocks_url}");
