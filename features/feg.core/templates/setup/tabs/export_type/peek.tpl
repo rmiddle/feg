@@ -74,9 +74,9 @@
 			$('option', select).remove();
 			$('#export_type_params_add').append('<option value="" selected="selected">Select to Add option</option>');
 			
-			for(var index in data) {
-				options[options.length] = new Option(data[index], index);
-			}
+			$.each(data, function(index, array) {
+				options[options.length] = new Option(array['name']);
+			});
 		});
 		
 		{*
