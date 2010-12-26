@@ -27,7 +27,11 @@
 	</tr>
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">&nbsp;</td>
-		<td width="100%">{$translate->_('feg.export_type.filter_group')|capitalize}&nbsp;</td>
+		<td width="100%">&nbsp;</td>
+	</tr>
+	<tr>
+		<td width="0%" nowrap="nowrap" align="right">&nbsp;</td>
+		<td width="100%"><b>{$translate->_('feg.export_type.filter_group')|capitalize}</b>&nbsp;</td>
 	</tr>
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right"><b></b>{$translate->_('feg.export_type.add_filter')|capitalize}: </td>
