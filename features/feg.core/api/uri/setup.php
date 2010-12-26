@@ -620,7 +620,7 @@ class FegSetupPage extends FegPageExtension  {
 			return;
 		}
 		
-		if (!isset($export_type->params[$add_id])) {
+		if (isset($export_type->params[$add_id])) {
 			// Is it already in the list?
 			return;
 		}
