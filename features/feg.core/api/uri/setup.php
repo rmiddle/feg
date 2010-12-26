@@ -615,7 +615,7 @@ class FegSetupPage extends FegPageExtension  {
 		$export_type = DAO_ExportType::get($id);
 		$export_type_params = DAO_ExportTypeParams::getAll();
 		
-		if (!exists($export_type_params[$add_id]) {
+		if (!exists($export_type_params[$add_id])) {
 			// Bad add_id
 			return;
 		}
