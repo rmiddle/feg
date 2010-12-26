@@ -78,9 +78,22 @@
 				options[options.length] = new Option(array['name'], index);
 			});
 		});
+		$('#export_type_recipient_type').change(function() {
+			var sel = $(this).val();
+			$("#export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type="+sel+"{/devblocks_url}");
+			$.getJSON("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type="+sel+"{/devblocks_url}", function(data) {
+				var select = $('#export_type_params_add');
+				var options = select.attr('options');
+				$('option', select).remove();
+				$('#export_type_params_add').append('<option value="" selected="selected">Select to Add option</option>');
+			
+				$.each(data, function(index, array) {
+					options[options.length] = new Option(array['name'], index);
+				});
+			});
+		});
 		
 		{*
-		$("#export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type={$export_type->recipient_type}{/devblocks_url}");
 		$('#export_type_recipient_type').change(function() {
 			var sel = $(this).val();
 			$("#export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type="+sel+"{/devblocks_url}");
