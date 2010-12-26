@@ -33,7 +33,12 @@
 	{/foreach}
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right"><b></b>{$translate->_('feg.export_type.add_filter')|capitalize}: </td>
-		<td width="100%"><div id=export_type_params></div></td>
+		<td width="100%">
+			<select name="export_type_params_add" id="export_type_params_add">
+				<option value="">{$translate->_('feg.export_type.peek.add_param')|capitalize}</option>
+				<div id=export_type_params></div>
+			</select>
+			</td>
 	</tr>
 </table>
 <div id=div_export_type_params_add></div>
