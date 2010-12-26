@@ -655,7 +655,7 @@ class FegSetupPage extends FegPageExtension  {
 		@$export_type_name = DevblocksPlatform::importGPC($_POST['export_type_name'],'string',"");
 		@$export_type_recipient_type = DevblocksPlatform::importGPC($_POST['export_type_recipient_type'],'integer',0);
 		
-		@$params_ids = DevblocksPlatform::importGPC($_POST['export_type_recipient_type'],'array',array());
+		@$params_ids = DevblocksPlatform::importGPC($_POST['params_ids'],'array',array());
 echo "<pre>";
 
 		$export_type_params = DAO_ExportTypeParams::getAll();
