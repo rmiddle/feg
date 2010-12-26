@@ -623,10 +623,12 @@ class FegSetupPage extends FegPageExtension  {
 		if ($export_type_params[$add_id]->options['default']) {
 			$export_type->params[$add_id] = $export_type_params[$add_id]->options['default'];
 			$export_param_add['id'] = $add_id;
+			$export_param_add['name'] = $export_type_params[$add_id]->name;
 			$export_param_add['default'] = $export_type_params[$add_id]->options['default'];
 		} else {
 			$export_type->params[$add_id] = NULL;
 			$export_param_add['id'] = $add_id;
+			$export_param_add['name'] = $export_type_params[$add_id]->name;
 			$export_param_add['default'] = NULL;
 		}
 		

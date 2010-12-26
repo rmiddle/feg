@@ -6,7 +6,7 @@
 <input type="hidden" name="do_delete" value="0">
 <input type="hidden" name="export_type_is_disabled" value="{$export_type->is_disabled}">
 
-<table cellpadding="0" cellspacing="2" border="0" width="98%">
+<table id="table_export_type" cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
 		<td nowrap="nowrap" align="right">ID: </td>
 		<td>{if $id}{$id}{else}{$translate->_('feg.export_type.new_source')|capitalize}{/if}</td>
@@ -98,8 +98,23 @@
 		$('#export_type_params_add').change(function() {
 			var sel_id = $(this).val();
 			$.getJSON("{devblocks_url}ajax.php?c=setup&a=saveExportPeekTypeParmAdd&id={$export_type->id}&add_id="+sel_id+"{/devblocks_url}", function(data) {
-				$('#info').html(data.id +', '+ data.default); 
-				$('#export_type_recipient_type').append;
+				var $table = $('#table_export_type');
+				// Number of td's in the last table row
+				var tds = '<tr>';
+				tds += '<td width="0%" nowrap="nowrap" align="right">';
+				tds += data.;
+				tds += '</td>';
+			
+				<b>{$export_type_params.$param_id->name}</b>: 
+				<input type="hidden" name="params_ids[]" value="{$param_id}">
+			</td>
+			<td width="100%"><input type="text" name="export_type_params_{$param_id}" value="{$param|escape}" style="width:98%;"></td>
+				tds += '</tr>';
+				if($('tbody', this).length > 0){
+					$('tbody', this).append(tds);
+				}else {
+					$(this).append(tds);
+				}
 			});
 		});
 		*}
