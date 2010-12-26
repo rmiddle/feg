@@ -590,16 +590,11 @@ class FegSetupPage extends FegPageExtension  {
 	}
 	
 	function showExportPeekTypeParmAction() {
-		$tpl = DevblocksPlatform::getTemplateService();
-		$tpl->assign('path', $this->_TPL_PATH);
-		
 		@$type = DevblocksPlatform::importGPC($_REQUEST['type'],'integer',0);
-		$tpl->assign('type', $type);
 		
-		$export_type_params = DAO_ExportTypeParams::getAll();
-		$tpl->assign('export_type_params', $export_type_params);
-		
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/export_type/export_type_param.tpl');		
+		$export_type_by_type = DAO_ExportTypeParams::getByType($type);
+
+		return json_encode($export_type_by_type);
 	}
 	
 	function showExportPeekTypeParmAddAction() {

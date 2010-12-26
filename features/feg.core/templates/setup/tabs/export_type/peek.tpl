@@ -35,12 +35,12 @@
 		<td width="0%" nowrap="nowrap" align="right"><b></b>{$translate->_('feg.export_type.add_filter')|capitalize}: </td>
 		<td width="100%">
 			<select name="export_type_params_add" id="export_type_params_add">
-				<option value="">{$translate->_('feg.export_type.peek.add_param')|capitalize}</option>
+				{*<option value="">{$translate->_('feg.export_type.peek.add_param')|capitalize}</option>
 				{foreach from=$export_type_params item=export_type_param key=export_type_param_id}
 					{if $export_type->recipient_type == $export_type_param->recipient_type}
 						<option value="{$export_type_param->id}">{$export_type_param->name}</option>
 					{/if}
-				{/foreach}
+				{/foreach}*}
 			</select>
 		</td>
 	</tr>
@@ -68,6 +68,18 @@
 		genericPanel.dialog('option','title','Export Type Editor'); 
 	} );
 	$(document).ready(function() {
+		$.getJSON("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type={$export_type->recipient_type}{/devblocks_url}", function(data) {
+			var select = $('#export_type_params_add');
+			var options = select.attr('options');
+			$('option', select).remove();
+			$('#export_type_params_add').append('<option value="" selected="selected">Select to Add option</option>');
+			
+			for(var index in data) {
+				options[options.length] = new Option(data[index], index);
+			}
+		});
+		
+		{*
 		$("#export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type={$export_type->recipient_type}{/devblocks_url}");
 		$('#export_type_recipient_type').change(function() {
 			var sel = $(this).val();
@@ -79,5 +91,6 @@
 			$.get("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParmAdd&id={$export_type->id}&add_id="+sel_id+"{/devblocks_url}");
 			$("#export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type="+sel_type+"{/devblocks_url}");
 		});
+		*}
 	});
 </script>
