@@ -499,6 +499,9 @@ class DAO_ExportTypeParams extends DevblocksORMHelper {
 	const OPTIONS_JSON = 'options_json';
 	
 	const CACHE_ALL = 'export_type_params'; 
+	const CACHE_TYPE_0 = 'export_type_params_0'; 
+	const CACHE_TYPE_1 = 'export_type_params_1'; 
+	const CACHE_TYPE_2 = 'export_type_params_2'; 
 	
 /* 
  *No reason for a create option since all these are going to have to be created manually well adding the features into the exporter.
@@ -543,6 +546,59 @@ class DAO_ExportTypeParams extends DevblocksORMHelper {
 			return $fields[$id];
 			
 		return null;
+	}
+	
+	static function getType($type) {
+		$cache = DevblocksPlatform::getCacheService();
+		
+		switch($type = 0) {
+			case 0: 
+				if(null === ($objects = $cache->load(self::CACHE_TYPE_0))) {
+					$db = DevblocksPlatform::getDatabaseService();
+					$sql = "SELECT id, recipient_type, name, type, pos, options_json ";
+					$sql .= "FROM export_type_params ";
+					$sql .= sprintf("WHERE recipient_type = %d ", $type);
+					$sql .= "ORDER BY pos ASC ";
+
+					$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
+		
+					$objects = self::_createObjectsFromResultSet($rs);
+		
+					$cache->save($objects, self::CACHE_TYPE_0);
+				}
+				break;
+			case 1:
+				if(null === ($objects = $cache->load(self::CACHE_TYPE_1))) {
+					$db = DevblocksPlatform::getDatabaseService();
+					$sql = "SELECT id, recipient_type, name, type, pos, options_json ";
+					$sql .= "FROM export_type_params ";
+					$sql .= sprintf("WHERE recipient_type = %d ", $type);
+					$sql .= "ORDER BY pos ASC ";
+					
+					$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
+		
+					$objects = self::_createObjectsFromResultSet($rs);
+		
+					$cache->save($objects, self::CACHE_TYPE_1);
+				}
+				break;
+			case 2:
+				if(null === ($objects = $cache->load(self::CACHE_TYPE_2))) {
+					$db = DevblocksPlatform::getDatabaseService();
+					$sql = "SELECT id, recipient_type, name, type, pos, options_json ";
+					$sql .= "FROM export_type_params ";
+					$sql .= sprintf("WHERE recipient_type = %d ", $type);
+					$sql .= "ORDER BY pos ASC ";
+					
+					$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
+		
+					$objects = self::_createObjectsFromResultSet($rs);
+		
+					$cache->save($objects, self::CACHE_TYPE_2);
+				}
+				break;
+		}
+		return $objects;
 	}
 	
 	static function getAll($nocache=false) {
@@ -615,5 +671,8 @@ class DAO_ExportTypeParams extends DevblocksORMHelper {
 		// Invalidate cache on changes
 		$cache = DevblocksPlatform::getCacheService();
 		$cache->remove(self::CACHE_ALL);
+		$cache->remove(self::CACHE_TYPE_0);
+		$cache->remove(self::CACHE_TYPE_1);
+		$cache->remove(self::CACHE_TYPE_2);
 	}
 };

@@ -73,3 +73,30 @@ Array
 	});
 </script>
 // End of code
+<script language="Javascript">exampleBackup = $('#example').html();
+function exampleAddOption1() {
+	var index = $('#example option').length + 1;
+	$('#example').append('<option value="example' + index + '" selected="selected">This is option #' + index + '</option>');
+
+}
+function exampleAddOption2() {
+	
+	var newOptions = {
+		'red' : 'Red',
+		'blue' : 'Blue',
+		'green' : 'Green',
+		'yellow' : 'Yellow'
+	};
+	var selectedOption = 'green';
+	
+	var select = $('#example');
+	var options = select.attr('options');
+	$('option', select).remove();
+	
+	for(var index in newOptions) {
+		options[options.length] = new Option(newOptions[index], index);
+	}
+	select.val(selectedOption);
+	
+}
+</script>
