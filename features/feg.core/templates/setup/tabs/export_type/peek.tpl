@@ -50,7 +50,7 @@
 			</td>
 			<td width="100%">
 				{if ($export_type_params[$param_id]->type == 1)}
-					<select name="export_type_recipient_type" id="export_type_recipient_type">
+					<select name=export_type_params_{$param_id}" id="export_type_params_{$param_id}">
 						<option value="1" {if $param == '1'}selected{/if}>{$translate->_('common.yes')|capitalize}</option>
 						<option value="0" {if $param == '0'}selected{/if}>{$translate->_('common.no')|capitalize}</option>
 					</select>
