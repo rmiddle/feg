@@ -25,15 +25,6 @@
 			</select>
 		</td>
 	</tr>
-	{foreach from=$export_type->params item=param key=param_id}
-		<tr>
-			<td width="0%" nowrap="nowrap" align="right">
-				<b>{$export_type_params.$param_id->name}</b>: 
-				<input type="hidden" name="params_ids[]" value="{$param_id}">
-			</td>
-			<td width="100%"><input type="text" name="export_type_params_{$param_id}" value="{$param|escape}" style="width:98%;"></td>
-		</tr>
-	{/foreach}
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right"><b></b>{$translate->_('feg.export_type.add_filter')|capitalize}: </td>
 		<td width="100%">
@@ -47,6 +38,15 @@
 			</select>
 		</td>
 	</tr>
+	{foreach from=$export_type->params item=param key=param_id}
+		<tr>
+			<td width="0%" nowrap="nowrap" align="right">
+				<b>{$export_type_params.$param_id->name}</b>: 
+				<input type="hidden" name="params_ids[]" value="{$param_id}">
+			</td>
+			<td width="100%"><input type="text" name="export_type_params_{$param_id}" value="{$param|escape}" style="width:98%;"></td>
+		</tr>
+	{/foreach}
 </table>
 
 <button type="button" onclick="genericPanel.dialog('close');genericAjaxPost('formExportPeek', 'view{$view_id}', '');"><span class="feg-sprite sprite-check"></span> {$translate->_('common.save_changes')}</button>
@@ -98,9 +98,11 @@
 		$('#export_type_params_add').change(function() {
 			var sel_id = $(this).val();
 			$.getJSON("{devblocks_url}ajax.php?c=setup&a=saveExportPeekTypeParmAdd&id={$export_type->id}&add_id="+sel_id+"{/devblocks_url}", function(data) {
-				$('#export_type_recipient_type');
+				$('#info').html(data.id +', '+ data.default); 
+				$('#export_type_recipient_type').append;
 			});
 		});
 		*}
 	});
+	
 </script>
