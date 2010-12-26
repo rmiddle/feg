@@ -837,6 +837,10 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.export_type.peek.recipient_type'>
 			<tuv xml:lang="en_US"><seg>Recipient Type</seg></tuv>
 		</tu>
+		<tu tuid='feg.export_type.peek.add_param'>
+			<tuv xml:lang="en_US"><seg>Select to Add option</seg></tuv>
+		</tu>
+		
 		<!-- Source Imports Translations -->
 		
 		<tu tuid='feg.import_source.title'>
