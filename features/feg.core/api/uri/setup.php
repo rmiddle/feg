@@ -662,13 +662,13 @@ class FegSetupPage extends FegPageExtension  {
 		foreach($params_ids as $params_id) { // 1 = Yes/No, 2 = 255 Char input
 			switch ($export_type_params[$params_id]->type) {
 				case 1:
-					@params[$params_id] = DevblocksPlatform::importGPC($_REQUEST['export_type_params_'.$params_id],'integer',0);
+					@$params[$params_id] = DevblocksPlatform::importGPC($_REQUEST['export_type_params_'.$params_id],'integer',0);
 					break;
 				case 2:
-					@params[$params_id] = DevblocksPlatform::importGPC($_REQUEST['export_type_params_'.$params_id],'string','');
+					@$params[$params_id] = DevblocksPlatform::importGPC($_REQUEST['export_type_params_'.$params_id],'string','');
 					break;
 				default: 
-					@params[$params_id] = DevblocksPlatform::importGPC($_REQUEST['export_type_params_'.$params_id],'string','');
+					@$params[$params_id] = DevblocksPlatform::importGPC($_REQUEST['export_type_params_'.$params_id],'string','');
 					break;
 			}
 		}
