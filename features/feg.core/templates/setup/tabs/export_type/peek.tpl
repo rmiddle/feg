@@ -98,7 +98,7 @@
 		$('#export_type_params_add').change(function() {
 			var sel_id = $(this).val();
 			$.getJSON("{devblocks_url}ajax.php?c=setup&a=saveExportPeekTypeParmAdd&id={$export_type->id}&add_id="+sel_id+"{/devblocks_url}", function(data) {
-				alert("Function ran");
+				alert(data);
 				var $table = $('#table_export_type');
 				// Number of td's in the last table row
 				var tds = '<tr>';
