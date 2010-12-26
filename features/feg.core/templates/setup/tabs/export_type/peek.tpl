@@ -109,11 +109,29 @@
 				tds += '">';
 				tds += '</td>';
 				tds += '<td width="100%">';
-				tds += '<input type="text" name="export_type_params_';
-				tds += data.id;
-				tds += '" value="';
-				tds += data.default;
-				tds += '" style="width:98%;">';			
+				if(data.type == 2) {
+					tds += '<input type="text" name="export_type_params_';
+					tds += data.id;
+					tds += '" value="';
+					tds += data.default;
+					tds += '" style="width:98%;">';			
+				}
+				if(data.type == 1) {
+					tds += '<select name="export_type_params_';
+					tds += data.id;
+					tds += '">';
+					tds += '<option value="0" ';
+					if(data.default==true) {
+						tds += 'selected ';
+					}
+					tds += '>Yes</option>';
+					tds += '<option value="0" ';
+					if(data.default==false) {
+						tds += 'selected ';
+					}
+					tds += '>No</option>';
+					tds += '</select>';
+				}
 				tds += '</td>';
 				tds += '</tr>';
 				if($('tbody', table).length > 0){
