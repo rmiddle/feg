@@ -80,7 +80,6 @@
 		});
 		$('#export_type_recipient_type').change(function() {
 			var sel = $(this).val();
-			alert('Function fired');
 			$.getJSON("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type="+sel+"{/devblocks_url}", function(data) {
 				var select = $('#export_type_params_add');
 				var options = select.attr('options');
