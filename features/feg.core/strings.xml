@@ -828,6 +828,9 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.export_type.add_filter'>
 			<tuv xml:lang="en_US"><seg>Add Filter Option</seg></tuv>
 		</tu>
+		<tu tuid='feg.export_type.filter_group'>
+			<tuv xml:lang="en_US"><seg>Filter Group</seg></tuv>
+		</tu>
 		<tu tuid='feg.export_type.add_source'>
 			<tuv xml:lang="en_US"><seg>Add Export Type</seg></tuv>
 		</tu>

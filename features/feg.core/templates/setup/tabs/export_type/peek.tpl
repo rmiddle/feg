@@ -26,6 +26,10 @@
 		</td>
 	</tr>
 	<tr>
+		<td width="0%" nowrap="nowrap" align="right">&nbsp;</td>
+		<td width="100%">{$translate->_('feg.export_type.filter_group')|capitalize}&nbsp;</td>
+	</tr>
+	<tr>
 		<td width="0%" nowrap="nowrap" align="right"><b></b>{$translate->_('feg.export_type.add_filter')|capitalize}: </td>
 		<td width="100%">
 			<select name="export_type_params_add" id="export_type_params_add">
