@@ -65,7 +65,7 @@
 			var sel = $(this).val();
 			$("#export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type="+sel+"{/devblocks_url}");
 		});
-		$(#export_type_params_add).ready(function() {
+		$('#export_type_params_add').ready(function() {
 			$('#export_type_params_add').change(function() {
 				var sel_id = $(this).val();
 				var sel_type = $('#export_type_recipient_type').val();
