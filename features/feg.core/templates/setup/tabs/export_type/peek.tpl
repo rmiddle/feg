@@ -33,10 +33,18 @@
 	{/foreach}
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right"><b></b>{$translate->_('feg.export_type.add_filter')|capitalize}: </td>
-		<td width="100%"><div id=export_type_params></div></td>
+		<td width="100%"><div id=export_type_params>
+			<select name="export_type_params_add" id="export_type_params_add">
+				<option value="">{$translate->_('feg.export_type.peek.add_param')|capitalize}</option>
+				{foreach from=$export_type_params item=export_type_param key=export_type_param_id}
+					{if $export_type->recipient_type == $export_type_param->recipient_type}
+						<option value="{$export_type_param->id}">{$export_type_param->name}</option>
+					{/if}
+				{/foreach}
+			</select>
+		</div></td>
 	</tr>
 </table>
-<div id=div_export_type_params_add></div>
 
 <button type="button" onclick="genericPanel.dialog('close');genericAjaxPost('formExportPeek', 'view{$view_id}', '');"><span class="feg-sprite sprite-check"></span> {$translate->_('common.save_changes')}</button>
 {if $active_worker->is_superuser}
@@ -60,17 +68,16 @@
 		genericPanel.dialog('option','title','Export Type Editor'); 
 	} );
 	$(document).ready(function() {
-		$("#export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type={$export_type->recipient_type}{/devblocks_url}").
-			$('#export_type_params_add').change(function() {
-				var sel_id = $(this).val();
-				var sel_type = $('#export_type_recipient_type').val();
-				$.get("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParmAdd&id={$export_type->id}&add_id="+sel_id+"{/devblocks_url}");
-				$("#export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type="+sel_type+"{/devblocks_url}");
-			}
-		);
+		$("#export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type={$export_type->recipient_type}{/devblocks_url}");
 		$('#export_type_recipient_type').change(function() {
 			var sel = $(this).val();
 			$("#export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type="+sel+"{/devblocks_url}");
+		});
+		$('#export_type_params_add').change(function() {
+			var sel_id = $(this).val();
+			var sel_type = $('#export_type_recipient_type').val();
+			$.get("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParmAdd&id={$export_type->id}&add_id="+sel_id+"{/devblocks_url}");
+			$("#export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type="+sel_type+"{/devblocks_url}");
 		});
 	});
 </script>
