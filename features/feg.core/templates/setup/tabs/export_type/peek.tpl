@@ -36,6 +36,7 @@
 		<td width="100%"><div id=export_type_params></div></td>
 	</tr>
 </table>
+<div id=div_export_type_params_add></div>
 
 <button type="button" onclick="genericPanel.dialog('close');genericAjaxPost('formExportPeek', 'view{$view_id}', '');"><span class="feg-sprite sprite-check"></span> {$translate->_('common.save_changes')}</button>
 {if $active_worker->is_superuser}
@@ -63,6 +64,11 @@
 		$('#export_type_recipient_type').change(function() {
 			var sel = $(this).val();
 			$("#export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type="+sel+"{/devblocks_url}");
+		});
+		$('#export_type_params_add').change(function() {
+			var sel_default = $(this).val();
+			var sel_id = $(this).id();
+			$("#div_export_type_params_add").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParmAdd&id="+sel_id+"&default="+sel_default+"{/devblocks_url}");
 		});
 	});
 </script>
