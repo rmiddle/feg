@@ -98,7 +98,6 @@
 		$('#export_type_params_add').change(function() {
 			var sel_id = $(this).val();
 			$.getJSON("{devblocks_url}ajax.php?c=setup&a=saveExportPeekTypeParmAdd&id={$export_type->id}&add_id="+sel_id+"{/devblocks_url}", function(data) {
-				alert(data.id+data.name+data.default);
 				var $table = $('#table_export_type');
 				// Number of td's in the last table row
 				var tds = '<tr>';
@@ -117,6 +116,7 @@
 				tds += '" style="width:98%;">';			
 				tds += '</td>';
 				tds += '</tr>';
+				alert(tds);
 				if($('tbody', this).length > 0){
 					$('tbody', this).append(tds);
 				}else {
