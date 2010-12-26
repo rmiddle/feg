@@ -656,8 +656,6 @@ class FegSetupPage extends FegPageExtension  {
 		@$export_type_recipient_type = DevblocksPlatform::importGPC($_POST['export_type_recipient_type'],'integer',0);
 		
 		@$params_ids = DevblocksPlatform::importGPC($_POST['params_ids'],'array',array());
-echo "<pre>";
-print_r($_POST);		
 
 		$export_type_params = DAO_ExportTypeParams::getAll();
 		
@@ -674,7 +672,6 @@ print_r($_POST);
 					break;
 			}
 		}
-print_r($params);		
 		
 		$fields = array(
 			DAO_ExportType::NAME => $export_type_name,
@@ -682,8 +679,6 @@ print_r($params);
 			DAO_ExportType::IS_DISABLED => $disabled,
 			DAO_ExportType::PARAMS => $params,
 		);
-print_r($fields);		
-echo "</pre>";
 
 		$status = DAO_ExportType::update($id, $fields);
 		
