@@ -67,7 +67,7 @@
 		});
 		$('#export_type_params_add').change(function() {
 			var sel_default = $(this).val();
-			var sel_id = $(this).id();
+			var sel_id = $(this).attr("id")
 			$("#div_export_type_params_add").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParmAdd&id="+sel_id+"&default="+sel_default+"{/devblocks_url}");
 		});
 	});
