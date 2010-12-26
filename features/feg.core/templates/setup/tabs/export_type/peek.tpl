@@ -75,7 +75,7 @@
 			$('#export_type_params_add').append('<option value="" selected="selected">Select to Add option</option>');
 			
 			$.each(data, function(index, array) {
-				options[options.length] = new Option(array['name']);
+				options[options.length] = new Option(array['name'], index);
 			});
 		});
 		
