@@ -27,7 +27,7 @@
 	</tr>
 	{foreach from=$export_type->params item=param key=param_id}
 		<tr>
-			<td width="0%" nowrap="nowrap" align="right"><b>{$param_id}</b>: </td>
+			<td width="0%" nowrap="nowrap" align="right"><b>{$export_type_params[$param_id]}</b>: <input type="hidden" name="params_ids[]" value="{$param_id}"></td>
 			<td width="100%"><input type="text" name="export_type_params_{$param_id}" value="{$param|escape}" style="width:98%;"></td>
 		</tr>
 	{/foreach}
@@ -68,7 +68,7 @@
 		genericPanel.dialog('option','title','Export Type Editor'); 
 	} );
 	$(document).ready(function() {
-		$.getJSON("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type={$export_type->recipient_type}{/devblocks_url}", function(data) {
+		$.getJSON("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParmType&type={$export_type->recipient_type}{/devblocks_url}", function(data) {
 			var select = $('#export_type_params_add');
 			var options = select.attr('options');
 			$('option', select).remove();
@@ -80,7 +80,7 @@
 		});
 		$('#export_type_recipient_type').change(function() {
 			var sel = $(this).val();
-			$.getJSON("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type="+sel+"{/devblocks_url}", function(data) {
+			$.getJSON("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParmType&type="+sel+"{/devblocks_url}", function(data) {
 				var select = $('#export_type_params_add');
 				var options = select.attr('options');
 				$('option', select).remove();
@@ -91,18 +91,19 @@
 				});
 			});
 		});
-		
-		{*
-		$('#export_type_recipient_type').change(function() {
-			var sel = $(this).val();
-			$("#export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type="+sel+"{/devblocks_url}");
-		});
 		$('#export_type_params_add').change(function() {
 			var sel_id = $(this).val();
-			var sel_type = $('#export_type_recipient_type').val();
 			$.get("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParmAdd&id={$export_type->id}&add_id="+sel_id+"{/devblocks_url}");
-			$("#export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type="+sel_type+"{/devblocks_url}");
+			$.getJSON("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&id={$export_type->id}{/devblocks_url}", function(data) {
+				var select = $('#export_type_params_add');
+				var options = select.attr('options');
+				$('option', select).remove();
+				$('#export_type_params_add').append('<option value="" selected="selected">Select to Add option</option>');
+			
+				$.each(data, function(index, array) {
+					options[options.length] = new Option(array['name'], index);
+				});
+			});
 		});
-		*}
 	});
 </script>

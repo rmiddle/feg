@@ -586,11 +586,22 @@ class FegSetupPage extends FegPageExtension  {
 		$export_type = DAO_ExportType::get($id);
 		$tpl->assign('export_type', $export_type);
 		
+		$export_type_params = DAO_ExportTypeParams::getAll();
+		$tpl->assign('export_type_params', $export_type_params);
+		
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/export_type/peek.tpl');		
 	}
 	
-	function showExportPeekTypeParmAction() {
+	function showExportPeekTypeParmTypeAction() {
 		@$type = DevblocksPlatform::importGPC($_REQUEST['type'],'integer',0);
+		
+		$export_type_by_type = DAO_ExportTypeParams::getByType($type);
+		
+		echo json_encode($export_type_by_type);
+	}
+	
+	function showExportPeekTypeParmAction() {
+		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
 		
 		$export_type_by_type = DAO_ExportTypeParams::getByType($type);
 		
@@ -614,6 +625,23 @@ echo "Add Ran<br>";
 		@$disabled = DevblocksPlatform::importGPC($_POST['export_type_is_disabled'],'integer',0);
 		@$export_type_name = DevblocksPlatform::importGPC($_POST['export_type_name'],'string',"");
 		@$export_type_recipient_type = DevblocksPlatform::importGPC($_POST['export_type_recipient_type'],'integer',0);
+		
+		@$params_ids = DevblocksPlatform::importGPC($_POST['export_type_recipient_type'],'array',array());
+
+		$export_type_params = DAO_ExportTypeParams::getAll();
+		
+		foreach($params_ids as $params_id) { // 1 = Yes/No, 2 = 255 Char input
+			switch ($export_type_params[$params_id]->type) {
+				case 1:
+					@parms[$params_id] = DevblocksPlatform::importGPC($_REQUEST['export_type_params_'.$params_id],'integer',0);
+					break;
+				case 2:
+					@parms[$params_id] = DevblocksPlatform::importGPC($_REQUEST['export_type_params_'.$params_id],'string','');
+					break;
+				default: 
+					@parms[$params_id] = DevblocksPlatform::importGPC($_REQUEST['export_type_params_'.$params_id],'string','');
+					break;
+			}
 		
 		$fields = array(
 			DAO_ExportType::NAME => $export_type_name,
