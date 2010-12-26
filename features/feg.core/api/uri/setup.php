@@ -608,11 +608,35 @@ class FegSetupPage extends FegPageExtension  {
 		echo json_encode($export_type_by_type);
 	}
 	
-	function showExportPeekTypeParmAddAction() {
+	function saveExportPeekTypeParmAddAction() {
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
 		@$add_id = DevblocksPlatform::importGPC($_REQUEST['add_id'],'integer',0);
+
+		$export_type = DAO_ExportType::get($id);
 		$export_type_params = DAO_ExportTypeParams::getAll();
-echo "Add Ran<br>";
+		
+		if (!exists($export_type_params[$add_id]) {
+			// Bad add_id
+			return;
+		}
+		
+		if ($export_type_params[$add_id]->options['default']) {
+			$export_type->params[$add_id] = $export_type_params[$add_id]->options['default'];
+			$export_param_add['id'] = $add_id;
+			$export_param_add['default'] = $export_type_params[$add_id]->options['default'];
+		} else {
+			$export_type->params[$add_id] = NULL;
+			$export_param_add['id'] = $add_id;
+			$export_param_add['default'] = NULL;
+		}
+		
+		$fields = array(
+			DAO_ExportType::PARAMS => $export_type->params,
+		);
+		
+		//$status = DAO_ExportType::update($id, $fields);
+		
+		echo json_encode($export_param_add);		
 	}
 	
 	function saveExportPeekAction() {
@@ -649,13 +673,7 @@ echo "Add Ran<br>";
 			DAO_ExportType::IS_DISABLED => $disabled,
 		);
 		
-		if($id == 0) {
-			// Create New Export
-			$id = $status = DAO_ExportType::create($fields);
-		} else {
-			// Update Existing Import 
-			$status = DAO_ExportType::update($id, $fields);
-		}
+		$status = DAO_ExportType::update($id, $fields);
 		
 		if(!empty($view_id)) {
 			$view = Feg_AbstractViewLoader::getView($view_id);

@@ -94,19 +94,13 @@
 				});
 			});
 		});
+		{*
 		$('#export_type_params_add').change(function() {
 			var sel_id = $(this).val();
-			$.get("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParmAdd&id={$export_type->id}&add_id="+sel_id+"{/devblocks_url}");
-			$.getJSON("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&id={$export_type->id}{/devblocks_url}", function(data) {
-				var select = $('#export_type_params_add');
-				var options = select.attr('options');
-				$('option', select).remove();
-				$('#export_type_params_add').append('<option value="" selected="selected">Select to Add option</option>');
-			
-				$.each(data, function(index, array) {
-					options[options.length] = new Option(array['name'], index);
-				});
+			$.getJSON("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParmAdd&id={$export_type->id}&add_id="+sel_id+"{/devblocks_url}", function(data) {
+				$('#export_type_recipient_type');
 			});
 		});
+		*}
 	});
 </script>
