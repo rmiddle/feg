@@ -33,12 +33,7 @@
 	{/foreach}
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right"><b></b>{$translate->_('feg.export_type.add_filter')|capitalize}: </td>
-		<td width="100%">
-			<select name="export_type_params_add" id="export_type_params_add">
-				<option value="">{$translate->_('feg.export_type.peek.add_param')|capitalize}</option>
-				<div id=export_type_params></div>
-			</select>
-			</td>
+		<td width="100%"><div id=export_type_params></div></td>
 	</tr>
 </table>
 <div id=div_export_type_params_add></div>
@@ -71,9 +66,10 @@
 			$("#export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type="+sel+"{/devblocks_url}");
 		});
 		$('#export_type_params_add').change(function() {
-			var sel_default = $(this).val();
-			var sel_id = $(this).attr("id");
-			$("#div_export_type_params_add").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParmAdd&id="+sel_id+"&default="+sel_default+"{/devblocks_url}");
+			var sel_id = $(this).val();
+			var sel_type = $('#export_type_recipient_type').val();
+			$.get("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParmAdd&id={$export_type->id}&add_id="+sel_id+"{/devblocks_url}");
+			$("#export_type_params").load("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type="+sel_type+"{/devblocks_url}");
 		});
 	});
 </script>
