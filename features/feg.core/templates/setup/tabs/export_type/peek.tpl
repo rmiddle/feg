@@ -121,12 +121,12 @@
 					tds += data.id;
 					tds += '">';
 					tds += '<option value="1" ';
-					if(data.default == true) {
+					if(data.default == 1) {
 						tds += 'selected ';
 					}
 					tds += '>Yes</option>';
 					tds += '<option value="0" ';
-					if(data.default == false) {
+					if(data.default == 0) {
 						tds += 'selected ';
 					}
 					tds += '>No</option>';

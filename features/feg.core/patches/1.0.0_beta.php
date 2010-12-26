@@ -325,17 +325,17 @@ if(!isset($tables['export_type_params'])) {
 	// recipient_type 0 = Email, 1 = Fax, 2 = SNPP
 	// type  1 = Yes/No, 2 = 255 Char input
 	
-	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(1, 0, 'Email use subject', 1, 0, '{\"default\":\"true\"}')";
+	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(1, 0, 'Email use subject', 1, 0, '{\"default\":\"1\"}')";
 	$db->Execute($sql);
-	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(2, 1, 'Fax use subject', 1, 0, '{\"default\":\"true\"}')";
+	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(2, 1, 'Fax use subject', 1, 0, '{\"default\":\"1\"}')";
 	$db->Execute($sql);
-	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(3, 2, 'SNPP use subject', 1, 0, '{\"default\":\"false\"}')";
+	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(3, 2, 'SNPP use subject', 1, 0, '{\"default\":\"0\"}')";
 	$db->Execute($sql);
-	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(4, 0, 'Email Strip Account Number from message', 1, 0, '{\"default\":\"false\"}')";
+	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(4, 0, 'Email Strip Account Number from message', 1, 0, '{\"default\":\"0\"}')";
 	$db->Execute($sql);
-	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(5, 1, 'Fax Strip Account Number from message', 1, 0, '{\"default\":\"false\"}')";
+	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(5, 1, 'Fax Strip Account Number from message', 1, 0, '{\"default\":\"0\"}')";
 	$db->Execute($sql);
-	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(6, 2, 'SNPP Strip Account Number from message', 1, 0, '{\"default\":\"false\"}')";
+	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(6, 2, 'SNPP Strip Account Number from message', 1, 0, '{\"default\":\"0\"}')";
 	$db->Execute($sql);
 	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(7, 0, 'Email Overide From', 2, 0, '')";
 	$db->Execute($sql);
