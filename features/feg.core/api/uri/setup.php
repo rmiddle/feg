@@ -616,13 +616,13 @@ class FegSetupPage extends FegPageExtension  {
 		$export_type_params = DAO_ExportTypeParams::getAll();
 		
 echo "<pre>";
-echo "<br>id: "
+echo "<br>id: ";
 print_r($id);
-echo "<br>add_id: "
+echo "<br>add_id: ";
 print_r($add_id);
-echo "<br>export_type: "
+echo "<br>export_type: ";
 print_r($export_type);
-echo "<br>export_type_params: "
+echo "<br>export_type_params: ";
 print_r($export_type_params);
 		if (!exists($export_type_params[$add_id])) {
 			// Bad add_id
@@ -642,9 +642,9 @@ print_r($export_type_params);
 		$fields = array(
 			DAO_ExportType::PARAMS => $export_type->params,
 		);
-echo "<br>export_param_addexport_param_add"
+echo "<br>export_param_addexport_param_add";
 print_r($export_param_add);
-echo "<br>fields: "
+echo "<br>fields: ";
 print_r($fields);
 echo "</pre>";
 		//$status = DAO_ExportType::update($id, $fields);
