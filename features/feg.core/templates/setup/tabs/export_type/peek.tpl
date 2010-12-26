@@ -120,13 +120,13 @@
 					tds += '<select name="export_type_params_';
 					tds += data.id;
 					tds += '">';
-					tds += '<option value="0" ';
-					if(data.default==true) {
+					tds += '<option value="1" ';
+					if(data.default == true) {
 						tds += 'selected ';
 					}
 					tds += '>Yes</option>';
 					tds += '<option value="0" ';
-					if(data.default==false) {
+					if(data.default == false) {
 						tds += 'selected ';
 					}
 					tds += '>No</option>';
