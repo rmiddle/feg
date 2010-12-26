@@ -629,7 +629,7 @@ echo "Add Ran<br>";
 		@$params_ids = DevblocksPlatform::importGPC($_POST['export_type_recipient_type'],'array',array());
 
 		$export_type_params = DAO_ExportTypeParams::getAll();
-		
+/*		
 		foreach($params_ids as $params_id) { // 1 = Yes/No, 2 = 255 Char input
 			switch ($export_type_params[$params_id]->type) {
 				case 1:
@@ -642,7 +642,7 @@ echo "Add Ran<br>";
 					@parms[$params_id] = DevblocksPlatform::importGPC($_REQUEST['export_type_params_'.$params_id],'string','');
 					break;
 			}
-		
+*/		
 		$fields = array(
 			DAO_ExportType::NAME => $export_type_name,
 			DAO_ExportType::RECIPIENT_TYPE => $export_type_recipient_type,
