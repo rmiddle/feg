@@ -624,11 +624,12 @@ echo "<br>export_type: ";
 print_r($export_type);
 echo "<br>export_type_params: ";
 print_r($export_type_params);
+/*
 		if (!exists($export_type_params[$add_id])) {
 			// Bad add_id
 			return;
 		}
-		
+*/		
 		if ($export_type_params[$add_id]->options['default']) {
 			$export_type->params[$add_id] = $export_type_params[$add_id]->options['default'];
 			$export_param_add['id'] = $add_id;
