@@ -27,7 +27,7 @@
 	</tr>
 	{foreach from=$export_type->params item=param key=param_id}
 		<tr>
-			<td width="0%" nowrap="nowrap" align="right"><b>{$export_type_params[$param_id]}</b>: <input type="hidden" name="params_ids[]" value="{$param_id}"></td>
+			<td width="0%" nowrap="nowrap" align="right"><b>{$export_type_params.$param_id}</b>: <input type="hidden" name="params_ids[]" value="{$param_id}"></td>
 			<td width="100%"><input type="text" name="export_type_params_{$param_id}" value="{$param|escape}" style="width:98%;"></td>
 		</tr>
 	{/foreach}
