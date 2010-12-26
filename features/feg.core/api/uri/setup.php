@@ -646,6 +646,8 @@ echo "<br>export_param_addexport_param_add";
 print_r($export_param_add);
 echo "<br>fields: ";
 print_r($fields);
+echo "<br>Post export_type: ";
+print_r($export_type);
 echo "</pre>";
 		//$status = DAO_ExportType::update($id, $fields);
 		

@@ -97,7 +97,7 @@
 		{*
 		$('#export_type_params_add').change(function() {
 			var sel_id = $(this).val();
-			$.getJSON("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParmAdd&id={$export_type->id}&add_id="+sel_id+"{/devblocks_url}", function(data) {
+			$.getJSON("{devblocks_url}ajax.php?c=setup&a=saveExportPeekTypeParmAdd&id={$export_type->id}&add_id="+sel_id+"{/devblocks_url}", function(data) {
 				$('#export_type_recipient_type');
 			});
 		});
