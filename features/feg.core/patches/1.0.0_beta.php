@@ -341,7 +341,7 @@ if(!isset($tables['export_type_params'])) {
 	$db->Execute($sql);
 	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(8, 1, 'Fax Overide From', 2, 0, '')";
 	$db->Execute($sql);
-	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(9, 2, 'SNPP Send to server FQN', 2, 0, '')";
+	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(9, 2, 'SNPP Send to server FQN', 2, 0, '{\"default\":\"ann100sms01.answernet.com\ "}')";
 	$db->Execute($sql);
 }
 
