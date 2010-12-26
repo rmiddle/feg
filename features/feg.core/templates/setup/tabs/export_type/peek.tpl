@@ -44,7 +44,16 @@
 				<b>{$export_type_params.$param_id->name}</b>: 
 				<input type="hidden" name="params_ids[]" value="{$param_id}">
 			</td>
-			<td width="100%"><input type="text" name="export_type_params_{$param_id}" value="{$param|escape}" style="width:98%;"></td>
+			<td width="100%">
+				{if ($export_type_params[$param_id]->type == 1)}
+					<select name="export_type_recipient_type" id="export_type_recipient_type">
+						<option value="1" {if $param == '1'}selected{/if}>{$translate->_('common.yes')|capitalize}</option>
+						<option value="0" {if $param == '0'}selected{/if}>{$translate->_('common.no')|capitalize}</option>
+					</select>
+				{else if ($export_type_params[$param_id]->type == 2)}
+					<input type="text" name="export_type_params_{$param_id}" value="{$param|escape}" style="width:98%;">
+				{/if}
+			</td>
 		</tr>
 	{/foreach}
 </table>
