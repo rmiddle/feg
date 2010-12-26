@@ -620,6 +620,10 @@ class FegSetupPage extends FegPageExtension  {
 			return;
 		}
 		
+		if (!isset($export_type->params[$add_id])) {
+			// Is it already in the list?
+			return;
+		}
 		if ($export_type_params[$add_id]->options['default']) {
 			$export_type->params[$add_id] = $export_type_params[$add_id]->options['default'];
 			$export_param_add['id'] = $add_id;
