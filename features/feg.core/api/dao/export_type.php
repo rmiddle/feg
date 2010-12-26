@@ -551,7 +551,7 @@ class DAO_ExportTypeParams extends DevblocksORMHelper {
 	static function getByType($type) {
 		$cache = DevblocksPlatform::getCacheService();
 		
-		switch($type = 0) {
+		switch($type) {
 			case 0: 
 				if(null === ($objects = $cache->load(self::CACHE_TYPE_0))) {
 					$db = DevblocksPlatform::getDatabaseService();
