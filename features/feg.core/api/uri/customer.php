@@ -56,14 +56,12 @@ class FegCustomerPage extends FegPageExtension {
 		
 		switch($tab_selected) {
 			case 'property':
-				@$tab_option = array_shift($stack);				
+				@$account_number = array_shift($stack);				
+				if(!empty($account_number)) {
+					$tpl->assign('account_number', $account_number);
+				}
 				break;
 		}
-//		@$account_number = DevblocksPlatform::importGPC($_REQUEST['account_number'],'string','');
-//		if(!empty($account_number)) {
-//			$tpl->assign('account_number', $account_number);
-//		}
-print_r($tab_option);
 		
 		// ====== Who's Online
 		$whos_online = DAO_Worker::getAllOnline();
