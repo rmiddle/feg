@@ -158,6 +158,9 @@
 				}else {
 					$(table).append(tds);
 				}
+				$('#table_export_type td :button.delete').click(function(){
+					$(this).parent().parent().remove();
+				});
 			});
 		});
 	});
