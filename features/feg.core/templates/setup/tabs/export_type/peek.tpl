@@ -47,7 +47,7 @@
 			<td width="0%" nowrap="nowrap" align="right">
 				<b>{$export_type_params.$param_id->name}</b>: 
 				<input type="hidden" name="params_ids[]" value="{$param_id}">
-				<button type="button" onclick=""><span class="feg-sprite sprite-delete"></span></button>
+				<button type="button" class="delete" onclick=""><span class="feg-sprite sprite-delete"></span></button>
 			</td>
 			<td width="100%">
 				{if ($export_type_params[$param_id]->type == 1)}
@@ -85,6 +85,9 @@
 		genericPanel.dialog('option','title','Export Type Editor'); 
 	} );
 	$(document).ready(function() {
+		$('#table_export_type td :button.delete').click(function(){
+			$(this).parent().parent().remove();
+		});
 		$.getJSON("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParmType&type={$export_type->recipient_type}{/devblocks_url}", function(data) {
 			var select = $('#export_type_params_add');
 			var options = select.attr('options');
