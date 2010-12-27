@@ -13,7 +13,17 @@
 
 {$translate->_('feg.message_recipient.id')|capitalize}: {if $id}{$id}{else}{$translate->_('feg.customer_recipient.id.new')|capitalize}{/if}<br>
 <div id="message_reciptient_peek_{$id}_status">
-{$translate->_('feg.message_recipient.send_status')|capitalize}:{include file="file:$core_tpl/internal/feg/display_send_status.tpl" message_recipient_id=$result.mr_id}<br>
+	{if $message_recipient->send_status => 0 && $message_recipient->send_status < 140}
+		{$status_str = 'feg.message_recipient.status_'|cat:$result.$column}
+		{$translate->_($status_str)|capitalize}
+	{else}
+		{$translate->_('feg.message_recipient.status_unknown')|capitalize}
+	{/if}
+</td>
+
+{$translate->_('feg.message_recipient.send_status')|capitalize}:{include file="file:$core_tpl/internal/feg/display_send_status.tpl" message_recipient_id=$result.mr_id}
+
+<br>
 </div>
 <br>
 Account Info:<br>
