@@ -456,7 +456,8 @@ class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 			$view->name = 'Message Recipient Audit Log';
 			$view->renderTemplate = 'peek_tab';
 			$view->params = array(
-				SearchFields_MessageAuditLog::MESSAGE_ID => new DevblocksSearchCriteria(SearchFields_MessageAuditLog::MESSAGE_ID,DevblocksSearchCriteria::OPER_EQ,$id)
+				SearchFields_MessageAuditLog::MESSAGE_RECIPIENT_ID => new DevblocksSearchCriteria(SearchFields_MessageAuditLog::MESSAGE_RECIPIENT_ID, 
+					DevblocksSearchCriteria::OPER_EQ, $id),
 			);
 			$view->renderPage = 0;
 			$view->renderLimit = 10;
