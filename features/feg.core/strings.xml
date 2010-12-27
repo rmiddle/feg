@@ -657,6 +657,9 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.message.select_account'>
 			<tuv xml:lang="en_US"><seg>Assign to Account</seg></tuv>
 		</tu>
+		<tu tuid='feg.message.Est_account_id '>
+			<tuv xml:lang="en_US"><seg>Possible Account #</seg></tuv>
+		</tu>
 		
 		<!-- Source Message Recipients Translations  -->
 		

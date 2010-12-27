@@ -12,9 +12,6 @@
 	<button type="button" onclick="genericPanel.dialog('close');this.form.retry.value='6';genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><span class="feg-sprite sprite-check"></span>{$translate->_('feg.message.select_account')}</button>
 {/if}
 
-
-params
-
 <button type="button" onclick="genericPanel.dialog('close');"><span class="feg-sprite sprite-delete_gray"></span> {$translate->_('common.cancel')|capitalize}</button>
 <br>
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
@@ -24,7 +21,7 @@ params
 	</tr>
 	<tr>
 		<td nowrap="nowrap" align="right">{$translate->_('feg.message.est_account_id')|capitalize} </td>
-		<td>{*{if isset($message->params['account_name'])}{$message->params['account_name']} {else}{$translate->_('feg.message_recipient.status_unknown')|capitalize}{/if}*}</td>
+		<td>{if isset($message->params['account_name'])}{$message->params['account_name']} {else}{$translate->_('feg.message_recipient.status_unknown')|capitalize}{/if}</td>
 	</tr>
 	<tr>
 		<td width="0%" nowrap="nowrap" valign="top" align="right">{$translate->_('feg.message.message')|capitalize}: </td>
