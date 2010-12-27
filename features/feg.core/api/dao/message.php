@@ -11,6 +11,7 @@ class Model_Message {
 	public $created_date;
 	public $updated_date;
 	public $params_json;
+	public $params;
 	public $message;
 };
 
@@ -39,6 +40,10 @@ class DAO_Message extends Feg_ORMHelper {
 	}
 	
 	static function update($ids, $fields) {
+		if( !empty($fields['params'])) {
+			$fields['params_json'] = json_encode($fields['params']);
+			unset($fields['params']);
+		}
 		parent::_update($ids, 'message', $fields);
 	}
 	
@@ -225,6 +230,7 @@ class SearchFields_Message implements IDevblocksSearchFields {
 	const CREATED_DATE = 'm_created_date';
 	const UPDATED_DATE = 'm_updated_date';
 	const PARAMS_JSON = 'm_params_json';
+	const PARAMS = 'm_params';
 	const MESSAGE = 'm_message';
 	
 	/**
@@ -239,6 +245,7 @@ class SearchFields_Message implements IDevblocksSearchFields {
 			self::CREATED_DATE => new DevblocksSearchField(self::CREATED_DATE, 'message', 'created_date', $translate->_('feg.message.created_date')),
 			self::UPDATED_DATE => new DevblocksSearchField(self::UPDATED_DATE, 'message', 'updated_date', $translate->_('feg.message.updated_date')),
 			self::PARAMS_JSON => new DevblocksSearchField(self::PARAMS_JSON, 'message', 'params_json', $translate->_('feg.message.params_json')),
+			self::PARAMS => new DevblocksSearchField(self::PARAMS, 'message', 'params', $translate->_('feg.message.params')),
 			self::MESSAGE => new DevblocksSearchField(self::MESSAGE, 'message', 'message', $translate->_('feg.message.message')),
 		);
 		
@@ -276,7 +283,8 @@ class View_Message extends FEG_AbstractView {
 			SearchFields_Message::ACCOUNT_ID,
 			SearchFields_Message::CREATED_DATE,
 			SearchFields_Message::UPDATED_DATE,
-			SearchFields_Message::PARAMS_JSON,
+			// SearchFields_Message::PARAMS_JSON,
+			// SearchFields_Message::PARAMS,
 			SearchFields_Message::MESSAGE,
 		);
 		$this->doResetCriteria();
@@ -368,6 +376,7 @@ class View_Message extends FEG_AbstractView {
 		$fields = self::getFields();
 		// [TODO] Filter fields
 		unset($fields[SearchFields_Message::PARAMS_JSON]);
+		unset($fields[SearchFields_Message::PARAMS]);
 		return $fields;
 	}
 
@@ -376,6 +385,7 @@ class View_Message extends FEG_AbstractView {
 		// [TODO] Filter fields
 		//	unset($fields[SearchFields_Message::ID]);
 		unset($fields[SearchFields_Message::PARAMS_JSON]);
+		unset($fields[SearchFields_Message::PARAMS]);
 		return $fields;
 	}
 
@@ -392,7 +402,6 @@ class View_Message extends FEG_AbstractView {
 
 		// [TODO] Move fields into the right data type
 		switch($field) {
-			case SearchFields_Message::PARAMS_JSON:
 			case SearchFields_Message::MESSAGE:
 				// force wildcards if none used on a LIKE
 				if(($oper == DevblocksSearchCriteria::OPER_LIKE || $oper == DevblocksSearchCriteria::OPER_NOT_LIKE)
@@ -415,6 +424,9 @@ class View_Message extends FEG_AbstractView {
 				if(empty($to)) $to = 'today';
 
 				$criteria = new DevblocksSearchCriteria($field,$oper,array($from,$to));
+				break;
+			case SearchFields_Message::PARAMS_JSON:
+			case SearchFields_Message::PARAMS:
 				break;
 				
 //			case SearchFields_Message::IS_CLOSED:
@@ -457,6 +469,7 @@ class View_Message extends FEG_AbstractView {
 //			$change_fields[DAO_Message::UPDATED_DATE] = intval($v);
 //			$change_fields[DAO_Message::MESSAGE] = intval($v);
 //			$change_fields[DAO_Message::PARAMS_JSON] = intval($v);
+//			$change_fields[DAO_Message::PARAMS] = intval($v);
 				// [TODO] Implement actions
 				case 'example':
 					//$change_fields[DAO_Message::EXAMPLE] = 'some value';
