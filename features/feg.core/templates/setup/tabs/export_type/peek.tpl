@@ -86,10 +86,7 @@
 	} );
 	$(document).ready(function() {
 		$('#table_export_type td :button.delete').click(function(){
-			$.get("{devblocks_url}ajax.php?c=setup&a=saveExportPeekTypeParmAdd&id={$export_type->id}{/devblocks_url}", {delete_id: $(this).parent().attr('id')},
-			function(){
-				$(this).parent().parent().remove();
-			});
+			$(this).parent().parent().remove();
 		});
 		$.getJSON("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParmType&type={$export_type->recipient_type}{/devblocks_url}", function(data) {
 			var select = $('#export_type_params_add');
