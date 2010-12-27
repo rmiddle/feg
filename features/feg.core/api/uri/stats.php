@@ -103,23 +103,7 @@ class FegStatsPage extends FegPageExtension {
 		
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
 		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
-		
-		if(!$active_worker->hasPriv('core.access.failed.message_recipient.resubmit')) {
-			$can_resubmit = 1;
-			$tpl->assign('can_resubmit', $can_resubmit);
-		} else {
-			$can_resubmit = 0;
-			$tpl->assign('can_resubmit', $can_resubmit);
-		}
-		
-		if(!$active_worker->hasPriv('core.access.failed.message_recipient.permfail')) {
-			$can_permfail = 1;
-			$tpl->assign('can_permfail', $can_permfail);
-		} else {
-			$can_permfail = 0;
-			$tpl->assign('can_permfail', $can_permfail);
-		}
-		
+
 		$tpl->assign('id', $id);
 		$tpl->assign('view_id', $view_id);
 		
@@ -128,14 +112,6 @@ class FegStatsPage extends FegPageExtension {
 
 		$message_lines = explode('\r\n',substr($message->message,1,-1));
 		$tpl->assign('message_lines', $message_lines);
-		
-		// Custom Fields
-		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_Message::ID);
-		$tpl->assign('custom_fields', $custom_fields);
-		
-		$custom_field_values = DAO_CustomFieldValue::getValuesBySourceIds(FegCustomFieldSource_Message::ID, $id);
-		if(isset($custom_field_values[$id]))
-			$tpl->assign('custom_field_values', $custom_field_values[$id]);
 		
 		$tpl->display('file:' . $this->_TPL_PATH . 'stats/message/failed_account.tpl');
 	}
