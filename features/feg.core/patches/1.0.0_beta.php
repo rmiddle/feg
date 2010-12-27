@@ -343,7 +343,7 @@ if(!isset($tables['export_type_params'])) {
 	$db->Execute($sql);
 	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(9, 2, 'SNPP Send to server FQN', 2, 0, '{\"default\":\"ann100sms01.answernet.com\"}')";
 	$db->Execute($sql);
-	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(10, 2, 'SNPP Max Number Char', 2, 0, '{\"default\":\"160\"}')')";
+	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(10, 2, 'SNPP Max Number Char', 2, 0, '{\"default\":\"160\"}')";
 	$db->Execute($sql);
 }
 

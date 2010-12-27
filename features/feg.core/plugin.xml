@@ -17,7 +17,7 @@
 	<!-- Patches -->
 	
 	<patches>
-		<patch version="1.0.0-beta" revision="32" file="patches/1.0.0_beta.php" />
+		<patch version="1.0.0-beta" revision="33" file="patches/1.0.0_beta.php" />
 	</patches>
 
 
