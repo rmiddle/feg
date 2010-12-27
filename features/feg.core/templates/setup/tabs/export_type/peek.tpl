@@ -86,7 +86,7 @@
 	} );
 	$(document).ready(function() {
 		$('#table_export_type td :button.delete').click(function(){
-			var sel = $(this).val();
+			var sel_id = $(this).val();
 			$.get({devblocks_url}ajax.php?c=setup&a=saveExportPeekTypeParmDelete&id={$export_type->id}&delete_id="+sel_id+"{/devblocks_url},function(){
 				$(this).parent().parent().remove();
 			});
