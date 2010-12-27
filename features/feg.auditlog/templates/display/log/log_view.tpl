@@ -105,6 +105,9 @@
 					{elseif $result.l_change_field=='auditlog.cr.export_type'}
 						{$export = DAO_ExportType::get($result.l_change_value)}
 						{$export->name}
+					{elseif $result.l_change_field=='auditlog.ca.import_source'}
+						{$import_source = DAO_ImportSource::get($result.l_change_value)}
+						{$import_source->name}
 					{else}
 						{$result.l_change_value}
 					{/if}
