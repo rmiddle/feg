@@ -644,6 +644,43 @@ class FegSetupPage extends FegPageExtension  {
 		echo json_encode($export_param_add);		
 	}
 	
+	function saveExportPeekTypeParmDeleteAction() {
+		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
+		@$delete_id = DevblocksPlatform::importGPC($_REQUEST['delete_id'],'integer',0);
+echo "id: ". $id . "<br>";
+echo "delete_id: ". $delete_id . "<br>";
+/*
+		$export_type = DAO_ExportType::get($id);
+		$export_type_params = DAO_ExportTypeParams::getAll();
+		
+		if (!isset($export_type_params[$add_id])) {
+			// Bad add_id
+			return;
+		}
+		
+		if (isset($export_type->params[$add_id])) {
+			// Is it already in the list?
+			return;
+		}
+		$export_param_add['id'] = $add_id;
+		$export_param_add['name'] = $export_type_params[$add_id]->name;
+		$export_param_add['type'] = $export_type_params[$add_id]->type;
+		if ($export_type_params[$add_id]->options['default']) {
+			$export_type->params[$add_id] = $export_type_params[$add_id]->options['default'];
+			$export_param_add['default'] = $export_type_params[$add_id]->options['default'];
+		} else {
+			$export_type->params[$add_id] = "";
+			$export_param_add['default'] = "";
+		}
+		
+		$fields = array(
+			DAO_ExportType::PARAMS => $export_type->params,
+		);
+		
+		//$status = DAO_ExportType::update($id, $fields);
+*/
+	}
+	
 	function saveExportPeekAction() {
 		$translate = DevblocksPlatform::getTranslationService();
 		
