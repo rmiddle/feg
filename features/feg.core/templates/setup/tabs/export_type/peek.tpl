@@ -47,6 +47,7 @@
 			<td width="0%" nowrap="nowrap" align="right">
 				<b>{$export_type_params.$param_id->name}</b>: 
 				<input type="hidden" name="params_ids[]" value="{$param_id}">
+				<button type="button" onclick=""><span class="feg-sprite sprite-delete"></span></button>
 			</td>
 			<td width="100%">
 				{if ($export_type_params[$param_id]->type == 1)}
