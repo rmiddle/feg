@@ -13,7 +13,7 @@
 
 {$translate->_('feg.message_recipient.id')|capitalize}: {if $id}{$id}{else}{$translate->_('feg.customer_recipient.id.new')|capitalize}{/if}<br>
 <div id="message_reciptient_peek_{$id}_status">
-	{if $message_recipient->send_status => 0 && $message_recipient->send_status < 140}
+	{if $message_recipient->send_status >= 0 && $message_recipient->send_status < 140}
 		{$status_str = 'feg.message_recipient.status_'|cat:$result.$column}
 		{$translate->_($status_str)|capitalize}
 	{else}
