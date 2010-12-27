@@ -426,7 +426,6 @@ class View_CustomerAccount extends Feg_AbstractView {
 				$criteria = new DevblocksSearchCriteria($field, $oper, $value);
 				break;
 			case SearchFields_CustomerAccount::ID:
-			case SearchFields_CustomerAccount::IMPORT_SOURCE:
 				$criteria = new DevblocksSearchCriteria($field,$oper,$value);
 				break;
 //			case 'placeholder_date':
@@ -439,6 +438,10 @@ class View_CustomerAccount extends Feg_AbstractView {
 //				$criteria = new DevblocksSearchCriteria($field,$oper,array($from,$to));
 //				break;
 				
+			case SearchFields_CustomerAccount::IMPORT_SOURCE:
+				@$import_source_radio = DevblocksPlatform::importGPC($_REQUEST['import_source_radio'],'integer',0);
+				$criteria = new DevblocksSearchCriteria($field,$oper,$import_source_radio);
+				break;
 			case SearchFields_CustomerAccount::IS_DISABLED:
 				@$bool = DevblocksPlatform::importGPC($_REQUEST['bool'],'integer',0);
 				$criteria = new DevblocksSearchCriteria($field,$oper,$bool);
