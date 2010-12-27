@@ -134,6 +134,8 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 		@$account_number = DevblocksPlatform::importGPC($_REQUEST['account_number'],'string','');
 		if(!empty($account_number)) {
 			$tpl->assign('account_number', $account_number);
+			print_r($account_number);
+			print_r($_REQUEST);
 		}
 		
 		$core_tpl = $this->_TPL_PATH;
