@@ -10,7 +10,8 @@
 		<button type="button" onclick="$('#message_reciptient_{$id}_status').load('{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=setMessageRecipientStatus&id={$id}&status=6&goto_recent=3&view_id={$view->id|escape:'url'}{/devblocks_url}');genericPanel.dialog('close');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete2.gif{/devblocks_url}" align="top"> {$translate->_('feg.core.send_status.retry')}</button>
 	{else if $message_recipient->send_status == 2}
 		<button type="button" onclick="$('#message_reciptient_{$id}_status').load('{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=setMessageRecipientStatus&id={$id}&status=6&goto_recent=4&view_id={$view->id|escape:'url'}{/devblocks_url}');genericPanel.dialog('close');"><span class="feg-sprite sprite-check"></span>{$translate->_('feg.core.send_status.resend')}</button>
-	{else}
+	{/if}
+	{if $message_recipient->send_status != 6}
 		<button type="button" onclick="$('#message_reciptient_{$id}_status').load('{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=setMessageRecipientStatus&id={$id}&status=6&goto_recent=1&view_id={$view->id|escape:'url'}{/devblocks_url}');genericPanel.dialog('close');"><span class="feg-sprite sprite-check"></span>{$translate->_('feg.message_recipient.submit.permfail')}</button>
 	{/if}
 {/if}
