@@ -412,6 +412,68 @@ class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 	function saveTab() {
 	}
 	
+	function showMessagePeekAction() {
+		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
+		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
+		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
+		$display_view = 0;
+	
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('path', $this->_TPL_PATH);
+		
+		$tpl->assign('id', $id);
+		$tpl->assign('customer_id', $customer_id);
+		$tpl->assign('view_id', $view_id);
+
+		$message = DAO_Message::get($id);
+		$tpl->assign('message', $message);
+
+		$message_lines = explode('\r\n',substr($message->message,1,-1));
+		$tpl->assign('message_lines', $message_lines);
+		
+		$account = DAO_CustomerAccount::get($message->account_id);
+		$tpl->assign('account', $account);
+
+		// Below is the Audit log view only avaible is the audit log plugin is enabled. 
+		if (class_exists('View_MessageAuditLog',true)):
+			$display_view = 1;
+			$defaults = new Feg_AbstractViewModel();
+			$defaults->class_name = 'View_MessageAuditLog';
+			$defaults->id = '_message_recipient_audit_log';
+			$defaults->renderLimit = 10;
+			$defaults->renderSortBy = SearchFields_MessageAuditLog::CHANGE_DATE;
+			$defaults->renderSortAsc = false;
+			$defaults->params = array();
+
+			$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
+
+			$view->name = 'Message Recipient Audit Log';
+			$view->renderTemplate = 'peek_tab';
+			$view->params = array(
+				SearchFields_MessageAuditLog::MESSAGE_ID => new DevblocksSearchCriteria(SearchFields_MessageAuditLog::MESSAGE_ID, 
+					DevblocksSearchCriteria::OPER_EQ, $id),
+			);
+			$view->renderPage = 0;
+			$view->renderLimit = 10;
+			$view->view_columns = array(
+				SearchFields_MessageAuditLog::CHANGE_DATE,
+				//SearchFields_MessageAuditLog::ACCOUNT_ID,
+				//SearchFields_MessageAuditLog::RECIPIENT_ID,
+				//SearchFields_MessageAuditLog::MESSAGE_ID,
+				SearchFields_MessageAuditLog::MESSAGE_RECIPIENT_ID,
+				SearchFields_MessageAuditLog::WORKER_ID,
+				SearchFields_MessageAuditLog::CHANGE_FIELD,
+				SearchFields_MessageAuditLog::CHANGE_VALUE,
+			);
+
+			Feg_AbstractViewLoader::setView($view->id,$view);
+			$tpl->assign('view', $view);
+		endif;
+		$tpl->assign('display_view', $display_view);
+
+		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recent/message_peek.tpl');		
+	}
+
 	function showMessageRecipientPeekAction() {
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
 		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
