@@ -6,7 +6,7 @@
 	<ul>
 		{foreach from=$tab_manifests item=tab_manifest}
 			{$tabs[] = $tab_manifest->params.uri}
-			<li><a href="{devblocks_url}ajax.php?c=customer&a=showTab&ext_id={$tab_manifest->id}&customer_id={$customer_id}{/devblocks_url}"><i>{$tab_manifest->params.title|devblocks_translate|escape:'quotes'}</i></a></li>
+			<li><a href="{devblocks_url}ajax.php?c=customer&a=showTab&ext_id={$tab_manifest->id}&customer_id={$customer_id}{if isset($account_number)}&account_number={$account_number}{/if}{/devblocks_url}"><i>{$tab_manifest->params.title|devblocks_translate|escape:'quotes'}</i></a></li>
 		{/foreach}
 	</ul>
 </div> 
