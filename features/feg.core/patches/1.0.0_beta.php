@@ -325,9 +325,9 @@ if(!isset($tables['export_type_params'])) {
 	// recipient_type 0 = Email, 1 = Fax, 2 = SNPP
 	// type  1 = Yes/No, 2 = 255 Char input
 	
-	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(1, 0, 'Email use sitewide subject', 1, 0, '{\"default\":\"1\"}')";
+	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(1, 0, 'Email using sitewide subject', 1, 0, '{\"default\":\"1\"}')";
 	$db->Execute($sql);
-	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(2, 1, 'Fax use sitewide subject', 1, 0, '{\"default\":\"1\"}')";
+	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(2, 1, 'Fax using sitewide subject', 1, 0, '{\"default\":\"1\"}')";
 	$db->Execute($sql);
 	$sql = "INSERT INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(3, 2, 'SNPP add subject', 1, 0, '{\"default\":\"0\"}')";
 	$db->Execute($sql);
