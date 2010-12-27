@@ -11,11 +11,11 @@
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_number')|capitalize}: </td>
-		<td width="100%"><input type="text" name="customer_account_number" value="{$customer->account_number|escape}" style="width:98%;"></td>
+		<td width="100%"><input type="text" name="customer_account_number" value="{if isset($account_number) && ($customer->import_source == 0)}{$account_number}{else}{$customer->account_number|escape}{/if}" style="width:98%;"></td>
 	</tr>
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_name')|capitalize}: </td>
-		<td width="100%"><input type="text" name="customer_account_name" value="{if isset($account_number) && ($customer->import_source == 0)}{$account_number}{else}{$customer->account_name|escape}{/if}" style="width:98%;"></td>
+		<td width="100%"><input type="text" name="customer_account_name" value="{$customer->account_name|escape}" style="width:98%;"></td>
 	</tr>
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.import_source')|capitalize}: </td>
