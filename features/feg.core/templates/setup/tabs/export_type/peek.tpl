@@ -124,6 +124,8 @@
 				tds += '<input type="hidden" name="params_ids[]" value="';
 				tds += data.id;
 				tds += '">';
+				tds += '<button type="button" class="delete" onclick="';
+				tds += '"><span class="feg-sprite sprite-delete"></span></button>';
 				tds += '</td>';
 				tds += '<td width="100%">';
 				if(data.type == 2) {
