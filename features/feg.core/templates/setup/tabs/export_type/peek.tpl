@@ -88,7 +88,7 @@
 		$('#table_export_type td :button.delete').click(function(){
 			$(this).parent().parent().remove();
 		});
-		$.getJSON("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParmType&type={$export_type->recipient_type}{/devblocks_url}", function(data) {
+		$.getJSON("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type={$export_type->recipient_type}{/devblocks_url}", function(data) {
 			var select = $('#export_type_params_add');
 			var options = select.attr('options');
 			$('option', select).remove();
@@ -100,7 +100,7 @@
 		});
 		$('#export_type_recipient_type').change(function() {
 			var sel = $(this).val();
-			$.getJSON("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParmType&type="+sel+"{/devblocks_url}", function(data) {
+			$.getJSON("{devblocks_url}ajax.php?c=setup&a=showExportPeekTypeParm&type="+sel+"{/devblocks_url}", function(data) {
 				var select = $('#export_type_params_add');
 				var options = select.attr('options');
 				$('option', select).remove();
@@ -159,7 +159,6 @@
 					$(table).append(tds);
 				}
 				$('#table_export_type td :button.delete').click(function(){
-					
 					$(this).parent().parent().remove();
 				});
 			});
