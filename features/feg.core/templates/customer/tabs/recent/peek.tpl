@@ -11,10 +11,11 @@
 	<button type="button" onclick="genericPanel.dialog('close');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/delete.gif{/devblocks_url}" align="top"> {$translate->_('common.cancel')|capitalize}</button>
 <br>
 
-{$translate->_('feg.message_recipient.id')|capitalize}: {if $id}{$id}{else}{$translate->_('feg.customer_recipient.id.new')|capitalize}{/if}<br>
+{$translate->_('feg.message_recipient.id')|capitalize}: {$id}<br>
 <div id="message_reciptient_peek_{$id}_status">
+	{$translate->_('feg.message_recipient.send_status')|capitalize}: 
 	{if $message_recipient->send_status >= 0 && $message_recipient->send_status < 140}
-		{$status_str = 'feg.message_recipient.status_'|cat:$result.$column}
+		{$status_str = 'feg.message_recipient.status_'|cat:$message_recipient->send_status}
 		{$translate->_($status_str)|capitalize}
 	{else}
 		{$translate->_('feg.message_recipient.status_unknown')|capitalize}
