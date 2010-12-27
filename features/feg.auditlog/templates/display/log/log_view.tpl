@@ -54,7 +54,7 @@
 					{if $result.l_account_id==0}
 						{$translate->_('customer.display.auto')|capitalize}
 					{else}
-						<a href="{devblocks_url}{/devblocks_url}customer/{$result.l_account_id}/property?account_number=12">
+						<a href="{devblocks_url}{/devblocks_url}customer/{$result.l_account_id}/property">
 							{include file="file:$core_tpl/internal/feg/display_customer_id.tpl"}&nbsp;
 						</a>
 					{/if}
