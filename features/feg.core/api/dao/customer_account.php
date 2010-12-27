@@ -350,7 +350,6 @@ class View_CustomerAccount extends Feg_AbstractView {
 		switch($field) {
 			case SearchFields_CustomerAccount::ACCOUNT_NUMBER:
 			case SearchFields_CustomerAccount::ACCOUNT_NAME:
-			case SearchFields_CustomerAccount::IMPORT_SOURCE:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__string.tpl');
 				break;
 			case SearchFields_CustomerAccount::ID:
@@ -358,6 +357,9 @@ class View_CustomerAccount extends Feg_AbstractView {
 				break;
 			case SearchFields_CustomerAccount::IS_DISABLED:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__is_disable.tpl');
+				break;
+			case SearchFields_CustomerAccount::IMPORT_SOURCE:
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__import_source.tpl');
 				break;
 //			case 'placeholder_date':
 //				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__date.tpl');
@@ -427,7 +429,6 @@ class View_CustomerAccount extends Feg_AbstractView {
 			case SearchFields_CustomerAccount::IMPORT_SOURCE:
 				$criteria = new DevblocksSearchCriteria($field,$oper,$value);
 				break;
-				
 //			case 'placeholder_date':
 //				@$from = DevblocksPlatform::importGPC($_REQUEST['from'],'string','');
 //				@$to = DevblocksPlatform::importGPC($_REQUEST['to'],'string','');
