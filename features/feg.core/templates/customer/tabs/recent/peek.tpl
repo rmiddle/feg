@@ -22,8 +22,6 @@
 	{/if}
 </td>
 
-{$translate->_('feg.message_recipient.send_status')|capitalize}:{include file="file:$core_tpl/internal/feg/display_send_status.tpl" message_recipient_id=$result.mr_id}
-
 <br>
 </div>
 <br>
