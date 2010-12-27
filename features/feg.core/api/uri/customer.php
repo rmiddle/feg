@@ -59,6 +59,13 @@ class FegCustomerPage extends FegPageExtension {
 				@$tab_option = array_shift($stack);				
 				break;
 		}
+		@$account_number = DevblocksPlatform::importGPC($_REQUEST['account_number'],'string','');
+echo "<pre>";		
+echo "Account Number: ";
+print_r($account_number);
+echo "<br>";
+print_r($_REQUEST);
+echo "<br></pre>";		
 		
 		// ====== Who's Online
 		$whos_online = DAO_Worker::getAllOnline();
@@ -127,12 +134,7 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 		
 		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
 		@$account_number = DevblocksPlatform::importGPC($_REQUEST['account_number'],'string','');
-echo "<pre>";		
-echo "Account Number: ";
-print_r($account_number);
-echo "<br>";
-print_r($_REQUEST);
-echo "<br></pre>";		
+		
 		$tpl->assign('customer_id', $customer_id);
 		
 		$core_tpl = $this->_TPL_PATH;
