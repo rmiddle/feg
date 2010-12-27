@@ -51,6 +51,9 @@
 		<tu tuid='acl.core.access.recipient.disable'>
 			<tuv xml:lang="en_US"><seg>Disable Recipients</seg></tuv>
 		</tu>
+		<tu tuid='acl.core.access.message.assign'>
+			<tuv xml:lang="en_US"><seg>Can assign a message to an account</seg></tuv>
+		</tu>
 		<tu tuid='acl.core.access.message_recipient.permfail'>
 			<tuv xml:lang="en_US"><seg>Permentaly Fail Message Recipient</seg></tuv>
 		</tu>
@@ -647,6 +650,9 @@ For example: *receipt*</seg></tuv>
 		</tu>
 		<tu tuid='feg.message.message'>
 			<tuv xml:lang="en_US"><seg>Message</seg></tuv>
+		</tu>
+		<tu tuid='feg.message.create_account'>
+			<tuv xml:lang="en_US"><seg>Create Account</seg></tuv>
 		</tu>
 		<tu tuid='feg.message.select_account'>
 			<tuv xml:lang="en_US"><seg>Assign to Account</seg></tuv>
