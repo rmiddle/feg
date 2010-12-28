@@ -28,7 +28,7 @@
 		<td>
 			{if isset($message->params['account_name'])}
 				{if $active_worker->hasPriv('core.access.customer.create')}
-					<a href="javascript:;" onclick="genericPanel.dialog('close');genericAjaxGet('', '{devblocks_url}index.php?c=account&a=createNewCustomer&account_name={$message->params['account_name']}{/devblocks_url}');">
+					<a href="javascript:;" onclick="$('#formAccountFailurePeek').trigger('submit');">
 					<b>{$message->params['account_name']}</b></a>&nbsp;
 				{else}{$message->params['account_name']}&nbsp;
 				{/if}
