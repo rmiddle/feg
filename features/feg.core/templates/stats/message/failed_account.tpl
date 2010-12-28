@@ -25,16 +25,8 @@
 		</td>
 	</tr>
 	<tr>
-		<td width="0%" nowrap="nowrap" valign="top" align="right">{$translate->_('feg.message.message')|capitalize}: </td>
-		<td width="100%">
-			{foreach from=$message_lines item=line name=line_id}
-				{$line}<br>
-			{/foreach}
-		</td>
-	</tr>
-	<tr>
-		<td width="0%" nowrap="nowrap" valign="top" align="right">&nbsp;</td>
-		<td width="100%">
+		<td width="0%" nowrap="nowrap" valign="top" align="right">
+			{$translate->_('feg.message.message')|capitalize}:<br> 
 			{if $active_worker->hasPriv('core.access.message.assign')}
 				<form action="{devblocks_url}{/devblocks_url}" method="POST" id="formAccountFailurePeek" name="formAccountFailurePeek">
 					<input type="hidden" name="c" value="stats">
@@ -45,11 +37,20 @@
 				</form>
 			{/if}
 		</td>
+		<td width="100%">
+			{foreach from=$message_lines item=line name=line_id}
+				{$line}<br>
+			{/foreach}
+		</td>
+	</tr>
+	<tr>
+		<td width="0%" nowrap="nowrap" valign="top" align="right">&nbsp;</td>
+		<td width="100%">
+			<button type="button" onclick="genericPanel.dialog('close');"><span class="feg-sprite sprite-delete_gray"></span>
+				{$translate->_('common.cancel')|capitalize}</button>
+		</td>
 	</tr>
 </table>
-
-<button type="button" onclick="genericPanel.dialog('close');"><span class="feg-sprite sprite-delete_gray"></span> {$translate->_('common.cancel')|capitalize}</button>
-
 <br>
 
 <script type="text/javascript" language="JavaScript1.2">
