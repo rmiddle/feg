@@ -12,17 +12,17 @@
 					{$translate->_('feg.message.create_account')}: {$message->params['account_name']}</a>&nbsp;
 				{else}{$message->params['account_name']}
 				{/if}
+				{if $active_worker->hasPriv('core.access.message.assign')}
+					<a href="javascript:;" onclick="genericAjaxPanel('c=account&a=createNewCustomer&account_name={$message->params['account_name']}|escape:'url'}',null,false,'550');">
+					{$translate->_('feg.message.select_account')}</a>&nbsp;
+				{/if}
 			{else}{$translate->_('feg.message_recipient.status_unknown')|capitalize}
 			{/if}
 		</td>
 	</tr>
 	<tr>
 		<td width="0%" nowrap="nowrap" valign="top" align="right">
-			{$translate->_('feg.message.message')|capitalize}:<br> 
-			{if $active_worker->hasPriv('core.access.message.assign')}
-				<a href="javascript:;" onclick="genericAjaxPanel('c=account&a=createNewCustomer&account_name={$message->params['account_name']}|escape:'url'}',null,false,'550');">
-				{$translate->_('feg.message.select_account')}</a>&nbsp;
-			{/if}
+			{$translate->_('feg.message.message')|capitalize}:
 		</td>
 		<td width="100%">
 			{foreach from=$message_lines item=line name=line_id}
