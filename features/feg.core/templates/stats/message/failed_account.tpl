@@ -15,7 +15,7 @@
 		<td>
 			{if isset($message->params['account_name'])}
 				{if $active_worker->hasPriv('core.access.customer.create')}
-				{else }{$message->params['account_name']}
+				{else}{$message->params['account_name']}
 				{/if}
 			{else}{$translate->_('feg.message_recipient.status_unknown')|capitalize}
 			{/if}
