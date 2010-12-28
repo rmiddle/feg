@@ -15,7 +15,7 @@
 							<input type="hidden" name="account_name" value="{$message->params['account_name']}">
 						{/if}
 						<button type="submit"><span class="feg-sprite sprite-check"></span>
-							{$translate->_('feg.message.create_account')} - {$message->params['account_name']}
+							{$translate->_('feg.message.create_account')}: {$message->params['account_name']}
 						</button>
 					</form>
 				{else}{$message->params['account_name']}
