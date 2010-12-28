@@ -20,7 +20,6 @@
 			{if $active_worker->hasPriv('core.access.customer.create')}
 				{if isset($message->params['account_name'])}
 					<a href="javascript:;" onclick="$('formAccountFailurePeek').trigger('submit');">
-					{*<a href="javascript:;" onclick="genericPanel.dialog('close');genericAjaxPost('ormAccountFailurePeek', '', '');">*}
 					<b>{$translate->_('feg.message.create_account')}:</b></a>&nbsp;
 				{/if}
 			{else}{$translate->_('feg.message.est_account_id')|capitalize}&nbsp;
