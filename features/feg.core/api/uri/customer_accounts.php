@@ -59,22 +59,26 @@ class FegAccountPage extends FegPageExtension {
 			return;
 		}
 
-		$fields = array(
-			DAO_CustomerAccount::IMPORT_SOURCE => 0,
-			DAO_CustomerAccount::ACCOUNT_NAME => "",
-			DAO_CustomerAccount::ACCOUNT_NUMBER => "",
-			DAO_CustomerAccount::IS_DISABLED => 1,
-		);
+		if(empty($account_number)) {
+			$fields = array(
+				DAO_CustomerAccount::IMPORT_SOURCE => 0,
+				DAO_CustomerAccount::ACCOUNT_NAME => "",
+				DAO_CustomerAccount::ACCOUNT_NUMBER => "",
+				DAO_CustomerAccount::IS_DISABLED => 1,
+			);
+		} else {
+			$fields = array(
+				DAO_CustomerAccount::IMPORT_SOURCE => 0,
+				DAO_CustomerAccount::ACCOUNT_NAME => "Customer # " . $account_number,
+				DAO_CustomerAccount::ACCOUNT_NUMBER => $account_number,
+				DAO_CustomerAccount::IS_DISABLED => 1,
+			);
+		}
 		// Create a new Customer Recipients 
 		$customer_id = DAO_CustomerAccount::create($fields);
 
 //		DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('customer', $customer_id,'property')));
-		if(!empty($account_number)) {
-			DevblocksPlatform::redirect(new DevblocksHttpResponse(array('customer', $customer_id, 'property', $account_number)));
-			$tpl->assign('account_number', );
-		} else {
-			DevblocksPlatform::redirect(new DevblocksHttpResponse(array('customer', $customer_id,'property')));
-		}
+		DevblocksPlatform::redirect(new DevblocksHttpResponse(array('customer', $customer_id,'property')));
 	}
 		
 };

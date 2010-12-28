@@ -56,10 +56,7 @@ class FegCustomerPage extends FegPageExtension {
 		
 		switch($tab_selected) {
 			case 'property':
-				@$account_number = array_shift($stack);				
-				if(!empty($account_number)) {
-					$tpl->assign('account_number', $account_number);
-				}
+				@$tab_parm = array_shift($stack);				
 				break;
 		}
 		
@@ -130,10 +127,6 @@ class FegCustomerTabProperty extends Extension_CustomerTab {
 		
 		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
 		$tpl->assign('customer_id', $customer_id);
-		@$account_number = DevblocksPlatform::importGPC($_REQUEST['account_number'],'string','');
-		if(!empty($account_number)) {
-			$tpl->assign('account_number', $account_number);
-		}
 		
 		$core_tpl = $this->_TPL_PATH;
 		$tpl->assign('core_tpl', $core_tpl);
