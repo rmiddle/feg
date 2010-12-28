@@ -54,7 +54,7 @@ class FegAccountPage extends FegPageExtension {
 	
 	function createNewCustomerAction() {
 		$active_worker = FegApplication::getActiveWorker();
-		@$account_number = DevblocksPlatform::importGPC($_REQUEST['account_number'],'string','');
+		@$account_number = DevblocksPlatform::importGPC($_REQUEST['account_name'],'string','');
 		//if ($active_worker->hasPriv('core.access.customer.create')) {
 		//	return;
 		//}

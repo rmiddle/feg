@@ -19,7 +19,7 @@
 		<td nowrap="nowrap" align="right">
 			{if $active_worker->hasPriv('core.access.customer.create')}
 				{if isset($message->params['account_name'])}
-					<a href="javascript:;" onclick="genericPanel.dialog('close');$('formAccountFailurePeek').trigger('submit');">
+					<a href="javascript:;" onclick="$('formAccountFailurePeek').trigger('submit');genericPanel.dialog('close');">
 					{*<a href="javascript:;" onclick="genericPanel.dialog('close');genericAjaxPost('ormAccountFailurePeek', '', '');">*}
 					<b>{$translate->_('feg.message.create_account')}:</b></a>&nbsp;
 				{/if}
