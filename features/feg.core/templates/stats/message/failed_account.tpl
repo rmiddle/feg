@@ -4,7 +4,7 @@
 <input type="hidden" name="id" value="{$id}">
 <input type="hidden" name="view_id" value="{$view_id}">
 
-{if $active_worker->hasPriv('core.access.customer.create)}
+{if $active_worker->hasPriv('core.access.customer.create')}
 	<button type="button" name="button_customer_create" id="button_customer_create"><span class="feg-sprite sprite-check"></span>{$translate->_('feg.message.create_account')}</button>
 {/if}
 
