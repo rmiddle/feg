@@ -9,12 +9,20 @@
 		</td>
 	</tr>
 	<tr>
-		<td nowrap="nowrap" align="right">&nbsp;</td>
+		<td nowrap="nowrap" align="right">
+			{if $active_worker->hasPriv('core.access.customer.create')}
+				{if isset($message->params['account_name'])}
+										<a href="javascript:;" onclick="genericAjaxPanel('c=account&a=createNewCustomer&account_name={$message->params['account_name']}|escape:'url'}',null,false,'550');">
+					<b>{$translate->_('feg.message.create_account')}</b></a>&nbsp;
+				{/if}
+			{else}{$translate->_('feg.message.est_account_id')|capitalize}&nbsp;
+			{/if}
+		</td>
 		<td>
 			{if isset($message->params['account_name'])}
 				{if $active_worker->hasPriv('core.access.customer.create')}
 					<a href="javascript:;" onclick="genericAjaxPanel('c=account&a=createNewCustomer&account_name={$message->params['account_name']}|escape:'url'}',null,false,'550');">
-					<b>{$translate->_('feg.message.create_account')}: {$message->params['account_name']}</b></a>&nbsp;
+					<b>{$message->params['account_name']}</b></a>&nbsp;
 				{else}{$message->params['account_name']}&nbsp;
 				{/if}
 			{else}{$translate->_('feg.message_recipient.status_unknown')|capitalize}
