@@ -19,7 +19,7 @@
 		<td nowrap="nowrap" align="right">
 			{if $active_worker->hasPriv('core.access.customer.create')}
 				{if isset($message->params['account_name'])}
-					<a href="javascript:;" onclick="$('formAccountFailurePeek').trigger('submit');">
+					<a href="javascript:;" onclick="$('#formAccountFailurePeek').trigger('submit');">
 					<b>{$translate->_('feg.message.create_account')}:</b></a>&nbsp;
 				{/if}
 			{else}{$translate->_('feg.message.est_account_id')|capitalize}&nbsp;
@@ -52,10 +52,10 @@
 	</tr>
 </table>
 <br>
-</form>
 
 <button type="button" onclick="genericPanel.dialog('close');"><span class="feg-sprite sprite-delete_gray"></span>{$translate->_('common.cancel')|capitalize}</button>
-				
+</form>
+
 <script type="text/javascript" language="JavaScript1.2">
 	$(genericPanel).one('dialogopen',function(event,ui) {
 		genericPanel.dialog('option','title','Select Account'); 
