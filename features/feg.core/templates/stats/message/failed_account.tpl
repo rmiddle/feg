@@ -4,19 +4,24 @@
 		<td>{$id}</td>
 	</tr>
 	<tr>
-		<td nowrap="nowrap" align="right">{$translate->_('feg.message.est_account_id')|capitalize} </td>
-		<td>
+		<td nowrap="nowrap" align="right">
 			{if isset($message->params['account_name'])}
 				{if $active_worker->hasPriv('core.access.customer.create')}
 					<a href="javascript:;" onclick="genericAjaxPanel('c=account&a=createNewCustomer&account_name={$message->params['account_name']}|escape:'url'}',null,false,'550');">
 					<b>{$translate->_('feg.message.create_account')}: {$message->params['account_name']}</b></a>&nbsp;
-				{else}{$message->params['account_name']}
+				{else}{$translate->_('feg.message.est_account_id')|capitalize} 
 				{/if}
-				{if $active_worker->hasPriv('core.access.message.assign')}
-					<a href="javascript:;" onclick="genericAjaxPanel('c=account&a=createNewCustomer&account_name={$message->params['account_name']}|escape:'url'}',null,false,'550');">
-					<b>{$translate->_('feg.message.select_account')}</b></a>&nbsp;
+				</td>
+		<td>
+			{if isset($message->params['account_name'])}
+				{if !$active_worker->hasPriv('core.access.customer.create')}
+					{$message->params['account_name']}
 				{/if}
 			{else}{$translate->_('feg.message_recipient.status_unknown')|capitalize}
+			{/if}
+			{if $active_worker->hasPriv('core.access.message.assign')}
+				<a href="javascript:;" onclick="genericAjaxPanel('c=account&a=createNewCustomer&account_name={$message->params['account_name']}|escape:'url'}',null,false,'550');">
+				<b>{$translate->_('feg.message.select_account')}</b></a>&nbsp;
 			{/if}
 		</td>
 	</tr>
