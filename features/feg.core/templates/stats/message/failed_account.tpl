@@ -12,7 +12,7 @@
 		<td nowrap="nowrap" align="right">
 			{if $active_worker->hasPriv('core.access.customer.create')}
 				{if isset($message->params['account_name'])}
-					<a href="javascript:;" onclick="genericAjaxPanel('c=account&a=createNewCustomer&account_name={$message->params['account_name']|escape:'url'}',null,false,'550');">
+					<a href="{devblocks_url}ajax.php?c=account&a=createNewCustomer&account_name={$message->params['account_name']}{/devblocks_url}
 					<b>{$translate->_('feg.message.create_account')}:</b></a>&nbsp;
 				{/if}
 			{else}{$translate->_('feg.message.est_account_id')|capitalize}&nbsp;
@@ -21,7 +21,7 @@
 		<td>
 			{if isset($message->params['account_name'])}
 				{if $active_worker->hasPriv('core.access.customer.create')}
-					<a href="javascript:;" onclick="genericAjaxPanel('c=account&a=createNewCustomer&account_name={$message->params['account_name']|escape:'url'}',null,false,'550');">
+					<a href="{devblocks_url}ajax.php?c=account&a=createNewCustomer&account_name={$message->params['account_name']}{/devblocks_url}
 					<b>{$message->params['account_name']}</b></a>&nbsp;
 				{else}{$message->params['account_name']}&nbsp;
 				{/if}
