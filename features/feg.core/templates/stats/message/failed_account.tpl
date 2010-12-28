@@ -17,7 +17,7 @@
 					<input type="hidden" name="c" value="account">
 					<input type="hidden" name="a" value="createNewCustomer">
 					<input type="hidden" name="account_name" value="{$message->params['account_name']}">
-					<a href="javascript:;" onclick="genericAjaxPost('ormAccountFailurePeek', '', '');">
+					<a href="javascript:;" onclick="$('#formAccountFailurePeek').trigger('submit')"
 					{*<a href="javascript:;" onclick="genericPanel.dialog('close');genericAjaxPost('ormAccountFailurePeek', '', '');">*}
 					<b>{$translate->_('feg.message.create_account')}:</b></a>&nbsp;
 				{/if}
