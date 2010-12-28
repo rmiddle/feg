@@ -12,7 +12,7 @@
 		<td nowrap="nowrap" align="right">
 			{if $active_worker->hasPriv('core.access.customer.create')}
 				{if isset($message->params['account_name'])}
-					<a href="javascript:;" onclick="genericPanel.dialog('close');genericAjaxGet('', '{devblocks_url}index.php?c=account&a=createNewCustomer&account_name={$message->params['account_name']}{/devblocks_url}');">
+					<a href="javascript:;" onclick="genericAjaxGet('', '{devblocks_url}index.php?c=account&a=createNewCustomer&account_name={$message->params['account_name']}{/devblocks_url}');">
 					<b>{$translate->_('feg.message.create_account')}:</b></a>&nbsp;
 				{/if}
 			{else}{$translate->_('feg.message.est_account_id')|capitalize}&nbsp;
