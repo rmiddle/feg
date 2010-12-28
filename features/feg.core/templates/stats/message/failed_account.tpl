@@ -6,18 +6,21 @@
 	<tr>
 		<td nowrap="nowrap" align="right">{$translate->_('feg.message.est_account_id')|capitalize} </td>
 		<td>
-			{if isset($message->params['account_name'])}{$message->params['account_name']}
+			{if isset($message->params['account_name'])}
+				{if $active_worker->hasPriv('core.access.customer.create')}
+					<form action="{devblocks_url}{/devblocks_url}" method="POST" id="formAccountFailurePeek" name="formAccountFailurePeek">
+						<input type="hidden" name="c" value="account">
+						<input type="hidden" name="a" value="createNewCustomer">
+						{if isset($message->params['account_name'])}
+							<input type="hidden" name="account_name" value="{$message->params['account_name']}">
+						{/if}
+						<button type="submit"><span class="feg-sprite sprite-check"></span>
+							{$translate->_('feg.message.create_account')} - {$message->params['account_name']}
+						</button>
+					</form>
+				{else}{$message->params['account_name']}
+				{/if}
 			{else}{$translate->_('feg.message_recipient.status_unknown')|capitalize}
-			{/if}
-			{if $active_worker->hasPriv('core.access.customer.create')}
-				<form action="{devblocks_url}{/devblocks_url}" method="POST" id="formAccountFailurePeek" name="formAccountFailurePeek" onsubmit="return false;">
-					<input type="hidden" name="c" value="account">
-					<input type="hidden" name="a" value="createNewCustomer">
-					{if isset($message->params['account_name'])}
-						<input type="hidden" name="account_name" value="{$message->params['account_name']}">
-					{/if}
-					<button type="submit"><span class="feg-sprite sprite-check"></span>{$translate->_('feg.message.create_account')}</button>
-				</form>
 			{/if}
 		</td>
 	</tr>
