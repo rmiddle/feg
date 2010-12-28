@@ -537,11 +537,15 @@ class DAO_MessageAuditLog extends DevblocksORMHelper {
 		parent::_updateWhere('audit_log_message', $fields, $where);
 	}
 	
+	/*
+	 * Maint task to prevent the audit log from getting to large.  
+	 */
 	public static function maint() {
-//		$db = DevblocksPlatform::getDatabaseService();
+		$db = DevblocksPlatform::getDatabaseService();
 		
-//		$sql = "DELETE QUICK audit_log_message FROM audit_log_message LEFT JOIN message ON audit_log_message.message_id=message.id WHERE message.id IS NULL";
-//		$db->Execute($sql);
+		// 15 552 000 Seconds = 180 Days
+		$sql = sprintf("DELETE QUICK audit_log_message FROM audit_log_message WHERE change_date < %d", (time()-15552000));
+		$db->Execute($sql);
 	}
 	
 	public static function delete($ids) {
