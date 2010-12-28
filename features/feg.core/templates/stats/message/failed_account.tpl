@@ -12,8 +12,8 @@
 		<td nowrap="nowrap" align="right">
 			{if $active_worker->hasPriv('core.access.customer.create')}
 				{if isset($message->params['account_name'])}
-										<a href="javascript:;" onclick="genericAjaxPanel('c=account&a=createNewCustomer&account_name={$message->params['account_name']}|escape:'url'}',null,false,'550');">
-					<b>{$translate->_('feg.message.create_account')}</b></a>&nbsp;
+					<a href="javascript:;" onclick="genericAjaxPanel('c=account&a=createNewCustomer&account_name={$message->params['account_name']}|escape:'url'}',null,false,'550');">
+					<b>{$translate->_('feg.message.create_account')}:</b></a>&nbsp;
 				{/if}
 			{else}{$translate->_('feg.message.est_account_id')|capitalize}&nbsp;
 			{/if}
