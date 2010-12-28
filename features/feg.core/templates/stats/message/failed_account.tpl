@@ -40,9 +40,10 @@
 	$(genericPanel).one('dialogopen',function(event,ui) {
 		genericPanel.dialog('option','title','Select Account'); 
 	} );
-	
+	$(document).ready(function() {
+		$('#button_customer_create').click(function() {
+			window.location.href = "{devblocks_url}{/devblocks_url}customer/{$result.l_account_id}/property{if isset($message->params['account_name'])}/{$message->params['account_name']}{/if}";
+			return false;
+		});
+	});
 </script>
-{*
-"{devblocks_url}{/devblocks_url}customer/{$result.l_account_id}/property
-	{if isset($message->params['account_name'])}/{$message->params['account_name']}{/if}"
-*}
