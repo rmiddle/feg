@@ -1,15 +1,22 @@
-<form action="{devblocks_url}{/devblocks_url}" method="POST" id="formAccountFailurePeek" name="formAccountFailurePeek" onsubmit="return false;">
-<input type="hidden" name="c" value="stats">
-<input type="hidden" name="a" value="saveAccountFailurePeek">
-<input type="hidden" name="id" value="{$id}">
-<input type="hidden" name="view_id" value="{$view_id}">
-
 {if $active_worker->hasPriv('core.access.customer.create')}
-	<button type="button" name="button_customer_create" id="button_customer_create"><span class="feg-sprite sprite-check"></span>{$translate->_('feg.message.create_account')}</button>
+	<form action="{devblocks_url}{/devblocks_url}" method="POST" id="formAccountFailurePeek" name="formAccountFailurePeek" onsubmit="return false;">
+		<input type="hidden" name="c" value="account">
+		<input type="hidden" name="a" value="createNewCustomer">
+		{if isset($message->params['account_name'])}
+			<input type="hidden" name="account_name" value="{$message->params['account_name']}">
+		{/if}
+		<button type="submit"><span class="feg-sprite sprite-check"></span>{$translate->_('feg.message.create_account')}</button>
+	</form>
 {/if}
 
 {if $active_worker->hasPriv('core.access.message.assign')}
-	<button type="button" onclick="genericPanel.dialog('close');this.form.retry.value='6';genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');"><span class="feg-sprite sprite-check"></span>{$translate->_('feg.message.select_account')}</button>
+	<form action="{devblocks_url}{/devblocks_url}" method="POST" id="formAccountFailurePeek" name="formAccountFailurePeek" onsubmit="return false;">
+		<input type="hidden" name="c" value="stats">
+		<input type="hidden" name="a" value="saveAccountFailurePeek">
+		<input type="hidden" name="id" value="{$id}">
+		<input type="hidden" name="view_id" value="{$view_id}">
+		<button type="submit"><span class="feg-sprite sprite-check"></span>{$translate->_('feg.message.select_account')}</button>
+	</form>
 {/if}
 
 <button type="button" onclick="genericPanel.dialog('close');"><span class="feg-sprite sprite-delete_gray"></span> {$translate->_('common.cancel')|capitalize}</button>
@@ -34,16 +41,9 @@
 </table>
 
 <br>
-</form>
 
 <script type="text/javascript" language="JavaScript1.2">
 	$(genericPanel).one('dialogopen',function(event,ui) {
 		genericPanel.dialog('option','title','Select Account'); 
-	} );
-	$(document).ready(function() {
-		$('#button_customer_create').click(function() {
-			window.location.href = "{devblocks_url}{/devblocks_url}customer/{$result.l_account_id}/property{if isset($message->params['account_name'])}/{$message->params['account_name']}{/if}";
-			return false;
-		});
 	});
 </script>
