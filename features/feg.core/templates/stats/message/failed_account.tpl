@@ -1,4 +1,9 @@
 <form action="{devblocks_url}{/devblocks_url}" method="POST" id="formAccountFailurePeek" name="formAccountFailurePeek">
+<input type="hidden" name="c" value="account">
+<input type="hidden" name="a" value="createNewCustomer">
+{if isset($message->params['account_name'])}
+	<input type="hidden" name="account_name" value="{$message->params['account_name']}">
+{/if}
 
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
@@ -14,10 +19,7 @@
 		<td nowrap="nowrap" align="right">
 			{if $active_worker->hasPriv('core.access.customer.create')}
 				{if isset($message->params['account_name'])}
-					<input type="hidden" name="c" value="account">
-					<input type="hidden" name="a" value="createNewCustomer">
-					<input type="hidden" name="account_name" value="{$message->params['account_name']}">
-					<a href="javascript:;" onclick="genericPanel.dialog('close');genericAjaxPost('formAccountFailurePeek', '', '');">
+					<a href="javascript:;" onclick="genericPanel.dialog('close');$('formAccountFailurePeek').trigger('submit');">
 					{*<a href="javascript:;" onclick="genericPanel.dialog('close');genericAjaxPost('ormAccountFailurePeek', '', '');">*}
 					<b>{$translate->_('feg.message.create_account')}:</b></a>&nbsp;
 				{/if}
@@ -27,9 +29,6 @@
 		<td>
 			{if isset($message->params['account_name'])}
 				{if $active_worker->hasPriv('core.access.customer.create')}
-					<input type="hidden" name="c" value="account">
-					<input type="hidden" name="a" value="createNewCustomer">
-					<input type="hidden" name="account_name" value="{$message->params['account_name']}">
 					<a href="javascript:;" onclick="genericPanel.dialog('close');genericAjaxGet('', '{devblocks_url}index.php?c=account&a=createNewCustomer&account_name={$message->params['account_name']}{/devblocks_url}');">
 					<b>{$message->params['account_name']}</b></a>&nbsp;
 				{else}{$message->params['account_name']}&nbsp;
