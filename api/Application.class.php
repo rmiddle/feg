@@ -10,7 +10,7 @@
 | ______________________________________________________________________
 |	http://www.feg.com	  http://www.webgroupmedia.com/
 ***********************************************************************/
-define("APP_BUILD", 2010062602);
+define("APP_BUILD", 2010122801);
 
 require_once(APP_PATH . "/api/DAO.class.php");
 require_once(APP_PATH . "/api/Model.class.php");
@@ -21,6 +21,14 @@ $path = APP_PATH . '/api/app/';
 
 DevblocksPlatform::registerClasses($path . 'Update.php', array(
 	'FegUpdateController',
+));
+
+DevblocksPlatform::registerClasses($path . 'Snpp.php', array(
+	'FegSnpp',
+));
+
+DevblocksPlatform::registerClasses($path . 'Hylafax.php', array(
+	'FegFax',
 ));
 
 /**
@@ -86,6 +94,14 @@ class FegApplication extends DevblocksApplication {
 		
 		if(!is_writeable(APP_TEMP_PATH . "/cache/")) {
 			$errors[] = APP_TEMP_PATH . "/cache/" . " is not writeable by the webserver.  Please adjust permissions and reload this page.";
+		}
+		
+		if(!file_exists(APP_TEMP_PATH . "/fax_cache")) {
+			@mkdir(APP_TEMP_PATH . "/fax_cache");
+		}
+		
+		if(!is_writeable(APP_TEMP_PATH . "/fax_cache/")) {
+			$errors[] = APP_TEMP_PATH . "/fax_cache/" . " is not writeable by the webserver.  Please adjust permissions and reload this page.";
 		}
 		
 		if(!is_writeable(APP_STORAGE_PATH)) {
@@ -304,7 +320,7 @@ class FegApplication extends DevblocksApplication {
 		
 		return $str;
 	}
-	    
+	
 	static function update() {
 		// Update the platform
 		if(!DevblocksPlatform::update())
@@ -468,6 +484,156 @@ class FegMail {
 		}
 		
 		return true;
+	}
+
+	// To is an aaray no a string like above.
+	static function sendMail($to, $subject, $body, $from_addy=null, $from_personal=null) {
+		try {
+			$mail_service = DevblocksPlatform::getMailService();
+			$mailer = $mail_service->getMailer(FegMail::getMailerDefaults());
+			$mail = $mail_service->createMessage();
+	
+		    $settings = DevblocksPlatform::getPluginSettingsService();
+		    
+		    if(empty($from_addy))
+				@$from_addy = $settings->get('feg.core',FegSettings::DEFAULT_REPLY_FROM, $_SERVER['SERVER_ADMIN']);
+		    
+		    if(empty($from_personal))
+				@$from_personal = $settings->get('feg.core',FegSettings::DEFAULT_REPLY_PERSONAL,'');
+			
+			$mail->setTo($to);
+			$mail->setFrom(array($from_addy => $from_personal));
+			$mail->setSubject($subject);
+			$mail->generateId();
+			
+			$headers = $mail->getHeaders();
+			
+			$headers->addTextHeader('X-Mailer','Feg (Build '.APP_BUILD.')');
+			
+			$mail->setBody($body);
+		
+			// [TODO] Report when the message wasn't sent.
+			if(!$mailer->send($mail)) {
+				return false;
+			}
+			
+		} catch (Exception $e) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	static function sendMailProperties($properties) {
+		$status = true;
+		@$toStr = $properties['to'];
+		@$cc = $properties['cc'];
+		@$bcc = $properties['bcc'];
+		@$subject = $properties['subject'];
+		@$content = $properties['content'];
+		@$files = $properties['files'];
+
+		$mail_settings = self::getMailerDefaults();
+	    if(empty($properties['from_addy']))
+			@$from_addy = $settings->get('feg.core',FegSettings::DEFAULT_REPLY_FROM, $_SERVER['SERVER_ADMIN']);
+		    
+	    if(empty($properties['from_personal']))
+			@$from_personal = $settings->get('feg.core',FegSettings::DEFAULT_REPLY_PERSONAL,'');
+			
+		if(empty($subject)) $subject = '(no subject)';
+		
+		// [JAS]: Replace any semi-colons with commas (people like using either)
+		$toList = DevblocksPlatform::parseCsvString(str_replace(';', ',', $toStr));
+		
+		$mail_headers = array();
+		$mail_headers['X-FegCompose'] = '1';
+		
+		// Headers needed for the ticket message
+		$log_headers = new Swift_Message_Headers();
+		$log_headers->setCharset(LANG_CHARSET_CODE);
+		$log_headers->set('To', $toList);
+		$log_headers->set('From', !empty($from_personal) ? (sprintf("%s <%s>",$from_personal,$from_addy)) : (sprintf('%s',$from_addy)));
+		$log_headers->set('Subject', $subject);
+		$log_headers->set('Date', date('r'));
+			
+		foreach($log_headers->getList() as $hdr => $v) {
+			if(null != ($hdr_val = $log_headers->getEncoded($hdr))) {
+				if(!empty($hdr_val))
+					$mail_headers[$hdr] = $hdr_val;
+			}
+		}
+			
+		try {
+			$mail_service = DevblocksPlatform::getMailService();
+			$mailer = $mail_service->getMailer(FegMail::getMailerDefaults());
+		
+			$email = $mail_service->createMessage();
+		
+			$email->setTo($toList);
+				
+			// cc
+			$ccs = array();
+			if(!empty($cc) && null != ($ccList = DevblocksPlatform::parseCsvString(str_replace(';',',',$cc)))) {
+				$email->setCc($ccList);
+			}
+				
+			// bcc
+			if(!empty($bcc) && null != ($bccList = DevblocksPlatform::parseCsvString(str_replace(';',',',$bcc)))) {
+				$email->setBcc($bccList);
+			}
+				
+			$email->setFrom(array($from => $personal));
+			$email->setSubject($subject);
+			$email->generateId();
+				
+			$headers = $email->getHeaders();
+				
+			$headers->addTextHeader('X-Mailer','Fax Email Gateway (FEG) ' . APP_VERSION . ' (Build '.APP_BUILD.')');
+				
+			$email->setBody($content);
+				
+			// Mime Attachments
+			if (is_array($files) && !empty($files)) {
+				foreach ($files['tmp_name'] as $idx => $file) {
+					if(empty($file) || empty($files['name'][$idx]))
+						continue;
+		
+					$email->attach(Swift_Attachment::fromPath($file)->setFilename($files['name'][$idx]));
+				}
+			}
+		
+			// Headers
+			foreach($email->getHeaders()->getAll() as $hdr) {
+				if(null != ($hdr_val = $hdr->getFieldBody())) {
+					if(!empty($hdr_val))
+						$mail_headers[$hdr->getFieldName()] = $hdr_val;
+				}
+			}
+				
+			// [TODO] Allow separated addresses (parseRfcAddress)
+			//		$mailer->log->enable();
+			if(!@$mailer->send($email)) {
+				throw new Exception('Mail failed to send: unknown reason');
+			}
+			//		$mailer->log->dump();
+		} catch (Exception $e) {
+			// Do Something
+			$status = false;
+		}
+
+		// Give plugins a chance to note a message is imported.
+		$eventMgr = DevblocksPlatform::getEventService();
+	    $eventMgr->trigger(
+	        new Model_DevblocksEvent(
+	            'email.send',
+                array(
+                    'properties' => $properties,
+					'send_status' => $status ? 2 : 1, // 2 = Successful // 1 = Fail
+                )
+            )
+	    );
+
+		return $status;
 	}
 };
 

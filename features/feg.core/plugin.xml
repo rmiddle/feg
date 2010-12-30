@@ -17,7 +17,7 @@
 	<!-- Patches -->
 	
 	<patches>
-		<patch version="1.0.0-beta" revision="22" file="patches/1.0.0_beta.php" />
+		<patch version="1.0.0-beta" revision="34" file="patches/1.0.0_beta.php" />
 	</patches>
 
 
@@ -55,6 +55,14 @@
 			<class name="SearchFields_WorkerEvent" />
 			<class name="View_WorkerEvent" />
 		</file>
+		
+		<file path="api/dao/stats.php">
+			<class name="DAO_Stats" />
+			<class name="Model_Stats" />
+			<class name="SearchFields_Stats" />
+			<class name="View_Stats" />
+		</file>
+		
 		<file path="api/dao/customer_account.php">
 			<class name="FegCustomFieldSource_CustomerAccount" />
 			<class name="DAO_CustomerAccount" />
@@ -93,13 +101,8 @@
 			<class name="Model_ExportType" />
 			<class name="SearchFields_ExportType" />
 			<class name="View_ExportType" />
-		</file>
-		<file path="api/dao/export_filter.php">
-			<class name="FegCustomFieldSource_ExportFilter" />
-			<class name="DAO_ExportFilter" />
-			<class name="Model_ExportFilter" />
-			<class name="SearchFields_ExportFilter" />
-			<class name="View_ExportFilter" />
+			<class name="DAO_ExportTypeParams" />
+			<class name="Model_ExportTypeParams" />
 		</file>
 	</class_loader>
 	
@@ -118,22 +121,52 @@
 		<event id="cron.import">
 			<name>Import Messages</name>
 		</event>
-		<event id="cron.export">
-			<name>Export Messages</name>
+		<event id="cron.send.email">
+			<name>Export Email Messages</name>
+		</event>
+		<event id="cron.queue.fax">
+			<name>Export Fax Messages</name>
+		</event>
+		<event id="cron.send.snpp">
+			<name>Export SNPP Messages</name>
+		</event>
+		<event id="dao.customer.account.update">
+			<name>Customer Update Event</name>
+		</event>
+		<event id="dao.customer.recipient.update">
+			<name>Customer Recipient Update Event</name>
+		</event>
+		<event id="email.send">
+			<name>Email Send</name>
+		</event>
+		<event id="message.create">
+			<name>Message Creation Event</name>
+		</event>
+		<event id="message.recipient.create">
+			<name>Message Recipient Creation Event</name>
+		</event>
+		<event id="message.recipient.status">
+			<name>Message Recipient Status Update</name>
 		</event>
 	</event_points>
-
+	
 	<!-- Permissions -->
 
 	<acl>
 		<!-- Access -->
 
-		<priv id="core.access.export_filter.create" label="acl.core.access.export_filter.create" />
-		<priv id="core.access.export_filter.update" label="acl.core.access.export_filter.update" />
+		<priv id="core.access.export_type.create" label="acl.core.access.export_type.create" />
+		<priv id="core.access.export_type.update" label="acl.core.access.export_type.update" />
 		<priv id="core.access.customer.create" label="acl.core.access.customer.create" />
 		<priv id="core.access.customer.update" label="acl.core.access.customer.update" />
+		<priv id="core.access.customer.disable" label="acl.core.access.customer.disable" />
 		<priv id="core.access.recipient.create" label="acl.core.access.recipient.create" />
 		<priv id="core.access.recipient.update" label="acl.core.access.recipient.update" />
+		<priv id="core.access.recipient.disable" label="acl.core.access.recipient.disable" />
+		<priv id="core.access.message.assign" label="acl.core.access.message.assign" />
+		<priv id="core.access.message_recipient.permfail" label="acl.core.access.message_recipient.permfail" />
+		<priv id="core.access.message_recipient.retry" label="acl.core.access.message_recipient.retry" />
+		<priv id="core.access.message_recipient.resend" label="acl.core.access.message_recipient.resend" />
 		
 		<!-- Workspaces -->
 		<!--
@@ -278,7 +311,7 @@
 		</extension>
 		
 		<extension point="feg.page">
-			<id>core.page.stats</id>
+			<id>z.feg.page.stats</id>
 			<name>Home Page</name>
 			<class>
 				<file>api/uri/stats.php</file>
@@ -365,6 +398,7 @@
 			</params>
 		</extension>
 		
+		<!-- 
 		<extension point="feg.cron">
 			<id>cron.stats</id>
 			<name>Update Stats</name>
@@ -375,7 +409,8 @@
 			<params>
 			</params>
 		</extension>
-		
+		 -->
+		 
 		<extension point="feg.cron">
 			<id>cron.import</id>
 			<name>Message Imports</name>
@@ -397,6 +432,7 @@
 			<params>
 			</params>
 		</extension>
+		
 		<!-- Custom Field Sources -->
 
 		<extension point="feg.fields.source">

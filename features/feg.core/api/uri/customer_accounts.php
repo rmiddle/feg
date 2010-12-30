@@ -54,13 +54,26 @@ class FegAccountPage extends FegPageExtension {
 	
 	function createNewCustomerAction() {
 		$active_worker = FegApplication::getActiveWorker();
+		@$account_number = DevblocksPlatform::importGPC($_REQUEST['account_name'],'string','');
+		//if ($active_worker->hasPriv('core.access.customer.create')) {
+		//	return;
+		//}
 
-		$fields = array(
-			DAO_CustomerAccount::IMPORT_SOURCE => 0,
-			DAO_CustomerAccount::ACCOUNT_NAME => "",
-			DAO_CustomerAccount::ACCOUNT_NUMBER => "",
-			DAO_CustomerAccount::IS_DISABLED => 1,
-		);
+		if(empty($account_number)) {
+			$fields = array(
+				DAO_CustomerAccount::IMPORT_SOURCE => 0,
+				DAO_CustomerAccount::ACCOUNT_NAME => "",
+				DAO_CustomerAccount::ACCOUNT_NUMBER => "",
+				DAO_CustomerAccount::IS_DISABLED => 1,
+			);
+		} else {
+			$fields = array(
+				DAO_CustomerAccount::IMPORT_SOURCE => 0,
+				DAO_CustomerAccount::ACCOUNT_NAME => "Customer # " . $account_number,
+				DAO_CustomerAccount::ACCOUNT_NUMBER => $account_number,
+				DAO_CustomerAccount::IS_DISABLED => 1,
+			);
+		}
 		// Create a new Customer Recipients 
 		$customer_id = DAO_CustomerAccount::create($fields);
 

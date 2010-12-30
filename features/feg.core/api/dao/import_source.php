@@ -293,7 +293,7 @@ class View_ImportSource extends FEG_AbstractView {
 
 		$tpl->assign('view_fields', $this->getColumns());
 		// [TODO] Set your template path
-		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/import_source/view.tpl');
+		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/tabs/import_source/view.tpl');
 	}
 
 	function renderCriteria($field) {

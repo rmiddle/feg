@@ -27,23 +27,41 @@
 		
 		<!-- Access Controls -->
 
-		<tu tuid='acl.core.access.export_filter.create'>
+		<tu tuid='acl.core.access.export_type.create'>
 			<tuv xml:lang="en_US"><seg>Create Export Filter</seg></tuv>
 		</tu>
-		<tu tuid='acl.core.access.export_filter.update'>
+		<tu tuid='acl.core.access.export_type.update'>
 			<tuv xml:lang="en_US"><seg>Update Export Filter</seg></tuv>
 		</tu>
 		<tu tuid='acl.core.access.customer.create'>
-			<tuv xml:lang="en_US"><seg>Create Customers</seg></tuv>
+			<tuv xml:lang="en_US"><seg>Create Customers (Requires Update Customer to work correctly)</seg></tuv>
 		</tu>
 		<tu tuid='acl.core.access.customer.update'>
 			<tuv xml:lang="en_US"><seg>Update Customers</seg></tuv>
 		</tu>
+		<tu tuid='acl.core.access.customer.disable'>
+			<tuv xml:lang="en_US"><seg>Disable Customers</seg></tuv>
+		</tu>
 		<tu tuid='acl.core.access.recipient.create'>
-			<tuv xml:lang="en_US"><seg>Create Recipients</seg></tuv>
+			<tuv xml:lang="en_US"><seg>Create Recipients (Requires Update Recipients to work correctly)</seg></tuv>
 		</tu>
 		<tu tuid='acl.core.access.recipient.update'>
 			<tuv xml:lang="en_US"><seg>Update Recipients</seg></tuv>
+		</tu>
+		<tu tuid='acl.core.access.recipient.disable'>
+			<tuv xml:lang="en_US"><seg>Disable Recipients</seg></tuv>
+		</tu>
+		<tu tuid='acl.core.access.message.assign'>
+			<tuv xml:lang="en_US"><seg>Can assign a message to an account</seg></tuv>
+		</tu>
+		<tu tuid='acl.core.access.message_recipient.permfail'>
+			<tuv xml:lang="en_US"><seg>Permentaly Fail Message Recipient</seg></tuv>
+		</tu>
+		<tu tuid='acl.core.access.message_recipient.retry'>
+			<tuv xml:lang="en_US"><seg>Retry Message Recipient Failures</seg></tuv>
+		</tu>
+		<tu tuid='acl.core.access.message_recipient.resend'>
+			<tuv xml:lang="en_US"><seg>Resend Message Recipient Failures</seg></tuv>
 		</tu>
 		
 		<!-- Common Strings -->
@@ -381,6 +399,9 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='setup.tab.import_source'>
 			<tuv xml:lang="en_US"><seg>Import Sources</seg></tuv>
 		</tu>
+		<tu tuid='setup.tab.export_type'>
+			<tuv xml:lang="en_US"><seg>Export Type</seg></tuv>
+		</tu>
 		
 		<!-- Update -->
 
@@ -471,6 +492,9 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='customer.display.invalid_customer'>
 			<tuv xml:lang="en_US"><seg>Invalid Customer</seg></tuv>
 		</tu>
+		<tu tuid='customer.display.auto'>
+			<tuv xml:lang="en_US"><seg>(auto)</seg></tuv>
+		</tu>
 		<tu tuid='feg.customer.tab.property.title'>
 			<tuv xml:lang="en_US"><seg>Property</seg></tuv>
 		</tu>
@@ -492,11 +516,62 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.customer_account.id'>
 			<tuv xml:lang="en_US"><seg>Customer ID</seg></tuv>
 		</tu>
+		<tu tuid='feg.customer_account.id.warning'>
+			<tuv xml:lang="en_US"><seg>Warning only change if you know what you are doing</seg></tuv>
+		</tu>
+		
+		<!-- Stat Translations -->
+		
+		<tu tuid='feg.stats.id'>
+			<tuv xml:lang="en_US"><seg>ID</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.fax_current_hour'>
+			<tuv xml:lang="en_US"><seg>Fax Current Hour</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.fax_last_hour'>
+			<tuv xml:lang="en_US"><seg>Fax Last Hour</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.fax_sent_today'>
+			<tuv xml:lang="en_US"><seg>Fax Sent Today</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.fax_sent_yesterday'>
+			<tuv xml:lang="en_US"><seg>Fax Sent Yesterday</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.email_current_hour'>
+			<tuv xml:lang="en_US"><seg>Email Current Hour</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.email_last_hour'>
+			<tuv xml:lang="en_US"><seg>Email Last Hour</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.email_sent_today'>
+			<tuv xml:lang="en_US"><seg>Email Sent Today</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.email_sent_yesterday'>
+			<tuv xml:lang="en_US"><seg>Email Sent Yesterday</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.snpp_current_hour'>
+			<tuv xml:lang="en_US"><seg>SNPP Current Hour</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.snpp_last_hour'>
+			<tuv xml:lang="en_US"><seg>SNPP Last Hour</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.snpp_sent_today'>
+			<tuv xml:lang="en_US"><seg>SNPP Sent Today</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.snpp_sent_yesterday'>
+			<tuv xml:lang="en_US"><seg>SNPP Sent Yesterday</seg></tuv>
+		</tu>
+		<tu tuid='feg.stats.default_name'>
+			<tuv xml:lang="en_US"><seg>Stats</seg></tuv>
+		</tu>		
 		
 		<!-- Customer Recipient -->
 		
 		<tu tuid='feg.customer_recipient.title'>
 			<tuv xml:lang="en_US"><seg>Customer Recipients</seg></tuv>
+		</tu>
+		<tu tuid='feg.customer_recipient.savechanges.warn'>
+			<tuv xml:lang="en_US"><seg>Changes will be lost if you don't Save Your Changes before switching to another tab</seg></tuv>
 		</tu>
 		<tu tuid='feg.customer_recipient.id'>
 			<tuv xml:lang="en_US"><seg>Recipient ID</seg></tuv>
@@ -510,8 +585,8 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.customer_recipient.account_id'>
 			<tuv xml:lang="en_US"><seg>Customer ID</seg></tuv>
 		</tu>
-		<tu tuid='feg.customer_recipient.export_filter'>
-			<tuv xml:lang="en_US"><seg>Export Filter</seg></tuv>
+		<tu tuid='feg.customer_recipient.export_type'>
+			<tuv xml:lang="en_US"><seg>Export Type</seg></tuv>
 		</tu>
 		<tu tuid='feg.customer_recipient.type'>
 			<tuv xml:lang="en_US"><seg>Recipient Type</seg></tuv>
@@ -519,14 +594,26 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.customer_recipient.address'>
 			<tuv xml:lang="en_US"><seg>Recipient Address</seg></tuv>
 		</tu>
+		<tu tuid='feg.customer_recipient.address_to'>
+			<tuv xml:lang="en_US"><seg>Recipient Name</seg></tuv>
+		</tu>
+		<tu tuid='feg.customer_recipient.subject'>
+			<tuv xml:lang="en_US"><seg>Subject</seg></tuv>
+		</tu>
 		<tu tuid='recipient.notes'>
 			<tuv xml:lang="en_US"><seg>Notes</seg></tuv>
 		</tu>
 		<tu tuid='recipient.recipient_name'>
 			<tuv xml:lang="en_US"><seg>Account Name</seg></tuv>
 		</tu>
+		<tu tuid='recipient.address_to'>
+			<tuv xml:lang="en_US"><seg>Name TO</seg></tuv>
+		</tu>
 		<tu tuid='recipient.address'>
 			<tuv xml:lang="en_US"><seg>Email/Fax Address</seg></tuv>
+		</tu>
+		<tu tuid='recipient.subject'>
+			<tuv xml:lang="en_US"><seg>Message Subject</seg></tuv>
 		</tu>
 		<tu tuid='recipient.type.email'>
 			<tuv xml:lang="en_US"><seg>Email</seg></tuv>
@@ -537,16 +624,10 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='recipient.type.snpp'>
 			<tuv xml:lang="en_US"><seg>Paging</seg></tuv>
 		</tu>
-		<tu tuid='recipient.export_filter'>
-			<tuv xml:lang="en_US"><seg>Export Filter</seg></tuv>
+		<tu tuid='recipient.export_type'>
+			<tuv xml:lang="en_US"><seg>Export Type</seg></tuv>
 		</tu>
 		
-		<!-- Export Filter Translations -->
-		
-		<tu tuid='feg.export_filter.title'>
-			<tuv xml:lang="en_US"><seg>Export Filters</seg></tuv>
-		</tu>
-				
 		<!-- Source Message Translations  -->
 		
 		<tu tuid='feg.message.title'>
@@ -570,14 +651,23 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.message.message'>
 			<tuv xml:lang="en_US"><seg>Message</seg></tuv>
 		</tu>
+		<tu tuid='feg.message.create_account'>
+			<tuv xml:lang="en_US"><seg>Create Account</seg></tuv>
+		</tu>
 		<tu tuid='feg.message.select_account'>
-			<tuv xml:lang="en_US"><seg>Assign to Account</seg></tuv>
+			<tuv xml:lang="en_US"><seg>Assign to An Account</seg></tuv>
+		</tu>
+		<tu tuid='feg.message.est_account_id'>
+			<tuv xml:lang="en_US"><seg>Possible Account #</seg></tuv>
 		</tu>
 		
 		<!-- Source Message Recipients Translations  -->
 		
 		<tu tuid='feg.message_recipient.title'>
 			<tuv xml:lang="en_US"><seg>Message Recipent</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.title.failed'>
+			<tuv xml:lang="en_US"><seg>Failed Messages Recipient</seg></tuv>
 		</tu>
 		<tu tuid='feg.message_recipient.name'>
 			<tuv xml:lang="en_US"><seg>Message Recipent List</seg></tuv>
@@ -597,11 +687,167 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.message_recipient.send_status'>
 			<tuv xml:lang="en_US"><seg>Send Status</seg></tuv>
 		</tu>
+		<tu tuid='feg.message_recipient.fax_id'>
+			<tuv xml:lang="en_US"><seg>FAX/Email ID</seg></tuv>
+		</tu>
 		<tu tuid='feg.message_recipient.updated_date'>
 			<tuv xml:lang="en_US"><seg>Updated Date</seg></tuv>
 		</tu>
 		<tu tuid='feg.message_recipient.closed_date'>
 			<tuv xml:lang="en_US"><seg>Closed Date</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.submit.retry'>
+			<tuv xml:lang="en_US"><seg>Retry</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.submit.permfail'>
+			<tuv xml:lang="en_US"><seg>Permentaly Fail</seg></tuv>
+		</tu>
+		
+		<!-- Send Status Translations -->
+		
+		<tu tuid='feg.message_recipient.status_0'>
+			<tuv xml:lang="en_US"><seg>New</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_1'>
+			<tuv xml:lang="en_US"><seg>Fail</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_2'>
+			<tuv xml:lang="en_US"><seg>Successful</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_3'>
+			<tuv xml:lang="en_US"><seg>Retry</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_4'>
+			<tuv xml:lang="en_US"><seg>Resending</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_5'>
+			<tuv xml:lang="en_US"><seg>In Queue</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_6'>
+			<tuv xml:lang="en_US"><seg>Permently Failed</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_unknown'>
+			<tuv xml:lang="en_US"><seg>Unknown</seg></tuv>
+		</tu>
+		
+		<!-- Fax Send Status Translations -->
+		
+		<tu tuid='feg.message_recipient.status_100'>
+			<tuv xml:lang="en_US"><seg>JOB_CREATE</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_101'>
+			<tuv xml:lang="en_US"><seg>JOB_SUSPEND</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_102'>
+			<tuv xml:lang="en_US"><seg>JOB_READY</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_103'>
+			<tuv xml:lang="en_US"><seg>JOB_SLEEP</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_104'>
+			<tuv xml:lang="en_US"><seg>JOB_DEAD</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_105'>
+			<tuv xml:lang="en_US"><seg>JOB_PROCESS</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_106'>
+			<tuv xml:lang="en_US"><seg>JOB_REAP</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_107'>
+			<tuv xml:lang="en_US"><seg>JOB_ACTIVE</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_108'>
+			<tuv xml:lang="en_US"><seg>JOB_REJECT</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_109'>
+			<tuv xml:lang="en_US"><seg>JOB_KILL</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_110'>
+			<tuv xml:lang="en_US"><seg>JOB_BLOCKED</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_111'>
+			<tuv xml:lang="en_US"><seg>JOB_DELAYED</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_112'>
+			<tuv xml:lang="en_US"><seg>JOB_ALTERED</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_113'>
+			<tuv xml:lang="en_US"><seg>JOB_TIMEDOUT</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_114'>
+			<tuv xml:lang="en_US"><seg>JOB_PREP_BEGIN</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_115'>
+			<tuv xml:lang="en_US"><seg>JOB_PREP_END</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_120'>
+			<tuv xml:lang="en_US"><seg>SEND_BEGIN</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_121'>
+			<tuv xml:lang="en_US"><seg>SEND_CALL</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_122'>
+			<tuv xml:lang="en_US"><seg>SEND_CONNECTED</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_123'>
+			<tuv xml:lang="en_US"><seg>SEND_PAGE</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_124'>
+			<tuv xml:lang="en_US"><seg>SEND_DOC</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_125'>
+			<tuv xml:lang="en_US"><seg>SEND_POLLRCVD</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_126'>
+			<tuv xml:lang="en_US"><seg>SEND_POLLDONE</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_127'>
+			<tuv xml:lang="en_US"><seg>SEND_END</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_128'>
+			<tuv xml:lang="en_US"><seg>SEND_REFORMAT</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_129'>
+			<tuv xml:lang="en_US"><seg>SEND_REQUEUE</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_130'>
+			<tuv xml:lang="en_US"><seg>SEND_DONE</seg></tuv>
+		</tu>
+		
+		<!-- Export Type Translations -->
+		
+		<tu tuid='feg.export_type.title'>
+			<tuv xml:lang="en_US"><seg>Export Type</seg></tuv>
+		</tu>
+		<tu tuid='feg.export_type.id'>
+			<tuv xml:lang="en_US"><seg>Export id</seg></tuv>
+		</tu>
+		<tu tuid='feg.export_type.name'>
+			<tuv xml:lang="en_US"><seg>Export Name</seg></tuv>
+		</tu>
+		<tu tuid='feg.export_type.recipient_type'>
+			<tuv xml:lang="en_US"><seg>Recipient Type</seg></tuv>
+		</tu>
+		<tu tuid='feg.export_type.is_disabled'>
+			<tuv xml:lang="en_US"><seg>Disabled/Enabled</seg></tuv>
+		</tu>
+		<tu tuid='feg.export_type.params_json'>
+			<tuv xml:lang="en_US"><seg>Filter Registray</seg></tuv>
+		</tu>
+		<tu tuid='feg.export_type.add_filter'>
+			<tuv xml:lang="en_US"><seg>Add Filter Option</seg></tuv>
+		</tu>
+		<tu tuid='feg.export_type.add_source'>
+			<tuv xml:lang="en_US"><seg>Add Export Type</seg></tuv>
+		</tu>
+		<tu tuid='feg.export_type.new_source'>
+			<tuv xml:lang="en_US"><seg>New Export</seg></tuv>
+		</tu>
+		<tu tuid='feg.export_type.peek.recipient_type'>
+			<tuv xml:lang="en_US"><seg>Recipient Type</seg></tuv>
+		</tu>
+		<tu tuid='feg.export_type.peek.add_param'>
+			<tuv xml:lang="en_US"><seg>Select to Add option</seg></tuv>
 		</tu>
 		
 		<!-- Source Imports Translations -->
@@ -646,28 +892,6 @@ For example: *receipt*</seg></tuv>
 			<tuv xml:lang="en_US"><seg>Source PI</seg></tuv>
 		</tu>
 				
-		<!-- Send Status Translations -->
-		<tu tuid='feg.core.send_status.unknown'>
-			<tuv xml:lang="en_US"><seg>Unknown</seg></tuv>
-		</tu>
-		<tu tuid='feg.core.send_status.new'>
-			<tuv xml:lang="en_US"><seg>New</seg></tuv>
-		</tu>
-		<tu tuid='feg.core.send_status.fail'>
-			<tuv xml:lang="en_US"><seg>Failed</seg></tuv>
-		</tu>
-		<tu tuid='feg.core.send_status.successful'>
-			<tuv xml:lang="en_US"><seg>Successful</seg></tuv>
-		</tu>
-		<tu tuid='feg.core.send_status.retry'>
-			<tuv xml:lang="en_US"><seg>retry</seg></tuv>
-		</tu>
-		<tu tuid='feg.core.send_status.resend'>
-			<tuv xml:lang="en_US"><seg>resend</seg></tuv>
-		</tu>
-		<tu tuid='feg.core.send_status.in_queue'>
-			<tuv xml:lang="en_US"><seg>in queue</seg></tuv>
-		</tu>
 
 	</body>
 </tmx>

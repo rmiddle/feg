@@ -37,7 +37,55 @@ class DAO_CustomerAccount extends Feg_ORMHelper {
 	}
 	
 	static function update($ids, $fields) {
-		parent::_update($ids, 'customer_account', $fields);
+		
+		if(!is_array($ids))
+			$ids = array($ids);
+		
+		/*
+		 * Make a diff for the requested objects in batches
+		 */
+		foreach($ids as $id) {
+	    	$objects = DAO_CustomerAccount ::get($id);
+	    	$object_changes = array();
+	    	
+			$pre_fields = get_object_vars($objects);
+    		$changes = array();
+	    		
+    		foreach($fields as $field_key => $field_val) {
+    			// Make sure the value of the field actually changed
+    			if($pre_fields[$field_key] != $field_val) {
+    				$changes[$field_key] = array('from' => $pre_fields[$field_key], 'to' => $field_val);
+    			}
+    		}
+    		
+    		// If we had changes
+    		if(!empty($changes)) {
+    			$object_changes[$id] = array(
+    				'model' => array_merge($pre_fields, $fields),
+    				'changes' => $changes,
+    			);
+    		}
+	    	
+	    	/*
+	    	 * Make the changes
+	    	 */
+			parent::_update($ids, 'customer_account', $fields);
+		
+		}
+		/*
+		 * Trigger an event about the changes
+		 */
+		if(!empty($object_changes)) {
+			$eventMgr = DevblocksPlatform::getEventService();
+			$eventMgr->trigger(
+				new Model_DevblocksEvent(
+					'dao.customer.account.update',
+					array(
+						'objects' => $object_changes,
+					)
+				)
+			);
+		}
 	}
 	
 	static function updateWhere($fields, $where) {
@@ -290,7 +338,7 @@ class View_CustomerAccount extends Feg_AbstractView {
 		$tpl->assign('custom_fields', $custom_fields);
 		
 		$tpl->assign('view_fields', $this->getColumns());
-		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/customer_account/view.tpl');
+		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/tabs/customer_account/view.tpl');
 	}
 
 	function renderCriteria($field) {
@@ -302,7 +350,6 @@ class View_CustomerAccount extends Feg_AbstractView {
 		switch($field) {
 			case SearchFields_CustomerAccount::ACCOUNT_NUMBER:
 			case SearchFields_CustomerAccount::ACCOUNT_NAME:
-			case SearchFields_CustomerAccount::IMPORT_SOURCE:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__string.tpl');
 				break;
 			case SearchFields_CustomerAccount::ID:
@@ -310,6 +357,9 @@ class View_CustomerAccount extends Feg_AbstractView {
 				break;
 			case SearchFields_CustomerAccount::IS_DISABLED:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__is_disable.tpl');
+				break;
+			case SearchFields_CustomerAccount::IMPORT_SOURCE:
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__import_source.tpl');
 				break;
 //			case 'placeholder_date':
 //				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__date.tpl');
@@ -376,10 +426,8 @@ class View_CustomerAccount extends Feg_AbstractView {
 				$criteria = new DevblocksSearchCriteria($field, $oper, $value);
 				break;
 			case SearchFields_CustomerAccount::ID:
-			case SearchFields_CustomerAccount::IMPORT_SOURCE:
 				$criteria = new DevblocksSearchCriteria($field,$oper,$value);
 				break;
-				
 //			case 'placeholder_date':
 //				@$from = DevblocksPlatform::importGPC($_REQUEST['from'],'string','');
 //				@$to = DevblocksPlatform::importGPC($_REQUEST['to'],'string','');
@@ -390,6 +438,10 @@ class View_CustomerAccount extends Feg_AbstractView {
 //				$criteria = new DevblocksSearchCriteria($field,$oper,array($from,$to));
 //				break;
 				
+			case SearchFields_CustomerAccount::IMPORT_SOURCE:
+				@$import_source_radio = DevblocksPlatform::importGPC($_REQUEST['import_source_radio'],'integer',0);
+				$criteria = new DevblocksSearchCriteria($field,$oper,$import_source_radio);
+				break;
 			case SearchFields_CustomerAccount::IS_DISABLED:
 				@$bool = DevblocksPlatform::importGPC($_REQUEST['bool'],'integer',0);
 				$criteria = new DevblocksSearchCriteria($field,$oper,$bool);

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tmx SYSTEM "tmx14.dtd">
+<tmx version="1.4">
+	<header datatype="winres" segtype="sentence" adminlang="en-us"
+		srclang="en-us" o-tmf="abc" />
+	<body>
+
+		<!-- Plugin Strings -->
+
+		<tu tuid='auditlog.audit_log'>
+			<tuv xml:lang="en_US"><seg>Audit Log</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.display.tab.log'>
+			<tuv xml:lang="en_US"><seg>Audit Log</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.menu.tab.log'>
+			<tuv xml:lang="en_US"><seg>Audit Log</seg></tuv>
+		</tu>
+		<tu tuid='activity.auditlog'>
+			<tuv xml:lang="en_US"><seg>%s is displaying audit log</seg></tuv>
+		</tu>
+		
+		<!-- Database Strings -->
+
+		<tu tuid='auditlog_entry.account_id'>
+			<tuv xml:lang="en_US"><seg>Customer ID</seg></tuv>
+		</tu>
+		<tu tuid='auditlog_entry.recipient_id'>
+			<tuv xml:lang="en_US"><seg>Recipient ID</seg></tuv>
+		</tu>
+		<tu tuid='auditlog_entry.message_id'>
+			<tuv xml:lang="en_US"><seg>Message ID</seg></tuv>
+		</tu>
+		<tu tuid='auditlog_entry.message_recipient_id'>
+			<tuv xml:lang="en_US"><seg>Message Recipient ID</seg></tuv>
+		</tu>
+		<tu tuid='auditlog_entry.worker_id'>
+			<tuv xml:lang="en_US"><seg>Worker ID</seg></tuv>
+		</tu>
+		<tu tuid='auditlog_entry.change_date'>
+			<tuv xml:lang="en_US"><seg>Change Date</seg></tuv>
+		</tu>
+		<tu tuid='auditlog_entry.change_field'>
+			<tuv xml:lang="en_US"><seg>Property</seg></tuv>
+		</tu>
+		<tu tuid='auditlog_entry.change_value'>
+			<tuv xml:lang="en_US"><seg>Value</seg></tuv>
+		</tu>
+		
+		<!-- Cron Jobs Strings -->
+
+		<tu tuid='auditlog.cron.import'>
+			<tuv xml:lang="en_US"><seg>Cron Importer</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cron.export'>
+			<tuv xml:lang="en_US"><seg>Cron Exporter</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cs.message.email.send'>
+			<tuv xml:lang="en_US"><seg>Message Email Send</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cs.message.fax.queue'>
+			<tuv xml:lang="en_US"><seg>Message Fax Queue</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cs.message.fax.status'>
+			<tuv xml:lang="en_US"><seg>Message Fax Status</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cs.message.snpp.send'>
+			<tuv xml:lang="en_US"><seg>Message Paging Send</seg></tuv>
+		</tu>
+			 
+		<!-- Change Field Strings -->
+
+		<tu tuid='auditlog.cf.message.created'>
+			<tuv xml:lang="en_US"><seg>Message Created</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cf.message.recipient.created'>
+			<tuv xml:lang="en_US"><seg>MR Created</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cf.message.recipient.status'>
+			<tuv xml:lang="en_US"><seg>MR Status</seg></tuv>
+		</tu>
+
+		<!-- Customer Account Strings -->
+
+		<tu tuid='auditlog.ca.account_name'>
+			<tuv xml:lang="en_US"><seg>CA Name</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.ca.account_number'>
+			<tuv xml:lang="en_US"><seg>CA Number</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.ca.import_source'>
+			<tuv xml:lang="en_US"><seg>CA Import Source</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.ca.is_disabled'>
+			<tuv xml:lang="en_US"><seg>CA Enabled/Disabled</seg></tuv>
+		</tu>
+ 		 
+		<!-- Customer Recipient Strings -->
+
+		<tu tuid='auditlog.cr.account_id'>
+			<tuv xml:lang="en_US"><seg>CR Created under</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cr.type'>
+			<tuv xml:lang="en_US"><seg>CR Type</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cr.export_type'>
+			<tuv xml:lang="en_US"><seg>CR Export Type</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cr.is_disabled'>
+			<tuv xml:lang="en_US"><seg>CR Enabled/Disabled</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cr.type_unknown'>
+			<tuv xml:lang="en_US"><seg>Unknown</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cr.type_0'>
+			<tuv xml:lang="en_US"><seg>Email</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cr.type_1'>
+			<tuv xml:lang="en_US"><seg>Fax</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cr.type_2'>
+			<tuv xml:lang="en_US"><seg>Paging</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cr.address_to'>
+			<tuv xml:lang="en_US"><seg>CR Address To</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cr.address'>
+			<tuv xml:lang="en_US"><seg>CR Address</seg></tuv>
+		</tu>
+		<tu tuid='auditlog.cr.subject'>
+			<tuv xml:lang="en_US"><seg>CR Subject</seg></tuv>
+		</tu>
+
+	</body>
+</tmx>

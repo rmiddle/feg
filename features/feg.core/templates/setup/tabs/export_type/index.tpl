@@ -1,5 +1,5 @@
 <form>
-	<button type="button" onclick="genericAjaxPanel('c=setup&a=showImportPeek&id=0&view_id={$view->id|escape:'url'}',null,false,'500');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/businessman_add.gif{/devblocks_url}" align="top"> {$translate->_('feg.import_source.add_source')}</button>
+	<button type="button" onclick="genericAjaxPanel('c=setup&a=showExportPeek&id=0&view_id={$view->id|escape:'url'}',null,false,'500');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/businessman_add.gif{/devblocks_url}" align="top"> {$translate->_('feg.export_type.add_source')}</button>
 </form>
 <table cellpadding="0" cellspacing="0" border="0">
 	<tr>

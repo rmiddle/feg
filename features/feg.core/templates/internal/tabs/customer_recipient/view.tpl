@@ -16,7 +16,7 @@
 <form id="customize{$view->id}" name="customize{$view->id}" action="#" onsubmit="return false;" style="display:none;"></form>
 <form id="viewForm{$view->id}" name="viewForm{$view->id}" action="#">
 <input type="hidden" name="view_id" value="{$view->id}">
-<input type="hidden" name="c" value="recipient">
+<input type="hidden" name="c" value="setup">
 <input type="hidden" name="a" value="">
 <table cellpadding="1" cellspacing="0" border="0" width="100%" class="worklistBody">
 
@@ -43,7 +43,7 @@
 	{* Column Data *}
 	{foreach from=$data item=result key=idx name=results}
 
-	{assign var=rowIdPrefix value="row_"|cat:$view->id|cat:"_"|cat:$result.mr_id}
+	{assign var=rowIdPrefix value="row_"|cat:$view->id|cat:"_"|cat:$result.cr_id}
 	{if $smarty.foreach.results.iteration % 2}
 		{assign var=tableRowBg value="even"}
 	{else}
@@ -51,31 +51,30 @@
 	{/if}
 	
 		<tr class="{$tableRowBg}" id="{$rowIdPrefix}" onmouseover="$(this).addClass('hover');" onmouseout="$(this).removeClass('hover');" onclick="if(getEventTarget(event)=='TD') checkAll('{$rowIdPrefix}');">
-			<td align="center"><input type="checkbox" name="row_id[]" value="{$result.mr_id}"></td>
+			<td align="center"><input type="checkbox" name="row_id[]" value="{$result.cr_id}"></td>
 		{foreach from=$view->view_columns item=column name=columns}
 			{if substr($column,0,3)=="cf_"}
 				{include file="file:$core_tpl/internal/custom_fields/view/cell_renderer.tpl"}
-			{elseif $column=="mr_is_disabled"}
-				<td><a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.mr_id}&customer_id={$result.mr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{if $result.mr_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</a></td>
-			{elseif $column=="mr_account_id"}
+			{elseif $column=="cr_address" || $column=="cr_id" || $column=="cr_address_to" || $column=="cr_subject"}
+				<td>
+					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.cr_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
+					{$result.$column}&nbsp;</a></td>
+			{elseif $column=="cr_is_disabled"}
+				<td>{if $result.cr_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</td>
+			{elseif $column=="cr_type"}
+				<td>
+					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.cr_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
+					{include file="file:$core_tpl/internal/feg/display_recipient_type.tpl"}</a>
+					&nbsp;
+				</td>
+			{elseif $column=="cr_export_type"}
+				<td>
+					{$export = DAO_ExportType::get($result.cr_export_type)}
+					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.cr_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
+					{$export->name}</a>&nbsp;
+				</td>
+			{elseif $column=="cr_account_id"}
 				<td>{include file="file:$core_tpl/internal/feg/display_customer_id.tpl"}&nbsp;</td>
-			{elseif $column=="mr_recipient_id"}
-				<td>
-					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.mr_recipient_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
-					{include file="file:$core_tpl/internal/feg/display_recipient_id.tpl"}</a>
-					&nbsp;
-				</td>
-			{elseif $column=="mr_message_id"}
-				<td>
-					<a href="javascript:;" onclick="genericAjaxPanel('c=stats&a=showAccountFailurePeek&id={$result.mr_message_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
-					{include file="file:$core_tpl/internal/feg/display_message_id.tpl"}</a>
-					&nbsp;
-				</td>
-			{elseif $column=="mr_send_status"}
-				{* table info defined in include *}
-				{include file="file:$core_tpl/internal/feg/display_send_status.tpl" message_recipient_id=$result.mr_id}
-			{elseif $column=="mr_updated_date" || $column=="mr_closed_date"}
-				<td>{$result.$column|devblocks_date}&nbsp;</td>
 			{else}
 				<td>{$result.$column}&nbsp;</td>
 			{/if}
@@ -89,7 +88,7 @@
 	<tr>
 		<td colspan="2">
 			{if $active_worker && $active_worker->is_superuser}
-				<button type="button" onclick="genericAjaxPanel('c=setup&a=showRecipientBulkPanel&view_id={$view->id}&ids=' + Devblocks.getFormEnabledCheckboxValues('viewForm{$view->id}','row_id[]'),null,false,'500');"><span class="feg-sprite sprite-folder_gear"></span>  bulk update</button>
+				<button type="button" onclick="genericAjaxPanel('c=setup&a=showRecipientBulkPanel&view_id={$view->id}&ids=' + Devblocks.getFormEnabledCheckboxValues('viewForm{$view->id}','row_id[]'),null,false,'500');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/folder_gear.gif{/devblocks_url}" align="top"> bulk update</button>
 			{/if}
 		</td>
 	</tr>

@@ -178,6 +178,7 @@ class FegSetupPage extends FegPageExtension  {
 		$plugins = DevblocksPlatform::getPluginRegistry();
 		unset($plugins['devblocks.core']);
 		unset($plugins['feg.core']);
+		unset($plugins['feg.auditlog']);
 		$tpl->assign('plugins', $plugins);
 		
 		$license = FegLicense::getInstance();
@@ -203,6 +204,7 @@ class FegSetupPage extends FegPageExtension  {
 			switch($plugin->id) {
 				case 'devblocks.core':
 				case 'feg.core':
+				case 'feg.auditlog':
 					$plugin->setEnabled(true);
 					break;
 					
@@ -423,7 +425,7 @@ class FegSetupPage extends FegPageExtension  {
 		
 		$tpl->assign('response_uri', 'setup/import');
 		
-		$tpl->assign('core_tplpath', $core_tplpath);
+		//$tpl->assign('core_tplpath', $core_tplpath);
 		
 		$defaults = new Feg_AbstractViewModel();
 		$defaults->name = 'Import Source List';
@@ -442,7 +444,7 @@ class FegSetupPage extends FegPageExtension  {
 		$tpl->assign('view_fields', View_ImportSource::getFields());
 		$tpl->assign('view_searchable_fields', View_ImportSource::getSearchFields());
 				
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/import_source/index.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'internal/tabs/import_source/index.tpl');		
 	}
 	
 	function showImportPeekAction() {
@@ -455,7 +457,7 @@ class FegSetupPage extends FegPageExtension  {
 		$tpl->assign('id', $id);
 		$tpl->assign('view_id', $view_id);
 		
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/import_source/peek.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'internal/tabs/import_source/peek.tpl');		
 	}
 	
 	function saveImportPeekAction() {
@@ -507,7 +509,7 @@ class FegSetupPage extends FegPageExtension  {
 	        $tpl->assign('ids', implode(',', $ids));
 	    }
 		
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/import_source/bulk.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'internal/tabs/import_source/bulk.tpl');		
 	}
 	
 	function doImportBulkUpdateAction() {
@@ -537,6 +539,188 @@ class FegSetupPage extends FegPageExtension  {
 		return;
 	}
 	
+	function showTabExportAction() {
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('$path', $this->_TPL_PATH);
+
+		$worker = FegApplication::getActiveWorker();
+		if(!$worker || !$worker->is_superuser) {
+			echo $translate->_('common.access_denied');
+			return;
+		}
+		
+		$tpl->assign('response_uri', 'setup/export_type');
+		
+		//$tpl->assign('core_tplpath', $core_tplpath);
+		
+		$defaults = new Feg_AbstractViewModel();
+		$defaults->name = 'Export Type List';
+		$defaults->id = '_full_export_type_list';
+		$defaults->class_name = 'View_ExportType';
+		$defaults->renderLimit = 15;
+		
+		$defaults->renderSortBy = SearchFields_ExportType::ID;
+		$defaults->renderSortAsc = true;
+		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
+		$view->name = 'Export Type Management List';
+		$view->renderPage = 0;
+		Feg_AbstractViewLoader::setView($view->id,$view);
+		
+		$tpl->assign('view', $view);
+		$tpl->assign('view_fields', View_ExportType::getFields());
+		$tpl->assign('view_searchable_fields', View_ExportType::getSearchFields());
+				
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/export_type/index.tpl');		
+	}
+	
+	function showExportPeekAction() {
+		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
+		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
+		
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('path', $this->_TPL_PATH);
+		
+		$tpl->assign('id', $id);
+		$tpl->assign('view_id', $view_id);
+		
+		$export_type = DAO_ExportType::get($id);
+		$tpl->assign('export_type', $export_type);
+		
+		$export_type_params = DAO_ExportTypeParams::getAll();
+		$tpl->assign('export_type_params', $export_type_params);
+		
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/export_type/peek.tpl');		
+	}
+	
+	function showExportPeekTypeParmAction() {
+		@$type = DevblocksPlatform::importGPC($_REQUEST['type'],'integer',0);
+		
+		$export_type_by_type = DAO_ExportTypeParams::getByType($type);
+		
+		echo json_encode($export_type_by_type);
+	}
+	
+	function saveExportPeekTypeParmAddAction() {
+		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
+		@$add_id = DevblocksPlatform::importGPC($_REQUEST['add_id'],'integer',0);
+
+		$export_type = DAO_ExportType::get($id);
+		$export_type_params = DAO_ExportTypeParams::getAll();
+		
+		if (!isset($export_type_params[$add_id])) {
+			// Bad add_id
+			return;
+		}
+		
+		if (isset($export_type->params[$add_id])) {
+			// Is it already in the list?
+			return;
+		}
+		
+		$export_param_add['id'] = $add_id;
+		$export_param_add['name'] = $export_type_params[$add_id]->name;
+		$export_param_add['type'] = $export_type_params[$add_id]->type;
+		if ($export_type_params[$add_id]->options['default']) {
+			$export_param_add['default'] = $export_type_params[$add_id]->options['default'];
+		} else {
+			$export_param_add['default'] = "";
+		}
+		
+		echo json_encode($export_param_add);		
+	}
+	
+	function saveExportPeekAction() {
+		$translate = DevblocksPlatform::getTranslationService();
+		
+		@$id = DevblocksPlatform::importGPC($_POST['id'],'integer');
+		@$view_id = DevblocksPlatform::importGPC($_POST['view_id'],'string');
+		@$delete = DevblocksPlatform::importGPC($_POST['do_delete'],'integer',0);
+
+		@$disabled = DevblocksPlatform::importGPC($_POST['export_type_is_disabled'],'integer',0);
+		@$export_type_name = DevblocksPlatform::importGPC($_POST['export_type_name'],'string',"");
+		@$export_type_recipient_type = DevblocksPlatform::importGPC($_POST['export_type_recipient_type'],'integer',0);
+		
+		@$params_ids = DevblocksPlatform::importGPC($_POST['params_ids'],'array',array());
+
+		$export_type_params = DAO_ExportTypeParams::getAll();
+		
+		foreach($params_ids as $params_id) { // 1 = Yes/No, 2 = 255 Char input
+			switch ($export_type_params[$params_id]->type) {
+				case 1:
+					@$params[$params_id] = DevblocksPlatform::importGPC($_POST['export_type_params_'.$params_id],'integer',0);
+					break;
+				case 2:
+					@$params[$params_id] = DevblocksPlatform::importGPC($_POST['export_type_params_'.$params_id],'string','');
+					break;
+				default: 
+					@$params[$params_id] = DevblocksPlatform::importGPC($_POST['export_type_params_'.$params_id],'string','');
+					break;
+			}
+		}
+		
+		$fields = array(
+			DAO_ExportType::NAME => $export_type_name,
+			DAO_ExportType::RECIPIENT_TYPE => $export_type_recipient_type,
+			DAO_ExportType::IS_DISABLED => $disabled,
+			DAO_ExportType::PARAMS => $params,
+		);
+
+		$status = DAO_ExportType::update($id, $fields);
+		
+		if(!empty($view_id)) {
+			$view = Feg_AbstractViewLoader::getView($view_id);
+			$view->render();
+		}
+		
+		//DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','workers')));		
+	}
+	
+	function showExportBulkPanelAction() {
+		@$id_csv = DevblocksPlatform::importGPC($_REQUEST['ids']);
+		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id']);
+
+		$tpl = DevblocksPlatform::getTemplateService();
+		$path = $this->_TPL_PATH;
+		$tpl->assign('path', $path);
+		$tpl->assign('view_id', $view_id);
+
+	    if(!empty($id_csv)) {
+	        $ids = DevblocksPlatform::parseCsvString($id_csv);
+	        $tpl->assign('ids', implode(',', $ids));
+	    }
+		
+		// Custom Fields
+		$custom_fields = DAO_CustomField::getBySource(SearchFields_ExportType::ID);
+		$tpl->assign('custom_fields', $custom_fields);
+		
+		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/export_type/bulk.tpl');		
+	}
+	
+	function doExportBulkUpdateAction() {
+		// Checked rows
+	    @$ids_str = DevblocksPlatform::importGPC($_REQUEST['ids'],'string');
+		$ids = DevblocksPlatform::parseCsvString($ids_str);
+
+		// Filter: whole list or check
+	    @$filter = DevblocksPlatform::importGPC($_REQUEST['filter'],'string','');
+	    
+	    // View
+		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string');
+		$view = Feg_AbstractViewLoader::getView($view_id);
+		
+		// Customer Recpiept Fields.
+		@$is_disabled = trim(DevblocksPlatform::importGPC($_POST['recipient_is_disabled'],'string',''));
+
+		$do = array();
+		
+		// Do: Disabled
+		if(0 != strlen($is_disabled))
+			$do['is_disabled'] = $is_disabled;
+			
+		$view->render();
+		return;
+	}
+	
 	function showTabRecipientAction() {
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('$path', $this->_TPL_PATH);
@@ -549,7 +733,7 @@ class FegSetupPage extends FegPageExtension  {
 		
 		$tpl->assign('response_uri', 'setup/recipient');
 		
-		$tpl->assign('core_tplpath', $core_tplpath);
+		// $tpl->assign('core_tplpath', $core_tplpath);
 		
 		$defaults = new Feg_AbstractViewModel();
 		$defaults->name = 'Full Customer Recipient List';
@@ -568,7 +752,7 @@ class FegSetupPage extends FegPageExtension  {
 		$tpl->assign('view_fields', View_CustomerRecipient::getFields());
 		$tpl->assign('view_searchable_fields', View_CustomerRecipient::getSearchFields());
 				
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_recipient/index.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'internal/tabs/customer_recipient/index.tpl');		
 	}
 	
 	function showRecipientBulkPanelAction() {
@@ -589,7 +773,7 @@ class FegSetupPage extends FegPageExtension  {
 		$custom_fields = DAO_CustomField::getBySource(SearchFields_CustomerRecipient::ID);
 		$tpl->assign('custom_fields', $custom_fields);
 		
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_recipient/bulk.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'internal/tabs/customer_recipient/bulk.tpl');		
 	}
 	
 	function doRecipientBulkUpdateAction() {
@@ -640,7 +824,7 @@ class FegSetupPage extends FegPageExtension  {
 		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_CustomerAccount::ID);
 		$tpl->assign('custom_fields', $custom_fields);
 		
-		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/customer_account/bulk.tpl');		
+		$tpl->display('file:' . $this->_TPL_PATH . 'internal/tabs/customer_account/bulk.tpl');		
 	}
 	
 	function doAccountBulkUpdateAction() {
@@ -917,10 +1101,10 @@ class FegSetupPage extends FegPageExtension  {
 	function showTabSchedulerAction() {
 		$tpl = DevblocksPlatform::getTemplateService();
 		$tpl->assign('path', $this->_TPL_PATH);
-		
+
 	    $jobs = DevblocksPlatform::getExtensions('feg.cron', true);
 		$tpl->assign('jobs', $jobs);
-		
+
 		$tpl->display('file:' . $this->_TPL_PATH . 'setup/tabs/scheduler/index.tpl');
 	}
 	

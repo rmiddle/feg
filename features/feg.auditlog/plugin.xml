@@ -1,0 +1,96 @@
+<!DOCTYPE plugin SYSTEM "../../libs/devblocks/plugin.dtd">
+<plugin>
+	<id>feg.auditlog</id>
+	<name>[Feg] Message Audit Log</name>
+	<description>Track iterative changes and events on messages.</description>
+	<author>Robert Middleswarth</author>
+	<revision>0</revision>
+	<link>http://feg.answernet.com/Audit_Log</link>
+	<image>plugin.png</image>
+
+	<!-- Plugin Dependencies -->
+	
+	<dependencies>
+		<require plugin_id="feg.core" version="5.0.0-beta" />
+	</dependencies>
+
+	<!-- Patches -->
+	
+	<patches>
+		<patch version="1.0.0-alpha" revision="3" file="patches/1.0.0_alpha.php" />
+	</patches>
+
+	<!-- Exported Classes -->
+	
+	<class_loader>
+		<file path="api/App.php">
+			<class name="DAO_MessageAuditLog" />
+			<class name="Model_MessageAuditLog" />
+			<class name="SearchFields_MessageAuditLog" />
+			<class name="View_MessageAuditLog" />
+		</file>
+	</class_loader>
+
+	<!-- Extensions -->
+	
+	<extensions>
+
+		<!-- Event Listeners -->
+		
+		<extension point="devblocks.listener.event">
+			<id>auditlog.listener.core</id>
+			<name>Audit Log Listener</name>
+			<class>
+				<file>api/App.php</file>
+				<name>MessageAuditLogEventListener</name>
+			</class>
+			<params>
+				<!-- Event Listener -->
+				<param key="events">
+					<value>
+						<data key="cron.maint" />
+						<data key="cron.import" />
+						<data key="cron.send.email" />
+						<data key="cron.queue.fax" />
+						<data key="cron.send.snpp" />
+						<data key="dao.customer.account.update" />
+						<data key="dao.customer.recipient.update" />
+						<data key="email.send" />
+						<data key="message.create" />
+						<data key="message.recipient.create" />
+						<data key="message.recipient.status" />
+					</value>
+				</param>
+			</params>
+		</extension>
+	
+		<!-- Ticket Tabs  -->
+		
+		<extension point="feg.customer.tab">
+			<id>z.auditlog.customer.tab</id>
+			<name>Audit Log Customer Tab</name>
+			<class>
+				<file>api/App.php</file>
+				<name>CustomerAuditLogTab</name>
+			</class>
+			<params>
+				<param key="uri" value="customer_log" />
+				<param key="title" value="auditlog.display.tab.log" />
+			</params>
+		</extension>
+	
+		<extension point="feg.page">
+			<id>zz.auditlog.page</id>
+			<name>Audit Log Page</name>    
+			<class>                   
+				<file>api/App.php</file>
+				<name>FegAuditLogPage</name>               
+			</class>                                          
+			<params>                                          
+				<param key="uri" value="pageauditlog" />       
+				<param key="menutitle" value="auditlog.menu.tab.log" />                                                                               
+			</params>                                                
+		</extension>
+		
+	</extensions>
+</plugin>

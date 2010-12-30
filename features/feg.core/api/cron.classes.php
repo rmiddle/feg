@@ -30,6 +30,7 @@ class MaintCron extends FegCronExtension {
 //		}
 //		
 //		$logger->info('[Maint] Cleaned up import directories.');
+		$logger->info("[FEG] Finished Maintenance Task");
 	}
 
 	function configure($instance) {
@@ -67,6 +68,7 @@ class HeartbeatCron extends FegCronExtension {
 				)
 			)
 		);
+		$logger->info("[Heartbeat] Finished Heartbeat Task");
 	}
 
 	function configure($instance) {
@@ -238,7 +240,7 @@ class ImportCron extends FegCronExtension {
 			$account_id = $account->id;
 		else
 			$account_id = 0;				
-			
+		
 		if($this->_createMessage($account_id, $db->qstr($data), $json)) {
 			@unlink($full_filename);
 		} else {
@@ -258,6 +260,20 @@ class ImportCron extends FegCronExtension {
 		);
 		$message_id = DAO_Message::create($fields);
 		
+		// Give plugins a chance to note a message is imported.
+	    $eventMgr = DevblocksPlatform::getEventService();
+	    $eventMgr->trigger(
+	        new Model_DevblocksEvent(
+	            'message.create',
+                array(
+                    'account_id' => $account_id,
+                    'message_id' => $message_id,
+                    'message_text' => $data,
+					'json' => $json,
+                )
+            )
+	    );
+		
 		// Now we grab the Customer Recipient and create Message Recipients
 		if($account_id && $status) {
 			$status = $this->_createMessageRecipient($account_id, $message_id, $message_text);
@@ -265,6 +281,7 @@ class ImportCron extends FegCronExtension {
 		// return $status;
 		return FALSE; // ##### Fixme before we go live should be TRUE on success
 	}
+	
 	function _createMessageRecipient($account_id, $message_id, $message_text) {
 		$current_time = time();
 		$status = TRUE; // Return TRUE status unless something sets it to false
@@ -275,7 +292,6 @@ class ImportCron extends FegCronExtension {
 				DAO_CustomerRecipient::ACCOUNT_ID,
 				$account_id
 			));
-			// foreach($request->query as $key=>$val) {
 			foreach($ids_cr as $cr_id=>$cr ) {
 				$fields = array(
 					DAO_MessageRecipient::RECIPIENT_ID => $cr_id,
@@ -285,17 +301,32 @@ class ImportCron extends FegCronExtension {
 					DAO_MessageRecipient::UPDATED_DATE => $current_time,
 					DAO_MessageRecipient::CLOSED_DATE => 0, // 0 = Not Closed
 				);
-				DAO_MessageRecipient::create($fields);
+				$message_recipient_id = DAO_MessageRecipient::create($fields);
+				// Give plugins a chance to note a message is imported.
+				$eventMgr = DevblocksPlatform::getEventService();
+				$eventMgr->trigger(
+					new Model_DevblocksEvent(
+						'message.recipient.create',
+						array(
+							'account_id' => $account_id,
+							'recipient_id' => $cr_id,
+							'message_id' => $message_id,
+							'message_recipient_id' => $message_recipient_id,
+							'message_text' => $data,
+						)
+					)
+				);				
 			}
 		}
 		return $status; 
 	}
 };
 
-**
+/**
  * Plugins can implement an event listener on the import action being done 
  * every 1 minutes.
  */
+
 class ExportCron extends FegCronExtension {
 	function run() {
 		$logger = DevblocksPlatform::getConsoleLog();
@@ -304,31 +335,49 @@ class ExportCron extends FegCronExtension {
 		//	System wide default should be fine will revisit if needed	
 		//	@ini_set('memory_limit','128M');
 
-		$db = DevblocksPlatform::getDatabaseService();
+    	$current_fields = DAO_Stats::get(0);
+		$current_hour = date("G");
+		if($current_fields->current_hour != $current_hour) {
+			$fields = array(
+				DAO_Stats::CURRENT_HOUR => $current_hour,
+				DAO_Stats::FAX_CURRENT_HOUR => 0,
+				DAO_Stats::FAX_LAST_HOUR => $current_fields->fax_current_hour,
+				DAO_Stats::EMAIL_CURRENT_HOUR => 0,
+				DAO_Stats::EMAIL_LAST_HOUR => $current_fields->email_current_hour,
+				DAO_Stats::SNPP_CURRENT_HOUR => 0,
+				DAO_Stats::SNPP_LAST_HOUR => $current_fields->snpp_current_hour,
+			);
+			$current_day = date("j");
+			if($current_fields->current_day != $current_day) {
+				$fields_day = array(
+					DAO_Stats::CURRENT_DAY => $current_day,
+					DAO_Stats::FAX_SENT_TODAY => 0,
+					DAO_Stats::FAX_SENT_YESTERDAY => $current_fields->fax_sent_today,
+					DAO_Stats::EMAIL_SENT_TODAY => 0,
+					DAO_Stats::EMAIL_SENT_YESTERDAY => $current_fields->email_sent_today,
+					DAO_Stats::SNPP_SENT_TODAY => 0,
+					DAO_Stats::SNPP_SENT_YESTERDAY => $current_fields->snpp_sent_today,
+				);
+				$fields = array_merge($fields, $fields_day);
+			}
+			DAO_Stats::update(0, $fields);
+		}
 
-		// Give plugins a chance to run import
-	    $eventMgr = DevblocksPlatform::getEventService();
-	    $eventMgr->trigger(
-	        new Model_DevblocksEvent(
-	            'cron.export',
-                array()
-            )
-	    );
-		$export_type = DAO_ExportType::getAll();
-    	foreach($export_type as $export_type_id => $export_type) { 
+		$export_type_all = DAO_ExportType::getAll();
+    	foreach($export_type_all as $export_type_id => $export_type) { 
 			$logger->info('[Message Export] Now Processing ' . $export_type->name . ' Export Number: ' . $export_type->id);
 			
-			switch($export_type->type) {
+			switch($export_type->recipient_type) {
 				case 0:
-					$logger->info("[Email Exporter] Export started");
+					$logger->info("[Email Exporter] Export Type ".$export_type->recipient_type." started");
 					self::ExportEmail($export_type);
 					break;
 				case 1:
-					$logger->info("[Fax Exporter] Export started");
+					$logger->info("[Fax Exporter] Export Type ".$export_type->recipient_type." started");
 					self::ExportFax($export_type);
 					break;
 				case 2:
-					$logger->info("[SNPP Exporter] Export started");
+					$logger->info("[SNPP Exporter] Export Type ".$export_type->recipient_type." started");
 					self::ExportSnpp($export_type);
 					break;
 				default:
@@ -356,7 +405,10 @@ class ExportCron extends FegCronExtension {
 	
 	function ExportEmail(Model_ExportType $export_type) {
 		$logger = DevblocksPlatform::getConsoleLog();
-	
+		$db = DevblocksPlatform::getDatabaseService();
+		$email_current_hour = 0;
+		$email_sent_today = 0;
+		
 		$memory_limit = ini_get('memory_limit');
 		if(substr($memory_limit, 0, -1)  < 128) {
 			@ini_set('memory_limit','128M');
@@ -364,18 +416,85 @@ class ExportCron extends FegCronExtension {
 		
 		@set_time_limit(0); // Unlimited (if possible)
 		 
-		$logger->info("[Exporter] Overloaded memory_limit to: " . ini_get('memory_limit'));
-		$logger->info("[Exporter] Overloaded max_execution_time to: " . ini_get('max_execution_time'));
+		$logger->info("[Email Exporter] Overloaded memory_limit to: " . ini_get('memory_limit'));
+		$logger->info("[Email Exporter] Overloaded max_execution_time to: " . ini_get('max_execution_time'));
+		
+		$sql = sprintf("SELECT mr.id ".
+			"FROM message_recipient mr ".
+			"inner join customer_recipient cr on mr.recipient_id = cr.id ".
+			"WHERE mr.send_status in (0,3,4) ".
+			"AND cr.is_disabled = 0 ".
+			"AND cr.export_type = %d ".
+			"AND cr.type = 0 ",
+			$export_type->id
+		);
+		$rs = $db->Execute($sql);
+		
+		// Loop though pending outbound emails.
+		while($row = mysql_fetch_assoc($rs)) {
+			$id = $row['id'];
+			$logger->info("[Email Exporter] Procing MR ID: ".$id);
+			
+			$message_recipient = DAO_MessageRecipient::get($id);
+			$message = DAO_Message::get($message_recipient->message_id);
+			$message_lines = explode('\r\n',substr($message->message,1,-1));
+			$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
+			
+			$to	= !empty($recipient->address_to) ? (array($recipient->address => $recipient->address_to)) : (array($recipient->address));
+			$subject = $recipient->subject;
+			
+			// FIXME - Need to add in filter for now everything is unfiltered.
+			$send_status = FegMail::sendMail($to, $subject, implode("\r\n", $message_lines));
+			
+			$logger->info("[Email Exporter] Send Status: " . ($send_status ? "Successful" : "Failure"));
+			
+			// Give plugins a chance to run export
+			$eventMgr = DevblocksPlatform::getEventService();
+			$eventMgr->trigger(
+				new Model_DevblocksEvent(
+					'cron.send.email',
+					array(
+						'recipient' => $recipient,
+						'message' => $message,
+						'message_lines' => $message_lines,
+						'message_recipient' => $message_recipient,
+						'send_status'  => $send_status,
+					)
+				)
+			);
+			if($send_status) {
+				$email_current_hour++;
+				$email_sent_today++;
+			} 
+			$fields = array(
+           		DAO_MessageRecipient::SEND_STATUS => $send_status ? 2 : 1, // 2 = Successful // 1 = Fail
+				DAO_MessageRecipient::CLOSED_DATE => $send_status ? time() : 0,
+          	);
+            DAO_MessageRecipient::update($id, $fields);
+		}
+		
+		mysql_free_result($rs);
+
+		if($email_current_hour) {
+			$current_fields = DAO_Stats::get(0);
+			$fields = array(
+				DAO_Stats::EMAIL_CURRENT_HOUR => $current_fields->email_current_hour + $email_current_hour,
+				DAO_Stats::EMAIL_SENT_TODAY => $current_fields->email_sent_today + $email_sent_today,
+			);
+			DAO_Stats::update(0, $fields);
+		}
 		
 		$timeout = ini_get('max_execution_time');
 		$runtime = microtime(true);
 		
-		}
 		return NULL;		
 	}
 	
 	function ExportFax(Model_ExportType $export_type) {
 		$logger = DevblocksPlatform::getConsoleLog();
+		$db = DevblocksPlatform::getDatabaseService();
+		$fax_current_hour = 0;
+		$fax_sent_today = 0;
 	
 		$memory_limit = ini_get('memory_limit');
 		if(substr($memory_limit, 0, -1)  < 128) {
@@ -384,19 +503,94 @@ class ExportCron extends FegCronExtension {
 		
 		@set_time_limit(0); // Unlimited (if possible)
 		 
-		$logger->info("[Exporter] Overloaded memory_limit to: " . ini_get('memory_limit'));
-		$logger->info("[Exporter] Overloaded max_execution_time to: " . ini_get('max_execution_time'));
+		$logger->info("[Fax Exporter] Overloaded memory_limit to: " . ini_get('memory_limit'));
+		$logger->info("[Fax Exporter] Overloaded max_execution_time to: " . ini_get('max_execution_time'));
 		
 		$timeout = ini_get('max_execution_time');
 		$runtime = microtime(true);
 		
+		$sql = sprintf("SELECT mr.id ".
+			"FROM message_recipient mr ".
+			"inner join customer_recipient cr on mr.recipient_id = cr.id ".
+			"WHERE mr.send_status in (0,3,4) ".
+			"AND cr.is_disabled = 0 ".
+			"AND cr.export_type = %d ".
+			"AND cr.type = 1 ",
+			$export_type->id
+		);
+		$rs = $db->Execute($sql);
+		
+		// Loop though pending outbound emails.
+		while($row = mysql_fetch_assoc($rs)) {
+			$id = $row['id'];
+			$logger->info("[Fax Exporter] Procing MR ID: ".$id);
+			
+			$message_recipient = DAO_MessageRecipient::get($id);
+			$message = DAO_Message::get($message_recipient->message_id);
+			$message_lines = explode('\r\n',substr($message->message,1,-1));
+			$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
+			$account = DAO_CustomerRecipient::get($message_recipient->account_id);
+			
+			$message_str = implode("\r\n", $message_lines);
+			
+			// FIXME - Need to add in filter for now everything is unfiltered.
+			// sendFax($phone_number, $message, $subject, $to, $account_name, $from=null, )
+			$fax_info = FegFax::sendFax($recipient->address, 	$message_str, $recipient->subject, $recipient->address_to, $account->name);
+
+			if($fax_info['status']) {
+				$snpp_current_hour++;
+				$snpp_sent_today++;
+				$fields = array(
+					DAO_MessageRecipient::SEND_STATUS => 5,
+					DAO_MessageRecipient::FAX_ID => $fax_info['jobid'],
+				);
+				$logger->info("[FAX Exporter] Fax added to queue");
+			} else {
+				$fields = array(
+					DAO_MessageRecipient::SEND_STATUS => 1,
+					DAO_MessageRecipient::FAX_ID => 0,
+				);
+				$logger->info("[FAX Exporter] Failed to add fax to queue");
+			}
+			DAO_MessageRecipient::update($id, $fields);				
+			
+			// Give plugins a chance to run export
+			$eventMgr = DevblocksPlatform::getEventService();
+			$eventMgr->trigger(
+				new Model_DevblocksEvent(
+					'cron.queue.fax',
+					array(
+						'account' => $account,
+						'recipient' => $recipient,
+						'message' => $message,
+						'message_lines' => $message_lines,
+						'message_recipient' => $message_recipient,
+						'queue_status'  => $fax_info['status'],
+						'fax_id' => $fax_info['status'] ? $fax_info['jobid'] : 0,
+					)
+				)
+			);
+		}
+		
+		mysql_free_result($rs);
+
+		if($fax_current_hour) {
+			$current_fields = DAO_Stats::get(0);
+			$fields = array(
+				DAO_Stats::FAX_CURRENT_HOUR => $current_fields->fax_current_hour + $fax_current_hour,
+				DAO_Stats::FAX_SENT_TODAY => $current_fields->fax_sent_today + $fax_sent_today,
+			);
+			DAO_Stats::update(0, $fields);
 		}
 		return NULL;		
 	}
 	
 	function ExportSnpp(Model_ExportType $export_type) {
 		$logger = DevblocksPlatform::getConsoleLog();
-	
+		$db = DevblocksPlatform::getDatabaseService();
+		$snpp_current_hour = 0;
+		$snpp_sent_today = 0;
+		
 		$memory_limit = ini_get('memory_limit');
 		if(substr($memory_limit, 0, -1)  < 128) {
 			@ini_set('memory_limit','128M');
@@ -404,12 +598,75 @@ class ExportCron extends FegCronExtension {
 		
 		@set_time_limit(0); // Unlimited (if possible)
 		 
-		$logger->info("[Exporter] Overloaded memory_limit to: " . ini_get('memory_limit'));
-		$logger->info("[Exporter] Overloaded max_execution_time to: " . ini_get('max_execution_time'));
+		$logger->info("[SNPP Exporter] Overloaded memory_limit to: " . ini_get('memory_limit'));
+		$logger->info("[SNPP Exporter] Overloaded max_execution_time to: " . ini_get('max_execution_time'));
 		
 		$timeout = ini_get('max_execution_time');
 		$runtime = microtime(true);
 		
+		$sql = sprintf("SELECT mr.id ".
+			"FROM message_recipient mr ".
+			"inner join customer_recipient cr on mr.recipient_id = cr.id ".
+			"WHERE mr.send_status in (0,3,4) ".
+			"AND cr.is_disabled = 0 ".
+			"AND cr.export_type = %d ".
+			"AND cr.type = 2 ",
+			$export_type->id
+		);
+		$rs = $db->Execute($sql);
+		
+		// Loop though pending outbound emails.
+		while($row = mysql_fetch_assoc($rs)) {
+			$id = $row['id'];
+			$logger->info("[SNPP Exporter] Procing MR ID: ".$id);
+
+			$message_recipient = DAO_MessageRecipient::get($id);
+			$message = DAO_Message::get($message_recipient->message_id);
+			$message_lines = explode('\r\n',substr($message->message,1,-1));
+			$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
+			
+			$message_str = substr(implode("", $message_lines),0,160);
+			
+			// FIXME - Need to add in filter for now everything is unfiltered.
+			// sendSnpp($phone_number, $message, $snpp_server="ann100sms01.answernet.com", $port=444)
+			$send_status = FegSnpp::sendSnpp($recipient->address, 	$message_str);
+			
+			$logger->info("[SNPP Exporter] Send Status: " . ($send_status ? "Successful" : "Failure"));
+			
+			// Give plugins a chance to run export
+			$eventMgr = DevblocksPlatform::getEventService();
+			$eventMgr->trigger(
+				new Model_DevblocksEvent(
+					'cron.send.snpp',
+					array(
+						'recipient' => $recipient,
+						'message' => $message,
+						'message_lines' => $message_lines,
+						'message_recipient' => $message_recipient,
+						'send_status'  => $send_status,
+					)
+				)
+			);
+			if($send_status) {
+				$snpp_current_hour++;
+				$snpp_sent_today++;
+			} 
+			$fields = array(
+           		DAO_MessageRecipient::SEND_STATUS => $send_status ? 2 : 1, // 2 = Successful // 1 = Fail
+				DAO_MessageRecipient::CLOSED_DATE => $send_status ? time() : 0,
+          	);
+            DAO_MessageRecipient::update($id, $fields);
+		}
+		
+		mysql_free_result($rs);
+
+		if($snpp_current_hour) {
+			$current_fields = DAO_Stats::get(0);
+			$fields = array(
+				DAO_Stats::SNPP_CURRENT_HOUR => $current_fields->snpp_current_hour + $snpp_current_hour,
+				DAO_Stats::SNPP_SENT_TODAY => $current_fields->snpp_sent_today + $snpp_sent_today,
+			);
+			DAO_Stats::update(0, $fields);
 		}
 		return NULL;		
 	}

@@ -1,0 +1,130 @@
+#!/usr/bin/php
+<?php
+
+
+$event_type = $argv[1];
+$event = $argv[2];
+$jobid = $argv[3];
+if ($argc > 4) {
+	$misc = $argv[4];
+}
+
+$status = 0;
+
+if ($event_type == "JOB") {
+	switch($event) {
+		case '0x0001': // JOB_CREATE
+			$status = 100;
+			break;
+		case '0x0002': // JOB_SUSPEND
+			$status = 101;
+			break;
+		case '0x0004': // JOB_READY
+			$status = 102;
+			break;
+		case '0x0008': // JOB_SLEEP
+			$status = 103;
+			break;
+		case '0x0010': // JOB_DEAD
+			$status = 104;
+			break;
+		case '0x0020': // JOB_PROCESS
+			$status = 105;
+			break;
+		case '0x0040': // JOB_REAP
+			$status = 106;
+			break;
+		case '0x0080': // JOB_ACTIVE
+			$status = 107;
+			break;
+		case '0x0100': // JOB_REJECT
+			$status = 108;
+			break;
+		case '0x0200': // JOB_KILL
+			$status = 109;
+			break;
+		case '0x0400': // JOB_BLOCKED
+			$status = 110;
+			break;
+		case '0x0800': // JOB_DELAYED
+			$status = 111;
+			break;
+		case '0x1000': // JOB_ALTERED
+			$status = 112;
+			break;
+		case '0x2000': // JOB_TIMEDOUT
+			$status = 113;
+			break;
+		case '0x4000': // JOB_PREP_BEGIN
+			$status = 114;
+			break;
+		case '0x8000': // JOB_PREP_END
+			$status = 115;
+			break;
+	}
+} elseif ($event_type == "SEND") {
+	switch($event) {
+		case '0x0001': // SEND_BEGIN
+			$status = 120;
+			break;
+		case '0x0002': // SEND_CALL
+			$status = 121;
+			break;
+		case '0x0004': // SEND_CONNECTED
+			$status = 122;
+			break;
+		case '0x0008': // SEND_PAGE
+			$status = 123;
+			break;
+		case '0x0010': // SEND_DOC
+			$status = 124;
+			break;
+		case '0x0020': // SEND_POLLRCVD
+			$status = 125;
+			break;
+		case '0x0040': // SEND_POLLDONE
+			$status = 126;
+			break;
+		case '0x0080': // SEND_END
+			$status = 127;
+			break;
+		case '0x0100': // SEND_REFORMAT
+			$status = 128;
+			break;
+		case '0x0200': // SEND_REQUEUE
+			$status = 129;
+			break;
+		case '0x0400': // SEND_DONE
+			$status = 130;
+			break;
+	}
+}	
+
+if ($status) {
+	// define('APP_DB_DRIVER','mysql');
+	// define('APP_DB_HOST','localhost');
+	// define('APP_DB_DATABASE','feg');
+	// define('APP_DB_USER','feg');
+	// define('APP_DB_PASS','feg');
+	// define('APP_DB_PCONNECT',false);
+	// $mysqli = new mysqli('host','username','password','default database');
+	// New Connection
+	$mysqli = new mysqli('localhost','feg','feg','feg');
+
+	// Check for errors
+	if(mysqli_connect_errno()){
+		echo mysqli_connect_error();
+	}
+
+	$sql = sprintf("SELECT id, send_status FROM message_recipient WHERE FAX_ID = %d", $jobid);
+	$result = $mysqli->query($sql);
+	$row = $result->fetch_object();
+		
+	if(($row->send_status == 5) || (($row->send_status > 99) && ($row->send_status < 140))) {
+		$sql2 = sprintf("UPDATE message_recipient SET send_status = %d WHERE ID  = %d", $status, $row->id);
+		$mysqli->query($sql2);
+	}
+	
+	// Close connection
+	$mysqli->close();
+}

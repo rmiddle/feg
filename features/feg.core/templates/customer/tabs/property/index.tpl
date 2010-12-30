@@ -37,16 +37,23 @@
 
 {include file="file:$core_tpl/internal/custom_fields/bulk/form.tpl" bulk=false}
 <br>
-<button type="submit"><span class="feg-sprite sprite-check"></span> {$translate->_('common.save_changes')|capitalize}</button>
+{if $active_worker->hasPriv('acl.core.access.customer.update')}
+<button type="submit"><span class="feg-sprite sprite-check"></span> *{$translate->_('common.save_changes')|capitalize}</button>
 <button type="button" onclick="this.form.and_close.value='1';this.form.submit();"><span class="feg-sprite sprite-check"></span>{$translate->_('common.save_changes')|capitalize} and close</button>
+{/if}
+{if $active_worker->hasPriv('acl.core.access.customer.disable')}
 {if $customer->is_disabled == 0 || $customer->import_source == 0}
 <button type="button" onclick="this.form.account_is_disabled.value='1';this.form.submit();"><span class="feg-sprite sprite-delete"></span> {$translate->_('common.disable')|capitalize}</button>
 {else}
 <button type="button" onclick="this.form.account_is_disabled.value='0';this.form.submit();"><span class="feg-sprite sprite-check"></span>{$translate->_('common.enable')|capitalize}</button>
 {/if}
+{/if}
 
 <br>
 </form>
 </div>
-
+{if $active_worker->hasPriv('acl.core.access.customer.update')}
+<br>
+* {$translate->_('feg.customer_recipient.savechanges.warn')}
+{/if}
 <br>

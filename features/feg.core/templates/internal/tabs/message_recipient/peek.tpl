@@ -30,6 +30,17 @@
 		</td>
 	</tr>
 	<tr>
+		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.export_type')|capitalize}: </td>
+			<select name="recipient_export_type">
+				{foreach from=$export_type item=export name=export_id}
+					{if $customer_recipient->type == $export->recipient_type}
+						<option value="{$export->id}" {if $customer_recipient->export_type == $export->id}selected{/if}>{$export->name}</option>
+					{/if}
+				{/foreach}
+			</select>
+		</td>
+	</tr>
+	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address')|capitalize}: </td>
 		<td width="100%"><input type="text" name="recipient_address" value="{$rec->address|escape}" style="width:98%;"></td>
 	</tr>
@@ -53,7 +64,6 @@
 		<td width="100%">{$account->account_name}</td>
 	</tr>
 </table>
-<input type="hidden" name="recipient_export_filter" value="{$rec->export_filter}">
 
 {include file="file:$core_tpl/internal/custom_fields/bulk/form.tpl" bulk=false}
 <br>

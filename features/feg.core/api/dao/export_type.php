@@ -3,9 +3,10 @@
 class Model_ExportType {
 	public $id;
 	public $name;
-	public $type;
-	public $params_json;
+	public $recipient_type;
 	public $is_disabled;
+	public $params_json;
+	public $params;
 };
 
 class DAO_ExportType extends Feg_ORMHelper {
@@ -13,8 +14,10 @@ class DAO_ExportType extends Feg_ORMHelper {
 
 	const ID = 'id';
 	const NAME = 'name';
-	const PARAMS_JSON = 'params_json';
+	const RECIPIENT_TYPE = 'recipient_type';
 	const IS_DISABLED = 'is_disabled';
+	const PARAMS_JSON = 'params_json';
+	const PARAMS = 'params';
 
 	static function create($fields) {
 		$db = DevblocksPlatform::getDatabaseService();
@@ -33,6 +36,10 @@ class DAO_ExportType extends Feg_ORMHelper {
 	}
 	
 	static function update($ids, $fields) {
+		if( !empty($fields['params'])) {
+			$fields['params_json'] = json_encode($fields['params']);
+			unset($fields['params']);
+		}
 		parent::_update($ids, 'export_type', $fields);
 	}
 	
@@ -47,7 +54,7 @@ class DAO_ExportType extends Feg_ORMHelper {
 	static function getWhere($where=null) {
 		$db = DevblocksPlatform::getDatabaseService();
 		
-		$sql = "SELECT id, name, params_json, is_disabled ".
+		$sql = "SELECT id, name, recipient_type, is_disabled, params_json ".
 			"FROM export_type ".
 			(!empty($where) ? sprintf("WHERE %s ",$where) : "").
 			"ORDER BY id asc";
@@ -82,13 +89,14 @@ class DAO_ExportType extends Feg_ORMHelper {
 			$object = new Model_ExportType();
 			$object->id = $row['id'];
 			$object->name = $row['name'];
+			$object->recipient_type = $row['recipient_type'];
+			$object->is_disabled = $row['is_disabled'];
 			$object->params_json = $row['params_json'];
 			if(false !== ($params = json_decode($object->params_json, true))) {
 				$object->params = $params;
 			} else {
 				$object->params = array();
 			}
-			$object->is_disabled = $row['is_disabled'];
 			$objects[$object->id] = $object;
 		}
 		mysql_free_result($rs);
@@ -154,25 +162,18 @@ class DAO_ExportType extends Feg_ORMHelper {
 		$select_sql = sprintf("SELECT ".
 			"export_type.id as %s, ".
 			"export_type.name as %s, ".
-			"export_type.params_json as %s, ".
-			"export_type.is_disabled as %s ",
+			"export_type.recipient_type as %s, ".
+			"export_type.is_disabled as %s, ".
+			"export_type.params_json as %s ",
 				SearchFields_ExportType::ID,
 				SearchFields_ExportType::NAME,
-				SearchFields_ExportType::PARAMS_JSON,
-				SearchFields_ExportType::IS_DISABLED
+				SearchFields_ExportType::RECIPIENT_TYPE,
+				SearchFields_ExportType::IS_DISABLED,
+				SearchFields_ExportType::PARAMS_JSON
 			);
 			
 		$join_sql = "FROM export_type ";
 		
-		// Custom field joins
-		list($select_sql, $join_sql, $has_multiple_values) = self::_appendSelectJoinSqlForCustomFieldTables(
-			$tables,
-			$params,
-			'export_type.id',
-			$select_sql,
-			$join_sql
-		);
-				
 		$where_sql = "".
 			(!empty($wheres) ? sprintf("WHERE %s ",implode(' AND ',$wheres)) : "");
 			
@@ -224,8 +225,10 @@ class DAO_ExportType extends Feg_ORMHelper {
 class SearchFields_ExportType implements IDevblocksSearchFields {
 	const ID = 'export_type_id';
 	const NAME = 'export_type_name';
-	const PARAMS_JSON = 'export_type_params_json';
+	const RECIPIENT_TYPE = 'export_type_recipient_type';
 	const IS_DISABLED = 'export_type_is_disabled';
+	const PARAMS_JSON = 'export_type_params_json';
+	const PARAMS = 'export_type_params';
 	
 	/**
 	 * @return DevblocksSearchField[]
@@ -236,8 +239,10 @@ class SearchFields_ExportType implements IDevblocksSearchFields {
 		$columns = array(
 			self::ID => new DevblocksSearchField(self::ID, 'export_type', 'id', $translate->_('feg.export_type.id')),
 			self::NAME => new DevblocksSearchField(self::NAME, 'export_type', 'name', $translate->_('feg.export_type.name')),
-			self::PARAMS_JSON => new DevblocksSearchField(self::PARAMS_JSON, 'export_type', 'params_json', $translate->_('feg.export_type.params_json')),
+			self::RECIPIENT_TYPE => new DevblocksSearchField(self::RECIPIENT_TYPE, 'export_type', 'recipient_type', $translate->_('feg.export_type.recipient_type')),
 			self::IS_DISABLED => new DevblocksSearchField(self::IS_DISABLED, 'export_type', 'is_disabled', $translate->_('feg.export_type.is_disabled')),
+			self::PARAMS_JSON => new DevblocksSearchField(self::PARAMS_JSON, 'export_type', 'params_json', $translate->_('feg.export_type.params_json')),
+			self::PARAMS => new DevblocksSearchField(self::PARAMS, 'export_type', 'params', $translate->_('feg.export_type.params')),
 		);
 		
 		// Sort by label (translation-conscious)
@@ -264,8 +269,9 @@ class View_ExportType extends FEG_AbstractView {
 		$this->view_columns = array(
 			SearchFields_ExportType::ID,
 			SearchFields_ExportType::NAME,
-			SearchFields_ExportType::PARAMS_JSON,
+			SearchFields_ExportType::RECIPIENT_TYPE,
 			SearchFields_ExportType::IS_DISABLED,
+			SearchFields_ExportType::PARAMS_JSON,
 		);
 		$this->doResetCriteria();
 	}
@@ -289,9 +295,6 @@ class View_ExportType extends FEG_AbstractView {
 		$tpl->assign('id', $this->id);
 		$tpl->assign('view', $this);
 
-		$custom_fields = DAO_CustomField::getBySource(FegCustomFieldSource_ExportType::ID);
-		$tpl->assign('custom_fields', $custom_fields);
-		
 		$tpl->assign('view_fields', $this->getColumns());
 		// [TODO] Set your template path
 		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/export_type/view.tpl');
@@ -321,6 +324,10 @@ class View_ExportType extends FEG_AbstractView {
 //			case 'placeholder_date':
 //				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__date.tpl');
 //				break;
+			// FIXME Need to create Customer criteria filter file
+			case SearchFields_ExportType::RECIPIENT_TYPE:
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__recipient_type.tpl');
+				break;
 			default:
 				echo ' ';
 				break;
@@ -346,6 +353,7 @@ class View_ExportType extends FEG_AbstractView {
 		$fields = self::getFields();
 		// [TODO] Filter fields
 		unset($fields[SearchFields_ExportType::PARAMS_JSON]);
+		unset($fields[SearchFields_ExportType::PARAMS]);
 		return $fields;
 	}
 
@@ -354,6 +362,7 @@ class View_ExportType extends FEG_AbstractView {
 		// [TODO] Filter fields
 		//	unset($fields[SearchFields_ExportType::ID]);
 		unset($fields[SearchFields_ExportType::PARAMS_JSON]);
+		unset($fields[SearchFields_ExportType::PARAMS]);
 		return $fields;
 	}
 
@@ -372,6 +381,7 @@ class View_ExportType extends FEG_AbstractView {
 		switch($field) {
 			case SearchFields_ExportType::NAME:
 //			case SearchFields_ExportType::PARAMS_JSON:
+//			case SearchFields_ExportType::RECIPIENT_TYPE:
 //			case 'placeholder_string':
 				// force wildcards if none used on a LIKE
 				if(($oper == DevblocksSearchCriteria::OPER_LIKE || $oper == DevblocksSearchCriteria::OPER_NOT_LIKE)
@@ -413,8 +423,7 @@ class View_ExportType extends FEG_AbstractView {
 		@set_time_limit(0); 
 	  
 		$change_fields = array();
-		$custom_fields = array();
-
+		
 		// Make sure we have actions
 		if(empty($do))
 			return;
@@ -429,8 +438,9 @@ class View_ExportType extends FEG_AbstractView {
 				// [TODO] Used for bulk update
 //			$change_fields[DAO_ExportType::ID] = intval($v);
 //			$change_fields[DAO_ExportType::NAME] = intval($v);
-//			$change_fields[DAO_ExportType::PARAMS_JSON] = intval($v);
+//			$change_fields[DAO_ExportType::RECIPIENT_TYPE] = intval($v);
 //			$change_fields[DAO_ExportType::IS_DISABLED] = intval($v);
+//			$change_fields[DAO_ExportType::PARAMS_JSON] = intval($v);
 				// [TODO] Implement actions
 //				case 'example':
 					//$change_fields[DAO_ExportType::EXAMPLE] = 'some value';
@@ -462,12 +472,207 @@ class View_ExportType extends FEG_AbstractView {
 			
 			DAO_ExportType::update($batch_ids, $change_fields);
 			
-			// Custom Fields
-			self::_doBulkSetCustomFields(FegCustomFieldSource_ExportType::ID, $custom_fields, $batch_ids);
-			
 			unset($batch_ids);
 		}
 
 		unset($ids);
 	}	
+};
+
+class Model_ExportTypeParams {
+	public $id;
+	public $recipient_type;
+	public $name;
+	public $type;
+	public $pos;
+	public $options;
+	public $options_json;
+};
+
+class DAO_ExportTypeParams extends DevblocksORMHelper {
+	const ID = 'id';
+	const RECIPIENT_TYPE = 'recipient_type';
+	const NAME = 'name';
+	const TYPE = 'type';
+	const POS = 'pos';
+	const OPTIONS = 'options';
+	const OPTIONS_JSON = 'options_json';
+	
+	const CACHE_ALL = 'export_type_params'; 
+	const CACHE_TYPE_0 = 'export_type_params_0'; 
+	const CACHE_TYPE_1 = 'export_type_params_1'; 
+	const CACHE_TYPE_2 = 'export_type_params_2'; 
+	
+/* 
+ *No reason for a create option since all these are going to have to be created manually well adding the features into the exporter.
+ */
+/* 
+	static function create($fields) {
+		$db = DevblocksPlatform::getDatabaseService();
+		$id = $db->GenID('export_type_params_seq');
+		
+		$sql = sprintf("INSERT INTO export_type_params (id,name,type,pos,options) ".
+			"VALUES (%d,'','','',0,'')",
+			$id
+		);
+		$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
+
+		self::update($id, $fields);
+		
+		return $id;
+	}
+*/
+
+	static function update($ids, $fields) {
+		if( !empty($fields['options'])) {
+			$fields['options_json'] = json_encode($fields['options']);
+			unset($fields['options']);
+		}
+		parent::_update($ids, 'export_type_params', $fields);
+		
+		self::clearCache();
+	}
+	
+	/**
+	 * Enter description here...
+	 *
+	 * @param integer $id
+	 * @return Model_CustomField|null
+	 */
+	static function get($id) {
+		$fields = self::getAll();
+		
+		if(isset($fields[$id]))
+			return $fields[$id];
+			
+		return null;
+	}
+	
+	static function getByType($type) {
+		$cache = DevblocksPlatform::getCacheService();
+		
+		switch($type) {
+			case 0: 
+				if(null === ($objects = $cache->load(self::CACHE_TYPE_0))) {
+					$db = DevblocksPlatform::getDatabaseService();
+					$sql = "SELECT id, recipient_type, name, type, pos, options_json ";
+					$sql .= "FROM export_type_params ";
+					$sql .= sprintf("WHERE recipient_type = %d ", $type);
+					$sql .= "ORDER BY pos ASC ";
+
+					$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
+		
+					$objects = self::_createObjectsFromResultSet($rs);
+		
+					$cache->save($objects, self::CACHE_TYPE_0);
+				}
+				break;
+			case 1:
+				if(null === ($objects = $cache->load(self::CACHE_TYPE_1))) {
+					$db = DevblocksPlatform::getDatabaseService();
+					$sql = "SELECT id, recipient_type, name, type, pos, options_json ";
+					$sql .= "FROM export_type_params ";
+					$sql .= sprintf("WHERE recipient_type = %d ", $type);
+					$sql .= "ORDER BY pos ASC ";
+					
+					$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
+		
+					$objects = self::_createObjectsFromResultSet($rs);
+		
+					$cache->save($objects, self::CACHE_TYPE_1);
+				}
+				break;
+			case 2:
+				if(null === ($objects = $cache->load(self::CACHE_TYPE_2))) {
+					$db = DevblocksPlatform::getDatabaseService();
+					$sql = "SELECT id, recipient_type, name, type, pos, options_json ";
+					$sql .= "FROM export_type_params ";
+					$sql .= sprintf("WHERE recipient_type = %d ", $type);
+					$sql .= "ORDER BY pos ASC ";
+					
+					$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
+		
+					$objects = self::_createObjectsFromResultSet($rs);
+		
+					$cache->save($objects, self::CACHE_TYPE_2);
+				}
+				break;
+		}
+		return $objects;
+	}
+	
+	static function getAll($nocache=false) {
+		$cache = DevblocksPlatform::getCacheService();
+		
+		if(null === ($objects = $cache->load(self::CACHE_ALL))) {
+			$db = DevblocksPlatform::getDatabaseService();
+			$sql = "SELECT id, recipient_type, name, type, pos, options_json ".
+				"FROM export_type_params ".
+				"ORDER BY pos ASC "
+			;
+			$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
+			
+			$objects = self::_createObjectsFromResultSet($rs);
+			
+			$cache->save($objects, self::CACHE_ALL);
+		}
+		
+		return $objects;
+	}
+	
+	private static function _createObjectsFromResultSet($rs) {
+		$db = DevblocksPlatform::getDatabaseService();
+		
+		$objects = array();
+		
+		while($row = mysql_fetch_assoc($rs)) {
+			$object = new Model_ExportTypeParams();
+			$object->id = intval($row['id']);
+			$object->recipient_type = $row['recipient_type'];
+			$object->name = $row['name'];
+			$object->type = $row['type'];
+			$object->pos = intval($row['pos']);
+			$object->options_json = $row['options_json'];
+			if(false !== ($options = json_decode($object->options_json, true))) {
+				$object->options = $options;
+			} else {
+				$object->options = array();
+			}
+			$objects[$object->id] = $object;			
+		}
+		
+		mysql_free_result($rs);
+		
+		return $objects;
+	}
+	
+/* 
+ *No reason for a delete option since all these are going to have to be created manually well adding the features into the exporter.
+ */
+/* 
+	public static function delete($ids) {
+		if(!is_array($ids)) $ids = array($ids);
+		
+		if(empty($ids))
+			return;
+		
+		$db = DevblocksPlatform::getDatabaseService();
+		
+		$id_string = implode(',', $ids);
+		
+		$sql = sprintf("DELETE QUICK FROM export_type_params WHERE id IN (%s)",$id_string);
+		$db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
+
+		self::clearCache();
+	}
+*/
+
+	public static function clearCache() {
+		// Invalidate cache on changes
+		$cache = DevblocksPlatform::getCacheService();
+		$cache->remove(self::CACHE_ALL);
+		$cache->remove(self::CACHE_TYPE_0);
+		$cache->remove(self::CACHE_TYPE_1);
+		$cache->remove(self::CACHE_TYPE_2);
+	}
 };
