@@ -665,7 +665,7 @@ class FegSetupPage extends FegPageExtension  {
 			DAO_ExportType::IS_DISABLED => $disabled,
 			DAO_ExportType::PARAMS => $params,
 		);
-
+print_r($fields);
 		if($id == 0) {
 			// Create New Export
 			$id = $status = DAO_ExportType::create($fields);
