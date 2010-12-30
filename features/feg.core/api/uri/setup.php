@@ -631,6 +631,7 @@ class FegSetupPage extends FegPageExtension  {
 	
 	function saveExportPeekAction() {
 		$translate = DevblocksPlatform::getTranslationService();
+		$params = array();
 		
 		@$id = DevblocksPlatform::importGPC($_POST['id'],'integer');
 		@$view_id = DevblocksPlatform::importGPC($_POST['view_id'],'string');
