@@ -22,7 +22,7 @@ class DAO_ExportType extends Feg_ORMHelper {
 	static function create($fields) {
 		$db = DevblocksPlatform::getDatabaseService();
 		
-		$id = $db->GenID('generic_seq');
+		$id = $db->GenID('export_type_seq');
 		
 		$sql = sprintf("INSERT INTO export_type (id) ".
 			"VALUES (%d)",

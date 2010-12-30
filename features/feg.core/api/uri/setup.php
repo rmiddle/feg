@@ -665,7 +665,13 @@ class FegSetupPage extends FegPageExtension  {
 			DAO_ExportType::PARAMS => $params,
 		);
 
-		$status = DAO_ExportType::update($id, $fields);
+		if($id == 0) {
+			// Create New Export
+			$id = $status = DAO_ExportType::create($fields);
+		} else {
+			// Update Existing Import 
+			$status = DAO_ExportType::update($id, $fields);
+		}
 		
 		if(!empty($view_id)) {
 			$view = Feg_AbstractViewLoader::getView($view_id);
