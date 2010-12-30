@@ -40,6 +40,7 @@ class DAO_ExportType extends Feg_ORMHelper {
 			$fields['params_json'] = json_encode($fields['params']);
 			unset($fields['params']);
 		}
+print_r($fields);
 		parent::_update($ids, 'export_type', $fields);
 	}
 	
