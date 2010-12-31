@@ -238,7 +238,7 @@ class ImportCron extends FegCronExtension {
 		if (isset($account))
 			$account_id = $account->id;
 		else
-			$account_id = 0;				
+			$account_id = 0;
 		
 		if($this->_createMessage($account_id, $db->qstr($data), $json)) {
 			@unlink($full_filename);
@@ -255,11 +255,17 @@ class ImportCron extends FegCronExtension {
 			DAO_Message::ACCOUNT_ID => $account_id,
 			DAO_Message::CREATED_DATE => $current_time,
 			DAO_Message::UPDATED_DATE => $current_time,
-			DAO_Message::PARAMS_JSON => $json,
+			DAO_Message::PARAMS => json_decode($json, true),
 			DAO_Message::MESSAGE => $message_text,
 		);
+echo "<pre>";
+print_r($fields);
+echo "</pre>";
+
 		$message_id = DAO_Message::create($fields);
 		
+		$logger->info("[Parser] Created message id = ".$message_id."...");
+
 		// Give plugins a chance to note a message is imported.
 	    $eventMgr = DevblocksPlatform::getEventService();
 	    $eventMgr->trigger(
@@ -301,6 +307,8 @@ class ImportCron extends FegCronExtension {
 					DAO_MessageRecipient::CLOSED_DATE => 0, // 0 = Not Closed
 				);
 				$message_recipient_id = DAO_MessageRecipient::create($fields);
+				$logger->info("[Parser] Message Recipient Id = ".$message_recipient_id."...");
+
 				// Give plugins a chance to note a message is imported.
 				$eventMgr = DevblocksPlatform::getEventService();
 				$eventMgr->trigger(
