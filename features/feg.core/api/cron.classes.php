@@ -258,7 +258,7 @@ class ImportCron extends FegCronExtension {
 			DAO_Message::MESSAGE => $message_text,
 		);
 		if(false !== ($params = json_decode($json, true))) {
-			$fields[DAO_Message::PARAMS] = $params,
+			$fields[DAO_Message::PARAMS] = $params;
 		}
 echo "<pre>";
 print_r($fields);
