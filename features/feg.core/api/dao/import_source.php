@@ -9,7 +9,7 @@ class Model_ImportSource {
 };
 
 class DAO_ImportSource extends Feg_ORMHelper {
-	const CACHE_ALL = 'feg_import_srouce';
+	const CACHE_ALL = 'feg_import_source';
 	
 	const ID = 'id';
 	const NAME = 'name';
