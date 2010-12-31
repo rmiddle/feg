@@ -511,7 +511,7 @@ For example: *receipt*</seg></tuv>
 			<tuv xml:lang="en_US"><seg>Recipient</seg></tuv>
 		</tu>
 		<tu tuid='feg.customer.tab.recent.messages.title'>
-			<tuv xml:lang="en_US"><seg>Recent Messages</seg></tuv>
+			<tuv xml:lang="en_US"><seg>Recently Sent</seg></tuv>
 		</tu>
 		<tu tuid='feg.customer.tab.messages.title'>
 			<tuv xml:lang="en_US"><seg>Messages</seg></tuv>
