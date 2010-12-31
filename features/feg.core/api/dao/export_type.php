@@ -36,8 +36,8 @@ class DAO_ExportType extends Feg_ORMHelper {
 	}
 	
 	static function update($ids, $fields) {
-		if(false !== ($params = json_encode($fields['params']))) {
-			$fields['params_json']  = $params;
+		if(isset($fields['params'])) {
+			$fields['params_json']  = json_encode($fields['params']);
 			unset($fields['params']);
 		} else {
 			$fields['params_json']  = array();
