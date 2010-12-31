@@ -278,7 +278,7 @@ echo "</pre>";
                 array(
                     'account_id' => $account_id,
                     'message_id' => $message_id,
-                    'message_text' => $data,
+                    'message_text' => $message_text,
 					'json' => $json,
                 )
             )
@@ -325,7 +325,7 @@ echo "</pre>";
 							'recipient_id' => $cr_id,
 							'message_id' => $message_id,
 							'message_recipient_id' => $message_recipient_id,
-							'message_text' => $data,
+							'message_text' => $message_text,
 						)
 					)
 				);				
