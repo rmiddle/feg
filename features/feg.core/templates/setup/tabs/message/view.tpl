@@ -57,7 +57,7 @@
 				{include file="file:$core_tpl/internal/custom_fields/view/cell_renderer.tpl"}
 			{elseif $column=="m_id"}
 						<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessagePeek&id={$result.m_id}&customer_id={$result.m_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.m_message_id}&nbsp;</a>
-			{elseif $column=="m_created_date"  || $column=="m_closed_date"  }
+			{elseif $column=="m_created_date"  || $column=="m_closed_date"}
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessagePeek&id={$result.m_id}&customer_id={$result.m_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column|devblocks_date}&nbsp;</a></td>
 			{else}
 				<td>{$result.$column}&nbsp;</td>
