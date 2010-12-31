@@ -580,6 +580,17 @@ class FegCustomerTabMessages extends Extension_CustomerTab {
 			SearchFields_Message::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_Message::ACCOUNT_ID,'=',$customer_id),
 		);
 		$view->renderPage = 0;
+		$view->view_columns = array(
+			SearchFields_Message::ID,
+			SearchFields_Message::ACCOUNT_ID,
+			SearchFields_Message::IMPORT_STATUS,
+			SearchFields_Message::CREATED_DATE,
+			SearchFields_Message::UPDATED_DATE,
+			// SearchFields_Message::PARAMS_JSON,
+			// SearchFields_Message::PARAMS,
+			//SearchFields_Message::MESSAGE,
+		);
+
 		Feg_AbstractViewLoader::setView($view->id,$view);
 		
 		$tpl->assign('view', $view);
