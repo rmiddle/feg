@@ -7,9 +7,9 @@
 <div id="ticketPeekTab1">
 {if $active_worker->hasPriv('core.access.message_recipient.permfail')}
 	{if $message_recipient->send_status == 1}
-		<button type="button" onclick="$('#message_reciptient_{$id}_status').load('{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=setMessageRecipientStatus&id={$id}&status=6&goto_recent=3&view_id={$view->id|escape:'url'}{/devblocks_url}');genericPanel.dialog('close');"><span class="feg-sprite sprite-check"></span> {$translate->_('feg.core.send_status.retry')|capitalize}</button>
+		<button type="button" onclick="$('#message_reciptient_{$id}_status').load('{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=setMessageRecipientStatus&id={$id}&status=6&goto_recent=3&view_id={$view->id|escape:'url'}{/devblocks_url}');genericPanel.dialog('close');"><span class="feg-sprite sprite-check"></span> {$translate->_('feg.message_recipient.status_retry')|capitalize}</button>
 	{else if $message_recipient->send_status == 2}
-		<button type="button" onclick="$('#message_reciptient_{$id}_status').load('{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=setMessageRecipientStatus&id={$id}&status=6&goto_recent=4&view_id={$view->id|escape:'url'}{/devblocks_url}');genericPanel.dialog('close');"><span class="feg-sprite sprite-check"></span>{$translate->_('feg.core.send_status.resend')|capitalize}</button>
+		<button type="button" onclick="$('#message_reciptient_{$id}_status').load('{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=setMessageRecipientStatus&id={$id}&status=6&goto_recent=4&view_id={$view->id|escape:'url'}{/devblocks_url}');genericPanel.dialog('close');"><span class="feg-sprite sprite-check"></span>{$translate->_('feg.message_recipient.status_resend')|capitalize}</button>
 	{/if}
 	{if $message_recipient->send_status != 6}
 		<button type="button" onclick="$('#message_reciptient_{$id}_status').load('{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=setMessageRecipientStatus&id={$id}&status=6&goto_recent=1&view_id={$view->id|escape:'url'}{/devblocks_url}');genericPanel.dialog('close');"><span class="feg-sprite sprite-delete"></span>{$translate->_('feg.message_recipient.submit.permfail')|capitalize}</button>

@@ -729,6 +729,12 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.message_recipient.status_unknown'>
 			<tuv xml:lang="en_US"><seg>Unknown</seg></tuv>
 		</tu>
+		<tu tuid='feg.message_recipient.status_retry'>
+			<tuv xml:lang="en_US"><seg>Retry</seg></tuv>
+		</tu>
+		<tu tuid='feg.message_recipient.status_resend'>
+			<tuv xml:lang="en_US"><seg>Resend</seg></tuv>
+		</tu>
 		
 		<!-- Fax Send Status Translations -->
 		
