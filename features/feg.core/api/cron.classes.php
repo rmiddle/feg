@@ -249,6 +249,8 @@ class ImportCron extends FegCronExtension {
 	}
 
 	function _createMessage($account_id, $message_text, $json) {
+		$logger = DevblocksPlatform::getConsoleLog();
+		
 		$current_time = time();
 		$status = TRUE; // Return OK status unless something sets it to false
 		$fields = array(
@@ -266,7 +268,7 @@ echo "</pre>";
 
 		$message_id = DAO_Message::create($fields);
 		
-		$logger->info("[Parser] Created message id = ".$message_id."...");
+		$logger->info("[Parser] Created message id = " . $message_id . "...");
 
 		// Give plugins a chance to note a message is imported.
 	    $eventMgr = DevblocksPlatform::getEventService();
@@ -290,6 +292,8 @@ echo "</pre>";
 	}
 	
 	function _createMessageRecipient($account_id, $message_id, $message_text) {
+		$logger = DevblocksPlatform::getConsoleLog();
+		
 		$current_time = time();
 		$status = TRUE; // Return TRUE status unless something sets it to false
 		
