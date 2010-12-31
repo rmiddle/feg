@@ -55,10 +55,10 @@
 		{foreach from=$view->view_columns item=column name=columns}
 			{if substr($column,0,3)=="cf_"}
 				{include file="file:$core_tpl/internal/custom_fields/view/cell_renderer.tpl"}
-			{elseif $column=="message_id"}
-						<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessagePeek&id={$result.message_id}&customer_id={$result.message_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.l_message_id}&nbsp;</a>
-			{elseif $column=="message_created_date"  || $column=="message_closed_date"  }
-				<td><a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessagePeek&id={$result.message_id}&customer_id={$result.message_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column|devblocks_date}&nbsp;</a></td>
+			{elseif $column=="m_id"}
+						<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessagePeek&id={$result.m_id}&customer_id={$result.m_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.m_message_id}&nbsp;</a>
+			{elseif $column=="m_created_date"  || $column=="m_closed_date"  }
+				<td><a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessagePeek&id={$result.m_id}&customer_id={$result.m_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column|devblocks_date}&nbsp;</a></td>
 			{else}
 				<td>{$result.$column}&nbsp;</td>
 			{/if}
