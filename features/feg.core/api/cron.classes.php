@@ -179,7 +179,6 @@ class ImportCron extends FegCronExtension {
 
 			$this->_parseFile($file, $import_source);
 			
-		//	unset($files);
 		}
 		return NULL;		
 	}
@@ -244,6 +243,7 @@ class ImportCron extends FegCronExtension {
 		if($this->_createMessage($account_id, $db->qstr($data), $json)) {
 			@unlink($full_filename);
 		} else {
+			$logger->error("[Parser] Failed to create message ".$account_name."...");
 			// Move to failed
 		}
 	}
@@ -278,8 +278,7 @@ class ImportCron extends FegCronExtension {
 		if($account_id && $status) {
 			$status = $this->_createMessageRecipient($account_id, $message_id, $message_text);
 		}
-		// return $status;
-		return FALSE; // ##### Fixme before we go live should be TRUE on success
+		return $status;
 	}
 	
 	function _createMessageRecipient($account_id, $message_id, $message_text) {
