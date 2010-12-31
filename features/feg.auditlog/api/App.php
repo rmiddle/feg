@@ -222,7 +222,7 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
             	@$message_text = $event->params['message_text'];
 				
 				$cr_id = array_shift(DAO_CustomerRecipient::getWhere(sprintf("%s = %d",
-					DAO_CustomerRecipient::RECIPIENT_ID,
+					DAO_CustomerRecipient::ID,
 					$recipient_id
 				)));
 				switch($cr_id->type) {
