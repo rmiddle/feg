@@ -21,6 +21,7 @@ class DAO_Message extends Feg_ORMHelper {
 	const CREATED_DATE = 'created_date';
 	const UPDATED_DATE = 'updated_date';
 	const PARAMS_JSON = 'params_json';
+	const PARAMS = 'params';
 	const MESSAGE = 'message';
 
 	static function create($fields) {
