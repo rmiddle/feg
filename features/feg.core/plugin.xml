@@ -18,7 +18,7 @@
 	
 	<patches>
 		<patch version="1.0.0-beta" revision="34" file="patches/1.0.0_beta.php" />
-		<patch version="1.0.0-rc1" revision="36" file="patches/1.0.0_rc1.php" />
+		<patch version="1.0.0-rc1" revision="38" file="patches/1.0.0_rc1.php" />
 	</patches>
 
 
