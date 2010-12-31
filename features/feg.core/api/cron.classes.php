@@ -258,8 +258,12 @@ class ImportCron extends FegCronExtension {
 			DAO_Message::PARAMS => json_decode($json, true),
 			DAO_Message::MESSAGE => $message_text,
 		);
-		$message_id = DAO_Message::create($fields);
+echo "<pre>";
+print_r($fields);
+echo "</pre>";
 
+		$message_id = DAO_Message::create($fields);
+		
 		$logger->info("[Parser] Created message id = ".$message_id."...");
 
 		// Give plugins a chance to note a message is imported.
