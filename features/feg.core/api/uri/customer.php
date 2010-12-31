@@ -582,7 +582,7 @@ class FegCustomerTabMessages extends Extension_CustomerTab {
 		$view->renderPage = 0;
 		$view->view_columns = array(
 			SearchFields_Message::ID,
-			SearchFields_Message::ACCOUNT_ID,
+			//SearchFields_Message::ACCOUNT_ID,
 			SearchFields_Message::IMPORT_STATUS,
 			SearchFields_Message::CREATED_DATE,
 			SearchFields_Message::UPDATED_DATE,
