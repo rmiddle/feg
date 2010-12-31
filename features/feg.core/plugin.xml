@@ -544,7 +544,7 @@
 		</extension>
 		
 		<extension point="feg.customer.tab">
-			<id>feg.customer.tab.messages</id>
+			<id>feg.customer.tab.standard.messages</id>
 			<name>Messages Tab</name>
 			<class>
 				<file>api/url/customer.php</file>
