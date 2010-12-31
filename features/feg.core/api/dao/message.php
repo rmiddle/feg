@@ -8,6 +8,7 @@ class FegCustomFieldSource_Message extends Extension_CustomFieldSource {
 class Model_Message {
 	public $id;
 	public $account_id;
+	public $import_status;
 	public $created_date;
 	public $updated_date;
 	public $params_json;
@@ -18,6 +19,7 @@ class Model_Message {
 class DAO_Message extends Feg_ORMHelper {
 	const ID = 'id';
 	const ACCOUNT_ID = 'account_id';
+	const IMPORT_STATUS = 'import_status';
 	const CREATED_DATE = 'created_date';
 	const UPDATED_DATE = 'updated_date';
 	const PARAMS_JSON = 'params_json';
@@ -61,7 +63,7 @@ class DAO_Message extends Feg_ORMHelper {
 	static function getWhere($where=null) {
 		$db = DevblocksPlatform::getDatabaseService();
 		
-		$sql = "SELECT id, account_id, created_date, updated_date, params_json, message ".
+		$sql = "SELECT id, account_id, import_status, created_date, updated_date, params_json, message ".
 			"FROM message ".
 			(!empty($where) ? sprintf("WHERE %s ",$where) : "").
 			"ORDER BY id asc";
@@ -96,6 +98,7 @@ class DAO_Message extends Feg_ORMHelper {
 			$object = new Model_Message();
 			$object->id = $row['id'];
 			$object->account_id = $row['account_id'];
+			$object->import_status = $row['import_status'];
 			$object->created_date = $row['created_date'];
 			$object->updated_date = $row['updated_date'];
 			$object->params_json = $row['params_json'];
@@ -156,12 +159,14 @@ class DAO_Message extends Feg_ORMHelper {
 		$select_sql = sprintf("SELECT ".
 			"message.id as %s, ".
 			"message.account_id as %s, ".
+			"message.import_status as %s, ".
 			"message.created_date as %s, ".
 			"message.updated_date as %s, ".
 			"message.params_json as %s, ".
 			"message.message as %s ",
 				SearchFields_Message::ID,
 				SearchFields_Message::ACCOUNT_ID,
+				SearchFields_Message::IMPORT_STATUS,
 				SearchFields_Message::CREATED_DATE,
 				SearchFields_Message::UPDATED_DATE,
 				SearchFields_Message::PARAMS_JSON,
@@ -229,12 +234,13 @@ class DAO_Message extends Feg_ORMHelper {
 
 class SearchFields_Message implements IDevblocksSearchFields {
 	const ID = 'm_id';
-	const ACCOUNT_ID = 'm_account_id';
-	const CREATED_DATE = 'm_created_date';
-	const UPDATED_DATE = 'm_updated_date';
-	const PARAMS_JSON = 'm_params_json';
-	const PARAMS = 'm_params';
-	const MESSAGE = 'm_message';
+	const ACCOUNT_ID = 'message_account_id';
+	const IMPORT_STATUS = 'message_import_status';
+	const CREATED_DATE = 'message_created_date';
+	const UPDATED_DATE = 'message_updated_date';
+	const PARAMS_JSON = 'message_params_json';
+	const PARAMS = 'message_params';
+	const MESSAGE = 'message_message';
 	
 	/**
 	 * @return DevblocksSearchField[]
@@ -245,6 +251,7 @@ class SearchFields_Message implements IDevblocksSearchFields {
 		$columns = array(
 			self::ID => new DevblocksSearchField(self::ID, 'message', 'id', $translate->_('feg.message.id')),
 			self::ACCOUNT_ID => new DevblocksSearchField(self::ACCOUNT_ID, 'message', 'account_id', $translate->_('feg.message.account_id')),
+			self::IMPORT_STATUS => new DevblocksSearchField(self::ACCOUNT_ID, 'message', 'import_status', $translate->_('feg.message.import_status')),
 			self::CREATED_DATE => new DevblocksSearchField(self::CREATED_DATE, 'message', 'created_date', $translate->_('feg.message.created_date')),
 			self::UPDATED_DATE => new DevblocksSearchField(self::UPDATED_DATE, 'message', 'updated_date', $translate->_('feg.message.updated_date')),
 			self::PARAMS_JSON => new DevblocksSearchField(self::PARAMS_JSON, 'message', 'params_json', $translate->_('feg.message.params_json')),
@@ -284,6 +291,7 @@ class View_Message extends FEG_AbstractView {
 		$this->view_columns = array(
 			SearchFields_Message::ID,
 			SearchFields_Message::ACCOUNT_ID,
+			SearchFields_Message::IMPORT_STATUS,
 			SearchFields_Message::CREATED_DATE,
 			SearchFields_Message::UPDATED_DATE,
 			// SearchFields_Message::PARAMS_JSON,
@@ -341,6 +349,9 @@ class View_Message extends FEG_AbstractView {
 			case SearchFields_Message::ID:
 			case SearchFields_Message::ACCOUNT_ID:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__number.tpl');
+				break;
+			case SearchFields_Message::IMPORT_STATUS:
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__import_status.tpl');
 				break;
 //			case SearchFields_Message::IS_CLOSED:
 //				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/internal/views/criteria/__bool.tpl');
@@ -418,6 +429,10 @@ class View_Message extends FEG_AbstractView {
 				$criteria = new DevblocksSearchCriteria($field,$oper,$value);
 				break;
 				
+			case SearchFields_Message::IMPORT_STATUS:
+				@$import_status = DevblocksPlatform::importGPC($_REQUEST['message_import_status'],'integer',1);
+				$criteria = new DevblocksSearchCriteria($field,$oper,$import_status);
+				break;
 			case SearchFields_Message::CREATED_DATE:
 			case SearchFields_Message::UPDATED_DATE:
 				@$from = DevblocksPlatform::importGPC($_REQUEST['from'],'string','');

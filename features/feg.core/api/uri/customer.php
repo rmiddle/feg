@@ -201,7 +201,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		$defaults->renderLimit = 15;
 		
 		$defaults->renderSortBy = SearchFields_CustomerRecipient::ID;
-		$defaults->renderSortAsc = 1;
+		$defaults->renderSortAsc = 0;
 
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 		$view->params = array(
@@ -541,5 +541,53 @@ class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/recent/peek.tpl');		
 	}
 
+};
+
+class FegCustomerTabMessages extends Extension_CustomerTab {
+	private $_TPL_PATH = '';
+
+	function __construct($manifest) {
+		$this->_TPL_PATH = dirname(dirname(dirname(__FILE__))) . '/templates/';
+		$this->DevblocksExtension($manifest,1);
+	}
+ 
+	function showTab() {
+		@$customer_id = DevblocksPlatform::importGPC($_REQUEST['customer_id'],'integer',0);
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->cache_lifetime = "0";
+		
+//  FIXME setup ACL check.
+//		$worker = FegApplication::getActiveWorker();
+//		if(!$worker || !$worker->is_superuser) {
+//			echo $translate->_('common.access_denied');
+//			return;
+//		}
+		
+		$tpl->assign('customer_id', $customer_id);
+		
+		$defaults = new Feg_AbstractViewModel();
+		$defaults->name = 'Message List';
+		$defaults->id = '_view_customer_messages';
+		$defaults->class_name = 'View_Message';
+		$defaults->renderLimit = 15;
+		
+		$defaults->renderSortBy = SearchFields_Message::ID;
+		$defaults->renderSortAsc = 0;
+
+		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
+		$view->name = 'Message List';
+		$view->params = array(
+			SearchFields_Message::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_Message::ACCOUNT_ID,'=',$customer_id),
+		);
+		$view->renderPage = 0;
+		Feg_AbstractViewLoader::setView($view->id,$view);
+		
+		$tpl->assign('view', $view);
+		$tpl->display('file:' . $this->_TPL_PATH . 'customer/tabs/messages/messages.tpl');
+	}
+
+	function saveTab() {
+	}
+	
 };
 

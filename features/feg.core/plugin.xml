@@ -18,6 +18,7 @@
 	
 	<patches>
 		<patch version="1.0.0-beta" revision="34" file="patches/1.0.0_beta.php" />
+		<patch version="1.0.0-rc1" revision="35" file="patches/1.0.0_rc1.php" />
 	</patches>
 
 
@@ -539,6 +540,19 @@
 			<params>
 				<param key="uri" value="recent_messages" />
 				<param key="title" value="feg.customer.tab.recent.messages.title" />
+			</params>
+		</extension>
+		
+		<extension point="feg.customer.tab">
+			<id>feg.customer.tab.messages</id>
+			<name>Messages Tab</name>
+			<class>
+				<file>api/url/customer.php</file>
+				<name>FegCustomerTabMessages</name>
+			</class>
+			<params>
+				<param key="uri" value="messages" />
+				<param key="title" value="feg.customer.tab.messages.title" />
 			</params>
 		</extension>
 

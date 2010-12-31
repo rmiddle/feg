@@ -513,6 +513,9 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.customer.tab.recent.messages.title'>
 			<tuv xml:lang="en_US"><seg>Recent Messages</seg></tuv>
 		</tu>
+		<tu tuid='feg.customer.tab.messages.title'>
+			<tuv xml:lang="en_US"><seg>Messages</seg></tuv>
+		</tu>
 		<tu tuid='feg.customer_account.id'>
 			<tuv xml:lang="en_US"><seg>Customer ID</seg></tuv>
 		</tu>
@@ -641,6 +644,15 @@ For example: *receipt*</seg></tuv>
 		</tu>
 		<tu tuid='feg.message.account_id'>
 			<tuv xml:lang="en_US"><seg>Customer ID</seg></tuv>
+		</tu>
+		<tu tuid='feg.message.import_status'>
+			<tuv xml:lang="en_US"><seg>Processing Status</seg></tuv>
+		</tu>
+		<tu tuid='feg.message.import_status_0'>
+			<tuv xml:lang="en_US"><seg>Complete</seg></tuv>
+		</tu>
+		<tu tuid='feg.message.import_status_1'>
+			<tuv xml:lang="en_US"><seg>Pending</seg></tuv>
 		</tu>
 		<tu tuid='feg.message.created_date'>
 			<tuv xml:lang="en_US"><seg>Created Date</seg></tuv>
