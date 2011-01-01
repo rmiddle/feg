@@ -14,7 +14,6 @@ Account Info:<br>
 Message Info:<br>
 {$translate->_('feg.message.created_date')|capitalize}: {$message->created_date|devblocks_date}<br>
 {$translate->_('feg.message.updated_date')|capitalize}: {$message->updated_date|devblocks_date}<br>
-{$translate->_('feg.message.message')|capitalize}:<br>
 {$translate->_('feg.message.import_status')|capitalize}:
 <span="span_message_import_status">
 {$status_str = 'feg.message.import_status_'|cat:$message->import_status}
@@ -29,7 +28,7 @@ Message Info:<br>
 	({$translate->_('feg.message_recipient.status_retry')|capitalize})</a>
 {/if}
 </span>
-
+{$translate->_('feg.message.message')|capitalize}:<br>
 <br>
 {foreach from=$message_lines item=line name=line_id}
 	{$line}<br>
