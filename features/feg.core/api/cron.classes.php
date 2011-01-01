@@ -636,7 +636,7 @@ class ExportCron extends FegCronExtension {
 			
 			// FIXME - Need to add in filter for now everything is unfiltered.
 			// sendFax($phone_number, $message, $subject, $to, $account_name, $from=null, )
-			$fax_info = FegFax::sendFax($recipient->address, 	$message_str, $recipient->subject, $recipient->address_to, $account->name);
+			$fax_info = FegFax::sendFax($recipient->address, $message_str, $recipient->subject, $recipient->address_to, $account->account_name);
 
 			if($fax_info['status']) {
 				$snpp_current_hour++;
