@@ -258,7 +258,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 			);
 			$view->renderPage = 0;
 			$view->renderLimit = 10;
-			$view->renderSortAsc = false;
+			$view->renderSortAsc = true;
 			$view->view_columns = array(
 				SearchFields_MessageAuditLog::CHANGE_DATE,
 				//SearchFields_MessageAuditLog::ACCOUNT_ID,
