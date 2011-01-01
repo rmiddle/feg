@@ -1,6 +1,7 @@
 <form action="{devblocks_url}{/devblocks_url}" method="POST" id="formAccountFailurePeek" name="formAccountFailurePeek">
 <input type="hidden" name="c" value="account">
 <input type="hidden" name="a" value="createNewCustomer">
+<input type="hidden" name="message_id" value="{$message->id}">
 {if isset($message->params['account_name'])}
 	<input type="hidden" name="account_name" value="{$message->params['account_name']}">
 {/if}

@@ -161,15 +161,24 @@ class ImportCron extends FegCronExtension {
 		// Loop though pending outbound emails.
 		while($row = mysql_fetch_assoc($rs)) {
 			$id = $row['id'];
-			$logger->info("[Message] Reprocessing message ID: ".$id);
+			self::importAccountReProcessMessage($id);
+		}
+		mysql_free_result($rs);
+	}
+	
+	function importAccountReProcessMessage($id, $set_account_id = 0) {
+		$logger = DevblocksPlatform::getConsoleLog();
+		$logger->info("[Message] Reprocessing message ID: ".$id);
 			
-			$message = DAO_Message::get($id);
+		$message = DAO_Message::get($id);
 			
-			@$acc_name = $message->params['account_name'];
-			@$import_source = $message->params['import_source'];
-			if((isset($acc_name)) && (isset($import_source))) {
-				
-				// Check and see if the account exists now
+		@$acc_name = $message->params['account_name'];
+		@$import_source = $message->params['import_source'];
+		if((isset($acc_name)) && (isset($import_source))) {
+			// Check and see if the account exists now
+			if ($set_account_id > 0) {
+				$account = array_shift(DAO_CustomerAccount::get($set_account_id);
+			} else {
 				$account = array_shift(DAO_CustomerAccount::getWhere(sprintf("%s = %d AND %s = %d AND %s = '0'",
 					DAO_CustomerAccount::ACCOUNT_NUMBER,
 					$acc_name,
@@ -177,33 +186,32 @@ class ImportCron extends FegCronExtension {
 					$import_source,
 					DAO_CustomerAccount::IS_DISABLED
 				)));
-				if (isset($account)) {
-					$account_id = $account->id;
-					$logger->info("[Message] Found Account: ". $account->account_name ." well reprocessing message ID: " . $id);
-				} else {
-					$account_id = 0;
-					$logger->info("[Message] No Account Found");
-				}	
-				$fields = get_object_vars($message);
-				$fields[DAO_Message::ACCOUNT_ID] = $account_id;
-		
-				$mr_status = DAO_Message::update($id, $fields);
-
-				// Give plugins a chance to run export
-				$eventMgr = DevblocksPlatform::getEventService();
-				$eventMgr->trigger(
-					new Model_DevblocksEvent(
-						'cron.reprocessing.accounts',
-						array(
-							'message_id' => $id,
-							'account_id'  => $account_id,
-							'import_source' => $import_source,
-						)
-					)
-				);
 			}
+			if (isset($account)) {
+				$account_id = $account->id;
+				$logger->info("[Message] Found Account: ". $account->account_name ." well reprocessing message id: " . $id);
+			} else {
+				$account_id = 0;
+				$logger->info("[Message] No Account Found");
+			}
+			$fields = get_object_vars($message);
+			$fields[DAO_Message::ACCOUNT_ID] = $account_id;
+		
+			$mr_status = DAO_Message::update($id, $fields);
+				
+			// Give plugins a chance to run export
+			$eventMgr = DevblocksPlatform::getEventService();
+			$eventMgr->trigger(
+				new Model_DevblocksEvent(
+					'cron.reprocessing.accounts',
+					array(
+						'message_id' => $id,
+						'account_id'  => $account_id,
+						'import_source' => $import_source,
+					)
+				)
+			);
 		}
-		mysql_free_result($rs);
 	}
 	
 	function importInQueueReProcess() {
@@ -220,24 +228,29 @@ class ImportCron extends FegCronExtension {
 		// Loop though pending outbound emails.
 		while($row = mysql_fetch_assoc($rs)) {
 			$id = $row['id'];
-			$logger->info("[Message] Reprocessing message ID: ".$id);
-			
-			$message = DAO_Message::get($id);
-			
-			$status = $this->_createMessageRecipient($message->account_id, $id, $message->message);
-			$fields = get_object_vars($message);
-			if ($status) {
-				$logger->info("[Message Import] Status set to: Complete");
-				$fields[DAO_Message::IMPORT_STATUS] = 2; // 0 = In Queus, 1 = Failure, 2 = Complete
-			} else {
-				$logger->info("[Message Import] Status set to: Failure");
-				$fields[DAO_Message::IMPORT_STATUS] = 1; // 0 = In Queus, 1 = Failure, 2 = Complete
-			}
-			$mr_status = DAO_Message::update($id, $fields);
+			self::importInQueueReProcessMessage($id);
 		}
 		mysql_free_result($rs);		
 	}
 	
+	function importInQueueReProcessMessage($id) {
+		$logger = DevblocksPlatform::getConsoleLog();
+		$logger->info("[Message] Reprocessing message ID: ".$id);
+			
+		$message = DAO_Message::get($id);
+			
+		$status = $this->_createMessageRecipient($message->account_id, $id, $message->message);
+		$fields = get_object_vars($message);
+		if ($status) {
+			$logger->info("[Message Import] Status set to: Complete");
+			$fields[DAO_Message::IMPORT_STATUS] = 2; // 0 = In Queus, 1 = Failure, 2 = Complete
+		} else {
+			$logger->info("[Message Import] Status set to: Failure");
+			$fields[DAO_Message::IMPORT_STATUS] = 1; // 0 = In Queus, 1 = Failure, 2 = Complete
+		}
+		$mr_status = DAO_Message::update($id, $fields);
+	}
+			
 	function importCombined(Model_ImportSource $import_source) {
 		$logger = DevblocksPlatform::getConsoleLog();
 		$logger->info("[ComMon / IXO Importer] Importer started");

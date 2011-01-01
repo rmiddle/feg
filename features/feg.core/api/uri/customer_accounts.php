@@ -55,9 +55,11 @@ class FegAccountPage extends FegPageExtension {
 	function createNewCustomerAction() {
 		$active_worker = FegApplication::getActiveWorker();
 		@$account_number = DevblocksPlatform::importGPC($_REQUEST['account_name'],'string','');
-		//if ($active_worker->hasPriv('core.access.customer.create')) {
-		//	return;
-		//}
+		@$message_id = DevblocksPlatform::importGPC($_REQUEST['message_id'],'integer',0);
+
+		if ($active_worker->hasPriv('core.access.customer.create')) {
+			return;
+		}
 
 		if(empty($account_number)) {
 			$fields = array(
@@ -76,6 +78,9 @@ class FegAccountPage extends FegPageExtension {
 		}
 		// Create a new Customer Recipients 
 		$customer_id = DAO_CustomerAccount::create($fields);
+		if($message_id > 0) {
+			ImportCron::importAccountReProcessMessage($message_id, $customer_id)
+		}
 
 //		DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('customer', $customer_id,'property')));
 		DevblocksPlatform::redirect(new DevblocksHttpResponse(array('customer', $customer_id,'property')));
