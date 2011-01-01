@@ -57,7 +57,7 @@ class FegAccountPage extends FegPageExtension {
 		@$account_number = DevblocksPlatform::importGPC($_REQUEST['account_name'],'string','');
 		@$message_id = DevblocksPlatform::importGPC($_REQUEST['message_id'],'integer',0);
 
-		if ($active_worker->hasPriv('core.access.customer.create')) {
+		if (!$active_worker->hasPriv('core.access.customer.create')) {
 			return;
 		}
 
