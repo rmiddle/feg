@@ -44,9 +44,9 @@ class DAO_Message extends Feg_ORMHelper {
 	
 	static function update($ids, $fields) {
 		if(isset($fields['params'])) {
-			$fields['params_json']  = json_encode($fields['params']);
+			@$fields['params_json']  = json_encode($fields['params']);
 		} else {
-			@$fields['params_json']  = array();
+			@$fields['params_json']  = "";
 		}
 		unset($fields['params']);
 		parent::_update($ids, 'message', $fields);
