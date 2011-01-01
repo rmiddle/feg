@@ -574,8 +574,11 @@ class ExportEmailCron extends FegCronExtension {
 			$subject = $recipient->subject;
 			$from_addy = !empty($export_type->params['7']) ? $recipient->params['7'] : null;
 			$from_personal = !empty($export_type->params['11']) ? $recipient->params['11'] : null;
+echo "<pre>";
+print_r($export_type);
 echo "from_addy = " . $from_addy . "<br>";			
 echo "from_personal = " . $from_personal . "<br>";			
+echo "</pre>";
 			// FIXME - Need to add in filter for now everything is unfiltered.
 			$send_status = FegMail::sendMail($to, $subject, implode("\r\n", $message_lines), $from_addy, $from_personal);
 			
