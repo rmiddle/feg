@@ -165,6 +165,7 @@
 		<priv id="core.access.recipient.update" label="acl.core.access.recipient.update" />
 		<priv id="core.access.recipient.disable" label="acl.core.access.recipient.disable" />
 		<priv id="core.access.message.assign" label="acl.core.access.message.assign" />
+		<priv id="core.access.message.reprocess" label="acl.core.access.message.reprocess" />
 		<priv id="core.access.message_recipient.permfail" label="acl.core.access.message_recipient.permfail" />
 		<priv id="core.access.message_recipient.retry" label="acl.core.access.message_recipient.retry" />
 		<priv id="core.access.message_recipient.resend" label="acl.core.access.message_recipient.resend" />

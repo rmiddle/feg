@@ -54,6 +54,9 @@
 		<tu tuid='acl.core.access.message.assign'>
 			<tuv xml:lang="en_US"><seg>Can assign a message to an account</seg></tuv>
 		</tu>
+		<tu tuid='acl.core.access.message.reprocess'>
+			<tuv xml:lang="en_US"><seg>Can reprocess a message to resend to all recipients</seg></tuv>
+		</tu>
 		<tu tuid='acl.core.access.message_recipient.permfail'>
 			<tuv xml:lang="en_US"><seg>Permentaly Fail Message Recipient</seg></tuv>
 		</tu>
@@ -656,6 +659,9 @@ For example: *receipt*</seg></tuv>
 		</tu>
 		<tu tuid='feg.message.import_status_2'>
 			<tuv xml:lang="en_US"><seg>Complete</seg></tuv>
+		</tu>
+		<tu tuid='feg.message.import_status.reprocess'>
+			<tuv xml:lang="en_US"><seg>Re-Process</seg></tuv>
 		</tu>
 		<tu tuid='feg.message.created_date'>
 			<tuv xml:lang="en_US"><seg>Created Date</seg></tuv>

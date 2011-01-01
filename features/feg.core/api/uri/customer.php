@@ -600,5 +600,35 @@ class FegCustomerTabMessages extends Extension_CustomerTab {
 	function saveTab() {
 	}
 	
+	function setMessageStatusAction() {
+		$translate = DevblocksPlatform::getTranslationService();
+
+		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
+		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
+		@$status = DevblocksPlatform::importGPC($_REQUEST['status'],'integer',0);
+		@$goto_recent = DevblocksPlatform::importGPC($_REQUEST['goto_recent'],'integer',0);
+		
+		$message = DAO_Message::get($id);
+		
+		$fields[DAO_MessageRecipient::SEND_STATUS] = $status;
+		$mr_status = DAO_MessageRecipient::update($id, $fields);
+		// Give plugins a chance to note a message is imported.
+		$eventMgr = DevblocksPlatform::getEventService();
+	    $eventMgr->trigger(
+	        new Model_DevblocksEvent(
+	            'message.recipient.status',
+                array(
+                    'message_recipient_id' => $id,
+					'recipient_id' => $message->recipient_id,
+                    'message_id' => $message->message_id,
+                    'account_id' => $message->account_id,
+					'send_status' => $message->send_status,
+                )
+            )
+	    );
+		$status_text = $translate->_('feg.message.import_status_'.$status);
+		if ($status_text == "") $status_text = $translate->_('feg.message_recipient.status_unknown');
+		echo $status_text;
+	}
 };
 

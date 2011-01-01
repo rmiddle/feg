@@ -60,9 +60,20 @@
 			{elseif $column=="message_created_date"  || $column=="message_updated_date"}
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessagePeek&id={$result.message_id}&customer_id={$result.message_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column|devblocks_date}&nbsp;</a></td>
 			{elseif $column=="message_import_status"}
-				{$status_str = 'feg.message.import_status_'|cat:$result.$column}
-				<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessagePeek&id={$result.message_id}&customer_id={$result.message_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$translate->_($status_str)|capitalize}
-&nbsp;</a>
+				<td id="table_message_import_status_{$id}">
+
+					{$status_str = 'feg.message.import_status_'|cat:$result.$column}
+					{$translate->_($status_str)|capitalize}&nbsp;
+					{if $result.$column == 2}
+						{if $active_worker->hasPriv('core.access.message.reprocess')}
+							<a href="javascript:;" onclick="$('#table_message_import_status_{$result.message_id}').load('{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.standard.messages&action=setMessageStatus&id={result.message_id}&status=0&view_id={$view->id|escape:'url'}{/devblocks_url}');">
+		({$translate->_('ffeg.message.import_status.reprocess')|capitalize})</a>
+						{/if}
+					{elseif $result.$column == 1}			
+						<a href="javascript:;" onclick="$('##table_message_import_status_{$result.message_id}').load('{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.standard.messages&action=setMessageStatus&id={result.message_id}&status=0&view_id={$view->id|escape:'url'}{/devblocks_url}');">
+		({$translate->_('feg.message_recipient.status_retry')|capitalize})</a>
+					{/if}
+				</td>
 			{else}
 				<td>{$result.$column}&nbsp;</td>
 			{/if}
