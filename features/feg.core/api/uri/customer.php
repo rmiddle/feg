@@ -622,7 +622,7 @@ class FegCustomerTabMessages extends Extension_CustomerTab {
 					'recipient_id' => $message->recipient_id,
                     'message_id' => $message->message_id,
                     'account_id' => $message->account_id,
-					'send_status' => $message->send_status,
+					'send_status' => $status,
                 )
             )
 	    );
