@@ -649,7 +649,7 @@ class ExportCron extends FegCronExtension {
 			$message = DAO_Message::get($message_recipient->message_id);
 			$message_lines = explode('\r\n',substr($message->message,1,-1));
 			$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
-			$account = DAO_CustomerRecipient::get($message_recipient->account_id);
+			$account = DAO_CustomerAccount::get($message_recipient->account_id);
 			
 			$message_str = implode("\r\n", $message_lines);
 			
