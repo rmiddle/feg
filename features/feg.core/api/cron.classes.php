@@ -572,8 +572,8 @@ class ExportEmailCron extends FegCronExtension {
 			
 			$to	= !empty($recipient->address_to) ? (array($recipient->address => $recipient->address_to)) : (array($recipient->address));
 			$subject = $recipient->subject;
-			$from_addy = !empty($recipient->params['7']) ? $recipient->params['7'] : null;
-			$from_personal = !empty($recipient->params['11']) ? $recipient->params['11'] : null;
+			$from_addy = !empty($export_type->params['7']) ? $recipient->params['7'] : null;
+			$from_personal = !empty($export_type->params['11']) ? $recipient->params['11'] : null;
 echo "from_addy = " . $from_addy . "<br>";			
 echo "from_personal = " . $from_personal . "<br>";			
 			// FIXME - Need to add in filter for now everything is unfiltered.
