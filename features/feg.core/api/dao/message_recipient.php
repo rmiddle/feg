@@ -262,7 +262,7 @@ class View_MessageRecipient extends FEG_AbstractView {
 		$this->name = $translate->_('feg.message_recipient.name');
 		$this->renderLimit = 25;
 		$this->renderSortBy = SearchFields_MessageRecipient::ID;
-		$this->renderSortAsc = true;
+		$this->renderSortAsc = false;
 
 		$this->view_columns = array(
 			SearchFields_MessageRecipient::ID,
