@@ -595,7 +595,7 @@ class ExportCron extends FegCronExtension {
 		$logger = DevblocksPlatform::getConsoleLog();
 		$db = DevblocksPlatform::getDatabaseService();
 		@$fax_current_hour = 0;
-		@fax_sent_today = 0;
+		@$fax_sent_today = 0;
 	
 		$memory_limit = ini_get('memory_limit');
 		if(substr($memory_limit, 0, -1)  < 128) {
