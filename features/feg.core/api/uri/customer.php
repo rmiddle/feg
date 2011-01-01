@@ -608,9 +608,9 @@ class FegCustomerTabMessages extends Extension_CustomerTab {
 		@$status = DevblocksPlatform::importGPC($_REQUEST['status'],'integer',0);
 		@$goto_recent = DevblocksPlatform::importGPC($_REQUEST['goto_recent'],'integer',0);
 		
-		$message = DAO_Message::get($id);
+		$message_obj = DAO_Message::get($id);
 		
-		$fields = get_object_vars($objects);
+		$fields = get_object_vars($message_obj);
 		$fields[DAO_Message::IMPORT_STATUS] = $status;
 		
 		$mr_status = DAO_Message::update($id, $fields);
@@ -621,7 +621,7 @@ class FegCustomerTabMessages extends Extension_CustomerTab {
 	            'message.status',
                 array(
                     'message_id' => $id,
-                    'account_id' => $message->account_id,
+                    'account_id' => $message_obj->account_id,
 					'import_status' => $status,
                 )
             )
