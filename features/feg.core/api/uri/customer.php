@@ -201,11 +201,11 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		$defaults->renderLimit = 15;
 		
 		$defaults->renderSortBy = SearchFields_CustomerRecipient::ID;
-		$defaults->renderSortAsc = 0;
+		$defaults->renderSortAsc = true;
 
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 		$view->renderSortBy = SearchFields_CustomerRecipient::ID;
-		$view->renderSortAsc = 0;
+		$view->renderSortAsc = true;
 		$view->params = array(
 			SearchFields_CustomerRecipient::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_CustomerRecipient::ACCOUNT_ID,'=',$customer_id),
 		);
@@ -399,7 +399,7 @@ class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 		$defaults->renderLimit = 15;
 		
 		$defaults->renderSortBy = SearchFields_MessageRecipient::ID;
-		$defaults->renderSortAsc = 1;
+		$defaults->renderSortAsc = false;
 
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 		$view->name = 'Message Status List';
@@ -407,6 +407,7 @@ class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 			SearchFields_MessageRecipient::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_MessageRecipient::ACCOUNT_ID,'=',$customer_id),
 		);
 		$view->renderPage = 0;
+		$view->renderSortAsc = false;
 		Feg_AbstractViewLoader::setView($view->id,$view);
 		
 		$tpl->assign('view', $view);
