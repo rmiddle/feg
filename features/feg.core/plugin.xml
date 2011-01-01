@@ -105,6 +105,12 @@
 			<class name="DAO_ExportTypeParams" />
 			<class name="Model_ExportTypeParams" />
 		</file>
+		<file path="api/cron.classes.php">
+			<class name="MaintCron" />
+			<class name="HeartbeatCron" />
+			<class name="ImportCron" />
+			<class name="ExportCron" />
+		</file>
 	</class_loader>
 	
 	<!-- Event Points -->
