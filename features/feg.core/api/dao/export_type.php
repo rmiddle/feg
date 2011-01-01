@@ -132,7 +132,7 @@ class DAO_ExportType extends Feg_ORMHelper {
 			case 0: 
 				if(null === ($objects = $cache->load(self::CACHE_TYPE_0))) {
 					$db = DevblocksPlatform::getDatabaseService();
-					$sql = "SELECT id name recipient_type is_disabled params_json ";
+					$sql = "SELECT id, name, recipient_type, is_disabled, params_json ";
 					$sql .= "FROM export_type ";
 					$sql .= sprintf("WHERE recipient_type = %d ", $type);
 					$sql .= "ORDER BY pos ASC ";
@@ -147,7 +147,7 @@ class DAO_ExportType extends Feg_ORMHelper {
 			case 1:
 				if(null === ($objects = $cache->load(self::CACHE_TYPE_1))) {
 					$db = DevblocksPlatform::getDatabaseService();
-					$sql = "SELECT id name recipient_type is_disabled params_json ";
+					$sql = "SELECT id, name, recipient_type, is_disabled, params_json ";
 					$sql .= "FROM export_type ";
 					$sql .= sprintf("WHERE recipient_type = %d ", $type);
 					$sql .= "ORDER BY pos ASC ";
@@ -162,7 +162,7 @@ class DAO_ExportType extends Feg_ORMHelper {
 			case 2:
 				if(null === ($objects = $cache->load(self::CACHE_TYPE_2))) {
 					$db = DevblocksPlatform::getDatabaseService();
-					$sql = "SELECT id name recipient_type is_disabled params_json ";
+					$sql = "SELECT id, name, recipient_type, is_disabled, params_json ";
 					$sql .= "FROM export_type ";
 					$sql .= sprintf("WHERE recipient_type = %d ", $type);
 					$sql .= "ORDER BY pos ASC ";
