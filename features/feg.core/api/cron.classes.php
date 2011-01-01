@@ -510,7 +510,7 @@ class ExportEmailCron extends FegCronExtension {
 		//	System wide default should be fine will revisit if needed	
 		//	@ini_set('memory_limit','128M');
 
-		$export_type_email = DAO_ExportType::getByTypel(0);
+		$export_type_email = DAO_ExportType::getByType(0);
     	foreach($export_type_email as $export_type_id => $export_type) { 
 			$logger->info('[Email Exporting] Now processing export number: ' . $export_type->id . " export name:  " . $export_type->name);
 			self::ExportEmail($export_type);
@@ -629,7 +629,7 @@ class ExportFaxCron extends FegCronExtension {
 		//	System wide default should be fine will revisit if needed	
 		//	@ini_set('memory_limit','128M');
 
-		$export_type_email = DAO_ExportType::getByTypel(1);
+		$export_type_email = DAO_ExportType::getByType(1);
     	foreach($export_type_email as $export_type_id => $export_type) { 
 			$logger->info('[Fax Exporter] Now processing export number: ' . $export_type->id . " export name:  " . $export_type->name);
 			self::ExportFax($export_type);
@@ -753,7 +753,7 @@ class ExportSNPPCron extends FegCronExtension {
 		$logger = DevblocksPlatform::getConsoleLog();
 		$logger->info("[SNPP Exporting] Starting SNPP Export Task");
 		
-		$export_type_snpp = DAO_ExportType::getByTypel(2);
+		$export_type_snpp = DAO_ExportType::getByType(2);
     	foreach($export_type_snpp as $export_type_id => $export_type) { 
 			$logger->info('[Fax Exporter] Now processing export number: ' . $export_type->id . " export name:  " . $export_type->name);
 			self::ExportSnpp($export_type);
