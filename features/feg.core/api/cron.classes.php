@@ -177,7 +177,7 @@ class ImportCron extends FegCronExtension {
 		if((isset($acc_name)) && (isset($import_source))) {
 			// Check and see if the account exists now
 			if ($set_account_id > 0) {
-				$account = array_shift(DAO_CustomerAccount::get($set_account_id);
+				$account = array_shift(DAO_CustomerAccount::get($set_account_id));
 			} else {
 				$account = array_shift(DAO_CustomerAccount::getWhere(sprintf("%s = %d AND %s = %d AND %s = '0'",
 					DAO_CustomerAccount::ACCOUNT_NUMBER,
