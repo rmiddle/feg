@@ -28,6 +28,7 @@ Message Info:<br>
 	({$translate->_('feg.message_recipient.status_retry')|capitalize})</a>
 {/if}
 </span>
+<br>
 {$translate->_('feg.message.message')|capitalize}:<br>
 <br>
 {foreach from=$message_lines item=line name=line_id}
