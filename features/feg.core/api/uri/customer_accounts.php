@@ -79,7 +79,7 @@ class FegAccountPage extends FegPageExtension {
 		// Create a new Customer Recipients 
 		$account_id = DAO_CustomerAccount::create($fields);
 		if($message_id > 0) {
-			ImportCron::importAccountReProcessMessage($message_id, $account_id)
+			ImportCron::importAccountReProcessMessage($message_id, $account_id);
 		}
 
 //		DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('customer', $customer_id,'property')));
