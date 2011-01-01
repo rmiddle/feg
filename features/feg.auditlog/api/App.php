@@ -37,6 +37,31 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
 				*/
             	break;
             	
+            case 'cron.reprocessing.accounts':
+            	@$account_id = $event->params['account_id'];
+            	@$message_id = $event->params['message_id'];
+            	@$import_source = $event->params['import_source'];
+				
+				if ($account_id == 0)
+					break;
+
+            	// Is a worker around to invoke this change?  0 = automatic
+            	@$worker_id = (null != ($active_worker = FegApplication::getActiveWorker()) && !empty($active_worker->id))
+            		? $active_worker->id
+            		: 0;
+				
+          		$fields = array(
+          			DAO_MessageAuditLog::WORKER_ID => $worker_id,
+          			DAO_MessageAuditLog::ACCOUNT_ID => $account_id,
+          			DAO_MessageAuditLog::RECIPIENT_ID => 0,
+          			DAO_MessageAuditLog::MESSAGE_ID => $message_id,
+          			DAO_MessageAuditLog::MESSAGE_RECIPIENT_ID => 0,
+           			DAO_MessageAuditLog::CHANGE_DATE => time(),
+           			DAO_MessageAuditLog::CHANGE_FIELD => 'auditlog.cf.message.status',
+           			DAO_MessageAuditLog::CHANGE_VALUE => sprintf("Message ID %d assocated to Account ID %d", $message_id, $account_id),
+          		);
+            	$log_id = DAO_MessageAuditLog::create($fields);
+            	break;
             case 'cron.export':
             	// Is a worker around to invoke this change?  0 = automatic
             	@$worker_id = (null != ($active_worker = FegApplication::getActiveWorker()) && !empty($active_worker->id))

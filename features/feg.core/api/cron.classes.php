@@ -124,6 +124,10 @@ class ImportCron extends FegCronExtension {
 			}
 	    }
 
+		self::importAccountReProcess();
+		
+		self::importInQueueReProcess();
+					
 		$logger->info('[Message Import] finished.');
 	}
 
@@ -140,6 +144,87 @@ class ImportCron extends FegCronExtension {
 	function saveConfigurationAction() {
 //		@$import_folder_path = DevblocksPlatform::importGPC($_POST['import_folder_path'],'string');
 //		$this->setParam('import_folder_path', $import_folder_path);
+	}
+	
+	function importAccountReProcess() {
+		$db = DevblocksPlatform::getDatabaseService();
+		$logger = DevblocksPlatform::getConsoleLog();
+		$logger->info("[Message] Reprocessing Messages linking them to New Accounts");
+
+		$sql = sprintf("SELECT m.id ".
+			"FROM message m ".
+			"WHERE m.import_status in (0,1) ".
+			"AND m.account_id = 0 "
+		);
+		$rs = $db->Execute($sql);
+		
+		// Loop though pending outbound emails.
+		while($row = mysql_fetch_assoc($rs)) {
+			$id = $row['id'];
+			$logger->info("[Message] Reprocessing message ID: ".$id);
+			
+			$message = DAO_Message::get($id);
+			
+			if((isset($message->params['account_name'])) && (isset($message->params['import_source']))) {
+				$acc_name = $message->params['account_name'];
+				$import_source = $message->params['import_source'];
+				
+				// Check and see if the account exists now
+				$account = array_shift(DAO_CustomerAccount::getWhere(sprintf("%s = %d AND %s = %d AND %s = '0'",
+					DAO_CustomerAccount::ACCOUNT_NUMBER,
+					$acc_name,
+					DAO_CustomerAccount::IMPORT_SOURCE,
+					$import_source,
+					DAO_CustomerAccount::IS_DISABLED
+				)));
+				if (isset($account))
+					$account_id = $account->id;
+				else
+					$account_id = 0;
+					
+				$fields = get_object_vars($message);
+				$fields[DAO_Message::ACCOUNT_ID] = $account_id;
+		
+				$mr_status = DAO_Message::update($id, $fields);
+
+				// Give plugins a chance to run export
+				$eventMgr = DevblocksPlatform::getEventService();
+				$eventMgr->trigger(
+					new Model_DevblocksEvent(
+						'cron.reprocessing.accounts',
+						array(
+							'message_id' => $id,
+							'account_id'  => $account_id,
+							'import_source' => $import_source,
+						)
+					)
+				);
+			}
+		}
+		mysql_free_result($rs);
+	}
+	
+	function importInQueueReProcess() {
+		$db = DevblocksPlatform::getDatabaseService();
+		$logger = DevblocksPlatform::getConsoleLog();
+		$logger->info("[Message] Reprocessing Messages in-queue status");
+		$sql = sprintf("SELECT m.id ".
+			"FROM message m ".
+			"WHERE m.import_status = 0 ".
+			"AND m.account_id > 0 "
+		);
+		$rs = $db->Execute($sql);
+		
+		// Loop though pending outbound emails.
+		while($row = mysql_fetch_assoc($rs)) {
+			$id = $row['id'];
+			$logger->info("[Message] Reprocessing message ID: ".$id);
+			
+			$message = DAO_Message::get($id);
+			
+			$status = $this->_createMessageRecipient($message->account_id, $id, $message->message);		
+		}
+		mysql_free_result($rs);		
 	}
 	
 	function importCombined(Model_ImportSource $import_source) {

@@ -122,6 +122,9 @@
 		<event id="cron.import">
 			<name>Import Messages</name>
 		</event>
+		<event id="cron.reprocessing.accounts">
+			<name>Reprocessing Messages to new accounts</name>
+		</event>
 		<event id="cron.send.email">
 			<name>Export Email Messages</name>
 		</event>

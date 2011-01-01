@@ -50,6 +50,7 @@
 					<value>
 						<data key="cron.maint" />
 						<data key="cron.import" />
+						<data key="cron.reprocessing.accounts" />
 						<data key="cron.send.email" />
 						<data key="cron.queue.fax" />
 						<data key="cron.send.snpp" />
