@@ -56,7 +56,11 @@
 					{/if}
 				&nbsp;</a></td>
 			{elseif $column=="mr_recipient_id"}
-				<td><a href="javascript:;" onclick="genericAjaxPanel('c=stats&a=showMessageRecipientFailurePeek&id={$result.mr_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
+				<td>
+					<a href="{devblocks_url}{/devblocks_url}customer/{$result.l_account_id}/property">
+						{include file="file:$core_tpl/internal/feg/display_customer_id.tpl"}&nbsp;
+					</a>
+				</td>
 			{elseif $column=="mr_message_id"}
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=stats&a=showMessageRecipientFailurePeek&id={$result.mr_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
 			{/if}
