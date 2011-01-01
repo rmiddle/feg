@@ -222,7 +222,12 @@ class ImportCron extends FegCronExtension {
 			
 			$message = DAO_Message::get($id);
 			
-			$status = $this->_createMessageRecipient($message->account_id, $id, $message->message);		
+			$status = $this->_createMessageRecipient($message->account_id, $id, $message->message);
+			if($status == true) {
+				$fields = get_object_vars($message);
+				$fields[DAO_Message::IMPORT_STATUS] = 2; // Compelete
+				$mr_status = DAO_Message::update($id, $fields);				
+			}
 		}
 		mysql_free_result($rs);		
 	}

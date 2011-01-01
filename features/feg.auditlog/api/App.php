@@ -252,13 +252,13 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
 				)));
 				switch($cr_id->type) {
 					case 0: // Email
-						@$change_value = sprintf("Email Scheduled for %s \<%s\>",$address_to, $address);
+						@$change_value = sprintf("Email Scheduled for %s \<%s\>",$cr_id->address_to, $cr_id->address);
 						break;
 					case 1: // Fax
-						@$change_value = sprintf("Fax Scheduled for %s \<%s\>",$address_to, $address);
+						@$change_value = sprintf("Fax Scheduled for %s \<%s\>",$cr_id->address_to, $cr_id->address);
 						break;
 					case 2: // SNPP
-						@$change_value = sprintf("Page Scheduled for %s \<%s\>",$address_to, $address);
+						@$change_value = sprintf("Page Scheduled for %s \<%s\>",$cr_id->address_to, $cr_id->address);
 						break;
 					default:
 						@$change_value = sprintf("Unknown Type %d",$cr_id->type);
