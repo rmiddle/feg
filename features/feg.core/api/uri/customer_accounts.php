@@ -77,13 +77,13 @@ class FegAccountPage extends FegPageExtension {
 			);
 		}
 		// Create a new Customer Recipients 
-		$customer_id = DAO_CustomerAccount::create($fields);
+		$account_id = DAO_CustomerAccount::create($fields);
 		if($message_id > 0) {
-			ImportCron::importAccountReProcessMessage($message_id, $customer_id)
+			ImportCron::importAccountReProcessMessage($message_id, $account_id)
 		}
 
 //		DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('customer', $customer_id,'property')));
-		DevblocksPlatform::redirect(new DevblocksHttpResponse(array('customer', $customer_id,'property')));
+		DevblocksPlatform::redirect(new DevblocksHttpResponse(array('customer', $account_id,'property')));
 	}
 		
 };
