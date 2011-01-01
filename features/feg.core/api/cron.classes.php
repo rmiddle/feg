@@ -165,9 +165,9 @@ class ImportCron extends FegCronExtension {
 			
 			$message = DAO_Message::get($id);
 			
-			if((isset($message->params['account_name'])) && (isset($message->params['import_source']))) {
-				$acc_name = $message->params['account_name'];
-				$import_source = $message->params['import_source'];
+			@$acc_name = $message->params['account_name'];
+			@$import_source = $message->params['import_source'];
+			if((isset($acc_name)) && (isset($import_source))) {
 				
 				// Check and see if the account exists now
 				$account = array_shift(DAO_CustomerAccount::getWhere(sprintf("%s = %d AND %s = %d AND %s = '0'",
@@ -223,11 +223,9 @@ class ImportCron extends FegCronExtension {
 			$message = DAO_Message::get($id);
 			
 			$status = $this->_createMessageRecipient($message->account_id, $id, $message->message);
-			if($status == true) {
-				$fields = get_object_vars($message);
-				$fields[DAO_Message::IMPORT_STATUS] = 2; // Compelete
-				$mr_status = DAO_Message::update($id, $fields);				
-			}
+			$fields = get_object_vars($message);
+			$fields[DAO_Message::IMPORT_STATUS] = $status ? 1 : 2, // 0 = In Queus, 1 = Failure, 2 = Complete
+			$mr_status = DAO_Message::update($id, $fields);				
 		}
 		mysql_free_result($rs);		
 	}
