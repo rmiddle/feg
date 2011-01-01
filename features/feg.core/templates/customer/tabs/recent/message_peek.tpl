@@ -15,7 +15,7 @@ Message Info:<br>
 {$translate->_('feg.message.created_date')|capitalize}: {$message->created_date|devblocks_date}<br>
 {$translate->_('feg.message.updated_date')|capitalize}: {$message->updated_date|devblocks_date}<br>
 {$translate->_('feg.message.import_status')|capitalize}:
-<span="span_message_import_status">
+<span id="span_message_import_status">
 {$status_str = 'feg.message.import_status_'|cat:$message->import_status}
 {$translate->_($status_str)|capitalize}&nbsp;
 {if $message->import_status == 2}
