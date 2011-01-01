@@ -507,8 +507,8 @@ class ExportCron extends FegCronExtension {
 	function ExportEmail(Model_ExportType $export_type) {
 		$logger = DevblocksPlatform::getConsoleLog();
 		$db = DevblocksPlatform::getDatabaseService();
-		$email_current_hour = 0;
-		$email_sent_today = 0;
+		@$email_current_hour = 0;
+		@$email_sent_today = 0;
 		
 		$memory_limit = ini_get('memory_limit');
 		if(substr($memory_limit, 0, -1)  < 128) {
@@ -594,8 +594,8 @@ class ExportCron extends FegCronExtension {
 	function ExportFax(Model_ExportType $export_type) {
 		$logger = DevblocksPlatform::getConsoleLog();
 		$db = DevblocksPlatform::getDatabaseService();
-		$fax_current_hour = 0;
-		$fax_sent_today = 0;
+		@$fax_current_hour = 0;
+		@fax_sent_today = 0;
 	
 		$memory_limit = ini_get('memory_limit');
 		if(substr($memory_limit, 0, -1)  < 128) {
@@ -689,8 +689,8 @@ class ExportCron extends FegCronExtension {
 	function ExportSnpp(Model_ExportType $export_type) {
 		$logger = DevblocksPlatform::getConsoleLog();
 		$db = DevblocksPlatform::getDatabaseService();
-		$snpp_current_hour = 0;
-		$snpp_sent_today = 0;
+		@$snpp_current_hour = 0;
+		@$snpp_sent_today = 0;
 		
 		$memory_limit = ini_get('memory_limit');
 		if(substr($memory_limit, 0, -1)  < 128) {
