@@ -610,19 +610,19 @@ class FegCustomerTabMessages extends Extension_CustomerTab {
 		
 		$message = DAO_Message::get($id);
 		
-		$fields[DAO_MessageRecipient::SEND_STATUS] = $status;
-		$mr_status = DAO_MessageRecipient::update($id, $fields);
+		$fields[DAO_Message::IMPORT_STATUS] = $status;
+		$mr_status = DAO_Message::update($id, $fields);
 		// Give plugins a chance to note a message is imported.
 		$eventMgr = DevblocksPlatform::getEventService();
 	    $eventMgr->trigger(
 	        new Model_DevblocksEvent(
-	            'message.recipient.status',
+	            'message.status',
                 array(
                     'message_recipient_id' => $id,
 					'recipient_id' => $message->recipient_id,
                     'message_id' => $message->message_id,
                     'account_id' => $message->account_id,
-					'send_status' => $status,
+					'import_status' => $status,
                 )
             )
 	    );

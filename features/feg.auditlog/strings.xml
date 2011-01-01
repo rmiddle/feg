@@ -79,6 +79,9 @@
 		<tu tuid='auditlog.cf.message.recipient.status'>
 			<tuv xml:lang="en_US"><seg>MR Status</seg></tuv>
 		</tu>
+		<tu tuid='auditlog.cf.message.status'>
+			<tuv xml:lang="en_US"><seg>Message Status</seg></tuv>
+		</tu>
 
 		<!-- Customer Account Strings -->
 

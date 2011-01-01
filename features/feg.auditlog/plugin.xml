@@ -59,6 +59,7 @@
 						<data key="message.create" />
 						<data key="message.recipient.create" />
 						<data key="message.recipient.status" />
+						<data key="message.status" />
 					</value>
 				</param>
 			</params>

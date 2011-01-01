@@ -279,6 +279,32 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
           		);
             	$log_id = DAO_MessageAuditLog::create($fields);
             	break;
+            case 'message.status':
+            	@$message_recipient_id = $event->params['message_recipient_id'];
+            	@$account_id = $event->params['account_id'];
+            	@$recipient_id = $event->params['recipient_id'];
+            	@$message_id = $event->params['message_id'];
+            	@$import_status = $event->params['import_status'];
+				
+            	// Is a worker around to invoke this change?  0 = automatic
+            	@$worker_id = (null != ($active_worker = FegApplication::getActiveWorker()) && !empty($active_worker->id))
+            		? $active_worker->id
+            		: 0;
+				
+				$status_text = $translate->_('feg.message.import_status_'.$import_status);
+				if ($status_text == "") $status_text = $translate->_('feg.core.send_status.unknown');
+          		$fields = array(
+          			DAO_MessageAuditLog::WORKER_ID => $worker_id,
+          			DAO_MessageAuditLog::ACCOUNT_ID => $account_id,
+          			DAO_MessageAuditLog::RECIPIENT_ID => $recipient_id,
+          			DAO_MessageAuditLog::MESSAGE_ID => $message_id,
+          			DAO_MessageAuditLog::MESSAGE_RECIPIENT_ID => $message_recipient_id,
+           			DAO_MessageAuditLog::CHANGE_DATE => time(),
+           			DAO_MessageAuditLog::CHANGE_FIELD => 'auditlog.cf.message.status',
+           			DAO_MessageAuditLog::CHANGE_VALUE => $status_text,
+          		);
+            	$log_id = DAO_MessageAuditLog::create($fields);
+            	break;
         }
     }
 };
