@@ -447,10 +447,10 @@ class ImportCron extends FegCronExtension {
  * every 1 minutes.
  */
 
-class ExportCron extends FegCronExtension {
+class StatsCron extends FegCronExtension {
 	function run() {
 		$logger = DevblocksPlatform::getConsoleLog();
-		$logger->info("[Message Exporting] Starting Export Task");
+		$logger->info("[Stats] Running Stats cleanup");
 		
 		//	System wide default should be fine will revisit if needed	
 		//	@ini_set('memory_limit','128M');
@@ -483,29 +483,7 @@ class ExportCron extends FegCronExtension {
 			DAO_Stats::update(0, $fields);
 		}
 
-		$export_type_all = DAO_ExportType::getAll();
-    	foreach($export_type_all as $export_type_id => $export_type) { 
-			$logger->info('[Message Export] Now Processing ' . $export_type->name . ' Export Number: ' . $export_type->id);
-			
-			switch($export_type->recipient_type) {
-				case 0:
-					$logger->info("[Email Exporter] Export Type ".$export_type->recipient_type." started");
-					self::ExportEmail($export_type);
-					break;
-				case 1:
-					$logger->info("[Fax Exporter] Export Type ".$export_type->recipient_type." started");
-					self::ExportFax($export_type);
-					break;
-				case 2:
-					$logger->info("[SNPP Exporter] Export Type ".$export_type->recipient_type." started");
-					self::ExportSnpp($export_type);
-					break;
-				default:
-					break;
-			}
-	    }
-
-		$logger->info('[Message Import] finished.');
+		$logger->info("[Stats] Running Stats Finished");
 	}
 
 	function configure($instance) {
@@ -515,7 +493,39 @@ class ExportCron extends FegCronExtension {
 
 //		$tpl->assign('import_folder_path', $this->getParam('import_folder_path', APP_STORAGE_PATH . '/import/new'));
 
-		$tpl->display($tpl_path . 'cron/export/config.tpl');
+		$tpl->display($tpl_path . 'cron/stats/config.tpl');
+	}
+
+	function saveConfigurationAction() {
+//		@$import_folder_path = DevblocksPlatform::importGPC($_POST['import_folder_path'],'string');
+//		$this->setParam('import_folder_path', $import_folder_path);
+	}
+};
+
+class ExportEmailCron extends FegCronExtension {
+	function run() {
+		$logger = DevblocksPlatform::getConsoleLog();
+		$logger->info("[Email Exporting] Starting Email Export Task");
+		
+		//	System wide default should be fine will revisit if needed	
+		//	@ini_set('memory_limit','128M');
+
+		$export_type_email = DAO_ExportType::getByTypel(0);
+    	foreach($export_type_email as $export_type_id => $export_type) { 
+			$logger->info('[Email Exporting] Now processing export number: ' . $export_type->id . " export name:  " . $export_type->name);
+			self::ExportEmail($export_type);
+	    }
+		$logger->info('[Email Exporting] finished.');
+	}
+
+	function configure($instance) {
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
+		$tpl->assign('path', $tpl_path);
+
+//		$tpl->assign('import_folder_path', $this->getParam('import_folder_path', APP_STORAGE_PATH . '/import/new'));
+
+		$tpl->display($tpl_path . 'cron/export_email/config.tpl');
 	}
 
 	function saveConfigurationAction() {
@@ -608,6 +618,38 @@ class ExportCron extends FegCronExtension {
 		$runtime = microtime(true);
 		
 		return NULL;		
+	}
+};
+
+class ExportFaxCron extends FegCronExtension {
+	function run() {
+		$logger = DevblocksPlatform::getConsoleLog();
+		$logger->info("[Fax Exporting] Starting Fax Export Task");
+		
+		//	System wide default should be fine will revisit if needed	
+		//	@ini_set('memory_limit','128M');
+
+		$export_type_email = DAO_ExportType::getByTypel(1);
+    	foreach($export_type_email as $export_type_id => $export_type) { 
+			$logger->info('[Fax Exporter] Now processing export number: ' . $export_type->id . " export name:  " . $export_type->name);
+			self::ExportFax($export_type);
+	    }
+		$logger->info('[Fax Exporting] finished.');
+	}
+
+	function configure($instance) {
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
+		$tpl->assign('path', $tpl_path);
+
+//		$tpl->assign('import_folder_path', $this->getParam('import_folder_path', APP_STORAGE_PATH . '/import/new'));
+
+		$tpl->display($tpl_path . 'cron/export_fax/config.tpl');
+	}
+
+	function saveConfigurationAction() {
+//		@$import_folder_path = DevblocksPlatform::importGPC($_POST['import_folder_path'],'string');
+//		$this->setParam('import_folder_path', $import_folder_path);
 	}
 	
 	function ExportFax(Model_ExportType $export_type) {
@@ -704,6 +746,35 @@ class ExportCron extends FegCronExtension {
 		}
 		return NULL;		
 	}
+};
+
+class ExportSNPPCron extends FegCronExtension {
+	function run() {
+		$logger = DevblocksPlatform::getConsoleLog();
+		$logger->info("[SNPP Exporting] Starting SNPP Export Task");
+		
+		$export_type_snpp = DAO_ExportType::getByTypel(2);
+    	foreach($export_type_snpp as $export_type_id => $export_type) { 
+			$logger->info('[Fax Exporter] Now processing export number: ' . $export_type->id . " export name:  " . $export_type->name);
+			self::ExportSnpp($export_type);
+	    }
+		$logger->info('[SNPP Exporting] finished.');
+	}
+
+	function configure($instance) {
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl_path = dirname(dirname(__FILE__)) . '/templates/';
+		$tpl->assign('path', $tpl_path);
+
+//		$tpl->assign('import_folder_path', $this->getParam('import_folder_path', APP_STORAGE_PATH . '/import/new'));
+
+		$tpl->display($tpl_path . 'cron/export_snpp/config.tpl');
+	}
+
+	function saveConfigurationAction() {
+//		@$import_folder_path = DevblocksPlatform::importGPC($_POST['import_folder_path'],'string');
+//		$this->setParam('import_folder_path', $import_folder_path);
+	}
 	
 	function ExportSnpp(Model_ExportType $export_type) {
 		$logger = DevblocksPlatform::getConsoleLog();
@@ -791,4 +862,3 @@ class ExportCron extends FegCronExtension {
 		return NULL;		
 	}
 };
-

@@ -11,6 +11,9 @@ class Model_ExportType {
 
 class DAO_ExportType extends Feg_ORMHelper {
 	const CACHE_ALL = 'feg_export_type';
+	const CACHE_TYPE_0 = 'feg_export_type_0'; 
+	const CACHE_TYPE_1 = 'feg_export_type_1'; 
+	const CACHE_TYPE_2 = 'feg_export_type_2'; 
 
 	const ID = 'id';
 	const NAME = 'name';
@@ -43,6 +46,8 @@ class DAO_ExportType extends Feg_ORMHelper {
 		}
 		unset($fields['params']);
 		parent::_update($ids, 'export_type', $fields);
+		
+		self::clearCache();
 	}
 	
 	static function updateWhere($fields, $where) {
@@ -120,6 +125,59 @@ class DAO_ExportType extends Feg_ORMHelper {
 		return true;
 	}
 	
+	static function getByType($type) {
+		$cache = DevblocksPlatform::getCacheService();
+		
+		switch($type) {
+			case 0: 
+				if(null === ($objects = $cache->load(self::CACHE_TYPE_0))) {
+					$db = DevblocksPlatform::getDatabaseService();
+					$sql = "SELECT id name recipient_type is_disabled params_json ";
+					$sql .= "FROM export_type ";
+					$sql .= sprintf("WHERE recipient_type = %d ", $type);
+					$sql .= "ORDER BY pos ASC ";
+
+					$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
+		
+					$objects = self::_createObjectsFromResultSet($rs);
+		
+					$cache->save($objects, self::CACHE_TYPE_0);
+				}
+				break;
+			case 1:
+				if(null === ($objects = $cache->load(self::CACHE_TYPE_1))) {
+					$db = DevblocksPlatform::getDatabaseService();
+					$sql = "SELECT id name recipient_type is_disabled params_json ";
+					$sql .= "FROM export_type ";
+					$sql .= sprintf("WHERE recipient_type = %d ", $type);
+					$sql .= "ORDER BY pos ASC ";
+					
+					$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
+		
+					$objects = self::_createObjectsFromResultSet($rs);
+		
+					$cache->save($objects, self::CACHE_TYPE_1);
+				}
+				break;
+			case 2:
+				if(null === ($objects = $cache->load(self::CACHE_TYPE_2))) {
+					$db = DevblocksPlatform::getDatabaseService();
+					$sql = "SELECT id name recipient_type is_disabled params_json ";
+					$sql .= "FROM export_type ";
+					$sql .= sprintf("WHERE recipient_type = %d ", $type);
+					$sql .= "ORDER BY pos ASC ";
+					
+					$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
+		
+					$objects = self::_createObjectsFromResultSet($rs);
+		
+					$cache->save($objects, self::CACHE_TYPE_2);
+				}
+				break;
+		}
+		return $objects;
+	}
+	
 	static function getAll($nocache=false, $with_disabled=false) {
 	    $cache = DevblocksPlatform::getCacheService();
 	    if($nocache || null === ($export_types = $cache->load(self::CACHE_ALL))) {
@@ -137,6 +195,14 @@ class DAO_ExportType extends Feg_ORMHelper {
 	    return $export_types;
 	}	
 	
+	public static function clearCache() {
+		// Invalidate cache on changes
+		$cache = DevblocksPlatform::getCacheService();
+		$cache->remove(self::CACHE_ALL);
+		$cache->remove(self::CACHE_TYPE_0);
+		$cache->remove(self::CACHE_TYPE_1);
+		$cache->remove(self::CACHE_TYPE_2);
+	}
     /**
      * Enter description here...
      *

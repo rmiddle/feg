@@ -109,7 +109,10 @@
 			<class name="MaintCron" />
 			<class name="HeartbeatCron" />
 			<class name="ImportCron" />
-			<class name="ExportCron" />
+			<class name="StatsCron" />
+			<class name="ExportEmailCron" />
+			<class name="ExportFaxCron" />
+			<class name="ExportSNPPCron" />
 		</file>
 	</class_loader>
 	
@@ -437,16 +440,49 @@
 		</extension>
 		
 		<extension point="feg.cron">
-			<id>cron.export</id>
-			<name>Message Export</name>
+			<id>cron.stats</id>
+			<name>Message Stats</name>
 			<class>
 				<file>api/cron.classes.php</file>
-				<name>ExportCron</name>
+				<name>StatsCron</name>
 			</class>
 			<params>
 			</params>
 		</extension>
 		
+		<extension point="feg.cron">
+			<id>cron.email.export</id>
+			<name>Message Email Export</name>
+			<class>
+				<file>api/cron.classes.php</file>
+				<name>ExportEmailCron</name>
+			</class>
+			<params>
+			</params>
+		</extension>
+		
+		<extension point="feg.cron">
+			<id>cron.fax.export</id>
+			<name>Message Fax Export</name>
+			<class>
+				<file>api/cron.classes.php</file>
+				<name>ExportFaxCron</name>
+			</class>
+			<params>
+			</params>
+		</extension>
+		
+		<extension point="feg.cron">
+			<id>cron.snpp.export</id>
+			<name>Message Snpp Export</name>
+			<class>
+				<file>api/cron.classes.php</file>
+				<name>ExportSNPPCron</name>
+			</class>
+			<params>
+			</params>
+		</extension>
+				
 		<!-- Custom Field Sources -->
 
 		<extension point="feg.fields.source">
