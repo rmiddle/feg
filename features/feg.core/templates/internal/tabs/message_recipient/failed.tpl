@@ -51,7 +51,7 @@
 					{if $result.mr_account_id == 0}
 						{$translate->_('customer.display.invalid_customer')|capitalize}
 					{else}
-						<a href="{devblocks_url}{/devblocks_url}customer/{$result.l_account_id}/property">
+						<a href="{devblocks_url}{/devblocks_url}customer/{$result.mr_account_id}/property">
 							{include file="file:$core_tpl/internal/feg/display_customer_id.tpl"}&nbsp;
 						</a>
 					{/if}
