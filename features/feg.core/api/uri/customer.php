@@ -618,9 +618,7 @@ class FegCustomerTabMessages extends Extension_CustomerTab {
 	        new Model_DevblocksEvent(
 	            'message.status',
                 array(
-                    'message_recipient_id' => $id,
-					'recipient_id' => $message->recipient_id,
-                    'message_id' => $message->message_id,
+                    'message_id' => $id,
                     'account_id' => $message->account_id,
 					'import_status' => $status,
                 )
