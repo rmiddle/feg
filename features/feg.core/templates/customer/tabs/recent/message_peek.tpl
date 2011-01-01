@@ -16,7 +16,7 @@ Message Info:<br>
 {$translate->_('feg.message.updated_date')|capitalize}: {$message->updated_date|devblocks_date}<br>
 {$translate->_('feg.message.message')|capitalize}:<br>
 {$translate->_('feg.message.import_status')|capitalize}:
-<div="div_message_import_status">
+<span="span_message_import_status">
 {$status_str = 'feg.message.import_status_'|cat:$message->import_status}
 {$translate->_($status_str)|capitalize}&nbsp;
 {if $message->import_status == 2}
@@ -28,7 +28,7 @@ Message Info:<br>
 	<a href="javascript:;" onclick="$('#div_message_import_status').load('{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.standard.messages&action=setMessageStatus&id={$result.message_id}&status=0&view_id={$view->id|escape:'url'}{/devblocks_url}');">
 	({$translate->_('feg.message_recipient.status_retry')|capitalize})</a>
 {/if}
-</div>
+</span>
 
 <br>
 {foreach from=$message_lines item=line name=line_id}
