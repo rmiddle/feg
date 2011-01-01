@@ -16,4 +16,8 @@ if(!isset($columns['import_status'])) {
 	$db->Execute("ALTER TABLE message ADD INDEX import_status (import_status)");
 }
 
+$sql = "REPLACE INTO export_type_params (id, recipient_type, name, type, pos, options_json) VALUES(11, 0, 'Email Overide From Personal', 2, 0, '')";
+$db->Execute($sql);
+
+
 return TRUE;
