@@ -226,9 +226,14 @@ class ImportCron extends FegCronExtension {
 			
 			$status = $this->_createMessageRecipient($message->account_id, $id, $message->message);
 			$fields = get_object_vars($message);
-			$fields[DAO_Message::IMPORT_STATUS] = $status ? 1 : 2; // 0 = In Queus, 1 = Failure, 2 = Complete
-			$mr_status = DAO_Message::update($id, $fields);				
-			$logger->info("[Message] Import Status set to: " . $status ? "Failure" : "Complete");
+			if ($status) {
+				$logger->info("[Message] Import Status set to: Complete");
+				$fields[DAO_Message::IMPORT_STATUS] = 2; // 0 = In Queus, 1 = Failure, 2 = Complete
+			} else {
+				$logger->info("[Message] Import Status set to: Failure");
+				$fields[DAO_Message::IMPORT_STATUS] = 1; // 0 = In Queus, 1 = Failure, 2 = Complete
+			}
+			$mr_status = DAO_Message::update($id, $fields);
 		}
 		mysql_free_result($rs);		
 	}
