@@ -201,11 +201,11 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		$defaults->renderLimit = 15;
 		
 		$defaults->renderSortBy = SearchFields_CustomerRecipient::ID;
-		$defaults->renderSortAsc = true;
+		$defaults->renderSortAsc = 1;
 
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
 		$view->renderSortBy = SearchFields_CustomerRecipient::ID;
-		$view->renderSortAsc = true;
+		$view->renderSortAsc = 1;
 		$view->params = array(
 			SearchFields_CustomerRecipient::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_CustomerRecipient::ACCOUNT_ID,'=',$customer_id),
 		);
