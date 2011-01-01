@@ -58,7 +58,7 @@
 				&nbsp;</a></td>
 			{elseif $column=="mr_recipient_id"}
 				<td>
-					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.mr_recipient_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{include file="file:$core_tpl/internal/feg/display_recipient_id.tpl"}</a>&nbsp;
+					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.mr_recipient_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.mr_recipient_id}</a>&nbsp;
 				</td>
 			{elseif $column=="mr_message_id"}
 				<td>
