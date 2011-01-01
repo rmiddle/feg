@@ -233,7 +233,7 @@ class DAO_Message extends Feg_ORMHelper {
 
 
 class SearchFields_Message implements IDevblocksSearchFields {
-	const ID = 'm_id';
+	const ID = 'message_id';
 	const ACCOUNT_ID = 'message_account_id';
 	const IMPORT_STATUS = 'message_import_status';
 	const CREATED_DATE = 'message_created_date';
