@@ -14,7 +14,7 @@
 	{* Column Headers *}
 	<tr>
 		{foreach from=$view->view_columns item=header name=headers}
-		{if $header=='mr_id' || $header=='mr_account_id' || $header=='mr_message_id'}
+		{if $header=='mr_id' || $header=='mr_account_id' || || $header=='mr_recipient_id' || $header=='mr_message_id'}
 			{* start table header, insert column title and link *}
 			<th nowrap="nowrap" style="background-color:rgb(232,242,254);border-color:rgb(121,183,231);">
 			<a href="javascript:;" style="color:rgb(74,110,158);" onclick="genericAjaxGet('view{$view->id}','c=internal&a=viewSortBy&id={$view->id}&sortBy={$header}');">{$view_fields.$header->db_label|capitalize}</a>
@@ -55,6 +55,9 @@
 						{$account->account_number}
 					{/if}
 				&nbsp;</a></td>
+			{elseif $column=="mr_recipient_id"}
+				<td><a href="javascript:;" onclick="genericAjaxPanel('c=stats&a=showMessageRecipientFailurePeek&id={$result.mr_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
+			{/if}
 			{elseif $column=="mr_message_id"}
 				<td><a href="javascript:;" onclick="genericAjaxPanel('c=stats&a=showMessageRecipientFailurePeek&id={$result.mr_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
 			{/if}
