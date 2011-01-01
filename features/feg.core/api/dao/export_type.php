@@ -139,7 +139,7 @@ class DAO_ExportType extends Feg_ORMHelper {
 
 					$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
 		
-					$objects = self::_createObjectsFromResultSet($rs);
+					$objects = self::_getObjectsFromResult($rs);
 		
 					$cache->save($objects, self::CACHE_TYPE_0);
 				}
@@ -154,7 +154,7 @@ class DAO_ExportType extends Feg_ORMHelper {
 					
 					$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
 		
-					$objects = self::_createObjectsFromResultSet($rs);
+					$objects = self::_getObjectsFromResult($rs);
 		
 					$cache->save($objects, self::CACHE_TYPE_1);
 				}
@@ -169,7 +169,7 @@ class DAO_ExportType extends Feg_ORMHelper {
 					
 					$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
 		
-					$objects = self::_createObjectsFromResultSet($rs);
+					$objects = self::_getObjectsFromResult($rs);
 		
 					$cache->save($objects, self::CACHE_TYPE_2);
 				}
