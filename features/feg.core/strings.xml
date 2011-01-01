@@ -649,10 +649,13 @@ For example: *receipt*</seg></tuv>
 			<tuv xml:lang="en_US"><seg>Processing Status</seg></tuv>
 		</tu>
 		<tu tuid='feg.message.import_status_0'>
-			<tuv xml:lang="en_US"><seg>Complete</seg></tuv>
+			<tuv xml:lang="en_US"><seg>In Queue</seg></tuv>
 		</tu>
 		<tu tuid='feg.message.import_status_1'>
-			<tuv xml:lang="en_US"><seg>Pending</seg></tuv>
+			<tuv xml:lang="en_US"><seg>Falure</seg></tuv>
+		</tu>
+		<tu tuid='feg.message.import_status_2'>
+			<tuv xml:lang="en_US"><seg>Complete</seg></tuv>
 		</tu>
 		<tu tuid='feg.message.created_date'>
 			<tuv xml:lang="en_US"><seg>Created Date</seg></tuv>

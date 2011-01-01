@@ -255,6 +255,7 @@ class ImportCron extends FegCronExtension {
 		$status = TRUE; // Return OK status unless something sets it to false
 		$fields = array(
 			DAO_Message::ACCOUNT_ID => $account_id,
+			DAO_Message::IMPORT_STATUS => $account_id ? 1 : 2, // 0 = In Queus, 1 = Failure, 2 = Complete
 			DAO_Message::CREATED_DATE => $current_time,
 			DAO_Message::UPDATED_DATE => $current_time,
 			DAO_Message::MESSAGE => $message_text,
@@ -262,10 +263,7 @@ class ImportCron extends FegCronExtension {
 		if(false !== ($params = json_decode($json, true))) {
 			$fields[DAO_Message::PARAMS] = $params;
 		}
-echo "<pre>";
-print_r($fields);
-echo "</pre>";
-
+		
 		$message_id = DAO_Message::create($fields);
 		
 		$logger->info("[Parser] Created message id = " . $message_id . "...");
