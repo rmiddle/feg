@@ -602,7 +602,7 @@ class FegCustomerTabMessages extends Extension_CustomerTab {
 	
 	function setMessageStatusAction() {
 		$translate = DevblocksPlatform::getTranslationService();
-
+		
 		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
 		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
 		@$status = DevblocksPlatform::importGPC($_REQUEST['status'],'integer',0);
@@ -610,7 +610,9 @@ class FegCustomerTabMessages extends Extension_CustomerTab {
 		
 		$message = DAO_Message::get($id);
 		
+		$fields = get_object_vars($objects);
 		$fields[DAO_Message::IMPORT_STATUS] = $status;
+		
 		$mr_status = DAO_Message::update($id, $fields);
 		// Give plugins a chance to note a message is imported.
 		$eventMgr = DevblocksPlatform::getEventService();
