@@ -135,7 +135,7 @@ class DAO_ExportType extends Feg_ORMHelper {
 					$sql = "SELECT id, name, recipient_type, is_disabled, params_json ";
 					$sql .= "FROM export_type ";
 					$sql .= sprintf("WHERE recipient_type = %d ", $type);
-					$sql .= "ORDER BY pos ASC ";
+					$sql .= "ORDER BY id ASC ";
 
 					$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
 		
@@ -150,7 +150,7 @@ class DAO_ExportType extends Feg_ORMHelper {
 					$sql = "SELECT id, name, recipient_type, is_disabled, params_json ";
 					$sql .= "FROM export_type ";
 					$sql .= sprintf("WHERE recipient_type = %d ", $type);
-					$sql .= "ORDER BY pos ASC ";
+					$sql .= "ORDER BY id ASC ";
 					
 					$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
 		
@@ -165,7 +165,7 @@ class DAO_ExportType extends Feg_ORMHelper {
 					$sql = "SELECT id, name, recipient_type, is_disabled, params_json ";
 					$sql .= "FROM export_type ";
 					$sql .= sprintf("WHERE recipient_type = %d ", $type);
-					$sql .= "ORDER BY pos ASC ";
+					$sql .= "ORDER BY id ASC ";
 					
 					$rs = $db->Execute($sql) or die(__CLASS__ . '('.__LINE__.')'. ':' . $db->ErrorMsg()); 
 		
