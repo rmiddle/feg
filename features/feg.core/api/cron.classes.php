@@ -177,11 +177,13 @@ class ImportCron extends FegCronExtension {
 					$import_source,
 					DAO_CustomerAccount::IS_DISABLED
 				)));
-				if (isset($account))
+				if (isset($account)) {
 					$account_id = $account->id;
-				else
+					$logger->info("[Message] Found Account: ". $account->account_name ." well reprocessing message ID: " . $id);
+				} else {
 					$account_id = 0;
-					
+					$logger->info("[Message] No Account Found");
+				}	
 				$fields = get_object_vars($message);
 				$fields[DAO_Message::ACCOUNT_ID] = $account_id;
 		
@@ -226,6 +228,7 @@ class ImportCron extends FegCronExtension {
 			$fields = get_object_vars($message);
 			$fields[DAO_Message::IMPORT_STATUS] = $status ? 1 : 2; // 0 = In Queus, 1 = Failure, 2 = Complete
 			$mr_status = DAO_Message::update($id, $fields);				
+			$logger->info("[Message] Import Status set to: " . $status ? "Failure" : "Complete");
 		}
 		mysql_free_result($rs);		
 	}
