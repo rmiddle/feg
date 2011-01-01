@@ -66,11 +66,11 @@
 					{$translate->_($status_str)|capitalize}&nbsp;
 					{if $result.$column == 2}
 						{if $active_worker->hasPriv('core.access.message.reprocess')}
-							<a href="javascript:;" onclick="$('#table_message_import_status_{$result.message_id}').load('{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.standard.messages&action=setMessageStatus&id={result.message_id}&status=0&view_id={$view->id|escape:'url'}{/devblocks_url}');">
+							<a href="javascript:;" onclick="$('#table_message_import_status_{$result.message_id}').load('{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.standard.messages&action=setMessageStatus&id={$result.message_id}&status=0&view_id={$view->id|escape:'url'}{/devblocks_url}');">
 		({$translate->_('ffeg.message.import_status.reprocess')|capitalize})</a>
 						{/if}
 					{elseif $result.$column == 1}			
-						<a href="javascript:;" onclick="$('##table_message_import_status_{$result.message_id}').load('{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.standard.messages&action=setMessageStatus&id={result.message_id}&status=0&view_id={$view->id|escape:'url'}{/devblocks_url}');">
+						<a href="javascript:;" onclick="$('#table_message_import_status_{$result.message_id}').load('{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.standard.messages&action=setMessageStatus&id={$result.message_id}&status=0&view_id={$view->id|escape:'url'}{/devblocks_url}');">
 		({$translate->_('feg.message_recipient.status_retry')|capitalize})</a>
 					{/if}
 				</td>
