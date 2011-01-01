@@ -64,6 +64,7 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
             	break;
             case 'cron.export':
             	// Is a worker around to invoke this change?  0 = automatic
+				/*
             	@$worker_id = (null != ($active_worker = FegApplication::getActiveWorker()) && !empty($active_worker->id))
             		? $active_worker->id
             		: 0;
@@ -79,6 +80,7 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
 					DAO_MessageAuditLog::CHANGE_VALUE => 'Cron Exporter Ran',
            		);
 				$log_id = DAO_MessageAuditLog::create($fields);
+				*/
             	break;
             	
             case 'cron.send.email':
