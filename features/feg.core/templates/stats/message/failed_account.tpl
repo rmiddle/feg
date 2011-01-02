@@ -89,6 +89,7 @@
 						$.getJSON("{devblocks_url}ajax.php?c=account&a=setCustomerAccountNumber&m_id={$id}&acc_num="+an+"{/devblocks_url}", function(data) {
 							alert(dump(data));
 						});
+						genericPanel.dialog('close');
 					});
 				});
 			}

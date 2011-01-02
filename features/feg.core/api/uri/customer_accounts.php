@@ -103,8 +103,6 @@ class FegAccountPage extends FegPageExtension {
 		)));
 		$message = DAO_Message::get($m_id);
 		
-		if (isset($account))
-			echo json_encode($account);
 		if (isset($message))
 			echo json_encode($message);
 	}
