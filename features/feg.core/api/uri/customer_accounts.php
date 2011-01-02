@@ -64,7 +64,6 @@ class FegAccountPage extends FegPageExtension {
 			"LIMIT 0, 10 ",
 			$term
 		);
-print_r($sql);
 		
 		$rs = $db->Execute($sql);
 		
