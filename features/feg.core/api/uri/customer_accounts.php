@@ -123,8 +123,8 @@ class FegAccountPage extends FegPageExtension {
 	        new Model_DevblocksEvent(
 	            'message.account.assign',
                 array(
+                    'account_id' => $account->id,
                     'message_id' => $m_id,
-                    'account_id' => $account->id
                 )
             )
 	    );
