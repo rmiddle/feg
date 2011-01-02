@@ -79,7 +79,7 @@
 			minLength: 1,
 			select: function( event, ui ) {
 				var account = ui.item ? ui.item.value : this.value;
-				$("#assign_to_account_results").load("{devblocks_url}ajax.php?c=account&a=searchCustomerJson&search="+account+"{/devblocks_url}");
+				$("#assign_to_account_results").load("{devblocks_url}ajax.php?c=account&a=showCustomerJson&search="+account+"{/devblocks_url}");
 			}
 		});
 	});
