@@ -2,7 +2,7 @@
 <input type="hidden" name="c" value="account">
 <input type="hidden" name="a" value="createNewCustomer">
 <input type="hidden" name="message_id" value="{$message->id}">
-<input type="hidden" name="account_id" id="account_id" value="$message->account_id">
+<input type="hidden" name="account_id" id="account_id" value="{$message->account_id}">
 {if isset($message->params['account_name'])}
 	<input type="hidden" name="account_name" value="{$message->params['account_name']}">
 {/if}
