@@ -53,6 +53,8 @@ class FegAccountPage extends FegPageExtension {
 	}
 	
 	function searchCustomerJsonAction() {
+		$db = DevblocksPlatform::getDatabaseService();
+
 		@$term = DevblocksPlatform::importGPC($_REQUEST['term'],'string','');
 		
 		$sql = sprintf("SELECT account_number ".
