@@ -8,6 +8,7 @@
 {/if}
 
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
+	{if $message->account_id > 0}
 	<tr>
 		<td nowrap="nowrap" align="right">
 			{if $active_worker->hasPriv('core.access.customer.create')}
@@ -52,6 +53,16 @@
 		</td>
 	</tr>
 	{/if}
+	{else}
+	<tr>
+		<td nowrap="nowrap" align="right">
+				{$translate->_('feg.message.assigned_to_account')}&nbsp;
+		</td>
+		<td>
+				<b>{$message->account_id}</b>&nbsp;
+		</td>
+	</tr>
+	{/if}	
 	<tr>
 		<td nowrap="nowrap" align="right">{$translate->_('feg.message.id')|capitalize} </td>
 		<td>{$id}</td>

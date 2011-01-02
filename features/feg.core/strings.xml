@@ -687,6 +687,9 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.message.assign_account.number'>
 			<tuv xml:lang="en_US"><seg>Assign to Account Number</seg></tuv>
 		</tu>
+		<tu tuid='feg.message.assign_account'>
+			<tuv xml:lang="en_US"><seg>Already assigned to Account: </seg></tuv>
+		</tu>
 		<tu tuid='feg.message.est_account_id'>
 			<tuv xml:lang="en_US"><seg>Possible Account #</seg></tuv>
 		</tu>
