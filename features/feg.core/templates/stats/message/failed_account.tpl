@@ -76,9 +76,6 @@
 		genericPanel.dialog('option','title','Select Account'); 
 	});
 	$(document).ready(function() {
-		$("#customer_account_assign_link").click(function() {
-			{*$('#customer_account_assign_div').show();*}
-		});
 		$("#customer_account_search").autocomplete({
 			source: "{devblocks_url}ajax.php?c=account&a=searchCustomerJson{/devblocks_url}",
 			minLength: 1,
@@ -87,6 +84,11 @@
 				$.getJSON("{devblocks_url}ajax.php?c=account&a=showCustomerJson&search="+account+"{/devblocks_url}", function(data) {
 					$('#assign_to_account_results_name').text(data.account_name);
 					$('#assign_to_account_results_number').text(data.account_number);
+					$("#customer_account_assign_link").click(function() {
+						var an = $('#assign_to_account_results_number').val;
+						$.getJSON("{devblocks_url}ajax.php?c=account&a=setCustomerAccountNumber&mr_id={$id}&acc_num="+an+"{/devblocks_url}", function(data) {
+						});
+					});
 				});
 			}
 		});
