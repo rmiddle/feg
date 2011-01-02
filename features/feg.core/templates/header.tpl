@@ -19,7 +19,7 @@
   <!-- Application -->
   <link type="text/css" rel="stylesheet" href="{devblocks_url}c=resource&p=feg.core&f=css/feg.css{/devblocks_url}?v={$smarty.const.APP_BUILD}">
 
-{*<script type="text/javascript" src="{devblocks_url}c=resource&p=feg.core&f=js/feg.js{/devblocks_url}?v={$smarty.const.APP_BUILD}"></script>*}
+<script type="text/javascript" src="{devblocks_url}c=resource&p=feg.core&f=js/feg.js{/devblocks_url}?v={$smarty.const.APP_BUILD}"></script>
 
 </head>
 
