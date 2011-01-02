@@ -85,7 +85,7 @@
 					$('#assign_to_account_results_name').text(data.account_name);
 					$('#assign_to_account_results_number').text(data.account_number);
 					$("#customer_account_assign_link").click(function() {
-						var an = $('#assign_to_account_results_number').val;
+						var an = $('#assign_to_account_results_number').val();
 						$.getJSON("{devblocks_url}ajax.php?c=account&a=setCustomerAccountNumber&m_id={$id}&acc_num="+an+"{/devblocks_url}", function(data) {
 							genericPanel.dialog('close');
 						});
