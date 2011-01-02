@@ -45,7 +45,7 @@
 		<td nowrap="nowrap" align="right">&nbsp;</td>
 		<td>
 				<a id="customer_account_assign_link" href="javascript:;">
-				<b>{$translate->_('feg.message.assign_account')}<div id="assign_to_account_results_number"></div></b></a>&nbsp;
+				<b>{$translate->_('feg.message.assign_account')}<span id="assign_to_account_results_number"></span></b></a>&nbsp;
 		</td>
 	</tr>
 	{/if}
