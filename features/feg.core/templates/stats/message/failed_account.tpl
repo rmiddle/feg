@@ -8,35 +8,6 @@
 
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	<tr>
-		<td nowrap="nowrap" align="right">&nbsp;</td>
-		<td>
-			{if $active_worker->hasPriv('core.access.message.assign')}
-				<a id="customer_account_assign_link" href="javascript:;">
-				<b>{$translate->_('feg.message.select_account')}</b></a>&nbsp;
-			{/if}
-		</td>
-	</tr>
-	<div id="customer_account_assign_div" style="display:none;">
-	<tr>
-		<td nowrap="nowrap" align="right">&nbsp;</td>
-		<td>
-			<input type="text" name="customer_account_search" id="customer_account_search" value="" style="width:98%;">
-		</td>
-	</tr>
-	<tr>
-		<td nowrap="nowrap" align="right">Assign to Account Name</td>
-		<td>
-			<div id="assign_to_account_results_name">&nbsp;</div>
-		</td>
-	</tr>
-	<tr>
-		<td nowrap="nowrap" align="right">Assign to Account Number</td>
-		<td>
-			<div id="assign_to_account_results_number">&nbsp;</div>
-		</td>
-	</tr>
-	</div>
-	<tr>
 		<td nowrap="nowrap" align="right">
 			{if $active_worker->hasPriv('core.access.customer.create')}
 				{if isset($message->params['account_name'])}
@@ -57,6 +28,33 @@
 			{/if}
 		</td>
 	</tr>
+	{if $active_worker->hasPriv('core.access.message.assign')}
+	<tr>
+		<td nowrap="nowrap" align="right">{$translate->_('feg.message.assign_account.search')|capitalize}</td>
+		<td>
+			<input type="text" name="customer_account_search" id="customer_account_search" value="" style="width:98%;">
+		</td>
+	</tr>
+	<tr>
+		<td nowrap="nowrap" align="right">{$translate->_('feg.message.assign_account.name')|capitalize}</td>
+		<td>
+			<div id="assign_to_account_results_name">&nbsp;</div>
+		</td>
+	</tr>
+	<tr>
+		<td nowrap="nowrap" align="right">{$translate->_('feg.message.assign_account.number')|capitalize}</td>
+		<td>
+			<div id="assign_to_account_results_number">&nbsp;</div>
+		</td>
+	</tr>
+	<tr>
+		<td nowrap="nowrap" align="right">&nbsp;</td>
+		<td>
+				<a id="customer_account_assign_link" href="javascript:;">
+				<b>{$translate->_('feg.message.assign_account')}</b></a>&nbsp;
+		</td>
+	</tr>
+	{/if}
 	<tr>
 		<td nowrap="nowrap" align="right">{$translate->_('feg.message.id')|capitalize} </td>
 		<td>{$id}</td>
