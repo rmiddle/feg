@@ -66,7 +66,7 @@ class FegAccountPage extends FegPageExtension {
 		
 		// Loop though pending outbound emails.
 		while($row = mysql_fetch_assoc($rs)) {
-			$ret[] = $row
+			$ret[] = $row;
 		}
 		
 		echo json_encode($ret);
