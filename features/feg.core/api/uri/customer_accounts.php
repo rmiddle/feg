@@ -74,6 +74,23 @@ class FegAccountPage extends FegPageExtension {
 		echo json_encode($ret);
 	}
 	
+	function showCustomerJsonAction() {
+		$db = DevblocksPlatform::getDatabaseService();
+
+		@$search = DevblocksPlatform::importGPC($_REQUEST['search'],'string','');
+		
+		// Now Confirm the account exists and is active
+		$account = array_shift(DAO_CustomerAccount::getWhere(sprintf("%s = %d AND %s = '0' ",
+			DAO_CustomerAccount::ACCOUNT_NUMBER,
+			$search,
+			DAO_CustomerAccount::IS_DISABLED
+		)));
+		if (isset($account))
+			echo "Account Number: " . $account->account_number . " Account Name: " . $account->account_name;
+		else
+			echo "Account Not found";
+	}
+	
 	function createNewCustomerAction() {
 		$active_worker = FegApplication::getActiveWorker();
 		@$account_number = DevblocksPlatform::importGPC($_REQUEST['account_name'],'string','');

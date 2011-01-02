@@ -3,7 +3,7 @@
 <table align="center" border="0" cellpadding="2" cellspacing="0" width="100%">
     <tr>
       <td nowrap="nowrap" valign="top">
-      	<b>Feg</b>&trade; &copy; 2010, Answernet; LLC - Version 1.0 Beta Dev (Build {$smarty.const.APP_BUILD}) 
+      	<b>Feg</b>&trade; &copy; 2011, Answernet; - Version 1.0 RC1 Dev (Build {$smarty.const.APP_BUILD}) 
       	<br>
       	{if (1 || $debug) && !empty($render_time)}
 		<span style="color:rgb(180,180,180);font-size:90%;">

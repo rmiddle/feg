@@ -23,6 +23,12 @@
 		</td>
 	</tr>
 	<tr>
+		<td nowrap="nowrap" align="right">Assign to Account</td>
+		<td>
+			<div id="assign_to_account_results">&nbsp;</div>
+		</td>
+	</tr>
+	<tr>
 		<td nowrap="nowrap" align="right">
 			{if $active_worker->hasPriv('core.access.customer.create')}
 				{if isset($message->params['account_name'])}
@@ -71,6 +77,10 @@
 		$("#customer_account_search").autocomplete({
 			source: "{devblocks_url}ajax.php?c=account&a=searchCustomerJson{/devblocks_url}",
 			minLength: 1,
+			select: function( event, ui ) {
+				var account = ui.item ? ui.item.value : this.value;
+				$("#assign_to_account_results").load("{devblocks_url}ajax.php?c=account&a=searchCustomerJson&search="+account+"{/devblocks_url}");
+			}
 		});
 	});
 </script>
