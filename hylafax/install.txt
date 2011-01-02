@@ -101,7 +101,7 @@ function exampleAddOption2() {
 }
 </script
 
-$( "#birds" ).autocomplete({
+		$( "#birds" ).autocomplete({
 			source: "search.php",
 			minLength: 2,
 			select: function( event, ui ) {

@@ -85,13 +85,9 @@
 			minLength: 1,
 			select: function( event, ui ) {
 				var account = ui.item ? ui.item.value : this.value;
-				$.getJSON(""{devblocks_url}ajax.php?c=account&a=showCustomerJson&search="+account+"{/devblocks_url}"", function(data) {
-					var acc_name = $('#assign_to_account_results_name');
-					var acc_number = $('#assign_to_account_results_number');
-					
+				$.getJSON("{devblocks_url}ajax.php?c=account&a=showCustomerJson&search="+account+"{/devblocks_url}", function(data) {					
 					$.each(data, function(index, array) {
 						$('#assign_to_account_results_name').append(array[index], index);
-						{*options[options.length] = new Option(array['name'], index);*}
 					});
 				});
 			}
