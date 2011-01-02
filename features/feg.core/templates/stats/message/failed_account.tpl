@@ -2,6 +2,7 @@
 <input type="hidden" name="c" value="account">
 <input type="hidden" name="a" value="createNewCustomer">
 <input type="hidden" name="message_id" value="{$message->id}">
+<input type="hidden" name="acccount_id" value="">
 {if isset($message->params['account_name'])}
 	<input type="hidden" name="account_name" value="{$message->params['account_name']}">
 {/if}
@@ -84,8 +85,9 @@
 				$.getJSON("{devblocks_url}ajax.php?c=account&a=showCustomerJson&search="+account+"{/devblocks_url}", function(data) {
 					$('#assign_to_account_results_name').text(data.account_name);
 					$('#assign_to_account_results_number').text(data.account_number);
+					$('#acccount_id').val(data.account_number);
 					$("#customer_account_assign_link").click(function() {
-						var an = $('#assign_to_account_results_number').val();
+						var an = $('#acccount_id'').val();
 						$.getJSON("{devblocks_url}ajax.php?c=account&a=setCustomerAccountNumber&m_id={$id}&acc_num="+an+"{/devblocks_url}", function(data) {
 							genericPanel.dialog('close');
 						});
