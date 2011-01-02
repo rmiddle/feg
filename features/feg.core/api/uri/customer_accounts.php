@@ -54,7 +54,7 @@ class FegAccountPage extends FegPageExtension {
 	
 	function searchCustomerJsonAction() {
 		@$term = DevblocksPlatform::importGPC($_REQUEST['term'],'string','');
-		echo "{"1":1,"4":$term}";
+		echo '{"1":1,"4":$term}';
 	}
 	
 	function createNewCustomerAction() {
