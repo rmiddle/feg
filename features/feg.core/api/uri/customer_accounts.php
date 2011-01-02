@@ -68,7 +68,7 @@ class FegAccountPage extends FegPageExtension {
 		while($row = mysql_fetch_assoc($rs)) {
 			$ret[] = $row['account_number'];
 		}
-		
+		print_r($ret);
 		echo json_encode($ret);
 	}
 	
