@@ -102,13 +102,13 @@ class FegAccountPage extends FegPageExtension {
 			DAO_CustomerAccount::IS_DISABLED
 		)));
 		
-		if (isset($account)) {
+		if (!isset($account)) {
 			return;
 		}
 		
 		$message_obj = DAO_Message::get($m_id);
 		
-		if (isset($message_obj)) {
+		if (!isset($message_obj)) {
 			return;
 		}
 		
