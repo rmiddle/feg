@@ -17,6 +17,12 @@
 		</td>
 	</tr>
 	<tr>
+		<td nowrap="nowrap" align="right">&nbsp;</td>
+		<td>
+			<input type="text" name="customer_account_search" id="customer_account_search" value="" style="width:98%;">
+		</td>
+	</tr>
+	<tr>
 		<td nowrap="nowrap" align="right">
 			{if $active_worker->hasPriv('core.access.customer.create')}
 				{if isset($message->params['account_name'])}
@@ -60,5 +66,11 @@
 <script type="text/javascript" language="JavaScript1.2">
 	$(genericPanel).one('dialogopen',function(event,ui) {
 		genericPanel.dialog('option','title','Select Account'); 
+	});
+	$(document).ready(function() {
+		$( "#customer_account_search" ).autocomplete({
+			source: "{devblocks_url}ajax.php?c=account&a=searchCustomerJson{/devblocks_url}",
+			minLength: 2,
+		});
 	});
 </script>

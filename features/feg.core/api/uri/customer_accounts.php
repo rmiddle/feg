@@ -52,6 +52,11 @@ class FegAccountPage extends FegPageExtension {
 		$tpl->display('file:' . $this->_TPL_PATH . 'account/accounts.tpl');		
 	}
 	
+	function searchCustomerJsonAction() {
+		@$term = DevblocksPlatform::importGPC($_REQUEST['term'],'string','');
+		echo "{"1":1,"4":$term}";
+	}
+	
 	function createNewCustomerAction() {
 		$active_worker = FegApplication::getActiveWorker();
 		@$account_number = DevblocksPlatform::importGPC($_REQUEST['account_name'],'string','');
