@@ -676,7 +676,7 @@ For example: *receipt*</seg></tuv>
 			<tuv xml:lang="en_US"><seg>Create Account</seg></tuv>
 		</tu>
 		<tu tuid='feg.message.assign_account'>
-			<tuv xml:lang="en_US"><seg>Assign to An Account</seg></tuv>
+			<tuv xml:lang="en_US"><seg>Assign to Account: </seg></tuv>
 		</tu>
 		<tu tuid='feg.message.assign_account.search'>
 			<tuv xml:lang="en_US"><seg>Search for account</seg></tuv>

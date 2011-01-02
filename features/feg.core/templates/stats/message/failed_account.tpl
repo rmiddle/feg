@@ -42,16 +42,10 @@
 		</td>
 	</tr>
 	<tr>
-		<td nowrap="nowrap" align="right">{$translate->_('feg.message.assign_account.number')|capitalize}</td>
-		<td>
-			<div id="assign_to_account_results_number">&nbsp;</div>
-		</td>
-	</tr>
-	<tr>
 		<td nowrap="nowrap" align="right">&nbsp;</td>
 		<td>
 				<a id="customer_account_assign_link" href="javascript:;">
-				<b>{$translate->_('feg.message.assign_account')}</b></a>&nbsp;
+				<b>{$translate->_('feg.message.assign_account')}<div id="assign_to_account_results_number"></div></b></a>&nbsp;
 		</td>
 	</tr>
 	{/if}
