@@ -23,9 +23,15 @@
 		</td>
 	</tr>
 	<tr>
-		<td nowrap="nowrap" align="right">Assign to Account</td>
+		<td nowrap="nowrap" align="right">Assign to Account Name</td>
 		<td>
-			<div id="assign_to_account_results">&nbsp;</div>
+			<div id="assign_to_account_results_name">&nbsp;</div>
+		</td>
+	</tr>
+	<tr>
+		<td nowrap="nowrap" align="right">Assign to Account Number</td>
+		<td>
+			<div id="assign_to_account_results_number">&nbsp;</div>
 		</td>
 	</tr>
 	<tr>
@@ -79,7 +85,15 @@
 			minLength: 1,
 			select: function( event, ui ) {
 				var account = ui.item ? ui.item.value : this.value;
-				$("#assign_to_account_results").load("{devblocks_url}ajax.php?c=account&a=showCustomerJson&search="+account+"{/devblocks_url}");
+				$.getJSON(""{devblocks_url}ajax.php?c=account&a=showCustomerJson&search="+account+"{/devblocks_url}"", function(data) {
+					var acc_name = $('#assign_to_account_results_name');
+					var acc_number = $('#assign_to_account_results_number');
+					
+					$.each(data, function(index, array) {
+						$('#assign_to_account_results_name').append(array[index], index);
+						{*options[options.length] = new Option(array['name'], index);*}
+					});
+				});
 			}
 		});
 	});
