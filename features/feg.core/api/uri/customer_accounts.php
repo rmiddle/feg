@@ -64,13 +64,14 @@ class FegAccountPage extends FegPageExtension {
 			"LIMIT 10 ",
 			$term
 		);
+print_r($sql);
+		
 		$rs = $db->Execute($sql);
 		
 		// Loop though pending outbound emails.
 		while($row = mysql_fetch_assoc($rs)) {
 			$ret[] = $row['account_number'];
 		}
-		print_r($ret);
 		echo json_encode($ret);
 	}
 	
