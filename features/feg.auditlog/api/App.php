@@ -289,7 +289,7 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
 						@$send_type = "Unknown";
 						break;
 				}
-				@$change_value = sprintf("%s Scheduled for %s <%s>", $send_type, $cr_id->address_to, $cr_id->address);
+				@$change_value = sprintf("%s Scheduled for %s '<%s>'", $send_type, $cr_id->address_to, $cr_id->address);
 
           		$fields = array(
           			DAO_MessageAuditLog::WORKER_ID => 0,
