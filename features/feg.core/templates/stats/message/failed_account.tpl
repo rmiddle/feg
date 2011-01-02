@@ -68,7 +68,7 @@
 		genericPanel.dialog('option','title','Select Account'); 
 	});
 	$(document).ready(function() {
-		$( "#customer_account_search" ).autocomplete({
+		$("#customer_account_search").autocomplete({
 			source: "{devblocks_url}ajax.php?c=account&a=searchCustomerJson{/devblocks_url}",
 			minLength: 2,
 		});
