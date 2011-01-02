@@ -58,10 +58,10 @@ class FegAccountPage extends FegPageExtension {
 		@$term = DevblocksPlatform::importGPC($_REQUEST['term'],'string','');
 		
 		$sql = sprintf("SELECT account_number ".
-			"FROM customer_account ca ".
-			"WHERE ca.account_number like %%%s%% ".
-			"AND ca.is_disabled = 0 ".
-			"LIMIT 10 ",
+			"FROM customer_account ".
+			"WHERE account_number like '%%%s%%' ".
+			"AND is_disabled = 0 ".
+			"LIMIT 0, 10 ",
 			$term
 		);
 print_r($sql);
