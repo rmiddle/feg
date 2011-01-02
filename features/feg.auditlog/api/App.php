@@ -277,18 +277,19 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
 				)));
 				switch($cr_id->type) {
 					case 0: // Email
-						@$change_value = sprintf("Email Scheduled for %s <%s>",$cr_id->address_to, $cr_id->address);
+						@$send_type = "Email";
 						break;
 					case 1: // Fax
-						@$change_value = sprintf("Fax Scheduled for %s <%s>",$cr_id->address_to, $cr_id->address);
+						@$send_type = "Fax";
 						break;
 					case 2: // SNPP
-						@$change_value = sprintf("Page Scheduled for %s <%s>",$cr_id->address_to, $cr_id->address);
+						@$send_type = "Page";
 						break;
 					default:
-						@$change_value = sprintf("Unknown Type %d",$cr_id->type);
+						@$send_type = "Unknown";
 						break;
 				}
+				@$change_value = sprintf("%s Scheduled for %s <%s>", $send_type, $cr_id->address_to, $cr_id->address);
 
           		$fields = array(
           			DAO_MessageAuditLog::WORKER_ID => 0,
