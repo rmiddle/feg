@@ -8,7 +8,7 @@
 {/if}
 
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
-	{if $message->account_id > 0}
+	{if $message->account_id == 0}
 	<tr>
 		<td nowrap="nowrap" align="right">
 			{if $active_worker->hasPriv('core.access.customer.create')}
