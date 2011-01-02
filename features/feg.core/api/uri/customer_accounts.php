@@ -93,7 +93,7 @@ class FegAccountPage extends FegPageExtension {
 		$db = DevblocksPlatform::getDatabaseService();
 
 		@$account_number = DevblocksPlatform::importGPC($_REQUEST['acc_num'],'string','');
-		@$mr_id = DevblocksPlatform::importGPC($_REQUEST['mr_id'],'string','');
+		@$m_id = DevblocksPlatform::importGPC($_REQUEST['m_id'],'string','');
 		
 		// Now Confirm the account exists and is active
 		$account = array_shift(DAO_CustomerAccount::getWhere(sprintf("%s = %d AND %s = '0' ",
@@ -101,12 +101,12 @@ class FegAccountPage extends FegPageExtension {
 			$account_number,
 			DAO_CustomerAccount::IS_DISABLED
 		)));
-		$message_recipient = DAO_MessageRecipient::get($mr_id);
+		$message = DAO_Message::get($m_id);
 		
 		if (isset($account))
 			echo json_encode($account);
-		if (isset($message_recipient))
-			echo json_encode($message_recipient);
+		if (isset($message))
+			echo json_encode($message);
 	}
 	
 	function createNewCustomerAction() {
