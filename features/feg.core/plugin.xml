@@ -152,6 +152,9 @@
 		<event id="email.send">
 			<name>Email Send</name>
 		</event>
+		<event id="message.account.assign">
+			<name>Manually Assign Message to an account</name>
+		</event>
 		<event id="message.create">
 			<name>Message Creation Event</name>
 		</event>

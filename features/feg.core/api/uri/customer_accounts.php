@@ -101,10 +101,25 @@ class FegAccountPage extends FegPageExtension {
 			$account_number,
 			DAO_CustomerAccount::IS_DISABLED
 		)));
-		$message = DAO_Message::get($m_id);
 		
-		if (isset($message))
-			echo json_encode($message);
+		$message_obj = DAO_Message::get($m_id);
+		$fields = get_object_vars($message_obj);
+		$fields[DAO_Message::ACCOUNT_ID] = $account->id;
+		$fields[DAO_Message::IMPORT_STATUS] = 0; // Requeue
+		$mr_status = DAO_Message::update($id, $fields);
+		
+		// Give plugins a chance to note a message is assigned
+		$eventMgr = DevblocksPlatform::getEventService();
+	    $eventMgr->trigger(
+	        new Model_DevblocksEvent(
+	            'message.account.assign',
+                array(
+                    'message_id' => $m_id,
+                    'account_id' => $account->id
+                )
+            )
+	    );
+		echo json_encode($fields);
 	}
 	
 	function createNewCustomerAction() {
