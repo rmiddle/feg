@@ -102,7 +102,16 @@ class FegAccountPage extends FegPageExtension {
 			DAO_CustomerAccount::IS_DISABLED
 		)));
 		
+		if (isset($account)) {
+			return;
+		}
+		
 		$message_obj = DAO_Message::get($m_id);
+		
+		if (isset($message_obj)) {
+			return;
+		}
+		
 		$fields = get_object_vars($message_obj);
 		$fields[DAO_Message::ACCOUNT_ID] = $account->id;
 		$fields[DAO_Message::IMPORT_STATUS] = 0; // Requeue
