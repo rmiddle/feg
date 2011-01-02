@@ -43,11 +43,10 @@
 	</tr>
 	<tr>
 		<td nowrap="nowrap" align="right">
-				<a id="customer_account_assign_link" href="javascript:;">
-				{$translate->_('feg.message.assign_account')}</a>&nbsp;
+				{$translate->_('feg.message.assign_account')}&nbsp;
 		</td>
 		<td>
-				<a id="customer_account_assign_link_number" href="javascript:;">
+				<a id="customer_account_assign_link" href="javascript:;">
 				<b><span id="assign_to_account_results_number">&nbsp;</span></b></a>&nbsp;
 		</td>
 	</tr>
