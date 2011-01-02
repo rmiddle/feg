@@ -86,8 +86,8 @@
 			select: function( event, ui ) {
 				var account = ui.item ? ui.item.value : this.value;
 				$.getJSON("{devblocks_url}ajax.php?c=account&a=showCustomerJson&search="+account+"{/devblocks_url}", function(data) {
-					/*alert(dump(data,1));*/
-					alert(data.id);
+					$('#assign_to_account_results_name').text(data.account_name);
+					$('#assign_to_account_results_number').text(data.account_number);
 				});
 			}
 		});
