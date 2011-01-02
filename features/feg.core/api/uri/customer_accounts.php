@@ -106,7 +106,7 @@ class FegAccountPage extends FegPageExtension {
 		$fields = get_object_vars($message_obj);
 		$fields[DAO_Message::ACCOUNT_ID] = $account->id;
 		$fields[DAO_Message::IMPORT_STATUS] = 0; // Requeue
-		$mr_status = DAO_Message::update($id, $fields);
+		$m_status = DAO_Message::update($m_id, $fields);
 		
 		// Give plugins a chance to note a message is assigned
 		$eventMgr = DevblocksPlatform::getEventService();
