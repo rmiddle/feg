@@ -86,7 +86,8 @@ class FegAccountPage extends FegPageExtension {
 			DAO_CustomerAccount::IS_DISABLED
 		)));
 		if (isset($account))
-			echo "Account Number: " . $account->account_number . " Account Name: " . $account->account_name;
+			echo json_encode($account);
+			//echo "Name: " . $account->account_name . " Number: " . $account->account_number;
 		else
 			echo "Account Not found";
 	}
