@@ -83,7 +83,7 @@
 	});
 	$(document).ready(function() {
 		$("#customer_account_assign_link").click(function() {
-			$('#customer_account_assign_div').show();
+			{*$('#customer_account_assign_div').show();*}
 		});
 		$("#customer_account_search").autocomplete({
 			source: "{devblocks_url}ajax.php?c=account&a=searchCustomerJson{/devblocks_url}",
