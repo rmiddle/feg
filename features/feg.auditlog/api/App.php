@@ -226,6 +226,10 @@ class MessageAuditLogEventListener extends DevblocksEventListenerExtension {
             	@$account_id = $event->params['account_id'];
             	@$message_id = $event->params['message_id'];
 				
+				if((!is_int($account_id)) || ($account_id == 0)) {
+					break;
+				}
+				
             	// Is a worker around to invoke this change?  0 = automatic
             	@$worker_id = (null != ($active_worker = FegApplication::getActiveWorker()) && !empty($active_worker->id))
             		? $active_worker->id
