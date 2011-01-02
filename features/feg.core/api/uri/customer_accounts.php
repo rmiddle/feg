@@ -54,7 +54,22 @@ class FegAccountPage extends FegPageExtension {
 	
 	function searchCustomerJsonAction() {
 		@$term = DevblocksPlatform::importGPC($_REQUEST['term'],'string','');
-		echo '{1,'.$term.'}';
+		
+		$sql = sprintf("SELECT account_number ".
+			"FROM customer_account ca ".
+			"WHERE ca.account_number like %%%s%% ".
+			"AND ca.is_disabled = 0 ".
+			"LIMIT 10 ",
+			$term
+		);
+		$rs = $db->Execute($sql);
+		
+		// Loop though pending outbound emails.
+		while($row = mysql_fetch_assoc($rs)) {
+			$ret[] = $row
+		}
+		
+		echo json_encode($ret);
 	}
 	
 	function createNewCustomerAction() {
