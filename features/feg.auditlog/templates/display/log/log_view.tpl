@@ -64,7 +64,7 @@
 					{if $result.l_recipient_id==0}
 						{$translate->_('customer.display.auto')|capitalize}
 					{else}
-						<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.l_recipient_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{include file="file:$core_tpl/internal/feg/display_recipient_id.tpl"}</a>&nbsp;
+						<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.l_recipient_id}&view_id={$view->id|escape:'url'}',null,false,'650');">{include file="file:$core_tpl/internal/feg/display_recipient_id.tpl"}</a>&nbsp;
 					{/if}
 				</td>
 			{elseif $column=="l_message_id"}
@@ -72,7 +72,7 @@
 					{if $result.l_message_id==0}
 						{$translate->_('customer.display.auto')|capitalize}
 					{else}
-						<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessagePeek&id={$result.l_message_id}&customer_id={$result.l_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.l_message_id}&nbsp;</a>
+						<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessagePeek&id={$result.l_message_id}&customer_id={$result.l_account_id}&view_id={$view->id|escape:'url'}',null,false,'650');">{$result.l_message_id}&nbsp;</a>
 					{/if}
 				</td>
 			{elseif $column=="l_message_recipient_id"}
@@ -80,7 +80,7 @@
 					{if $result.l_message_recipient_id==0}
 						{$translate->_('customer.display.auto')|capitalize}
 					{else}
-						<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessageRecipientPeek&id={$result.l_message_recipient_id}&customer_id={$result.l_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.l_message_recipient_id}&nbsp;</a>
+						<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessageRecipientPeek&id={$result.l_message_recipient_id}&customer_id={$result.l_account_id}&view_id={$view->id|escape:'url'}',null,false,'650');">{$result.l_message_recipient_id}&nbsp;</a>
 					{/if}				
 				</td>
 			{elseif $column=="l_worker_id"}
