@@ -327,12 +327,12 @@ class View_CustomerRecipient extends Feg_AbstractView {
 		$this->view_columns = array(
 			SearchFields_CustomerRecipient::ID,
 			SearchFields_CustomerRecipient::ACCOUNT_ID,
-			SearchFields_CustomerRecipient::EXPORT_TYPE,
 			SearchFields_CustomerRecipient::IS_DISABLED,
 			SearchFields_CustomerRecipient::TYPE,
 			SearchFields_CustomerRecipient::ADDRESS,
 			SearchFields_CustomerRecipient::ADDRESS_TO,
 			SearchFields_CustomerRecipient::SUBJECT,
+			SearchFields_CustomerRecipient::EXPORT_TYPE,
 		);
 		$this->doResetCriteria();
 	}
