@@ -102,13 +102,11 @@ class DAO_Message extends Feg_ORMHelper {
 			$object->created_date = $row['created_date'];
 			$object->updated_date = $row['updated_date'];
 			$object->params_json = $row['params_json'];
-			
 			if(false !== ($params = json_decode($object->params_json, true))) {
 				$object->params = $params;
 			} else {
 				$object->params = array();
 			}
-			
 			$object->message = $row['message'];
 			$objects[$object->id] = $object;
 		}
