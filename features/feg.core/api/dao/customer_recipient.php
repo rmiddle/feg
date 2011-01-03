@@ -441,7 +441,6 @@ class View_CustomerRecipient extends Feg_AbstractView {
 		$criteria = null;
 
 		switch($field) {
-			case SearchFields_CustomerRecipient::EXPORT_TYPE:
 			case SearchFields_CustomerRecipient::ADDRESS:
 			case SearchFields_CustomerRecipient::ADDRESS_TO:
 			case SearchFields_CustomerRecipient::SUBJECT:
@@ -455,6 +454,7 @@ class View_CustomerRecipient extends Feg_AbstractView {
 			case SearchFields_CustomerRecipient::ACCOUNT_ID:
 			case SearchFields_CustomerRecipient::ID:
 			case SearchFields_CustomerRecipient::TYPE:
+			case SearchFields_CustomerRecipient::EXPORT_TYPE:
 				$criteria = new DevblocksSearchCriteria($field,$oper,$value);
 				break;
 				

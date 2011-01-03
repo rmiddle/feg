@@ -55,7 +55,7 @@
 		{foreach from=$view->view_columns item=column name=columns}
 			{if substr($column,0,3)=="cf_"}
 				{include file="file:$core_tpl/internal/custom_fields/view/cell_renderer.tpl"}
-			{elseif $column=="cr_address" || $column=="cr_id" || $column=="cr_address_to" || $column=="cr_subject"}
+			{elseif $column=="cr_id" || $column=="cr_address" || $column=="cr_address_to" || $column=="cr_subject"}
 				<td>
 					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.cr_id}&view_id={$view->id|escape:'url'}',null,false,'650');">
 					{$result.$column}&nbsp;</a></td>
