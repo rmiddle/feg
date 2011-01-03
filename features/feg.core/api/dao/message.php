@@ -249,7 +249,7 @@ class SearchFields_Message implements IDevblocksSearchFields {
 		$columns = array(
 			self::ID => new DevblocksSearchField(self::ID, 'message', 'id', $translate->_('feg.message.id')),
 			self::ACCOUNT_ID => new DevblocksSearchField(self::ACCOUNT_ID, 'message', 'account_id', $translate->_('feg.message.account_id')),
-			self::IMPORT_STATUS => new DevblocksSearchField(self::ACCOUNT_ID, 'message', 'import_status', $translate->_('feg.message.import_status')),
+			self::IMPORT_STATUS => new DevblocksSearchField(self::IMPORT_STATUS, 'message', 'import_status', $translate->_('feg.message.import_status')),
 			self::CREATED_DATE => new DevblocksSearchField(self::CREATED_DATE, 'message', 'created_date', $translate->_('feg.message.created_date')),
 			self::UPDATED_DATE => new DevblocksSearchField(self::UPDATED_DATE, 'message', 'updated_date', $translate->_('feg.message.updated_date')),
 			self::PARAMS_JSON => new DevblocksSearchField(self::PARAMS_JSON, 'message', 'params_json', $translate->_('feg.message.params_json')),
