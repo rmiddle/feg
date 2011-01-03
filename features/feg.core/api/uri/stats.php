@@ -251,7 +251,7 @@ class FegStatsPage extends FegPageExtension {
 				$arr = split(" ", $line);
 				array_shift($arr);
 				echo $arr[0]." ";
-				array_shift($arr);
+				//array_shift($arr);
 				array_shift($arr);
 				while($arr) {
 					echo $arr[0]. " ";

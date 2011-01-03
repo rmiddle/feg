@@ -22,6 +22,10 @@ VBoxManage storageattach Win2000 --storagectl "IDE Controller" --port 1 --device
 
 VBoxManage sharedfolder add Win2000 --name "import" --hostpath "/feg"
 
+exec /bin/su root -l -c "/bin/bash --login -c \"VBoxHeadless -startvm Win2000\" >/dev/null 2>&1" &
+su root -c "VBoxManage controlvm Win2000 savestate"
+
+
 $DATE.$M.al
 l-databases.sql$SUFFIX"
 
