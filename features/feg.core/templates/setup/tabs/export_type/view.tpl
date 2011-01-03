@@ -54,7 +54,7 @@
 			<td align="center"><input type="checkbox" name="row_id[]" value="{$result.i_id}"></td>
 		{foreach from=$view->view_columns item=column name=columns}
 			{if $column=="export_type_id" || $column=="export_type_name"}
-				<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showExportPeek&id={$result.export_type_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
+				<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showExportPeek&id={$result.export_type_id}&view_id={$view->id|escape:'url'}',null,false,'650');">{$result.$column}&nbsp;</a></td>
 			{elseif $column=="export_type_is_disabled"}
 				<td>{if $result.export_type_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</td>
 			{elseif $column=="export_type_recipient_type"}

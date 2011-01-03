@@ -55,18 +55,18 @@
 		{foreach from=$view->view_columns item=column name=columns}
 			{if $column=="mr_account_id"}
 				<td>
-					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessageRecipientPeek&id={$result.mr_id}&customer_id={$result.mr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
+					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessageRecipientPeek&id={$result.mr_id}&customer_id={$result.mr_account_id}&view_id={$view->id|escape:'url'}',null,false,'650');">
 					{include file="file:$core_tpl/internal/feg/display_customer_id.tpl"}&nbsp;</a>
 				</td>
 			{elseif $column=="mr_recipient_id"}
 				<td>
-					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessageRecipientPeek&id={$result.mr_id}&customer_id={$result.mr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
+					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessageRecipientPeek&id={$result.mr_id}&customer_id={$result.mr_account_id}&view_id={$view->id|escape:'url'}',null,false,'650');">
 					{include file="file:$core_tpl/internal/feg/display_recipient_id.tpl"}</a>
 					&nbsp;
 				</td>
 			{elseif $column=="mr_message_id"}
 				<td>
-					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessageRecipientPeek&id={$result.mr_id}&customer_id={$result.mr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
+					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessageRecipientPeek&id={$result.mr_id}&customer_id={$result.mr_account_id}&view_id={$view->id|escape:'url'}',null,false,'650');">
 					{include file="file:$core_tpl/internal/feg/display_message_id.tpl"}</a>
 					&nbsp;
 				</td>
@@ -75,12 +75,12 @@
 				{include file="file:$core_tpl/internal/feg/display_send_status.tpl" message_recipient_id=$result.mr_id}
 			{elseif $column=="mr_updated_date" || $column=="mr_closed_date"}
 				<td>
-					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessageRecipientPeek&id={$result.mr_id}&customer_id={$result.mr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
+					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessageRecipientPeek&id={$result.mr_id}&customer_id={$result.mr_account_id}&view_id={$view->id|escape:'url'}',null,false,'650');">
 					{$result.$column|devblocks_date}&nbsp;</a>
 				</td>
 			{else}
 				<td>
-					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessageRecipientPeek&id={$result.mr_id}&customer_id={$result.mr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
+					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessageRecipientPeek&id={$result.mr_id}&customer_id={$result.mr_account_id}&view_id={$view->id|escape:'url'}',null,false,'650');">
 					{$result.$column}&nbsp;</a>
 				</td>
 			{/if}

@@ -45,9 +45,9 @@
 		<tr class="{$tableRowClass}" id="{$rowIdPrefix}_s" onmouseover="$(this).addClass('hover');" onmouseout="$(this).removeClass('hover');" onclick="if(getEventTarget(event)=='TD') checkAll('{$rowIdPrefix}');">
 		{foreach from=$view->view_columns item=column name=columns}
 			{if $column=="message_id"}
-				<td><a href="javascript:;" onclick="genericAjaxPanel('c=stats&a=showAccountFailurePeek&id={$result.message_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
+				<td><a href="javascript:;" onclick="genericAjaxPanel('c=stats&a=showAccountFailurePeek&id={$result.message_id}&view_id={$view->id|escape:'url'}',null,false,'650');">{$result.$column}&nbsp;</a></td>
 			{elseif $column=="message_created_date"}
-				<td><a href="javascript:;" onclick="genericAjaxPanel('c=stats&a=showAccountFailurePeek&id={$result.message_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column|devblocks_date}&nbsp;</a></td>
+				<td><a href="javascript:;" onclick="genericAjaxPanel('c=stats&a=showAccountFailurePeek&id={$result.message_id}&view_id={$view->id|escape:'url'}',null,false,'650');">{$result.$column|devblocks_date}&nbsp;</a></td>
 			{/if}
 		{/foreach}
 		</tr>

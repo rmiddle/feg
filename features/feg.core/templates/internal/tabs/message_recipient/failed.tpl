@@ -45,9 +45,9 @@
 		<tr class="{$tableRowClass}" id="{$rowIdPrefix}_s" onmouseover="$(this).addClass('hover');" onmouseout="$(this).removeClass('hover');" onclick="if(getEventTarget(event)=='TD') checkAll('{$rowIdPrefix}');">
 		{foreach from=$view->view_columns item=column name=columns}
 			{if $column=="mr_id"}
-				<td><a href="javascript:;" onclick="genericAjaxPanel('c=stats&a=showMessageRecipientFailurePeek&id={$result.mr_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.$column}&nbsp;</a></td>
+				<td><a href="javascript:;" onclick="genericAjaxPanel('c=stats&a=showMessageRecipientFailurePeek&id={$result.mr_id}&view_id={$view->id|escape:'url'}',null,false,'650');">{$result.$column}&nbsp;</a></td>
 			{elseif $column=="mr_account_id"}
-				<td><a href="javascript:;" onclick="genericAjaxPanel('c=stats&a=showMessageRecipientFailurePeek&id={$result.mr_id}&view_id={$view->id|escape:'url'}',null,false,'550');">
+				<td><a href="javascript:;" onclick="genericAjaxPanel('c=stats&a=showMessageRecipientFailurePeek&id={$result.mr_id}&view_id={$view->id|escape:'url'}',null,false,'650');">
 					{if $result.mr_account_id == 0}
 						{$translate->_('customer.display.invalid_customer')|capitalize}
 					{else}
@@ -58,11 +58,11 @@
 				&nbsp;</a></td>
 			{elseif $column=="mr_recipient_id"}
 				<td>
-					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.mr_recipient_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.mr_recipient_id}</a>&nbsp;
+					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.mr_recipient_id}&view_id={$view->id|escape:'url'}',null,false,'650');">{$result.mr_recipient_id}</a>&nbsp;
 				</td>
 			{elseif $column=="mr_message_id"}
 				<td>
-					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessagePeek&id={$result.mr_message_id}&customer_id={$result.mr_account_id}&view_id={$view->id|escape:'url'}',null,false,'550');">{$result.mr_message_id}&nbsp;</a>
+					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessagePeek&id={$result.mr_message_id}&customer_id={$result.mr_account_id}&view_id={$view->id|escape:'url'}',null,false,'650');">{$result.mr_message_id}&nbsp;</a>
 				</td>
 			{/if}
 		{/foreach}

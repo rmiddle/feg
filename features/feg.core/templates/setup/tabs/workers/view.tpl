@@ -58,7 +58,7 @@
 			{elseif $column=="w_id"}
 			<td>{$result.w_id}&nbsp;</td>
 			{elseif $column=="w_first_name" || $column=="w_last_name"}
-			<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showWorkerPeek&id={$result.w_id}&view_id={$view->id|escape:'url'}',null,false,'550');" class="subject" {if $result.w_is_disabled}style="color:rgb(120,0,0);font-style:italic;"{/if}>{$result.$column}</a>&nbsp;</td>
+			<td><a href="javascript:;" onclick="genericAjaxPanel('c=setup&a=showWorkerPeek&id={$result.w_id}&view_id={$view->id|escape:'url'}',null,false,'650');" class="subject" {if $result.w_is_disabled}style="color:rgb(120,0,0);font-style:italic;"{/if}>{$result.$column}</a>&nbsp;</td>
 			{elseif $column=="w_is_disabled"}
 				<td>{if $result.w_is_disabled}{'common.yes'|devblocks_translate|capitalize}{else}{'common.no'|devblocks_translate|capitalize}{/if}</td>
 			{elseif $column=="w_is_superuser"}
