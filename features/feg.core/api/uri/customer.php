@@ -418,6 +418,16 @@ class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 		);
 		$view->renderPage = 0;
 		$view->renderSortAsc = false;
+		$view->view_columns = array(
+			SearchFields_MessageRecipient::ID,
+			//SearchFields_MessageRecipient::RECIPIENT_ID,
+			//SearchFields_MessageRecipient::MESSAGE_ID,
+			//SearchFields_MessageRecipient::ACCOUNT_ID,
+			SearchFields_MessageRecipient::SEND_STATUS,
+			//SearchFields_MessageRecipient::FAX_ID,
+			SearchFields_MessageRecipient::UPDATED_DATE,
+			SearchFields_MessageRecipient::CLOSED_DATE,
+		);
 		
 		Feg_AbstractViewLoader::setView($view->id,$view);
 		
