@@ -210,7 +210,7 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 			SearchFields_CustomerRecipient::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_CustomerRecipient::ACCOUNT_ID,'=',$customer_id),
 		);
 		$view->renderPage = 0;
-		$this->view_columns = array(
+		$view->view_columns = array(
 			//SearchFields_CustomerRecipient::ID,
 			//SearchFields_CustomerRecipient::ACCOUNT_ID,
 			SearchFields_CustomerRecipient::IS_DISABLED,
