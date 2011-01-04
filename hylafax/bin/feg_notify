@@ -155,7 +155,8 @@
 	// Giving up attempting to send set status to fail and record a reason why
 	if ($fatal) {
 		$sql_audit_log .= sprintf("'Fax %s: %s') ", $why, $status);
-		
+		$sql_status = sprintf("UPDATE message_recipient SET send_status = 1, closed_date = %d WHERE ID  = %d", time(), $row->id);
+		$mysqli->query($sql_status);		
 	}
 	
 	// Fax was sent successfully set status and record send time and add audit log entry.
