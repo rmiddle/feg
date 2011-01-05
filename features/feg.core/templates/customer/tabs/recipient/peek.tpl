@@ -82,7 +82,7 @@
 				{if $customer_recipient->type == '2'}{$translate->_('recipient.type.address.snpp')|capitalize}:{/if}
 		</td>
 		<td id='tr_address_input' width="100%">
-			<input type="text" name="recipient_address"  value="{$customer_recipient->address|escape}" style="width:98%;">
+			<input type="text" name="recipient_address" id="recipient_address" value="{$customer_recipient->address|escape}" style="width:98%;">
 		</td>
 	</tr>
 	<tr id='tr_subject' {if $customer_recipient->type == '2'  || $customer_recipient->type == '255'}style="display:none"{/if}>
