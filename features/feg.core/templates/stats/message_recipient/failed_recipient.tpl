@@ -24,6 +24,7 @@
 			{if $rec->type == '0'}{$translate->_('recipient.type.email')|capitalize}{/if}
 			{if $rec->type == '1'}{$translate->_('recipient.type.fax')|capitalize}{/if}
 			{if $rec->type == '2'}{$translate->_('recipient.type.snpp')|capitalize}{/if}
+			{if $rec->type == '255'}{$translate->_('recipient.type.slave')|capitalize}{/if}
 		</td>
 		<td width="100%" nowrap="nowrap"> - {$rec->address|escape}</td>
 	</tr>

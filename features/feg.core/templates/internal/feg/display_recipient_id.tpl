@@ -5,6 +5,7 @@
 	{if $recipient->type == 0}{$translate->_('recipient.type.email')|capitalize}
 	{else if $recipient->type == 1}{$translate->_('recipient.type.fax')|capitalize}
 	{else if $recipient->type == 2}{$translate->_('recipient.type.snpp')|capitalize}
+	{else if $recipient->type == 255}{$translate->_('recipient.type.slave')|capitalize}
 	{/if}-
 	{$recipient->address}
 {/if}

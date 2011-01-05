@@ -22,6 +22,7 @@
 				<option value="0" {if $export_type->recipient_type == '0'}selected{/if}>{$translate->_('recipient.type.email')|capitalize}</option>
 				<option value="1" {if $export_type->recipient_type == '1'}selected{/if}>{$translate->_('recipient.type.fax')|capitalize}</option>
 				<option value="2" {if $export_type->recipient_type == '2'}selected{/if}>{$translate->_('recipient.type.snpp')|capitalize}</option>
+				<option value="255" {if $export_type->recipient_type == '255'}selected{/if}>{$translate->_('recipient.type.slave')|capitalize}</option>
 			</select>
 		</td>
 	</tr>
