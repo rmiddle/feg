@@ -54,15 +54,13 @@
 		</td>
 	</tr>
 	<tr id='tr_address_account_name' {if $customer_recipient->type != '255'}style="display:none"{/if}>
-		<td nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_number')|capitalize}</td>
+		<td nowrap="nowrap" align="right">{$translate->_('recipient.type.address.master')} {$translate->_('feg.customer_account.account_number')|capitalize}</td>
 		<td>
 			<div id="assign_to_account_results_name">&nbsp;</div>
 		</td>
 	</tr>
 	<tr id='tr_address_account_number' {if $customer_recipient->type != '255'}style="display:none"{/if}>
-		<td nowrap="nowrap" align="right">
-				{$translate->_('feg.customer_account.account_name')}&nbsp;
-		</td>
+		<td nowrap="nowrap" align="right">{$translate->_('recipient.type.address.master')} {$translate->_('feg.customer_account.account_name')}</td>
 		<td>
 				<span id="assign_to_account_results_number">&nbsp;</span>&nbsp;
 		</td>

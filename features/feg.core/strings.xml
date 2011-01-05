@@ -645,6 +645,9 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='recipient.type.address.slave'>
 			<tuv xml:lang="en_US"><seg>Customer Account</seg></tuv>
 		</tu>
+		<tu tuid='recipient.type.address.master'>
+			<tuv xml:lang="en_US"><seg>Master</seg></tuv>
+		</tu>
 		<tu tuid='recipient.export_type'>
 			<tuv xml:lang="en_US"><seg>Export Type</seg></tuv>
 		</tu>
