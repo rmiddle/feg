@@ -45,16 +45,15 @@
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.export_type')|capitalize}: </td>
 		<td><div id="div_export_recipient_type"></div></td>
 	</tr>
-
-	<tr id='tr_address_to' style="display:none">
+	<tr id='tr_address_to' {if $customer_recipient->type == '2'  || $customer_recipient->type == '255'}$style="display:none"{/if}>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address_to')|capitalize}: </td>
 		<td width="100%"><input type="text" name="recipient_address_to" value="{$customer_recipient->address_to|escape}" style="width:98%;"></td>
 	</tr>
-	<tr>
+	<tr id='tr_address'>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address')|capitalize}: </td>
 		<td width="100%"><input type="text" name="recipient_address" value="{$customer_recipient->address|escape}" style="width:98%;"></td>
 	</tr>
-	<tr>
+	<tr id='tr_subject' {if $customer_recipient->type == '2'  || $customer_recipient->type == '255'}$style="display:none"{/if}>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.subject')|capitalize}: </td>
 		<td width="100%"><input type="text" name="recipient_subject" value="{$customer_recipient->subject|escape}" style="width:98%;"></td>
 	</tr>
@@ -97,9 +96,6 @@
 {/if}
 {/if}
 <button type="button" onclick="genericPanel.dialog('close');"><span class="feg-sprite sprite-delete"></span>  {$translate->_('common.cancel')|capitalize}</button>
-{*Remove Delete it is dangerous{if $active_worker->is_superuser}
-<button type="button" onclick="if(confirm('Are you sure you want to delete this Customers Recipient?')){literal}{{/literal}this.form.do_delete.value='1';genericPanel.dialog('close');genericAjaxPost('formRecipientPeek', 'view{$view_id}', '');{literal}}{/literal}"><span class="feg-sprite sprite-delete2"></span> {$translate->_('common.delete')|capitalize}</button>
-{/if}*}
 <br>
 </form>
 </div>
@@ -120,11 +116,11 @@
 	} );
 	
 	$(document).ready(function() {
-		$("#tr_address_to").show();
 		$("#div_export_recipient_type").load("{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientType&type={$customer_recipient->type}&selected_type={$customer_recipient->export_type}{/devblocks_url}");
 		$('#recipient_type').change(function() {
 			var sel = $(this).val();
 			$("#div_export_recipient_type").load("{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientType&type="+sel+"&selected_type={$customer_recipient->export_type}{/devblocks_url}");
+			
 		});
 	});
 </script>
