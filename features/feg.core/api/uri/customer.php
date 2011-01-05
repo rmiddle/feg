@@ -301,9 +301,14 @@ class FegCustomerTabRecipient extends Extension_CustomerTab {
 		@$recipient_type = DevblocksPlatform::importGPC($_POST['recipient_type'],'integer',0);
 		@$recipient_account_id = DevblocksPlatform::importGPC($_POST['recipient_account_id'],'integer',0);
 		@$recipient_address_to = DevblocksPlatform::importGPC($_POST['recipient_address_to'],'string',"");
-		@$recipient_address = DevblocksPlatform::importGPC($_POST['recipient_address'],'string',"");
 		@$recipient_subject = DevblocksPlatform::importGPC($_POST['recipient_subject'],'string',"");
 		@$recipient_export_type = DevblocksPlatform::importGPC($_POST['recipient_export_type'],'integer',0);
+
+		if ($recipient_type == 255) {
+			@$recipient_address = DevblocksPlatform::importGPC($_POST['recipient_slave_account_id'],'string',"");
+		} else {
+			@$recipient_address = DevblocksPlatform::importGPC($_POST['recipient_address'],'string',"");
+		}
 		
 		$fields = array(
 			DAO_CustomerRecipient::ACCOUNT_ID => $recipient_account_id,

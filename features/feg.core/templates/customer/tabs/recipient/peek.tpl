@@ -16,6 +16,7 @@
 <input type="hidden" name="view_id" value="{$view_id}">
 <input type="hidden" name="do_delete" value="0">
 <input type="hidden" name="recipient_is_disabled" value="{$customer_recipient->is_disabled}">
+<input type="hidden" name="recipient_slave_account_id" id="recipient_slave_account_id" value="{$customer_recipient->address}">
 
 {if $id}
 	{$account = DAO_CustomerAccount::get($customer_recipient->account_id)}
@@ -152,7 +153,7 @@
 				$.getJSON("{devblocks_url}ajax.php?c=account&a=showCustomerJson&search="+account+"{/devblocks_url}", function(data) {
 					$('#assign_to_account_results_name').text(data.account_name);
 					$('#assign_to_account_results_number').text(data.account_number);
-					$('#recipient_address').val(data.id);
+					$('#recipient_slave_account_id').val(data.id);
 				});
 			}
 		});
