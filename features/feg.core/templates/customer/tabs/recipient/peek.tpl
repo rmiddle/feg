@@ -49,28 +49,43 @@
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address_to')|capitalize}: </td>
 		<td width="100%"><input type="text" name="recipient_address_to" value="{$customer_recipient->address_to|escape}" style="width:98%;"></td>
 	</tr>
-	<tr id='tr_address'>
+	<tr id='tr_address_customer_input' {if $customer_recipient->type != '255'}style="display:none"{/if}>
+		<td width="0%" nowrap="nowrap" align="right">
+				{$translate->_('recipient.type.address.slave')|capitalize}:
+		</td>
+		<td id='tr_address_input' width="100%">
+			<input type="text" name="text_address_customer_input"  value="{$customer_recipient->address|escape}" style="width:98%;">
+		</td>
+	</tr>
+	<tr id='tr_address' {if $customer_recipient->type == '255'}style="display:none"{/if}>
 		<td id='tr_address_label' width="0%" nowrap="nowrap" align="right">
 				{if $customer_recipient->type == '0'}{$translate->_('recipient.type.address.email')|capitalize}:{/if}
 				{if $customer_recipient->type == '1'}{$translate->_('recipient.type.address.fax')|capitalize}:{/if}
 				{if $customer_recipient->type == '2'}{$translate->_('recipient.type.address.snpp')|capitalize}:{/if}
-				{if $customer_recipient->type == '255'}{$translate->_('recipient.type.address.slave')|capitalize}:{/if}
 		</td>
-		<td width="100%"><input type="text" name="recipient_address"  value="{$customer_recipient->address|escape}" 	style="width:98%;"></td>
+		<td id='tr_address_input' width="100%">
+			<input type="text" name="recipient_address"  value="{$customer_recipient->address|escape}" style="width:98%;">
+		</td>
+	</tr>
+	<tr id='tr_address_account_name' {if $customer_recipient->type != '255'}style="display:none"{/if}>
+		<td nowrap="nowrap" align="right">{$translate->_('feg.message.assign_account.name')|capitalize}</td>
+		<td>
+			<div id="assign_to_account_results_name">&nbsp;</div>
+		</td>
+	</tr>
+	<tr id='tr_address_account_number' {if $customer_recipient->type != '255'}style="display:none"{/if}>
+		<td nowrap="nowrap" align="right">
+				{$translate->_('feg.message.assign_account')}&nbsp;
+		</td>
+		<td>
+				<a id="customer_account_assign_link" href="javascript:;">
+				<b><span id="assign_to_account_results_number">&nbsp;</span></b></a>&nbsp;
+		</td>
 	</tr>
 	<tr id='tr_subject' {if $customer_recipient->type == '2'  || $customer_recipient->type == '255'}style="display:none"{/if}>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.subject')|capitalize}: </td>
 		<td width="100%"><input type="text" name="recipient_subject" value="{$customer_recipient->subject|escape}" style="width:98%;"></td>
 	</tr>
-{*{if $active_worker->is_superuser}
-	<tr>
-		<td width="0%" nowrap="nowrap" align="right">*{$translate->_('feg.customer_account.id')|capitalize}: </td>
-		<td width="100%"><input type="text" name="recipient_account_id" value="{$account->id}" style="width:98%;"></td>
-	</tr>
-	<tr>
-		<td colspan="2">* {$translate->_('feg.customer_account.id.warning')}</td>
-	</tr>
-{/if}*}
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_number')|capitalize}: </td>
 		<td width="100%">{$account->account_number}</td>
@@ -121,6 +136,18 @@
 	} );
 	
 	$(document).ready(function() {
+		$("#text_address_customer_input").autocomplete({
+			source: "{devblocks_url}ajax.php?c=account&a=searchCustomerJson{/devblocks_url}",
+			minLength: 1,
+			select: function( event, ui ) {
+				var account = ui.item ? ui.item.value : this.value;
+				$.getJSON("{devblocks_url}ajax.php?c=account&a=showCustomerJson&search="+account+"{/devblocks_url}", function(data) {
+					$('#tr_address_account_name').text(data.account_name);
+					$('#tr_address_account_number').text(data.account_number);
+					$('#recipient_address').val(data.account_number);
+				});
+			}
+		});
 		$("#div_export_recipient_type").load("{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientType&type={$customer_recipient->type}&selected_type={$customer_recipient->export_type}{/devblocks_url}");
 		$('#recipient_type').change(function() {
 			var sel = $(this).val();
@@ -128,30 +155,47 @@
 			{
 				case "0": 
 					{* Email *}
+					$("#tr_address").show();
 					$("#tr_address_to").show();
 					$("#tr_subject").show();
+					$("#tr_address_account_name").hide();
+					$("#tr_address_account_number").hide();
+					$("#tr_address_customer_input").hide();
 					$("#tr_address_label").text("{$translate->_('recipient.type.address.email')|capitalize}:");
 					break
 				case "1": 
 					{* Fax *}
+					$("#tr_address").show();
 					$("#tr_address_to").show();
 					$("#tr_subject").show();
+					$("#tr_address_account_name").hide();
+					$("#tr_address_account_number").hide();
+					$("#tr_address_customer_input").hide();
 					$("#tr_address_label").text("{$translate->_('recipient.type.address.fax')|capitalize}:");
 					break
 				case "2": 
 					{* SNPP *}
+					$("#tr_address").show();
 					$("#tr_address_to").hide();
 					$("#tr_subject").hide();
+					$("#tr_address_account_name").hide();
+					$("#tr_address_account_number").hide();
+					$("#tr_address_customer_input").hide();
 					$("#tr_address_label").text("{$translate->_('recipient.type.address.snpp')|capitalize}:");
 					break
 				case "255": 
 					{* SLAVE *}
+					$("#tr_address").hide();
 					$("#tr_address_to").hide();
 					$("#tr_subject").hide();
-					$("#tr_address_label").text("{$translate->_('recipient.type.address.slave')|capitalize}:");
+					$("#tr_address_account_name").show();
+					$("#tr_address_account_number").show();
+					$("#tr_address_customer_input").show();
 					break
 				default: {* Should never be hit *}
 			}
+		});
+
 			$("#div_export_recipient_type").load("{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientType&type="+sel+"&selected_type={$customer_recipient->export_type}{/devblocks_url}");
 		});
 	});
