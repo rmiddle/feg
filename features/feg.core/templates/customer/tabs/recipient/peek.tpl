@@ -46,7 +46,7 @@
 		<td><div id="div_export_recipient_type"></div></td>
 	</tr>
 
-	<tr>
+	<tr id='tr_address_to' style="display:none">
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address_to')|capitalize}: </td>
 		<td width="100%"><input type="text" name="recipient_address_to" value="{$customer_recipient->address_to|escape}" style="width:98%;"></td>
 	</tr>
