@@ -62,7 +62,7 @@
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.subject')|capitalize}: </td>
 		<td width="100%"><input type="text" name="recipient_subject" value="{$customer_recipient->subject|escape}" style="width:98%;"></td>
 	</tr>
-{if $active_worker->is_superuser}
+{*{if $active_worker->is_superuser}
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">*{$translate->_('feg.customer_account.id')|capitalize}: </td>
 		<td width="100%"><input type="text" name="recipient_account_id" value="{$account->id}" style="width:98%;"></td>
@@ -70,7 +70,7 @@
 	<tr>
 		<td colspan="2">* {$translate->_('feg.customer_account.id.warning')}</td>
 	</tr>
-{/if}
+{/if}*}
 	<tr>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_number')|capitalize}: </td>
 		<td width="100%">{$account->account_number}</td>
