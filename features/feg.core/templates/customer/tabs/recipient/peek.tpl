@@ -125,7 +125,26 @@
 		$('#recipient_type').change(function() {
 			var sel = $(this).val();
 			$("#div_export_recipient_type").load("{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientType&type="+sel+"&selected_type={$customer_recipient->export_type}{/devblocks_url}");
-			
+			switch (sel)
+			{
+				case 0: {* Email *}
+					$("#tr_address").show();
+					$("#tr_subject").show();					
+					break;
+				case 1: {* Fax *}
+					$("#tr_address").show();
+					$("#tr_subject").show();
+					break;
+				case 2: {* SNPP *}
+					$("#tr_address").hide();
+					$("#tr_subject").hide();
+					break;
+				case 255: {* SLAVE *}
+					$("#tr_address").hide();
+					$("#tr_subject").hide();
+					break;
+				default: {* Should never be hit *}
+			}
 		});
 	});
 </script>
