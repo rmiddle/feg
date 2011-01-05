@@ -156,36 +156,36 @@
 					$("#tr_address").show();
 					$("#tr_address_to").show();
 					$("#tr_subject").show();
-//					$("#tr_address_account_name").hide();
-//					$("#tr_address_account_number").hide();
-//					$("#tr_address_customer_input").hide();
+					$("#tr_address_account_name").hide();
+					$("#tr_address_account_number").hide();
+					$("#tr_address_customer_input").hide();
 					$("#tr_address_label").text("{$translate->_('recipient.type.address.email')|capitalize}:");
 					break
 				case "1": 	{*Fax*}
 					$("#tr_address").show();
 					$("#tr_address_to").show();
 					$("#tr_subject").show();
-//					$("#tr_address_account_name").hide();
-//					$("#tr_address_account_number").hide();
-//					$("#tr_address_customer_input").hide();
+					$("#tr_address_account_name").hide();
+					$("#tr_address_account_number").hide();
+					$("#tr_address_customer_input").hide();
 					$("#tr_address_label").text("{$translate->_('recipient.type.address.fax')|capitalize}:");
 					break
 				case "2": 	{*SNPP*}
 					$("#tr_address").show();
 					$("#tr_address_to").hide();
 					$("#tr_subject").hide();
-//					$("#tr_address_account_name").hide();
-//					$("#tr_address_account_number").hide();
-//					$("#tr_address_customer_input").hide();
+					$("#tr_address_account_name").hide();
+					$("#tr_address_account_number").hide();
+					$("#tr_address_customer_input").hide();
 					$("#tr_address_label").text("{$translate->_('recipient.type.address.snpp')|capitalize}:");
 					break
 				case "255": 	{*SLAVE*}
 					$("#tr_address").hide();
 					$("#tr_address_to").hide();
 					$("#tr_subject").hide();
-//					$("#tr_address_account_name").show();
-//					$("#tr_address_account_number").show();
-//					$("#tr_address_customer_input").show();
+					$("#tr_address_account_name").show();
+					$("#tr_address_account_number").show();
+					$("#tr_address_customer_input").show();
 					break
 				default: {*Should never be hit*}
 			}
