@@ -128,23 +128,23 @@
 			{
 				case "0": 
 					{* Email *}
-					$("#tr_address").show();
-					$("#tr_subject").show();
+					$("#tr_address").show("slow");
+					$("#tr_subject").show("slow");
 					break
 				case "1": 
 					{* Fax *}
-					$("#tr_address").show();
-					$("#tr_subject").show();
+					$("#tr_address").show("slow");
+					$("#tr_subject").show("slow");
 					break
 				case "2": 
 					{* SNPP *}
-					$("#tr_address").hide();
-					$("#tr_subject").hide();
+					$("#tr_address").hide("slow");
+					$("#tr_subject").hide("slow");
 					break
 				case "255": 
 					{* SLAVE *}
-					$("#tr_address").hide();
-					$("#tr_subject").hide();
+					$("#tr_address").hide("slow");
+					$("#tr_subject").hide("slow");
 					break
 				default: {* Should never be hit *}
 			}
