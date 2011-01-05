@@ -198,7 +198,9 @@
 					$("#tr_address_account_name").show();
 					$("#tr_address_account_number").show();
 					$("#tr_address_customer_input").show();
-					//$("#tr_address_current_account_number").show();  // Only show if the current type is slave.
+					{if isset($customer_account_master)}
+						$("#tr_address_current_account_number").show();  // Only orignal setting was type slave.
+					{/if}
 					break
 				default: {*Should never be hit*}
 			}
