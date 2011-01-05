@@ -55,10 +55,19 @@
 		{foreach from=$view->view_columns item=column name=columns}
 			{if substr($column,0,3)=="cf_"}
 				{include file="file:$core_tpl/internal/custom_fields/view/cell_renderer.tpl"}
-			{elseif $column=="cr_id" || $column=="cr_address_to" || $column=="cr_subject"}
+			{elseif $column=="cr_id"}
 				<td>
 					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.cr_id}&view_id={$view->id|escape:'url'}',null,false,'650');">
 					{$result.$column}&nbsp;</a></td>
+			{elseif $column=="cr_address_to" || $column=="cr_subject"}
+				<td>
+					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.cr_id}&view_id={$view->id|escape:'url'}',null,false,'650');">
+					{if $result.cr_type == "2" || $result.cr_type == "255"}
+						{$translate->_('common.unused')|capitalize}
+					{else}
+						{$result.$column}
+					{/if}
+					&nbsp;</a></td>
 			{elseif $column=="cr_is_disabled"}
 				<td>{if $result.cr_is_disabled}{$translate->_('common.disable')|capitalize}{else}{$translate->_('common.enable')|capitalize}{/if}</td>
 			{elseif $column=="cr_address"}
