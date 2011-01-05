@@ -57,14 +57,6 @@
 			&nbsp;
 		</td>
 	</tr>
-	<tr id='tr_address_customer_input' {if $customer_recipient->type != '255'}style="display:none"{/if}>
-		<td width="0%" nowrap="nowrap" align="right">
-				{$translate->_('recipient.type.address.slave')|capitalize}:
-		</td>
-		<td id='tr_address_input' width="100%">
-			<input type="text" name="text_address_customer_input" id="text_address_customer_input" value="{*$customer_recipient->address|escape*}" style="width:98%;">
-		</td>
-	</tr>
 	<tr id='tr_address_account_name' {if $customer_recipient->type != '255'}style="display:none"{/if}>
 		<td nowrap="nowrap" align="right">{$translate->_('recipient.type.address.master')} {$translate->_('feg.customer_account.account_number')|capitalize}</td>
 		<td>
@@ -75,6 +67,14 @@
 		<td nowrap="nowrap" align="right">{$translate->_('recipient.type.address.master')} {$translate->_('feg.customer_account.account_name')}</td>
 		<td>
 				<span id="assign_to_account_results_number">&nbsp;</span>&nbsp;
+		</td>
+	</tr>
+	<tr id='tr_address_customer_input' {if $customer_recipient->type != '255'}style="display:none"{/if}>
+		<td width="0%" nowrap="nowrap" align="right">
+				{$translate->_('recipient.type.address.slave')|capitalize}:
+		</td>
+		<td id='tr_address_input' width="100%">
+			<input type="text" name="text_address_customer_input" id="text_address_customer_input" value="{*$customer_recipient->address|escape*}" style="width:98%;">
 		</td>
 	</tr>
 	<tr id='tr_address_to' {if $customer_recipient->type == '2'  || $customer_recipient->type == '255'}style="display:none"{/if}>
