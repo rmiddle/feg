@@ -50,7 +50,7 @@
 		<td width="100%"><input type="text" name="recipient_address_to" value="{$customer_recipient->address_to|escape}" style="width:98%;"></td>
 	</tr>
 	<tr id='tr_address'>
-		<td width="0%" nowrap="nowrap" align="right">
+		<td id='tr_address_label' width="0%" nowrap="nowrap" align="right">
 				{if $customer_recipient->type == '0'}{$translate->_('recipient.type.address.email')|capitalize}:{/if}
 				{if $customer_recipient->type == '1'}{$translate->_('recipient.type.address.fax')|capitalize}:{/if}
 				{if $customer_recipient->type == '2'}{$translate->_('recipient.type.address.snpp')|capitalize}:{/if}
@@ -130,25 +130,25 @@
 					{* Email *}
 					$("#tr_address").show();
 					$("#tr_subject").show();
-					$("#tr_address").text("{$translate->_('recipient.type.address.email')|capitalize}:");
+					$("#tr_address_label").text("{$translate->_('recipient.type.address.email')|capitalize}:");
 					break
 				case "1": 
 					{* Fax *}
 					$("#tr_address").show();
 					$("#tr_subject").show();
-					$("#tr_address").text("{$translate->_('recipient.type.address.fax')|capitalize}:");
+					$("#tr_address_label").text("{$translate->_('recipient.type.address.fax')|capitalize}:");
 					break
 				case "2": 
 					{* SNPP *}
 					$("#tr_address").hide();
 					$("#tr_subject").hide();
-					$("#tr_address").text("{$translate->_('recipient.type.address.snpp')|capitalize}:");
+					$("#tr_address_label").text("{$translate->_('recipient.type.address.snpp')|capitalize}:");
 					break
 				case "255": 
 					{* SLAVE *}
 					$("#tr_address").hide();
 					$("#tr_subject").hide();
-					$("#tr_address").text("{$translate->_('recipient.type.address.slave')|capitalize}:");
+					$("#tr_address_label").text("{$translate->_('recipient.type.address.slave')|capitalize}:");
 					break
 				default: {* Should never be hit *}
 			}
