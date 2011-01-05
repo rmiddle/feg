@@ -126,19 +126,23 @@
 			var sel = $(this).val();
 			switch (sel)
 			{
-				case 0: {* Email *}
+				case "0": 
+					{* Email *}
 					$("#tr_address").show();
 					$("#tr_subject").show();
 					break
-				case 1:: {* Fax *}
+				case "1": 
+					{* Fax *}
 					$("#tr_address").show();
 					$("#tr_subject").show();
 					break
-				case 2: {* SNPP *}
+				case "2": 
+					{* SNPP *}
 					$("#tr_address").hide();
 					$("#tr_subject").hide();
 					break
-				case 255: {* SLAVE *}
+				case "255": 
+					{* SLAVE *}
 					$("#tr_address").hide();
 					$("#tr_subject").hide();
 					break
