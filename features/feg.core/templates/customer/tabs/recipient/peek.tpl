@@ -45,10 +45,6 @@
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.export_type')|capitalize}: </td>
 		<td><div id="div_export_recipient_type"></div></td>
 	</tr>
-	<tr id='tr_address_to' {if $customer_recipient->type == '2'  || $customer_recipient->type == '255'}style="display:none"{/if}>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address_to')|capitalize}: </td>
-		<td width="100%"><input type="text" name="recipient_address_to" value="{$customer_recipient->address_to|escape}" style="width:98%;"></td>
-	</tr>
 	<tr id='tr_address_customer_input' {if $customer_recipient->type != '255'}style="display:none"{/if}>
 		<td width="0%" nowrap="nowrap" align="right">
 				{$translate->_('recipient.type.address.slave')|capitalize}:
@@ -56,6 +52,24 @@
 		<td id='tr_address_input' width="100%">
 			<input type="text" name="text_address_customer_input"  value="{$customer_recipient->address|escape}" style="width:98%;">
 		</td>
+	</tr>
+	<tr id='tr_address_account_name' {if $customer_recipient->type != '255'}style="display:none"{/if}>
+		<td nowrap="nowrap" align="right">{$translate->_('feg.customer_account.account_number')|capitalize}</td>
+		<td>
+			<div id="assign_to_account_results_name">&nbsp;</div>
+		</td>
+	</tr>
+	<tr id='tr_address_account_number' {if $customer_recipient->type != '255'}style="display:none"{/if}>
+		<td nowrap="nowrap" align="right">
+				{$translate->_('feg.customer_account.account_name')}&nbsp;
+		</td>
+		<td>
+				<span id="assign_to_account_results_number">&nbsp;</span>&nbsp;
+		</td>
+	</tr>
+	<tr id='tr_address_to' {if $customer_recipient->type == '2'  || $customer_recipient->type == '255'}style="display:none"{/if}>
+		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address_to')|capitalize}: </td>
+		<td width="100%"><input type="text" name="recipient_address_to" value="{$customer_recipient->address_to|escape}" style="width:98%;"></td>
 	</tr>
 	<tr id='tr_address' {if $customer_recipient->type == '255'}style="display:none"{/if}>
 		<td id='tr_address_label' width="0%" nowrap="nowrap" align="right">
@@ -65,21 +79,6 @@
 		</td>
 		<td id='tr_address_input' width="100%">
 			<input type="text" name="recipient_address"  value="{$customer_recipient->address|escape}" style="width:98%;">
-		</td>
-	</tr>
-	<tr id='tr_address_account_name' {if $customer_recipient->type != '255'}style="display:none"{/if}>
-		<td nowrap="nowrap" align="right">{$translate->_('feg.message.assign_account.name')|capitalize}</td>
-		<td>
-			<div id="assign_to_account_results_name">&nbsp;</div>
-		</td>
-	</tr>
-	<tr id='tr_address_account_number' {if $customer_recipient->type != '255'}style="display:none"{/if}>
-		<td nowrap="nowrap" align="right">
-				{$translate->_('feg.message.assign_account')}&nbsp;
-		</td>
-		<td>
-				<a id="customer_account_assign_link" href="javascript:;">
-				<b><span id="assign_to_account_results_number">&nbsp;</span></b></a>&nbsp;
 		</td>
 	</tr>
 	<tr id='tr_subject' {if $customer_recipient->type == '2'  || $customer_recipient->type == '255'}style="display:none"{/if}>
@@ -153,8 +152,7 @@
 			var sel = $(this).val();
 			switch (sel)
 			{
-				case "0": 
-					{* Email *}
+				case "0": 	{* Email *}
 					$("#tr_address").show();
 					$("#tr_address_to").show();
 					$("#tr_subject").show();
@@ -163,8 +161,7 @@
 					$("#tr_address_customer_input").hide();
 					$("#tr_address_label").text("{$translate->_('recipient.type.address.email')|capitalize}:");
 					break
-				case "1": 
-					{* Fax *}
+				case "1": 	{* Fax *}
 					$("#tr_address").show();
 					$("#tr_address_to").show();
 					$("#tr_subject").show();
@@ -173,8 +170,7 @@
 					$("#tr_address_customer_input").hide();
 					$("#tr_address_label").text("{$translate->_('recipient.type.address.fax')|capitalize}:");
 					break
-				case "2": 
-					{* SNPP *}
+				case "2": 	{* SNPP *}
 					$("#tr_address").show();
 					$("#tr_address_to").hide();
 					$("#tr_subject").hide();
@@ -183,8 +179,7 @@
 					$("#tr_address_customer_input").hide();
 					$("#tr_address_label").text("{$translate->_('recipient.type.address.snpp')|capitalize}:");
 					break
-				case "255": 
-					{* SLAVE *}
+				case "255": 	{* SLAVE *}
 					$("#tr_address").hide();
 					$("#tr_address_to").hide();
 					$("#tr_subject").hide();
