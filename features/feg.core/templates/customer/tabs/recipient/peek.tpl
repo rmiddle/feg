@@ -50,8 +50,14 @@
 		<td width="100%"><input type="text" name="recipient_address_to" value="{$customer_recipient->address_to|escape}" style="width:98%;"></td>
 	</tr>
 	<tr id='tr_address'>
-		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address')|capitalize}: </td>
-		<td width="100%"><input type="text" name="recipient_address" value="{$customer_recipient->address|escape}" style="width:98%;"></td>
+		<td width="0%" nowrap="nowrap" align="right">
+				{if $customer_recipient->type == '0'}{$translate->_('recipient.type.address.email')|capitalize}:{/if}
+				{if $customer_recipient->type == '1'}{$translate->_('recipient.type.address.fax')|capitalize}:{/if}
+				{if $customer_recipient->type == '2'}{$translate->_('recipient.type.address.snpp')|capitalize}:{/if}
+				{if $customer_recipient->type == '255'}{$translate->_('recipient.type.address.slave')|capitalize}:{/if}
+			{$translate->_('recipient.address')|capitalize}: 
+		</td>
+		<td width="100%"><input type="text" name="recipient_address"  value="{$customer_recipient->address|escape}" 	style="width:98%;"></td>
 	</tr>
 	<tr id='tr_subject' {if $customer_recipient->type == '2'  || $customer_recipient->type == '255'}style="display:none"{/if}>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.subject')|capitalize}: </td>

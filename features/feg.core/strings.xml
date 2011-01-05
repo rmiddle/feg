@@ -633,6 +633,18 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='recipient.type.slave'>
 			<tuv xml:lang="en_US"><seg>Slave to account</seg></tuv>
 		</tu>
+		<tu tuid='recipient.type.address.email'>
+			<tuv xml:lang="en_US"><seg>Email Address</seg></tuv>
+		</tu>
+		<tu tuid='recipient.type.address.fax'>
+			<tuv xml:lang="en_US"><seg>Fax Phone Number</seg></tuv>
+		</tu>
+		<tu tuid='recipient.type.address.snpp'>
+			<tuv xml:lang="en_US"><seg>Pager Number</seg></tuv>
+		</tu>
+		<tu tuid='recipient.type.address.slave'>
+			<tuv xml:lang="en_US"><seg>Customer Account</seg></tuv>
+		</tu>
 		<tu tuid='recipient.export_type'>
 			<tuv xml:lang="en_US"><seg>Export Type</seg></tuv>
 		</tu>
