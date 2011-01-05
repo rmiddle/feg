@@ -195,7 +195,6 @@
 				default: {* Should never be hit *}
 			}
 		});
-
 			$("#div_export_recipient_type").load("{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientType&type="+sel+"&selected_type={$customer_recipient->export_type}{/devblocks_url}");
 		});
 	});
