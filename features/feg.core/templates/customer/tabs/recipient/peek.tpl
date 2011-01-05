@@ -150,9 +150,9 @@
 		$("#div_export_recipient_type").load("{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientType&type={$customer_recipient->type}&selected_type={$customer_recipient->export_type}{/devblocks_url}");
 		$('#recipient_type').change(function() {
 			var sel = $(this).val();
-//			switch (sel)
-//			{
-//				case "0": 	{*Email*}
+			switch (sel)
+			{
+				case "0": 	{*Email*}
 //					$("#tr_address").show();
 //					$("#tr_address_to").show();
 //					$("#tr_subject").show();
@@ -160,8 +160,8 @@
 //					$("#tr_address_account_number").hide();
 //					$("#tr_address_customer_input").hide();
 //					$("#tr_address_label").text("{$translate->_('recipient.type.address.email')|capitalize}:");
-//					break
-//				case "1": 	{*Fax*}
+					break
+				case "1": 	{*Fax*}
 //					$("#tr_address").show();
 //					$("#tr_address_to").show();
 //					$("#tr_subject").show();
@@ -169,8 +169,8 @@
 //					$("#tr_address_account_number").hide();
 //					$("#tr_address_customer_input").hide();
 //					$("#tr_address_label").text("{$translate->_('recipient.type.address.fax')|capitalize}:");
-//					break
-//				case "2": 	{*SNPP*}
+					break
+				case "2": 	{*SNPP*}
 //					$("#tr_address").show();
 //					$("#tr_address_to").hide();
 //					$("#tr_subject").hide();
@@ -178,8 +178,8 @@
 //					$("#tr_address_account_number").hide();
 //					$("#tr_address_customer_input").hide();
 //					$("#tr_address_label").text("{$translate->_('recipient.type.address.snpp')|capitalize}:");
-//					break
-//				case "255": 	{*SLAVE*}
+					break
+				case "255": 	{*SLAVE*}
 //					$("#tr_address").hide();
 //					$("#tr_address_to").hide();
 //					$("#tr_subject").hide();
@@ -187,8 +187,8 @@
 //					$("#tr_address_account_number").show();
 //					$("#tr_address_customer_input").show();
 //					break
-//				default: {*Should never be hit*}
-//			}
+				default: {*Should never be hit*}
+			}
 			$("#div_export_recipient_type").load("{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientType&type="+sel+"&selected_type={$customer_recipient->export_type}{/devblocks_url}");
 		});
 	});
