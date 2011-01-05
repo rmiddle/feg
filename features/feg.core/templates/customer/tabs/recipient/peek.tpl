@@ -124,6 +124,7 @@
 		$("#div_export_recipient_type").load("{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientType&type={$customer_recipient->type}&selected_type={$customer_recipient->export_type}{/devblocks_url}");
 		$('#recipient_type').change(function() {
 			var sel = $(this).val();
+					$("#tr_address").show();
 			switch (sel)
 			{
 				case 0: {* Email *}
