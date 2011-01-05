@@ -45,6 +45,18 @@
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.export_type')|capitalize}: </td>
 		<td><div id="div_export_recipient_type"></div></td>
 	</tr>
+	<tr id='tr_address_current_account_number' {if $customer_recipient->type != '255'}style="display:none"{/if}>
+		<td nowrap="nowrap" align="right">{$translate->_('recipient.type.address.current')}</td>
+		<td>
+			{if $customer_recipient->type == '255'}
+				{$customer_account_master = DAO_CustomerAccount::get($customer_recipient->address)}
+				{if isset($customer_account_master)}
+					{$customer_account_master->account_number} - {$customer_account_master->account_name}
+				{/if}
+			{/if}
+			&nbsp;
+		</td>
+	</tr>
 	<tr id='tr_address_customer_input' {if $customer_recipient->type != '255'}style="display:none"{/if}>
 		<td width="0%" nowrap="nowrap" align="right">
 				{$translate->_('recipient.type.address.slave')|capitalize}:
@@ -63,18 +75,6 @@
 		<td nowrap="nowrap" align="right">{$translate->_('recipient.type.address.master')} {$translate->_('feg.customer_account.account_name')}</td>
 		<td>
 				<span id="assign_to_account_results_number">&nbsp;</span>&nbsp;
-		</td>
-	</tr>
-	<tr id='tr_address_current_account_number' {if $customer_recipient->type != '255'}style="display:none"{/if}>
-		<td nowrap="nowrap" align="right">{$translate->_('recipient.type.address.current')}</td>
-		<td>
-			{if $customer_recipient->type == '255'}
-				{$customer_account_master = DAO_CustomerAccount::get($customer_recipient->address)}
-				{if isset($customer_account_master)}
-					{$customer_account_master->account_number} - {$customer_account_master->account_name}
-				{/if}
-			{/if}
-			&nbsp;
 		</td>
 	</tr>
 	<tr id='tr_address_to' {if $customer_recipient->type == '2'  || $customer_recipient->type == '255'}style="display:none"{/if}>
