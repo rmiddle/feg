@@ -68,7 +68,13 @@
 	<tr id='tr_address_current_account_number' {if $customer_recipient->type != '255'}style="display:none"{/if}>
 		<td nowrap="nowrap" align="right">{$translate->_('recipient.type.address.current')}</td>
 		<td>
-				{$customer_recipient->address|escape}&nbsp;
+			{if $customer_recipient->type != '255'}
+				{$customer_account_master = DAO_CustomerAccount::get($customer_recipient->address)}
+				{if !empty($customer_account_master)}
+					{$customer_account_master->number} - {$customer_account_master->name}
+				{/if}
+			{/if}
+			&nbsp;
 		</td>
 	</tr>
 	<tr id='tr_address_to' {if $customer_recipient->type == '2'  || $customer_recipient->type == '255'}style="display:none"{/if}>
