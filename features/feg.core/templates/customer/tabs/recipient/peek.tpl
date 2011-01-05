@@ -128,25 +128,25 @@
 			{
 				case "0": 
 					{* Email *}
-					$("#tr_address").show();
+					$("#tr_address_to").show();
 					$("#tr_subject").show();
 					$("#tr_address_label").text("{$translate->_('recipient.type.address.email')|capitalize}:");
 					break
 				case "1": 
 					{* Fax *}
-					$("#tr_address").show();
+					$("#tr_address_to").show();
 					$("#tr_subject").show();
 					$("#tr_address_label").text("{$translate->_('recipient.type.address.fax')|capitalize}:");
 					break
 				case "2": 
 					{* SNPP *}
-					$("#tr_address").hide();
+					$("#tr_address_to").hide();
 					$("#tr_subject").hide();
 					$("#tr_address_label").text("{$translate->_('recipient.type.address.snpp')|capitalize}:");
 					break
 				case "255": 
 					{* SLAVE *}
-					$("#tr_address").hide();
+					$("#tr_address_to").hide();
 					$("#tr_subject").hide();
 					$("#tr_address_label").text("{$translate->_('recipient.type.address.slave')|capitalize}:");
 					break
