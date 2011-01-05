@@ -60,15 +60,19 @@
 				</td>
 			{elseif $column=="mr_recipient_id"}
 				<td>
-					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessageRecipientPeek&id={$result.mr_id}&customer_id={$result.mr_account_id}&view_id={$view->id|escape:'url'}',null,false,'650');">
-					{include file="file:$core_tpl/internal/feg/display_recipient_id.tpl"}</a>
-					&nbsp;
+					{if $result.mr_recipient_id==0}
+						{$translate->_('customer.display.auto')|capitalize}
+					{else}
+						<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.mr_recipient_id}&view_id={$view->id|escape:'url'}',null,false,'650');">{include file="file:$core_tpl/internal/feg/display_recipient_id.tpl"}</a>&nbsp;
+					{/if}
 				</td>
 			{elseif $column=="mr_message_id"}
 				<td>
-					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessageRecipientPeek&id={$result.mr_id}&customer_id={$result.mr_account_id}&view_id={$view->id|escape:'url'}',null,false,'650');">
-					{include file="file:$core_tpl/internal/feg/display_message_id.tpl"}</a>
-					&nbsp;
+					{if $result.mr_message_id==0}
+						{$translate->_('customer.display.auto')|capitalize}
+					{else}
+						<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recent.messages&action=showMessagePeek&id={$result.mr_message_id}&customer_id={$result.mr_account_id}&view_id={$view->id|escape:'url'}',null,false,'650');">{$result.mr_message_id}&nbsp;</a>
+					{/if}
 				</td>
 			{elseif $column=="mr_send_status"}
 				{* table info defined in include *}
@@ -90,7 +94,7 @@
 	
 </table>
 <table cellpadding="2" cellspacing="0" border="0" width="100%" id="{$view->id}_actions">
-	{if $total}
+	{*{if $total}
 	<tr>
 		<td colspan="2">
 			{if $active_worker && $active_worker->is_superuser}
@@ -98,7 +102,7 @@
 			{/if}
 		</td>
 	</tr>
-	{/if}
+	{/if}*}
 	<tr>
 		<td align="right" valign="top" nowrap="nowrap">
 			{math assign=fromRow equation="(x*y)+1" x=$view->renderPage y=$view->renderLimit}
