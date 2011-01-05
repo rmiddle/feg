@@ -70,7 +70,7 @@
 		<td>
 			{if $customer_recipient->type != '255'}
 				{$customer_account_master = DAO_CustomerAccount::get($customer_recipient->address)}
-				{if !empty($customer_account_master)}
+				{if isset($customer_account_master)}
 					{$customer_account_master->number} - {$customer_account_master->name}
 				{/if}
 			{/if}
