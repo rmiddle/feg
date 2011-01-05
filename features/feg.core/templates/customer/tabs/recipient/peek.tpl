@@ -65,6 +65,12 @@
 				<span id="assign_to_account_results_number">&nbsp;</span>&nbsp;
 		</td>
 	</tr>
+	<tr id='tr_address_current_account_number' {if $customer_recipient->type != '255'}style="display:none"{/if}>
+		<td nowrap="nowrap" align="right">{$translate->_('recipient.type.address.current')}</td>
+		<td>
+				{$customer_recipient->address|escape}&nbsp;
+		</td>
+	</tr>
 	<tr id='tr_address_to' {if $customer_recipient->type == '2'  || $customer_recipient->type == '255'}style="display:none"{/if}>
 		<td width="0%" nowrap="nowrap" align="right">{$translate->_('recipient.address_to')|capitalize}: </td>
 		<td width="100%"><input type="text" name="recipient_address_to" value="{$customer_recipient->address_to|escape}" style="width:98%;"></td>
@@ -157,6 +163,7 @@
 					$("#tr_address_account_name").hide();
 					$("#tr_address_account_number").hide();
 					$("#tr_address_customer_input").hide();
+					$("#tr_address_current_account_number").hide();
 					$("#tr_address_label").text("{$translate->_('recipient.type.address.email')|capitalize}:");
 					break
 				case "1": 	{*Fax*}
@@ -166,6 +173,7 @@
 					$("#tr_address_account_name").hide();
 					$("#tr_address_account_number").hide();
 					$("#tr_address_customer_input").hide();
+					$("#tr_address_current_account_number").hide();
 					$("#tr_address_label").text("{$translate->_('recipient.type.address.fax')|capitalize}:");
 					break
 				case "2": 	{*SNPP*}
@@ -175,6 +183,7 @@
 					$("#tr_address_account_name").hide();
 					$("#tr_address_account_number").hide();
 					$("#tr_address_customer_input").hide();
+					$("#tr_address_current_account_number").hide();
 					$("#tr_address_label").text("{$translate->_('recipient.type.address.snpp')|capitalize}:");
 					break
 				case "255": 	{*SLAVE*}
@@ -184,6 +193,7 @@
 					$("#tr_address_account_name").show();
 					$("#tr_address_account_number").show();
 					$("#tr_address_customer_input").show();
+					$("#tr_address_current_account_number").show();
 					break
 				default: {*Should never be hit*}
 			}
