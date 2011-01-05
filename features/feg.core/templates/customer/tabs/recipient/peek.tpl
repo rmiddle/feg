@@ -127,24 +127,24 @@
 			switch (sel)
 			{
 				case "0": {* Email *}
-					alert("Email")
-					$("#tr_address").show()
-					$("#tr_subject").show()
+					alert("Email");
+					$("#tr_address").show();
+					$("#tr_subject").show();
 					break
 				case "1":: {* Fax *}
-					alert("Fax")
-					$("#tr_address").show()
-					$("#tr_subject").show()
+					alert("Fax");
+					$("#tr_address").show();
+					$("#tr_subject").show();
 					break
 				case "2": {* SNPP *}
-					alert("SNPP")
-					$("#tr_address").hide()
-					$("#tr_subject").hide()
+					alert("SNPP");
+					$("#tr_address").hide();
+					$("#tr_subject").hide();
 					break
 				case "255": {* SLAVE *}
-					alert("Slave")
-					$("#tr_address").hide()
-					$("#tr_subject").hide()
+					alert("Slave");
+					$("#tr_address").hide();
+					$("#tr_subject").hide();
 					break
 				default: {* Should never be hit *}
 			}
