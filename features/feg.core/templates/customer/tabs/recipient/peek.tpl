@@ -71,7 +71,7 @@
 			{if $customer_recipient->type == '255'}
 				{$customer_account_master = DAO_CustomerAccount::get($customer_recipient->address)}
 				{if isset($customer_account_master)}
-					{$customer_account_master->number} - {$customer_account_master->name}
+					{$customer_account_master->account_number} - {$customer_account_master->account_name}
 				{/if}
 			{/if}
 			&nbsp;
