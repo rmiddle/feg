@@ -133,7 +133,6 @@
 	genericPanel.one('dialogopen',function(event,ui) {
 		genericPanel.dialog('option','title',"Recipient");
 		$("#peekTabs").tabs();
-		{*$("#ticketPeekContent").css('width','100%');*}
 		$("#ticketPeekTab2").show();
 		genericPanel.focus();
 	} );
@@ -147,7 +146,7 @@
 				$.getJSON("{devblocks_url}ajax.php?c=account&a=showCustomerJson&search="+account+"{/devblocks_url}", function(data) {
 					$('#assign_to_account_results_name').text(data.account_name);
 					$('#assign_to_account_results_number').text(data.account_number);
-					$('#recipient_address').val(data.account_number);
+					$('#recipient_address').val(data.id);
 				});
 			}
 		});
