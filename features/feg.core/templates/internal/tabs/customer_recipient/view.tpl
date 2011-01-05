@@ -64,7 +64,7 @@
 			{elseif $column=="cr_address"}
 				<td>
 					<a href="javascript:;" onclick="genericAjaxPanel('c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientPeek&id={$result.cr_id}&view_id={$view->id|escape:'url'}',null,false,'650');">
-					{include file="file:$core_tpl/internal/feg/view_display_recipient_address.tpl"}</a>
+					{include file="file:$core_tpl/internal/feg/view_display_recipient_address.tpl" customer_recipient_address=$result.cr_type}</a>
 					&nbsp;
 				</td>
 			{elseif $column=="cr_type"}

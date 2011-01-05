@@ -7,5 +7,14 @@
 	{else if $recipient->type == 2}{$translate->_('recipient.type.snpp')|capitalize}
 	{else if $recipient->type == 255}{$translate->_('recipient.type.slave')|capitalize}
 	{/if}-
-	{$recipient->address}
+	{if $recipient->type == 255}
+		{$customer_account_master = DAO_CustomerAccount::get($recipient->address)}
+		{if isset($customer_account_master)}
+			{$customer_account_master->account_number} - {$customer_account_master->account_name}
+		{else}
+			{$translate->_('customer.display.invalid_recipient')|capitalize}
+		{/if}
+	{else}
+		{$recipient->address|escape}
+	{/if}
 {/if}
