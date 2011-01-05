@@ -124,22 +124,25 @@
 		$("#div_export_recipient_type").load("{devblocks_url}ajax.php?c=customer&a=handleTabAction&tab=feg.customer.tab.recipient&action=showRecipientType&type={$customer_recipient->type}&selected_type={$customer_recipient->export_type}{/devblocks_url}");
 		$('#recipient_type').change(function() {
 			var sel = $(this).val();
-					$("#tr_address").show();
 			switch (sel)
 			{
-				case 0: {* Email *}
-					$("#tr_address").show();
-					$("#tr_subject").show();					
-					break;
-				case 1: {* Fax *}
+				case "0": {* Email *}
+					alert("Email");
 					$("#tr_address").show();
 					$("#tr_subject").show();
 					break;
-				case 2: {* SNPP *}
+				case "1":: {* Fax *}
+					alert("Fax");
+					$("#tr_address").show();
+					$("#tr_subject").show();
+					break;
+				case "2": {* SNPP *}
+					alert("SNPP");
 					$("#tr_address").hide();
 					$("#tr_subject").hide();
 					break;
-				case 255: {* SLAVE *}
+				case "255": {* SLAVE *}
+					alert("Slave");
 					$("#tr_address").hide();
 					$("#tr_subject").hide();
 					break;
