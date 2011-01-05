@@ -6,5 +6,5 @@ if $customer_recipient_address == 255}
 		{$translate->_('customer.display.invalid_recipient')|capitalize}
 	{/if}
 {else}
-	{$result.$column|escape}
+	{$result.$column}
 {/if}
