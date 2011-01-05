@@ -55,7 +55,6 @@
 				{if $customer_recipient->type == '1'}{$translate->_('recipient.type.address.fax')|capitalize}:{/if}
 				{if $customer_recipient->type == '2'}{$translate->_('recipient.type.address.snpp')|capitalize}:{/if}
 				{if $customer_recipient->type == '255'}{$translate->_('recipient.type.address.slave')|capitalize}:{/if}
-			{$translate->_('recipient.address')|capitalize}: 
 		</td>
 		<td width="100%"><input type="text" name="recipient_address"  value="{$customer_recipient->address|escape}" 	style="width:98%;"></td>
 	</tr>
