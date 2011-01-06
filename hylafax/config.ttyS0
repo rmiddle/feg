@@ -1,3 +1,0 @@
-ModemDialCmd: ATDT9,W%s
-MaxSetupAttempts:    10
-

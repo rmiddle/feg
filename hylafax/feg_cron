@@ -1,2 +1,0 @@
-# Run cron job every 1 minutes
-* * * * * root   /var/vhosts/answernet.com/feg/feg_cron.php
