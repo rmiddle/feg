@@ -301,18 +301,18 @@ class ImportCron extends FegCronExtension {
 		$logger->info("[Parser] Reading ".$fileparts['basename']."...");
 		
 		$fp = fopen($full_filename, "r");
-		$data_temp = fread($fp, filesize($full_filename));
+		$data = fread($fp, filesize($full_filename));
 		fclose($fp); 
 
 		// Convert all message to Unix style line ending by stripping any \r
-		$data = str_replace("\r", null, $data_temp);
-		unset($data_temp);
-		$message_lines = explode("\n",$data);
+		$data = str_replace("\r\n","\n",$data);
+		$data = str_replace("\r","\n",$data);
+		$message_arr = explode("\n",$data);
 
 		switch($import_source->type) {
 			case 0:
-				$first_line = $message_lines[0];
-				$last_line = $message_lines[count($message_lines)-1];
+				$first_line = $message_arr[0];
+				$last_line = $message_arr[count($message_arr)-1];
 				if(preg_match('/=====\w+=====/i', $first_line, $acc_top_id)) {
 					$match = sprintf('/=====%s=====/i',substr($acc_top_id[0],5,-5));
 					if(preg_match($match, $last_line, $acc_id)) {
