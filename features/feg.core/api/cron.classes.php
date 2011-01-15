@@ -316,7 +316,7 @@ class ImportCron extends FegCronExtension {
 						$account_name = substr($acc_id[0],5,-5);
 						$logger->info("[Parser] acc_id = ".$account_name."...");
 						$fail = true;
-						$fail_reason = "Message Not in the correct format");
+						$fail_reason = "Message Not in the correct format";
 						$logger->info("[Parser] Message Not in the correct format");
 						// Now test to make sure the message is in the correct format.
 				} else {
@@ -325,7 +325,7 @@ class ImportCron extends FegCronExtension {
 						$logger->info("[Parser] acc_id = ".$account_name."...");
 					}
 					$fail = true;
-					$fail_reason = "Message Not in the correct format");
+					$fail_reason = "Message Not in the correct format";
 					$logger->info("[Parser] Message Not in the correct format");
 				}
 				break;
