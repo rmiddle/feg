@@ -428,6 +428,8 @@ class ImportCron extends FegCronExtension {
 	}
 	
 	function _createIndividualMessageRecipient($cr_id, $account_id, $message_id, $message_text, $current_time) {
+		$logger = DevblocksPlatform::getConsoleLog();
+		
 		$fields = array(
 			DAO_MessageRecipient::RECIPIENT_ID => $cr_id,
 			DAO_MessageRecipient::MESSAGE_ID => $message_id,
