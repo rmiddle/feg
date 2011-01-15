@@ -411,35 +411,49 @@ class ImportCron extends FegCronExtension {
 				$account_id
 			));
 			foreach($ids_cr as $cr_id=>$cr ) {
-				$fields = array(
-					DAO_MessageRecipient::RECIPIENT_ID => $cr_id,
-					DAO_MessageRecipient::MESSAGE_ID => $message_id,
-					DAO_MessageRecipient::ACCOUNT_ID => $account_id,
-					DAO_MessageRecipient::SEND_STATUS => 0, // 0 = New
-					DAO_MessageRecipient::UPDATED_DATE => $current_time,
-					DAO_MessageRecipient::CLOSED_DATE => 0, // 0 = Not Closed
-				);
-				$message_recipient_id = DAO_MessageRecipient::create($fields);
-				$logger->info("[Parser] Message Recipient Id = ".$message_recipient_id."...");
-
-				// Give plugins a chance to note a message is imported.
-				$eventMgr = DevblocksPlatform::getEventService();
-				$eventMgr->trigger(
-					new Model_DevblocksEvent(
-						'message.recipient.create',
-						array(
-							'account_id' => $account_id,
-							'recipient_id' => $cr_id,
-							'message_id' => $message_id,
-							'message_recipient_id' => $message_recipient_id,
-							'message_text' => $message_text,
-						)
-					)
-				);				
+				if($cr->type == 255) {
+					$ids_slave_cr = DAO_CustomerRecipient::getWhere(sprintf("%s = %d",
+						DAO_CustomerRecipient::ACCOUNT_ID,
+						$cr->address
+					));
+					foreach($ids_slave_cr as $cr_slave_id=>$cr_slave ) {
+						$this->_createIndividualMessageRecipient($cr_slave_id, $account_id, $message_id, $message_text, $current_time);
+					}
+				} else {
+					$this->_createIndividualMessageRecipient($cr_id, $account_id, $message_id, $message_text, $current_time);
+				}
 			}
 		}
 		return $status; 
 	}
+	
+	function _createIndividualMessageRecipient($cr_id, $account_id, $message_id, $message_text, $current_time) {
+		$fields = array(
+			DAO_MessageRecipient::RECIPIENT_ID => $cr_id,
+			DAO_MessageRecipient::MESSAGE_ID => $message_id,
+			DAO_MessageRecipient::ACCOUNT_ID => $account_id,
+			DAO_MessageRecipient::SEND_STATUS => 0, // 0 = New
+			DAO_MessageRecipient::UPDATED_DATE => $current_time,
+			DAO_MessageRecipient::CLOSED_DATE => 0, // 0 = Not Closed
+		);
+		$message_recipient_id = DAO_MessageRecipient::create($fields);
+		$logger->info("[Parser] Message Recipient Id = ".$message_recipient_id."...");
+	
+		// Give plugins a chance to note a message is imported.
+		$eventMgr = DevblocksPlatform::getEventService();
+		$eventMgr->trigger(
+			new Model_DevblocksEvent(
+				'message.recipient.create',
+					array(
+						'account_id' => $account_id,
+						'recipient_id' => $cr_id,
+						'message_id' => $message_id,
+						'message_recipient_id' => $message_recipient_id,
+						'message_text' => $message_text,
+					)
+				)
+			);
+	}	
 };
 
 /**
