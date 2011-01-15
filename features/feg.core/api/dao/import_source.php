@@ -35,6 +35,7 @@ class DAO_ImportSource extends Feg_ORMHelper {
 	
 	static function update($ids, $fields) {
 		parent::_update($ids, 'import_source', $fields);
+		self::clearCache();
 	}
 	
 	static function updateWhere($fields, $where) {
@@ -216,6 +217,12 @@ class DAO_ImportSource extends Feg_ORMHelper {
 		mysql_free_result($rs);
 		
 		return array($results,$total);
+	}
+	
+	public static function clearCache() {
+		// Invalidate cache on changes
+		$cache = DevblocksPlatform::getCacheService();
+		$cache->remove(self::CACHE_ALL);
 	}
 
 };
