@@ -360,32 +360,23 @@ class ImportCron extends FegCronExtension {
 			'account_name' => $account_name,
 			'file_name' => $fileparts['basename'],
 		));
-echo "<pre>";
-echo "<br>match = ";
-print_r($match);
-echo "<br>data = ";
-print_r($data);
-echo "<br>Message lines = ";
-print_r($message_lines);
-echo "<br>first line = ";
-print_r($first_line);
-echo "<br>last line = ";
-print_r($last_line);
-echo "<br>account name = ";
-print_r($account_name);
-echo "</pre>";
+		
 		// Now Confirm the account exists and is active
-		$account = array_shift(DAO_CustomerAccount::getWhere(sprintf("%s = %d AND %s = %d AND %s = '0'",
-			DAO_CustomerAccount::ACCOUNT_NUMBER,
-			$account_name,
-			DAO_CustomerAccount::IMPORT_SOURCE,
-			$import_source->id,
-			DAO_CustomerAccount::IS_DISABLED
-		)));
-		if (isset($account))
-			$account_id = $account->id;
-		else
+		if($fail == false) { 
+			$account = array_shift(DAO_CustomerAccount::getWhere(sprintf("%s = %d AND %s = %d AND %s = '0'",
+				DAO_CustomerAccount::ACCOUNT_NUMBER,
+				$account_name,
+				DAO_CustomerAccount::IMPORT_SOURCE,
+				$import_source->id,
+				DAO_CustomerAccount::IS_DISABLED
+			)));
+			if (isset($account))
+				$account_id = $account->id;
+			else
+				$account_id = 0;
+		} else {
 			$account_id = 0;
+		}
 		
 		if($this->_createMessage($account_id, $db->qstr($data), $json, $fail)) {
 			@unlink($full_filename);
@@ -631,7 +622,7 @@ class ExportEmailCron extends FegCronExtension {
 			
 			$message_recipient = DAO_MessageRecipient::get($id);
 			$message = DAO_Message::get($message_recipient->message_id);
-			$message_lines = explode('\n',substr($message->message,1,-1));
+			$message_lines = explode("\n",substr($message->message,1,-1));
 			$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
 			
 			$to	= !empty($recipient->address_to) ? (array($recipient->address => $recipient->address_to)) : (array($recipient->address));
@@ -757,7 +748,7 @@ class ExportFaxCron extends FegCronExtension {
 			
 			$message_recipient = DAO_MessageRecipient::get($id);
 			$message = DAO_Message::get($message_recipient->message_id);
-			$message_lines = explode('\n',substr($message->message,1,-1));
+			$message_lines = explode("\n",substr($message->message,1,-1));
 			$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
 			$account = DAO_CustomerAccount::get($message_recipient->account_id);
 			
@@ -881,7 +872,7 @@ class ExportSNPPCron extends FegCronExtension {
 
 			$message_recipient = DAO_MessageRecipient::get($id);
 			$message = DAO_Message::get($message_recipient->message_id);
-			$message_lines = explode('\n',substr($message->message,1,-1));
+			$message_lines = explode("\n",substr($message->message,1,-1));
 			$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
 			
 			$message_str = substr(implode("", $message_lines),0,160);
