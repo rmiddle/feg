@@ -137,12 +137,60 @@ class FegStatsPage extends FegPageExtension {
 		$tpl->assign('message', $message);
 		
 		$message_lines = explode("\n",substr($message->message,1,-1));
+echo "<pre>";		
+echo "message = ";		
+print_r($message->message);
+echo "message_lines = ";		
+print_r($message_lines);
+echo "</pre>";		
 		$tpl->assign('message_lines', $message_lines);
 		
 		$tpl->display('file:' . $this->_TPL_PATH . 'stats/message/failed_account.tpl');
 	}
 	
 	function saveAccountFailurePeekAction() {
+		$translate = DevblocksPlatform::getTranslationService();
+		
+		@$id = DevblocksPlatform::importGPC($_POST['id'],'integer');
+		@$view_id = DevblocksPlatform::importGPC($_POST['view_id'],'string');
+
+		@$message_account_id = DevblocksPlatform::importGPC($_POST['message_account_id'],'integer',0);
+		
+		$fields = array(
+			DAO_Message::ACCOUNT_ID => $message_account_id,
+		);
+		
+		$status = DAO_CustomerRecipient::update($id, $fields);
+		
+		if(!empty($view_id)) {
+			$view = Feg_AbstractViewLoader::getView($view_id);
+			$view->render();
+		}
+		
+		//DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('setup','workers')));		
+	}
+		
+	function showAccountFormatFailurePeekAction() {
+		$active_worker = FegApplication::getActiveWorker();
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('path', $this->_TPL_PATH);
+		
+		@$id = DevblocksPlatform::importGPC($_REQUEST['id'],'integer',0);
+		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'],'string','');
+
+		$tpl->assign('id', $id);
+		$tpl->assign('view_id', $view_id);
+		
+		$message = DAO_Message::get($id);
+		$tpl->assign('message', $message);
+		
+		$message_lines = explode("\n",substr($message->message,1,-1));
+		$tpl->assign('message_lines', $message_lines);
+		
+		$tpl->display('file:' . $this->_TPL_PATH . 'stats/message/failed_format.tpl');
+	}
+	
+	function saveAccountFormatFailurePeekAction() {
 		$translate = DevblocksPlatform::getTranslationService();
 		
 		@$id = DevblocksPlatform::importGPC($_POST['id'],'integer');
