@@ -75,7 +75,7 @@ class FegStatsPage extends FegPageExtension {
 		$tpl->assign('path', $this->_TPL_PATH);
 
 		$defaults = new Feg_AbstractViewModel();
-		$defaults->id = '_failed_messages';
+		$defaults->id = '_failed_format';
 		$defaults->class_name = 'View_Message';
 		$defaults->renderLimit = 10;
 		
@@ -83,7 +83,7 @@ class FegStatsPage extends FegPageExtension {
 		$defaults->renderSortAsc = 0;
 
 		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
-		$view->name = 'Failed Account Messages List';
+		$view->name = 'Problem Messages List';
 		$view->renderLimit = 10;
 		$view->renderTemplate = 'format';
 		$view->params = array(
