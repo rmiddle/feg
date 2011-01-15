@@ -307,11 +307,13 @@ class ImportCron extends FegCronExtension {
 		// Convert all message to Unix style line ending by stripping any \r
 		$data = str_replace("\r", null, $data_temp);
 		unset($data_temp);
+		$message_lines = explode('\n',$data);
+
 
 		switch($import_source->type) {
 			case 0:
-				$first_line = $data[0];
-				$last_line = $data[count($data)-1];
+				$first_line = $message_lines[0];
+				$last_line = $message_lines[count($data)-1];
 				if(preg_match('/=====\w+=====/i', $first_line, $acc_top_id)) {
 					if(preg_match(sprintf('/=====%s=====/i',$acc_top_id), $last_line, $acc_id)) {
 						$account_name = substr($acc_id[0],5,-5);
@@ -358,6 +360,18 @@ class ImportCron extends FegCronExtension {
 			'account_name' => $account_name,
 			'file_name' => $fileparts['basename'],
 		));
+echo "<pre>";
+echo "<br>data = ";
+print_r($data);
+echo "<br>Message lines = ";
+print_r($message_lines);
+echo "<br>first line = ";
+print_r($first_line);
+echo "<br>last line = ";
+print_r($last_line);
+echo "<br>account name = ";
+print_r($account_name);
+echo "</pre>";
 		// Now Confirm the account exists and is active
 		$account = array_shift(DAO_CustomerAccount::getWhere(sprintf("%s = %d AND %s = %d AND %s = '0'",
 			DAO_CustomerAccount::ACCOUNT_NUMBER,
