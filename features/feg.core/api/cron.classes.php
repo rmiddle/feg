@@ -301,8 +301,12 @@ class ImportCron extends FegCronExtension {
 		$logger->info("[Parser] Reading ".$fileparts['basename']."...");
 		
 		$fp = fopen($full_filename, "r");
-		$data = fread($fp, filesize($full_filename));
+		$data_temp = fread($fp, filesize($full_filename));
 		fclose($fp); 
+
+		// Convert all message to Unix style line ending by stripping any \r
+		$data = str_replace("\r", null, $data_temp);
+		unset($data_temp);
 
 		switch($import_source->type) {
 			case 0:
@@ -611,7 +615,7 @@ class ExportEmailCron extends FegCronExtension {
 			
 			$message_recipient = DAO_MessageRecipient::get($id);
 			$message = DAO_Message::get($message_recipient->message_id);
-			$message_lines = explode('\r\n',substr($message->message,1,-1));
+			$message_lines = explode('\n',substr($message->message,1,-1));
 			$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
 			
 			$to	= !empty($recipient->address_to) ? (array($recipient->address => $recipient->address_to)) : (array($recipient->address));
@@ -737,7 +741,7 @@ class ExportFaxCron extends FegCronExtension {
 			
 			$message_recipient = DAO_MessageRecipient::get($id);
 			$message = DAO_Message::get($message_recipient->message_id);
-			$message_lines = explode('\r\n',substr($message->message,1,-1));
+			$message_lines = explode('\n',substr($message->message,1,-1));
 			$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
 			$account = DAO_CustomerAccount::get($message_recipient->account_id);
 			
@@ -861,7 +865,7 @@ class ExportSNPPCron extends FegCronExtension {
 
 			$message_recipient = DAO_MessageRecipient::get($id);
 			$message = DAO_Message::get($message_recipient->message_id);
-			$message_lines = explode('\r\n',substr($message->message,1,-1));
+			$message_lines = explode('\n',substr($message->message,1,-1));
 			$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
 			
 			$message_str = substr(implode("", $message_lines),0,160);

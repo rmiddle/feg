@@ -136,7 +136,7 @@ class FegStatsPage extends FegPageExtension {
 		$message = DAO_Message::get($id);
 		$tpl->assign('message', $message);
 		
-		$message_lines = explode('\r\n',substr($message->message,1,-1));
+		$message_lines = explode('\n',substr($message->message,1,-1));
 		$tpl->assign('message_lines', $message_lines);
 		
 		$tpl->display('file:' . $this->_TPL_PATH . 'stats/message/failed_account.tpl');
@@ -180,7 +180,7 @@ class FegStatsPage extends FegPageExtension {
 		$message = DAO_Message::get($message_recipient->message_id);
 		$tpl->assign('message', $message);
 
-		$message_lines = explode('\r\n',substr($message->message,1,-1));
+		$message_lines = explode('\n',substr($message->message,1,-1));
 		$tpl->assign('message_lines', $message_lines);
 		
 		$tpl->display('file:' . $this->_TPL_PATH . 'stats/message_recipient/failed_recipient.tpl');
