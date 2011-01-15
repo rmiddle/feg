@@ -326,6 +326,9 @@ class View_Message extends FEG_AbstractView {
 			case 'failed':
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/message/view_failed.tpl');
 				break;
+			case 'format':
+				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/message/view_format.tpl');
+				break;
 			default:
 				$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/setup/tabs/message/view.tpl');
 				break;

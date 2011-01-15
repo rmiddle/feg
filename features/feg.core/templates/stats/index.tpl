@@ -29,8 +29,9 @@
 			</table>
 		</td>
 		<td valign="top" width="40%">
-			<div id="div_view_failed_messages"></div>
 			<div id="div_view_failed_recipient"></div>
+			<div id="div_view_failed_messages"></div>
+			<div id="div_view_failed_format"></div>
 		</td>
 	</tr>
 </table>
@@ -84,15 +85,21 @@ $(document).ready(function() {
 	}, 60000);
 });
 $(document).ready(function() {
+	$("#div_view_failed_recipient").load("{devblocks_url}ajax.php?c=stats&a=showFailedRecipient{/devblocks_url}");
+	var refreshId = setInterval(function() {
+		$("#div_view_failed_recipient").load("{devblocks_url}ajax.php?c=stats&a=showFailedRecipient{/devblocks_url}");
+	}, 60000);
+});
+$(document).ready(function() {
 	$("#div_view_failed_messages").load("{devblocks_url}ajax.php?c=stats&a=showFailedMessage{/devblocks_url}");
 	var refreshId = setInterval(function() {
 		$("#div_view_failed_messages").load("{devblocks_url}ajax.php?c=stats&a=showFailedMessage{/devblocks_url}");
 	}, 60000);
 });
 $(document).ready(function() {
-	$("#div_view_failed_recipient").load("{devblocks_url}ajax.php?c=stats&a=showFailedRecipient{/devblocks_url}");
+	$("#div_view_failed_format").load("{devblocks_url}ajax.php?c=stats&a=showFailedMessageFormat{/devblocks_url}");
 	var refreshId = setInterval(function() {
-		$("#div_view_failed_recipient").load("{devblocks_url}ajax.php?c=stats&a=showFailedRecipient{/devblocks_url}");
+		$("#div_view_failed_messages").load("{devblocks_url}ajax.php?c=stats&a=showFailedMessage{/devblocks_url}");
 	}, 60000);
 });
 

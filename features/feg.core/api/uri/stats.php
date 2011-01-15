@@ -61,13 +61,39 @@ class FegStatsPage extends FegPageExtension {
 		$view->renderLimit = 10;
 		$view->renderTemplate = 'failed';
 		$view->params = array(
-			SearchFields_Message::ACCOUNT_ID => new DevblocksSearchCriteria(SearchFields_Message::ACCOUNT_ID,'=',0),
+			SearchFields_Message::IMPORT_STATUS => new DevblocksSearchCriteria(SearchFields_Message::IMPORT_STATUS,'=',1),
 		);
 		$view->renderPage = 0;
 		Feg_AbstractViewLoader::setView($view->id,$view);
 
 		$tpl->assign('view', $view);
 		$tpl->display('file:' . $this->_TPL_PATH . 'stats/view_failed_messages.tpl');
+	}
+	
+	function showFailedMessageFormatAction() {
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('path', $this->_TPL_PATH);
+
+		$defaults = new Feg_AbstractViewModel();
+		$defaults->id = '_failed_messages';
+		$defaults->class_name = 'View_Message';
+		$defaults->renderLimit = 10;
+		
+		$defaults->renderSortBy = SearchFields_Message::ID;
+		$defaults->renderSortAsc = 0;
+
+		$view = Feg_AbstractViewLoader::getView($defaults->id, $defaults);
+		$view->name = 'Failed Account Messages List';
+		$view->renderLimit = 10;
+		$view->renderTemplate = 'format';
+		$view->params = array(
+			SearchFields_Message::IMPORT_STATUS => new DevblocksSearchCriteria(SearchFields_Message::IMPORT_STATUS,'=',3),
+		);
+		$view->renderPage = 0;
+		Feg_AbstractViewLoader::setView($view->id,$view);
+
+		$tpl->assign('view', $view);
+		$tpl->display('file:' . $this->_TPL_PATH . 'stats/view_failed_format.tpl');
 	}
 	
 	function showFailedRecipientAction() {
