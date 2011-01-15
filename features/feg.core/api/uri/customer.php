@@ -459,8 +459,8 @@ class FegCustomerTabRecentMessages extends Extension_CustomerTab {
 		$message = DAO_Message::get($id);
 		$tpl->assign('message', $message);
 
-		$message_lines = explode("\n",substr($message->message,1,-1));
 		$tpl->assign('message_lines', $message_lines);
+		$message_lines = explode('\n',substr($message->message,1,-1));
 		
 		$account = DAO_CustomerAccount::get($message->account_id);
 		$tpl->assign('account', $account);

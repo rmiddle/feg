@@ -622,7 +622,7 @@ class ExportEmailCron extends FegCronExtension {
 			
 			$message_recipient = DAO_MessageRecipient::get($id);
 			$message = DAO_Message::get($message_recipient->message_id);
-			$message_lines = explode("\n",substr($message->message,1,-1));
+			$message_lines = explode('\n',substr($message->message,1,-1));
 			$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
 			
 			$to	= !empty($recipient->address_to) ? (array($recipient->address => $recipient->address_to)) : (array($recipient->address));
@@ -748,7 +748,7 @@ class ExportFaxCron extends FegCronExtension {
 			
 			$message_recipient = DAO_MessageRecipient::get($id);
 			$message = DAO_Message::get($message_recipient->message_id);
-			$message_lines = explode("\n",substr($message->message,1,-1));
+			$message_lines = explode('\n',substr($message->message,1,-1));
 			$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
 			$account = DAO_CustomerAccount::get($message_recipient->account_id);
 			
@@ -872,7 +872,7 @@ class ExportSNPPCron extends FegCronExtension {
 
 			$message_recipient = DAO_MessageRecipient::get($id);
 			$message = DAO_Message::get($message_recipient->message_id);
-			$message_lines = explode("\n",substr($message->message,1,-1));
+			$message_lines = explode('\n',substr($message->message,1,-1));
 			$recipient = DAO_CustomerRecipient::get($message_recipient->recipient_id);
 			
 			$message_str = substr(implode("", $message_lines),0,160);
