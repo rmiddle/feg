@@ -306,7 +306,7 @@ class ImportCron extends FegCronExtension {
 
 		// Convert all message to Unix style line ending by stripping any \r
 		$data = str_replace("\r", null, $data_temp);
-		unset($data_temp);
+		// unset($data_temp);
 		$message_lines = explode('\n',$data);
 
 
@@ -361,6 +361,8 @@ class ImportCron extends FegCronExtension {
 			'file_name' => $fileparts['basename'],
 		));
 echo "<pre>";
+echo "<br>data_temp = ";
+print_r($data_temp);
 echo "<br>data = ";
 print_r($data);
 echo "<br>Message lines = ";
