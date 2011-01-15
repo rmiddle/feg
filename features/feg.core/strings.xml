@@ -684,6 +684,9 @@ For example: *receipt*</seg></tuv>
 		<tu tuid='feg.message.import_status_2'>
 			<tuv xml:lang="en_US"><seg>Complete</seg></tuv>
 		</tu>
+		<tu tuid='feg.message.import_status_3'>
+			<tuv xml:lang="en_US"><seg>Failure Message Format</seg></tuv>
+		</tu>
 		<tu tuid='feg.message.import_status.reprocess'>
 			<tuv xml:lang="en_US"><seg>Re-Process</seg></tuv>
 		</tu>

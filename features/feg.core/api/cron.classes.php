@@ -295,7 +295,8 @@ class ImportCron extends FegCronExtension {
 	function _parseFile($full_filename, Model_ImportSource $import_source) {
 		$logger = DevblocksPlatform::getConsoleLog();
 		$db = DevblocksPlatform::getDatabaseService();
-		
+		$fail = false;
+		$fail_reason = "";
 		$fileparts = pathinfo($full_filename);
 		$logger->info("[Parser] Reading ".$fileparts['basename']."...");
 		
@@ -305,12 +306,27 @@ class ImportCron extends FegCronExtension {
 
 		switch($import_source->type) {
 			case 0:
-				if(preg_match('/=====\w+=====/i', $data, $acc_id)) {
-					$account_name = substr($acc_id[0],5,-5);
-					$logger->info("[Parser] acc_id = ".$account_name."...");
+				$first_line = $data[0];
+				$last_line = $data[count($data)-1];
+				if(preg_match('/=====\w+=====/i', $first_line, $acc_top_id)) {
+					if(preg_match(sprintf('/=====%s=====/i',$acc_top_id), $last_line, $acc_id)) {
+						$account_name = substr($acc_id[0],5,-5);
+						$logger->info("[Parser] acc_id = ".$account_name."...");
+					} else {
+						$account_name = substr($acc_id[0],5,-5);
+						$logger->info("[Parser] acc_id = ".$account_name."...");
+						$fail = true;
+						$fail_reason = "Message Not in the correct format");
+						$logger->info("[Parser] Message Not in the correct format");
+						// Now test to make sure the message is in the correct format.
 				} else {
-					$account_id = 0;
-					$logger->info("[Parser] Not in the correct format");
+					if(preg_match('/=====\w+=====/i', $data, $acc_id)) {
+						$account_name = substr($acc_id[0],5,-5);
+						$logger->info("[Parser] acc_id = ".$account_name."...");
+					}
+					$fail = true;
+					$fail_reason = "Message Not in the correct format");
+					$logger->info("[Parser] Message Not in the correct format");
 				}
 				break;
 			case 1:
@@ -318,7 +334,7 @@ class ImportCron extends FegCronExtension {
 					$account_name = substr($acc_id[0],4);
 					$logger->info("[Parser] acc_id = ".$account_name."...");
 				} else {
-					$account_id = 0;
+					$fail = true;
 					$logger->info("[Parser] Not in the correct format");
 				}
 				break;
@@ -332,6 +348,8 @@ class ImportCron extends FegCronExtension {
 		
 		// Store the filename and Interperted account Name and source into a Json array incase account doesn't match
 		$json = json_encode(array(
+			'is_fail' => $fail,
+			'fail_reason' => $fail_reason,
 			'import_source' => $import_source->id,
 			'account_name' => $account_name,
 			'file_name' => $fileparts['basename'],
@@ -349,7 +367,7 @@ class ImportCron extends FegCronExtension {
 		else
 			$account_id = 0;
 		
-		if($this->_createMessage($account_id, $db->qstr($data), $json)) {
+		if($this->_createMessage($account_id, $db->qstr($data), $json, $fail)) {
 			@unlink($full_filename);
 		} else {
 			$logger->error("[Parser] Failed to create message ".$account_name."...");
@@ -357,14 +375,24 @@ class ImportCron extends FegCronExtension {
 		}
 	}
 
-	function _createMessage($account_id, $message_text, $json) {
+	function _createMessage($account_id, $message_text, $json, $fail = false) {
 		$logger = DevblocksPlatform::getConsoleLog();
 		
 		$current_time = time();
 		$status = TRUE; // Return OK status unless something sets it to false
+		//  0 = In Queus, 1 = Failure Account not found, 2 = Complet, 3 = Failure Messages Format
+		if($account_id) {
+			$import_status = 2; // Complete
+		} else {
+			if($fail == false) {
+				$import_status = 1;  // Failure Account
+			} else {
+				$import_status = 3; // Failure Message Format
+			}
+		}
 		$fields = array(
 			DAO_Message::ACCOUNT_ID => $account_id,
-			DAO_Message::IMPORT_STATUS => $account_id ? 1 : 2, // 0 = In Queus, 1 = Failure, 2 = Complete
+			DAO_Message::IMPORT_STATUS => $import_status, 
 			DAO_Message::CREATED_DATE => $current_time,
 			DAO_Message::UPDATED_DATE => $current_time,
 			DAO_Message::MESSAGE => $message_text,
@@ -392,7 +420,7 @@ class ImportCron extends FegCronExtension {
 	    );
 		
 		// Now we grab the Customer Recipient and create Message Recipients
-		if($account_id && $status) {
+		if($account_id && $status && ($fail == false)) {
 			$status = $this->_createMessageRecipient($account_id, $message_id, $message_text);
 		}
 		return $status;
