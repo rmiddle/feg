@@ -359,7 +359,7 @@ print_r($first_line);
 echo "<br>last line = ";
 print_r($last_line);
 echo "<br>message array = ";
-print_r($message_arr;
+print_r($message_arr);
 echo "</pre>";		
 		// Store the filename and Interperted account Name and source into a Json array incase account doesn't match
 		$json = json_encode(array(
