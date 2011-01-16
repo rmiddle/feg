@@ -312,7 +312,9 @@ class ImportCron extends FegCronExtension {
 		switch($import_source->type) {
 			case 0:
 				$first_line = $message_arr[0];
-				$last_line = $message_arr[count($message_arr)-1];
+				$last_line_count = count($message_arr);
+				while ("" == $last_line) $last_line = $message_arr[--$last_line_countl]);
+				
 				if(preg_match('/=====\w+=====/i', $first_line, $acc_top_id)) {
 					$match = sprintf('/=====%s=====/i',substr($acc_top_id[0],5,-5));
 					if(preg_match($match, $last_line, $acc_id)) {
