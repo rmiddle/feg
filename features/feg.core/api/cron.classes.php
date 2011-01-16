@@ -314,7 +314,7 @@ class ImportCron extends FegCronExtension {
 				$first_line = $message_arr[0];
 				$last_line_count = count($message_arr);
 				do  {
-					$last_line = $message_arr[--$last_line_countl];
+					$last_line = $message_arr[--$last_line_count];
 echo "<pre>";
 echo "<br>last line = ";
 print_r($last_line);
