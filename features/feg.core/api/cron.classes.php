@@ -351,7 +351,14 @@ class ImportCron extends FegCronExtension {
 			default:
 				break;
 		}
-		
+echo "<pre>";
+echo "data = ";
+print_r($data);
+echo "first line = ";
+print_r($first_line);
+echo "last line = ";
+print_r($last_line);
+echo "</pre>";		
 		// Store the filename and Interperted account Name and source into a Json array incase account doesn't match
 		$json = json_encode(array(
 			'is_fail' => $fail,
