@@ -319,7 +319,7 @@ class ImportCron extends FegCronExtension {
 						$account_name = substr($acc_id[0],5,-5);
 						$logger->info("[Parser] acc_id = ".$account_name."...");
 					} else {
-						$account_name = substr($acc_id[0],5,-5);
+						$account_name = substr($acc_top_id[0],5,-5);
 						$logger->info("[Parser] acc_id = ".$account_name."...");
 						$fail = true;
 						$fail_reason = "Message Not in the correct format";
