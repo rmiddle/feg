@@ -10,15 +10,6 @@
 <table cellpadding="0" cellspacing="2" border="0" width="98%">
 	{if $message->account_id == 0}
 	<tr>
-		<td nowrap="nowrap" align="right">
-			{if $active_worker->hasPriv('core.access.customer.create')}
-				{if isset($message->params['account_name'])}
-					<a href="javascript:;" onclick="$('#formAccountFailurePeek').trigger('submit');">
-					<b>{$translate->_('feg.message.create_account')}:</b></a>&nbsp;
-				{/if}
-			{else}{$translate->_('feg.message.est_account_id')|capitalize}&nbsp;
-			{/if}
-		</td>
 		<td>
 			{if isset($message->params['account_name'])}
 				{if $active_worker->hasPriv('core.access.customer.create')}
@@ -85,7 +76,7 @@
 
 <script type="text/javascript" language="JavaScript1.2">
 	$(genericPanel).one('dialogopen',function(event,ui) {
-		genericPanel.dialog('option','title','Select Account'); 
+		genericPanel.dialog('option','title','Failed Format Messages'); 
 	});
 	$(document).ready(function() {
 		$("#customer_account_search").autocomplete({

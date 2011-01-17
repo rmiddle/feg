@@ -139,7 +139,7 @@ class FegStatsPage extends FegPageExtension {
 		$message_lines = explode('\n',substr($message->message,1,-1));
 		$tpl->assign('message_lines', $message_lines);
 		
-		$tpl->display('file:' . $this->_TPL_PATH . 'stats/message/failed_account.tpl');
+		$tpl->display('file:' . $this->_TPL_PATH . 'stats/message/failed_format.tpl');
 	}
 	
 	function saveAccountFailurePeekAction() {
@@ -178,7 +178,7 @@ class FegStatsPage extends FegPageExtension {
 		$message = DAO_Message::get($id);
 		$tpl->assign('message', $message);
 		
-		$message_lines = explode('\n',substr($message->message,1,-1));
+		@$message_lines = explode('\n',substr($message->message,1,-1));
 		$tpl->assign('message_lines', $message_lines);
 		
 		$tpl->display('file:' . $this->_TPL_PATH . 'stats/message/failed_format.tpl');
