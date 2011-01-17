@@ -438,12 +438,7 @@ class ImportCron extends FegCronExtension {
 		if($account_id && $status && ($fail == false)) {
 			$status = $this->_createMessageRecipient($account_id, $message_id, $message_text);
 		}
-		// return $status;
-		if ($fail == true) {
-			return false;
-		} else {
-			return true;
-		}
+		return $status;
 	}
 	
 	function _createMessageRecipient($account_id, $message_id, $message_text) {
