@@ -315,14 +315,6 @@ class ImportCron extends FegCronExtension {
 				$last_line_count = count($message_arr);
 				do  {
 					$last_line = $message_arr[--$last_line_count];
-echo "<pre>";
-echo "<br>last line = ";
-print_r($last_line);
-echo "<br>message array = ";
-print_r($message_arr);
-echo "<br>last line count = ";
-print_r($last_line_count);
-echo "</pre>";		
 				} while ("" == $last_line);
 				
 				if(preg_match('/=====\w+=====/i', $first_line, $acc_top_id)) {
@@ -354,6 +346,7 @@ echo "</pre>";
 				} else {
 					$fail = true;
 					$logger->info("[Parser] Not in the correct format");
+					$fail_reason = "Message Not in the correct format";
 				}
 				break;
 			case 2:
@@ -363,16 +356,6 @@ echo "</pre>";
 			default:
 				break;
 		}
-echo "<pre>";
-echo "<br>data = ";
-print_r($data);
-echo "<br>first line = ";
-print_r($first_line);
-echo "<br>last line = ";
-print_r($last_line);
-echo "<br>message array = ";
-print_r($message_arr);
-echo "</pre>";		
 		// Store the filename and Interperted account Name and source into a Json array incase account doesn't match
 		$json = json_encode(array(
 			'is_fail' => $fail,
@@ -455,7 +438,12 @@ echo "</pre>";
 		if($account_id && $status && ($fail == false)) {
 			$status = $this->_createMessageRecipient($account_id, $message_id, $message_text);
 		}
-		return $status;
+		// return $status;
+		if ($fail == true) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 	function _createMessageRecipient($account_id, $message_id, $message_text) {
