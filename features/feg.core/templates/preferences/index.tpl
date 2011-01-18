@@ -26,9 +26,10 @@
 
 <div id="prefsTabs">
 	<ul>
+		<li><a href="{devblocks_url}ajax.php?c=preferences&a=showTabNotifications&request={$request_path|escape:'url'}{/devblocks_url}">{$translate->_('preferences.tab.notifications')|escape:'quotes'}</a></li>
 		<li><a href="{devblocks_url}ajax.php?c=preferences&a=showTabGeneral&request={$request_path|escape:'url'}{/devblocks_url}">{$translate->_('preferences.tab.general')|escape:'quotes'}</a></li>
 
-		{$tabs = [general]}
+		{$tabs = [notifications,general]}
 
 		{foreach from=$tab_manifests item=tab_manifest}
 			{if !isset($tab_manifest->params.acl) || $worker->hasPriv($tab_manifest->params.acl)}

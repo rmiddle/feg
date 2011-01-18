@@ -238,9 +238,9 @@ class FegInternalController extends DevblocksControllerExtension {
 //        }
 //		
 //		// Select the workspace tab
-//		$visit->set(FegVisit::KEY_HOME_SELECTED_TAB, 'w_'.$workspace_name);
+//		$visit->set(FegVisit::KEY_preferences_SELECTED_TAB, 'w_'.$workspace_name);
 //        
-//		DevblocksPlatform::redirect(new DevblocksHttpResponse(array('home')));
+//		DevblocksPlatform::redirect(new DevblocksHttpResponse(array('preferences')));
 //	}
 
 	// Ajax
@@ -422,7 +422,7 @@ class FegInternalController extends DevblocksControllerExtension {
 		$worker = FegApplication::getActiveWorker();
 		DAO_WorkerPref::set($worker->id, 'assist_mode', 0);
 		
-		DevblocksPlatform::redirect(new DevblocksHttpResponse(array('home')));
+		DevblocksPlatform::redirect(new DevblocksHttpResponse(array('preferences')));
 		
 //		DevblocksPlatform::redirect(new DevblocksHttpResponse($request->path, $request->query));
 	}

@@ -6,7 +6,6 @@
 		<td nowrap="nowrap"><span class="title">{$view->name}</span> {if $view->id == 'search'}<a href="#{$view->id}_actions" style="color:rgb(255,255,255);font-size:11px;">{$translate->_('views.jump_to_actions')}</a>{/if}</td>
 		<td nowrap="nowrap" align="right">
 			<a href="javascript:;" onclick="genericAjaxGet('customize{$view->id}','c=internal&a=viewCustomize&id={$view->id}');toggleDiv('customize{$view->id}','block');">{$translate->_('common.customize')|lower}</a>
-			{*if $active_worker->hasPriv('core.home.workspaces')} | <a href="javascript:;" onclick="genericAjaxGet('{$view->id}_tips','c=internal&a=viewShowCopy&view_id={$view->id}');toggleDiv('{$view->id}_tips','block');">{$translate->_('common.copy')|lower}</a>{/if*}
 			 | <a href="javascript:;" onclick="genericAjaxGet('view{$view->id}','c=internal&a=viewRefresh&id={$view->id}');"><img src="{devblocks_url}c=resource&p=feg.core&f=images/refresh.gif{/devblocks_url}" border="0" align="absmiddle" title="{$translate->_('common.refresh')|lower}" alt="{$translate->_('common.refresh')|lower}"></a>
 		</td>
 	</tr>
@@ -16,7 +15,7 @@
 <form id="customize{$view->id}" name="customize{$view->id}" action="#" onsubmit="return false;" style="display:none;"></form>
 <form id="viewForm{$view->id}" name="viewForm{$view->id}" action="#">
 <input type="hidden" name="view_id" value="{$view->id}">
-<input type="hidden" name="c" value="home">
+<input type="hidden" name="c" value="preferences">
 <input type="hidden" name="a" value="">
 <table cellpadding="1" cellspacing="0" border="0" width="100%" class="worklistBody">
 
@@ -54,7 +53,7 @@
 			<td align="center" rowspan="2"><input type="checkbox" name="row_id[]" value="{$result.we_id}"></td>
 			<td colspan="{math equation="x" x=$smarty.foreach.headers.total}">
 				{*<img src="{devblocks_url}c=resource&p=feg.core&f=images/document_new.gif{/devblocks_url}" align="top">*}
-				<a href="{devblocks_url}c=home&a=redirectRead&id={$result.we_id}{/devblocks_url}" class="subject">{$result.we_title}</a><br>
+				<a href="{devblocks_url}c=preferences&a=redirectRead&id={$result.we_id}{/devblocks_url}" class="subject">{$result.we_title}</a><br>
 			</td>
 		</tr>
 		<tr class="{$tableRowBg}" id="{$rowIdPrefix}" onmouseover="$(this).addClass('hover');$('#{$rowIdPrefix}_s').addClass('hover');" onmouseout="$(this).removeClass('hover');$('#{$rowIdPrefix}_s').removeClass('hover');" onclick="if(getEventTarget(event)=='TD') checkAll('{$rowIdPrefix}_s');">
@@ -74,7 +73,7 @@
 					&nbsp;
 				</td>
 			{elseif $column=="we_url"}
-			<td valign="top"><a href="{devblocks_url}c=home&a=redirectRead&id={$result.we_id}{/devblocks_url}">{$result.$column}</a>&nbsp;</td>
+			<td valign="top"><a href="{devblocks_url}c=preferences&a=redirectRead&id={$result.we_id}{/devblocks_url}">{$result.$column}</a>&nbsp;</td>
 			{elseif $column=="we_is_read"}
 			<td valign="top">{if $result.$column}<img src="{devblocks_url}c=resource&p=feg.core&f=images/check_gray.gif{/devblocks_url}" align="top">{/if}&nbsp;</td>
 			{elseif $column=="we_content"}
@@ -91,7 +90,7 @@
 	{if $total}
 	<tr>
 		<td colspan="2">
-			{if 1}<button type="button" id="btn{$view->id}MarkRead" onclick="this.form.a.value='doNotificationsMarkRead';genericAjaxPost('viewForm{$view->id}','view{$view->id}','c=config');document.location.href='#top';"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('home.my_notifications.button.mark_read')}</button>{/if}
+			{if 1}<button type="button" id="btn{$view->id}MarkRead" onclick="this.form.a.value='doNotificationsMarkRead';genericAjaxPost('viewForm{$view->id}','view{$view->id}','c=config');document.location.href='#top';"><img src="{devblocks_url}c=resource&p=feg.core&f=images/check.gif{/devblocks_url}" align="top"> {$translate->_('preferences.my_notifications.button.mark_read')}</button>{/if}
 		</td>
 	</tr>
 	{/if}

@@ -30,6 +30,7 @@ class FegCoreTour extends DevblocksHttpResponseListenerExtension implements IDev
 				);
 				break;
 
+			case NULL:
 			case "preferences":
 				$tour = array(
 					'title' => 'Preferences',
@@ -50,16 +51,6 @@ class FegCoreTour extends DevblocksHttpResponseListenerExtension implements IDev
 					'body' => '...',
 				);
 				break;
-				
-			case NULL:
-			case 'home':
-				$tour = array(
-	                'title' => 'Home',
-	                'body' => '...',
-	                'callouts' => array()
-				);
-				break;
-				
 		}
 
 		if(!empty($tour))

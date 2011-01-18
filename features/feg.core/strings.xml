@@ -6,9 +6,6 @@
 
 		<!-- Manifest -->
 
-		<tu tuid='core.menu.home'>
-			<tuv xml:lang="en_US"><seg>Home</seg></tuv>
-		</tu>
 		<tu tuid='core.menu.account'>
 			<tuv xml:lang="en_US"><seg>Accounts</seg></tuv>
 		</tu>
@@ -183,9 +180,6 @@
 		<tu tuid='activity.default'>
 			<tuv xml:lang="en_US"><seg>%s is browsing</seg></tuv>
 		</tu>
-		<tu tuid='activity.home'>
-			<tuv xml:lang="en_US"><seg>%s is displaying their workspaces</seg></tuv>
-		</tu>
 		<tu tuid='activity.setup'>
 			<tuv xml:lang="en_US"><seg>%s is configuring the application</seg></tuv>
 		</tu>
@@ -224,19 +218,6 @@
 		</tu>
 		<tu tuid='header.signon'>
 			<tuv xml:lang="en_US"><seg>Sign on</seg></tuv>
-		</tu>
-
-		<!-- Home -->
-		
-		<tu tuid='home.my_notifications.view.title'>
-			<tuv xml:lang="en_US"><seg>Notifications for %s</seg></tuv>
-		</tu>
-		<tu tuid='home.my_notifications.button.mark_read'>
-			<tuv xml:lang="en_US"><seg>Mark Read</seg></tuv>
-		</tu>
-
-		<tu tuid='home.tab.notifications'>
-			<tuv xml:lang="en_US"><seg>Notifications</seg></tuv>
 		</tu>
 
 		<!-- Account Tab -->
@@ -289,9 +270,17 @@
 	    <tu tuid='preferences.general.timezone'>
 			<tuv xml:lang="en_US"><seg>Timezone:</seg></tuv>
 	    </tu>
-
 		<tu tuid='preferences.tab.general'>
 			<tuv xml:lang="en_US"><seg>General</seg></tuv>
+		</tu>
+		<tu tuid='preferences.my_notifications.view.title'>
+			<tuv xml:lang="en_US"><seg>Notifications for %s</seg></tuv>
+		</tu>
+		<tu tuid='preferences.my_notifications.button.mark_read'>
+			<tuv xml:lang="en_US"><seg>Mark Read</seg></tuv>
+		</tu>
+		<tu tuid='preferences.tab.notifications'>
+			<tuv xml:lang="en_US"><seg>Notifications</seg></tuv>
 		</tu>
 		
 		<!-- Search -->

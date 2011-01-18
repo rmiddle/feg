@@ -4,7 +4,7 @@ class FegVisit extends DevblocksVisit {
 	private $worker;
 
 //	const KEY_MY_WORKSPACE = 'view_my_workspace';
-	const KEY_HOME_SELECTED_TAB = 'home_selected_tab';
+	const KEY_PREFERENCES_SELECTED_TAB = 'preferences_selected_tab';
 	const KEY_ACCOUNT_MANAGER = 'account_manager';
 	const KEY_CUSTOMER_SELECTED_TAB = 'customer_selected_tab';
 

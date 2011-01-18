@@ -187,13 +187,6 @@
 		<priv id="core.access.message_recipient.permfail" label="acl.core.access.message_recipient.permfail" />
 		<priv id="core.access.message_recipient.retry" label="acl.core.access.message_recipient.retry" />
 		<priv id="core.access.message_recipient.resend" label="acl.core.access.message_recipient.resend" />
-		
-		<!-- Workspaces -->
-		<!--
-		<priv id="core.home.auto_refresh" label="acl.core.home.auto_refresh" />
-		<priv id="core.home.workspaces" label="acl.core.home.workspaces" />
-		-->
-		
 	</acl>
 
 	<!-- Extensions -->
@@ -305,21 +298,8 @@
 		</extension>
 
 		<extension point="feg.page">
-			<id>core.page.home</id>
-			<name>Home Page</name>
-			<class>
-				<file>api/uri/home.php</file>
-				<name>FegHomePage</name>
-			</class>
-			<params>
-				<param key="uri" value="home" />
-				<param key="menutitle" value="core.menu.home" />
-			</params>
-		</extension>
-
-		<extension point="feg.page">
 			<id>customer.page.account</id>
-			<name>Home Page</name>    
+			<name>Customer Page</name>    
 			<class>                   
 				<file>api/uri/customer_accounts.php</file>
 				<name>FegAccountPage</name>               
@@ -332,7 +312,7 @@
 		
 		<extension point="feg.page">
 			<id>z.feg.page.stats</id>
-			<name>Home Page</name>
+			<name>Stats Page</name>
 			<class>
 				<file>api/uri/stats.php</file>
 				<name>FegStatsPage</name>
@@ -520,8 +500,6 @@
 			<params>
 			</params>
 		</extension>
-		
-		<!-- Home Tab -->
 		
 		<!-- Workspace Sources -->
 		

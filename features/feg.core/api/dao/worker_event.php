@@ -310,7 +310,7 @@ class View_WorkerEvent extends Feg_AbstractView {
 		$tpl->assign('workers', $workers);
 		
 		$tpl->assign('view_fields', $this->getColumns());
-		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/home/tabs/my_notifications/view.tpl');
+		$tpl->display('file:' . APP_PATH . '/features/feg.core/templates/preferences/tabs/my_notifications/view.tpl');
 	}
 
 	function renderCriteria($field) {

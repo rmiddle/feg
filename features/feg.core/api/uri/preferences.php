@@ -153,4 +153,101 @@ class FegPreferencesPage extends FegPageExtension {
 		DevblocksPlatform::setHttpResponse(new DevblocksHttpResponse(array('preferences')));
 	}
 	
+	function showTabNotificationsAction() {
+		$visit = FegApplication::getVisit();
+		$translate = DevblocksPlatform::getTranslationService();
+		$active_worker = FegApplication::getActiveWorker();
+		
+		$tpl = DevblocksPlatform::getTemplateService();
+		$tpl->assign('path', $this->_TPL_PATH);
+		
+		// Select tab
+		$visit->set(FegVisit::KEY_PREFERENCES_SELECTED_TAB, 'notifications');
+		
+		// My Notifications
+		$myNotificationsView = Feg_AbstractViewLoader::getView(self::VIEW_MY_NOTIFICATIONS);
+		
+		$title = vsprintf($translate->_('preferences.my_notifications.view.title'), $active_worker->getName());
+		
+		if(null == $myNotificationsView) {
+			$myNotificationsView = new View_WorkerEvent();
+			$myNotificationsView->id = self::VIEW_MY_NOTIFICATIONS;
+			$myNotificationsView->name = $title;
+			$myNotificationsView->renderLimit = 25;
+			$myNotificationsView->renderPage = 0;
+			$myNotificationsView->renderSortBy = SearchFields_WorkerEvent::CREATED_DATE;
+			$myNotificationsView->renderSortAsc = 0;
+		}
+		// Overload criteria
+		$myNotificationsView->name = $title;
+		$myNotificationsView->params = array(
+			SearchFields_WorkerEvent::WORKER_ID => new DevblocksSearchCriteria(SearchFields_WorkerEvent::WORKER_ID,'=',$active_worker->id),
+			SearchFields_WorkerEvent::IS_READ => new DevblocksSearchCriteria(SearchFields_WorkerEvent::IS_READ,'=',0),
+		);
+		/*
+		 * [TODO] This doesn't need to save every display, but it was possible to 
+		 * lose the params in the saved version of the view in the DB w/o recovery.
+		 * This should be moved back into the if(null==...) check in a later build.
+		 */
+		Feg_AbstractViewLoader::setView($myNotificationsView->id,$myNotificationsView);
+		
+		$tpl->assign('view', $myNotificationsView);
+		$tpl->display('file:' . $this->_TPL_PATH . 'preferences/tabs/my_notifications/index.tpl');
+	}	
+	
+	/**
+	 * Open an event, mark it read, and redirect to its URL.
+	 * Used by Preferences->Notifications view.
+	 *
+	 */
+	function redirectReadAction() {
+		$worker = FegApplication::getActiveWorker();
+		
+		$request = DevblocksPlatform::getHttpRequest();
+		$stack = $request->path;
+		
+		array_shift($stack); // preferences
+		array_shift($stack); // redirectReadAction
+		@$id = array_shift($stack); // id
+		
+		if(null != ($event = DAO_WorkerEvent::get($id))) {
+			// Mark as read before we redirect
+			DAO_WorkerEvent::update($id, array(
+				DAO_WorkerEvent::IS_READ => 1
+			));
+			
+			DAO_WorkerEvent::clearCountCache($worker->id);
+
+			session_write_close();
+			header("Location: " . $event->url);
+		}
+		exit;
+	} 
+	
+	function doNotificationsMarkReadAction() {
+		$worker = FegApplication::getActiveWorker();
+		
+		@$view_id = DevblocksPlatform::importGPC($_REQUEST['view_id'], 'string', '');
+		@$row_ids = DevblocksPlatform::importGPC($_REQUEST['row_id'],'array',array());
+
+		if(is_array($row_ids) && !empty($row_ids)) {
+			DAO_WorkerEvent::updateWhere(
+				array(
+					DAO_WorkerEvent::IS_READ => 1,
+				), 
+				sprintf("%s = %d AND %s IN (%s)",
+					DAO_WorkerEvent::WORKER_ID,
+					$worker->id,
+					DAO_WorkerEvent::ID,
+					implode(',', $row_ids)
+				)
+			);
+			
+			DAO_WorkerEvent::clearCountCache($worker->id);
+		}
+		
+		$myEventsView = Feg_AbstractViewLoader::getView($view_id);
+		$myEventsView->render();
+	}
+	
 };
